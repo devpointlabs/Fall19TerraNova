@@ -9,20 +9,21 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { Switch, Route, } from 'react-router-dom';
 import { Container, } from "semantic-ui-react";
 
+
 const App = () => (
-    <>
-        <Navbar />
-        <FetchUser>
-        <Container>
-            <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/register" component={Register} />
-                <Route component={NoMatch} />
-            </Switch>
-        </Container>
-        </FetchUser>
-    </>
+  <>
+    <Navbar />
+    <FetchUser>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route component={NoMatch} />
+        </Switch>
+    </FetchUser>
+  </>
 )
 
 export default App;
+
+
