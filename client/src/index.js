@@ -10,10 +10,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 initMiddleware();
 
 ReactDOM.render(
-  <AuthProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </AuthProvider>,
-  document.getElementById('root')
+    <AuthProvider>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </AuthProvider>,
+    document.getElementById('root')
 );
