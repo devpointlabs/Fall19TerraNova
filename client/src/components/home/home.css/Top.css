@@ -1,0 +1,21 @@
+.overlay { 
+   color:#fff;
+   position:absolute;
+     z-index:12;
+   top:40%;
+   /* left:0; */
+   width:100%;
+   text-align:center;
+ }
+
+ .bottomoverlay { 
+  color:#fff;
+  position:absolute;
+    z-index:12;
+  top:60%;
+  /* left:0; */
+  width:100%;
+  text-align:center;
+}
+
+ 

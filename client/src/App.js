@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from './components/Home';
+import Home from './components/home/Home';
 import NoMatch from './components/NoMatch';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
@@ -9,20 +9,23 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { Switch, Route, } from 'react-router-dom';
 import { Container, } from "semantic-ui-react";
 
+
 const App = () => (
   <>
     <Navbar />
     <FetchUser>
-      <Container>
+      {/* <Container style={{ paddingLeft: 0, paddingRight: 0, width: "100% !important" }} > */}
         <Switch>
-          <ProtectedRoute exact path="/" component={Home} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route component={NoMatch} />
         </Switch>
-      </Container>
+      {/* </Container> */}
     </FetchUser>
   </>
 )
 
 export default App;
+
+
