@@ -1,9 +1,12 @@
 import React from 'react';
 import Top from "./Top";
-import { Header, } from 'semantic-ui-react';
+import Rooms from './Rooms';
 
 const Home = () => (
+  <>
     <Top />
+    <Rooms />
+  </>
 )
 
 export default Home;
