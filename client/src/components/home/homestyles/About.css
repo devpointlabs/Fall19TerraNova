@@ -1,3 +1,4 @@
+
 .about_container {
     display: flex;
     flex-direction: column;
@@ -69,6 +70,7 @@
     justify-content: space-between;
 }
 
+
 .about_card {
     display: flex;
     justify-content: center;
@@ -80,6 +82,8 @@
     border: 0px;
     stroke: 0px;
 }
+
+
 
 .about_card_right {
     display: flex;
