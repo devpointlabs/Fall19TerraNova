@@ -31,8 +31,10 @@ const Rooms = () => {
       <br/>
       <Carousel interval={false} activeIndex={index} direction={direction} onSelect={handleSelect}>
         <Carousel.Item>
-          <CardContainer>
+          <SlideContainer>
 
+
+          <CardContainer>
             <Card style={{ width: '27rem' }}>
               <Card.Img variant="top" src={cabin1} />
               <Card.Body>
@@ -94,6 +96,7 @@ const Rooms = () => {
               </Card.Body>
             </Card>
           </CardContainer>
+          </SlideContainer>
         </Carousel.Item>
 
         <Carousel.Item>
@@ -204,6 +207,10 @@ const CardContainer = styled.div`
   padding-bottom: 8px !important;
   padding-top: 8px !important;
   
+`;
+
+const SlideContainer = styled.div`
+  margin-bottom: 100px
 `;
 
 export default Rooms;
