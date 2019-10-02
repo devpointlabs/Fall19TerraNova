@@ -1,17 +1,116 @@
 .container {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100% !important;
+    margin-left: 120px !important;
+    margin-right: 0px !important;
+    margin-top: 0px;
+    margin-bottom: 50px;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+.upper {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    margin-right: 0px !important;
+    margin-top: 70px;
+}
+
+.column-left {
+    width: 40%;
+    margin-right: 30px;
+}
+
+.column-right {
+    width: 60%;
+    display: flex;
+    justify-content: flex-end !important;
+    margin-right: 0px !important;
+    padding-right: 0px !important;
 }
 
 .header {
     font-size: 50px;
-    font-family: 'Open Sans';
+    font-family: 'EB Garamond';
 }
 
 .text {
     font-size: 16px;
-    font-family: 'Open Sans';
+    font-family: 'Nanum Gothic';
+}
+
+.hr-div {
+    width: 300px;
+}
+
+.line {
+    margin-top: 0px;
+    margin-bottom: 30px;
+    border-top: 1px solid #8E7037;
+    border-radius: 10px;
+}
+
+.lower {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 125px;
+    width: 100%;
+    margin-right: 30px;
+    /*box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 6px 10px 0 rgba(0, 0, 0, 0.1);*/
+    border: 0px;
+    stroke: 0px;
+}
+
+.card_right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 125px;
+    width: 100%;
+    box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.1), 0 6px 10px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+    margin-right: 25px;
+    border: 0px;
+    stroke: 0px;
+}
+
+.card_rightest {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 125px;
+    width: 100%;
+    box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.1), 0 6px 10px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+    margin-right: 0px;
+    border: 0px;
+    stroke: 0px;
+}
+
+.image-text {
+    font-size: small;
+    font-weight: bold;
+    margin-top: 14px;
 }

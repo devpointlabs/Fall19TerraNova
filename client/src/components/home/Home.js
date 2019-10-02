@@ -4,7 +4,6 @@ import About from './About';
 
 const Home = () => (
     <>
-        <Top />
         <About />
     </>
 )
