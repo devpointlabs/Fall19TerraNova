@@ -2,7 +2,7 @@ import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { AuthConsumer } from "../providers/AuthProvider";
 import { Menu } from 'semantic-ui-react';
-import { Navbar as Nav, Nav as Navv, NavDropdown, Dropdown } from 'react-bootstrap';
+import { Navbar as Nav, Nav as Navv, NavDropdown } from 'react-bootstrap';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import styled from "styled-components";
 import "./Navbar.css";
@@ -79,9 +79,9 @@ class Navbar extends React.Component {
                                         Sign In or Join
                                     </MenuButton>
                                     <NavDropdown className="navdropdown" alignRight title={<Icon name="dollar sign" />} id="collapsible-nav-dropdown" style={{marginTop: "3px"}}>
-                                        <NavDropdown.Item href="#action/3.1"><Icon name="dollar sign" /></NavDropdown.Item>
-                                        <NavDropdown.Item href="#action/3.2"><Icon name="euro sign" /></NavDropdown.Item>
-                                        <NavDropdown.Item href="#action/3.3"><Icon name="pound sign" /></NavDropdown.Item>
+                                        <NavDropdown.Item href="#action/3.1"><Icon name="dollar sign" /> (USD)</NavDropdown.Item>
+                                        <NavDropdown.Item href="#action/3.2"><Icon name="euro sign" /> (EUR)</NavDropdown.Item>
+                                        <NavDropdown.Item href="#action/3.3"><Icon name="pound sign" /> (GBP)</NavDropdown.Item>
                                     </NavDropdown>
                                     <NavDropdown alignRight title="ENG" id="collapsible-nav-dropdown" style={{marginTop: "3px"}}>
                                         <NavDropdown.Item href="#action/3.1">ENG</NavDropdown.Item>
