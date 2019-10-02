@@ -1,4 +1,5 @@
-.container {
+
+.about_container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -7,7 +8,7 @@
     margin-right: 0px !important;
     margin-top: 0px;
     margin-bottom: 50px;
-    padding-right: 0px !important;
+    padding-right: 240px !important;
     padding-left: 0px !important;
 }
 
@@ -63,13 +64,14 @@
     flex-direction: column;
 }
 
-.card-row {
+.about_card-row {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
-.card {
+
+.about_card {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,7 +83,9 @@
     stroke: 0px;
 }
 
-.card_right {
+
+
+.about_card_right {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -95,7 +99,7 @@
     stroke: 0px;
 }
 
-.card_rightest {
+.about_card_rightest {
     display: flex;
     flex-direction: column;
     justify-content: center;

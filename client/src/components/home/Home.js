@@ -1,13 +1,17 @@
 import React from 'react';
+import Top from "./Top";
+import Rooms from './Rooms';
+import About from './About';
 import PhotoGallery from './PhotoGallery';
-import Top from './Top';
-
 
 const Home = () => (
-<>
-  <Top />
-  <PhotoGallery />
-</>  
+  <>
+    <Top />
+    <Rooms />
+    <About />
+    <PhotoGallery />
+  </>
+
 )
 
 export default Home;
