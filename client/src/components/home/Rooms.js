@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import { Carousel, Card } from 'react-bootstrap';
 import styled from 'styled-components';
-import cabin1 from '../../images/cabin1.jpg';
-import cabin2 from '../../images/cabin2.jpg';
-import cabin3 from '../../images/cabin3.jpg';
-import cabin4 from '../../images/cabin4.jpg';
-import logo2 from '../../images/logo2.png'
+import cabin1 from '../../images/rooms/cabin1.jpg';
+import lakeview from '../../images/rooms/lakeview.jpg';
+import cabin3 from '../../images/rooms/cabin3.jpg';
+import mountainview from '../../images/rooms/mountainview.jpg';
+import logo2 from '../../images/rooms/logo2.png'
 import './homestyles/Room.css'
 
 
@@ -19,6 +19,8 @@ const Rooms = () => {
     setDirection(e.direction);
   };
 
+  //enlarge arrows
+
   return (
     <Container >
       <br/>
@@ -27,7 +29,7 @@ const Rooms = () => {
       <Header> Our Rooms </Header>
       <br/>
       <img className= "room-icon-img" src={logo2}/>
-      <Description> Words to write under this headline, enhancing the desire for a booking. </Description>
+      <Description> Terra Nova provides the perfect location for your Montana retreat. </Description>
       <br/>
       <Carousel interval={false} activeIndex={index} direction={direction} onSelect={handleSelect}>
         <Carousel.Item>
@@ -44,7 +46,7 @@ const Rooms = () => {
               </Card>
 
               <Card style={{ width: '27rem' }}>
-                <Card.Img variant="top" src={cabin2} />
+                <Card.Img variant="top" src={lakeview} />
                 <Card.Body>
                   <Card.Title> Cabin </Card.Title>
                   <Card.Text>
@@ -65,7 +67,7 @@ const Rooms = () => {
             </CardContainer>
             <CardContainer>
               <Card style={{ width: '27rem' }}>
-                <Card.Img variant="top" src={cabin4} />
+                <Card.Img variant="top" src={mountainview} />
                 <Card.Body>
                   <Card.Title> Cabin </Card.Title>
                   <Card.Text>
@@ -85,7 +87,7 @@ const Rooms = () => {
               </Card>
 
               <Card style={{ width: '27rem' }}>
-                <Card.Img variant="top" src={cabin2} />
+                <Card.Img variant="top" src={lakeview} />
                 <Card.Body>
                   <Card.Title> Cabin </Card.Title>
                   <Card.Text>
@@ -101,7 +103,7 @@ const Rooms = () => {
           <SlideContainer>
             <CardContainer>
               <Card style={{ width: '27rem' }}>
-                <Card.Img variant="top" src={cabin1} />
+                <Card.Img variant="top" src={cabin3} />
                 <Card.Body>
                   <Card.Title> Cabin </Card.Title>
                   <Card.Text>
@@ -111,7 +113,29 @@ const Rooms = () => {
               </Card>
 
               <Card style={{ width: '27rem' }}>
-                <Card.Img variant="top" src={cabin2} />
+                <Card.Img variant="top" src={mountainview} />
+                <Card.Body>
+                  <Card.Title> Cabin </Card.Title>
+                  <Card.Text>
+                    Price
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+
+              <Card style={{ width: '27rem' }}>
+                <Card.Img variant="top" src={cabin1} />
+                <Card.Body>
+                  <Card.Title> Cabin </Card.Title>
+                  <Card.Text>
+                    Price
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </CardContainer>
+
+            <CardContainer>
+              <Card style={{ width: '27rem' }}>
+                <Card.Img variant="top" src={lakeview} />
                 <Card.Body>
                   <Card.Title> Cabin </Card.Title>
                   <Card.Text>
@@ -129,31 +153,9 @@ const Rooms = () => {
                   </Card.Text>
                 </Card.Body>
               </Card>
-            </CardContainer>
-
-            <CardContainer>
-              <Card style={{ width: '27rem' }}>
-                <Card.Img variant="top" src={cabin4} />
-                <Card.Body>
-                  <Card.Title> Cabin </Card.Title>
-                  <Card.Text>
-                    Price
-                  </Card.Text>
-                </Card.Body>
-              </Card>
 
               <Card style={{ width: '27rem' }}>
-                <Card.Img variant="top" src={cabin1} />
-                <Card.Body>
-                  <Card.Title> Cabin </Card.Title>
-                  <Card.Text>
-                    Price
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '27rem' }}>
-                <Card.Img variant="top" src={cabin2} />
+                <Card.Img variant="top" src={mountainview} />
                 <Card.Body>
                   <Card.Title> Cabin </Card.Title>
                   <Card.Text>
@@ -186,8 +188,12 @@ const Description = styled.h2`
   font-size: 20px;
   /* align-items: center; */
   justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin-left: 400px;
+  margin-right: 400px;
   display: flex;
-  font-family: 'Nanum Gothic', sans-serif;
+  font-family: 'Raleway', sans-serif;
   
 `;
 
