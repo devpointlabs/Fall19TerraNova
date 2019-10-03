@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  start_date: 2019-10-03
+  end_date: 2019-10-03
+  cabin_id: 1
+  multiplier: 1
+  adder: 1
+
+two:
+  name: MyString
+  start_date: 2019-10-03
+  end_date: 2019-10-03
+  cabin_id: 1
+  multiplier: 1
+  adder: 1
