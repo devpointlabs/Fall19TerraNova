@@ -26,143 +26,143 @@ const Rooms = () => {
       <br/>
       <Header> Our Rooms </Header>
       <br/>
-      <img className= "icon-img" src={logo2}/>
+      <img className= "room-icon-img" src={logo2}/>
       <Description> Words to write under this headline, enhancing the desire for a booking. </Description>
       <br/>
       <Carousel interval={false} activeIndex={index} direction={direction} onSelect={handleSelect}>
         <Carousel.Item>
           <SlideContainer>
+            <CardContainer>
+              <Card style={{ width: '27rem' }}>
+                <Card.Img variant="top" src={cabin1} />
+                <Card.Body>
+                  <Card.Title> Cabin </Card.Title>
+                  <Card.Text>
+                    Price
+                  </Card.Text>
+                </Card.Body>
+              </Card>
 
+              <Card style={{ width: '27rem' }}>
+                <Card.Img variant="top" src={cabin2} />
+                <Card.Body>
+                  <Card.Title> Cabin </Card.Title>
+                  <Card.Text>
+                    Price
+                  </Card.Text>
+                </Card.Body>
+              </Card>
 
-          <CardContainer>
-            <Card style={{ width: '27rem' }}>
-              <Card.Img variant="top" src={cabin1} />
-              <Card.Body>
-                <Card.Title> Cabin </Card.Title>
-                <Card.Text>
-                  Price
-                </Card.Text>
-              </Card.Body>
-            </Card>
+              <Card style={{ width: '27rem' }}>
+                <Card.Img variant="top" src={cabin3} />
+                <Card.Body>
+                  <Card.Title> Cabin </Card.Title>
+                  <Card.Text>
+                    Price
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </CardContainer>
+            <CardContainer>
+              <Card style={{ width: '27rem' }}>
+                <Card.Img variant="top" src={cabin4} />
+                <Card.Body>
+                  <Card.Title> Cabin </Card.Title>
+                  <Card.Text>
+                    Price
+                  </Card.Text>
+                </Card.Body>
+              </Card>
 
-            <Card style={{ width: '27rem' }}>
-              <Card.Img variant="top" src={cabin2} />
-              <Card.Body>
-                <Card.Title> Cabin </Card.Title>
-                <Card.Text>
-                  Price
-                </Card.Text>
-              </Card.Body>
-            </Card>
+              <Card style={{ width: '27rem' }}>
+                <Card.Img variant="top" src={cabin1} />
+                <Card.Body>
+                  <Card.Title> Cabin </Card.Title>
+                  <Card.Text>
+                    Price
+                  </Card.Text>
+                </Card.Body>
+              </Card>
 
-            <Card style={{ width: '27rem' }}>
-              <Card.Img variant="top" src={cabin3} />
-              <Card.Body>
-                <Card.Title> Cabin </Card.Title>
-                <Card.Text>
-                  Price
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </CardContainer>
-          <CardContainer>
-            <Card style={{ width: '27rem' }}>
-              <Card.Img variant="top" src={cabin4} />
-              <Card.Body>
-                <Card.Title> Cabin </Card.Title>
-                <Card.Text>
-                  Price
-                </Card.Text>
-              </Card.Body>
-            </Card>
-
-            <Card style={{ width: '27rem' }}>
-              <Card.Img variant="top" src={cabin1} />
-              <Card.Body>
-                <Card.Title> Cabin </Card.Title>
-                <Card.Text>
-                  Price
-                </Card.Text>
-              </Card.Body>
-            </Card>
-
-            <Card style={{ width: '27rem' }}>
-              <Card.Img variant="top" src={cabin2} />
-              <Card.Body>
-                <Card.Title> Cabin </Card.Title>
-                <Card.Text>
-                  Price
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </CardContainer>
+              <Card style={{ width: '27rem' }}>
+                <Card.Img variant="top" src={cabin2} />
+                <Card.Body>
+                  <Card.Title> Cabin </Card.Title>
+                  <Card.Text>
+                    Price
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </CardContainer>
           </SlideContainer>
         </Carousel.Item>
 
         <Carousel.Item>
-          <CardContainer>
-            <Card style={{ width: '27rem' }}>
-              <Card.Img variant="top" src={cabin1} />
-              <Card.Body>
-                <Card.Title> Cabin </Card.Title>
-                <Card.Text>
-                  Price
-                </Card.Text>
-              </Card.Body>
-            </Card>
+          <SlideContainer>
+            <CardContainer>
+              <Card style={{ width: '27rem' }}>
+                <Card.Img variant="top" src={cabin1} />
+                <Card.Body>
+                  <Card.Title> Cabin </Card.Title>
+                  <Card.Text>
+                    Price
+                  </Card.Text>
+                </Card.Body>
+              </Card>
 
-            <Card style={{ width: '27rem' }}>
-              <Card.Img variant="top" src={cabin2} />
-              <Card.Body>
-                <Card.Title> Cabin </Card.Title>
-                <Card.Text>
-                  Price
-                </Card.Text>
-              </Card.Body>
-            </Card>
+              <Card style={{ width: '27rem' }}>
+                <Card.Img variant="top" src={cabin2} />
+                <Card.Body>
+                  <Card.Title> Cabin </Card.Title>
+                  <Card.Text>
+                    Price
+                  </Card.Text>
+                </Card.Body>
+              </Card>
 
-            <Card style={{ width: '27rem' }}>
-              <Card.Img variant="top" src={cabin3} />
-              <Card.Body>
-                <Card.Title> Cabin </Card.Title>
-                <Card.Text>
-                  Price
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </CardContainer>
+              <Card style={{ width: '27rem' }}>
+                <Card.Img variant="top" src={cabin3} />
+                <Card.Body>
+                  <Card.Title> Cabin </Card.Title>
+                  <Card.Text>
+                    Price
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </CardContainer>
 
-          <CardContainer>
-            <Card style={{ width: '27rem' }}>
-              <Card.Img variant="top" src={cabin4} />
-              <Card.Body>
-                <Card.Title> Cabin </Card.Title>
-                <Card.Text>
-                  Price
-                </Card.Text>
-              </Card.Body>
-            </Card>
+            <CardContainer>
+              <Card style={{ width: '27rem' }}>
+                <Card.Img variant="top" src={cabin4} />
+                <Card.Body>
+                  <Card.Title> Cabin </Card.Title>
+                  <Card.Text>
+                    Price
+                  </Card.Text>
+                </Card.Body>
+              </Card>
 
-            <Card style={{ width: '27rem' }}>
-              <Card.Img variant="top" src={cabin1} />
-              <Card.Body>
-                <Card.Title> Cabin </Card.Title>
-                <Card.Text>
-                  Price
-                </Card.Text>
-              </Card.Body>
-            </Card>
+              <Card style={{ width: '27rem' }}>
+                <Card.Img variant="top" src={cabin1} />
+                <Card.Body>
+                  <Card.Title> Cabin </Card.Title>
+                  <Card.Text>
+                    Price
+                  </Card.Text>
+                </Card.Body>
+              </Card>
 
-            <Card style={{ width: '27rem' }}>
-              <Card.Img variant="top" src={cabin2} />
-              <Card.Body>
-                <Card.Title> Cabin </Card.Title>
-                <Card.Text>
-                  Price
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </CardContainer>
+              <Card style={{ width: '27rem' }}>
+                <Card.Img variant="top" src={cabin2} />
+                <Card.Body>
+                  <Card.Title> Cabin </Card.Title>
+                  <Card.Text>
+                    Price
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </CardContainer>
+          </SlideContainer>
         </Carousel.Item>
 
       </Carousel>
