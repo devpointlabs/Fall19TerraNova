@@ -1,10 +1,10 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel'
-import yellowstone from '../../images/yellowstone.jpg'
-import yellowstone1 from '../../images/yellowstone1.jpg'
-import yellowstone2 from '../../images/yellowstone2.jpg'
+import yellowstone from '../../images/top/yellowstone.jpg'
+import yellowstone1 from '../../images/top/yellowstone1.jpg'
+import yellowstone2 from '../../images/top/yellowstone2.jpg'
 import styled from 'styled-components'
-import './homestyles/Top.css'
+import './homestyles/Head.css'
 
 
 //make header text responsive to screen size change
@@ -17,7 +17,7 @@ const Top = () => {
         <ContentTop>Welcome To Terra Nova Cabins</ContentTop>
       </div>
       <div className="bottomoverlay">
-        <ContentBottom> HOTELS & RESORTS </ContentBottom>
+        <ContentBottom> AT WEST YELLOWSTONE </ContentBottom>
       </div>
     
     <Carousel nextIcon="" prevIcon="" >
@@ -57,27 +57,19 @@ const Top = () => {
  
 const ContentTop = styled.h1`
   position: relative;
-  bottom: 100%;
-  margin-bottom: 500px;
-  padding-top: 60px;
-  /* left: 5%; */
-  /* z-index: 998; */
+  padding-top: 8px;
   color: white;
-  font-size: 70px;
+  font-size: 85px;
   font-family: 'Playfair Display', serif;
   
 `
 
 const ContentBottom = styled.h3`
   position: relative;
-  bottom: 100%;
-  margin-bottom: 300px;
-  padding-top: 60px;
-  /* left: 5%; */
-  /* z-index: 998; */
+  letter-spacing: 8px;
   color: white;
-  font-size: 35px;
-  font-family: 'Raleway', sans-serif;
+  font-size: 25px;
+  font-family: 'Playfair Display', serif;
 `
 
 
