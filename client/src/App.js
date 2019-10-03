@@ -4,6 +4,7 @@ import NoMatch from './components/NoMatch';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
+import Terms from './components/home/Terms';
 import FetchUser from './components/FetchUser';
 import ProtectedRoute from './components/ProtectedRoute';
 import { Switch, Route, } from 'react-router-dom';
@@ -18,6 +19,7 @@ const App = () => (
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/termsconditions" component={Terms} />
           <Route component={NoMatch} />
         </Switch>
     </FetchUser>
