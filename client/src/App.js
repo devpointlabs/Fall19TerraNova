@@ -19,7 +19,7 @@ const App = () => (
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/terms&conditions" component={Terms} />
+          <Route exact path="/termsconditions" component={Terms} />
           <Route component={NoMatch} />
         </Switch>
     </FetchUser>
