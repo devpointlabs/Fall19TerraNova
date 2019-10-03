@@ -104,11 +104,8 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
-<<<<<<< HEAD
+
     pry-rails (0.3.9)
-      pry (>= 0.10.4)
-=======
->>>>>>> ac919867467b95bb41194d3090ff70a902221120
     puma (3.12.1)
     rack (2.0.7)
     rack-test (1.1.0)
@@ -175,19 +172,14 @@ DEPENDENCIES
   faker!
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
-<<<<<<< HEAD
   pry-rails
-=======
-  pry
->>>>>>> ac919867467b95bb41194d3090ff70a902221120
   puma (~> 3.11)
   rails (~> 5.2.3)
   spring
   spring-watcher-listen (~> 2.0.0)
-<<<<<<< HEAD
+
   stripe!
-=======
->>>>>>> ac919867467b95bb41194d3090ff70a902221120
+
 
 BUNDLED WITH
    2.0.2
