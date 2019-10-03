@@ -1,0 +1,26 @@
+.overlay { 
+   color:#fff;
+   position:absolute;
+     z-index:12;
+   top:40%;
+   /* left:0; */
+   width:100%;
+   text-align:center;
+ }
+
+ .bottomoverlay { 
+  color:#fff;
+  position:absolute;
+    z-index:12;
+  top:58%;
+  /* left:0; */
+  width:100%;
+  text-align:center;
+}
+
+ .carouselcontrol {
+  height: 26%;
+  top: 33%;
+  width: 86px;
+  background: black;
+ }
