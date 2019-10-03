@@ -1,0 +1,44 @@
+.upper-background {
+    display: flex;
+    flex-direction: row;
+    background-color: #898989;
+    padding-left: 120px;
+    padding-right: 100px;
+    justify-content: space-between;
+    height: 36px;
+    align-items: center;
+    font-size: smaller;
+    color: white;
+    text-decoration: none;
+}
+
+.navdropdown {
+    z-index: 999 !important;
+}
+
+.background {
+    display: flex !important;
+    flex-direction: row !important;
+    background-color: #373737 !important;
+    padding-left: 120px !important;
+    padding-right: 120px !important;
+    justify-content: space-between !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    z-index: 998 !important;
+}
+
+.navbar {
+    padding-top: 40px;
+}
+
+.left {
+    display: flex !important;
+    justify-content: left !important;
+}
+
+.right {
+    text-align: right !important;
+    display: flex !important;
+    justify-content: right !important;
+}
