@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from "react-bootstrap";
 import { NavLink } from 'react-router-dom';
-import "./home.css/About.css";
+import "./homestyles/About.css";
 import collage from "../../images/about/collage.png";
 import master_bedrooms from "../../images/about/master_bedrooms.png";
 import lake_view from "../../images/about/lake_view.png";

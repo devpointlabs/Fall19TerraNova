@@ -4,7 +4,7 @@ import shipwreck from '../../images/shipwreckbeach.jpg'
 import split from '../../images/split.jpg'
 import portifino from '../../images/portifino.jpg'
 import styled from 'styled-components'
-import './home.css/Top.css'
+import './homestyles/Top.css'
 
 
 const Top = () => {
@@ -78,5 +78,3 @@ const ContentBottom = styled.h3`
 
 
 export default Top;
-
-
