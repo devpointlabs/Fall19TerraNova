@@ -47,7 +47,7 @@ class Api::CabinsController < ApplicationController
       grandPriceArray = []
       takenArray = [] 
       availableDates = [] 
-      dateAndPriceEvent = {}
+      dateAndPriceEventHash = {}
       price_total = 0
 
       Booking.select(:start_date, :end_date).where(cabin_id: c.id).each {|date_pair| (date_pair.start_date..date_pair.end_date).each {|d| grandTakenArray << d} }
@@ -56,28 +56,36 @@ class Api::CabinsController < ApplicationController
 
       grandPriceArray.each do |i|
         i[:dates].each do |date|
-          if grandWantedDates.include?(date.to_s)
-            if dateAndPriceEvent[date.to_s]
-              dateAndPriceEvent[date.to_s] << i[:id]
+          d = date.to_s
+          if grandWantedDates.include?(d)
+            if dateAndPriceEventHash[d]
+              dateAndPriceEventHash[d] << i[:id]
             else
-              dateAndPriceEvent[date.to_s] = [i[:id]]
-            end # ? creates a hash {somedate: [booking id's, ...], anotherdate: [booking id's]}                  
+              dateAndPriceEventHash[d] = [i[:id]]
+            end                  
           end
         end
       end
 
-      binding.pry
-
-
-
-
-      # if the dates match. take multiplier or adder against the price_total.
-
-      # first, find that dates that apply and the id of that price_event
+      
+      dateAndPriceEventHash.each do |date, arr|
+        arrMult = []
+        arrAdd = []
+        arr.each do |id|
+          if Priceevent.find(id).multiplier
+            arrMult << Priceevent.find(id).multiplier.to_f
+          elsif Priceevent.find(id).adder
+            arrAdd << Priceevent.find(id).adder.to_f
+          end
+        end
+        price_total += c.price 
+        arrAdd.each {|n| price_total += n }
+        arrMult.each {|m| price_total *= m}
+      end
+      
 
       # cabin specific Hike
       # Priceevent.select(:adder).where(cabin_id: c.id)
-
       # weekend specific Hike
       
       grandTakenArray.each do |tdate|
