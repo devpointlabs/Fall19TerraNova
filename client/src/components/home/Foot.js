@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import icon from '../../images/foot/icon.png'
+import mail from '../../images/foot/mail.png'
 import paymenticons from '../../images/foot/paymenticons.png'
 import './homestyles/Foot.css'
 
@@ -10,7 +10,7 @@ const Foot = () => (
 
   <>
     <div className="email-container">
-      <p> Email Here </p>
+      <img className= "mail-icon" src={mail} alt="mail" />
     </div>
     
 

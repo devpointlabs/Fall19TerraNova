@@ -13,7 +13,7 @@ const Top = () => {
 
   return (
     <>
-      <div className="overlay">
+      <div className="topoverlay">
         <ContentTop>Welcome To Terra Nova Cabins</ContentTop>
       </div>
       <div className="bottomoverlay">

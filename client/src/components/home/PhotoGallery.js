@@ -56,7 +56,7 @@ const PhotoGallery = () => (
 <>
 <Container>
     <Header>Our Gallery</Header>
-    <img className="icon-img" src={Logo} />
+    <img className="gallery-icon-img" src={Logo} />
     <Nav class="navbar">
         <a href="#Hotel & Ground" style={{marginRight: "60px", fontSize: "20px", color: "#ababab"}}>HOTEL & GROUND</a>
         <a href="#Room/Suite" style={{marginRight: "60px", fontSize: "20px", color: "#ababab"}}>ROOM/SUITE</a>
