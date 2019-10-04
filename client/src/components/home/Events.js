@@ -18,7 +18,7 @@ const Events = () => {
     <img className="event-line-img" src={line} alt="line break" />
 
       <EventContainer>
-        <MDBCarousel interval={false} activeItem={1} length={3} slide={true} showControls={true} showIndicators={true} multiItem>
+        <MDBCarousel interval={false} activeItem={1} length={2} slide={true} showControls={true} showIndicators={true} multiItem>
           <MDBCarouselInner>
             <MDBRow>
               <MDBCarouselItem itemId="1">
@@ -28,7 +28,7 @@ const Events = () => {
                       <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" />
                       <MDBCarouselCaption>
                         <Text> Events </Text>
-                        <Title> Morning Yoga </Title>
+                        <Title> Nature Hike </Title>
                       </MDBCarouselCaption>
                     </Card>
                   </CardContainer>
@@ -37,47 +37,13 @@ const Events = () => {
                       <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" />
                       <MDBCarouselCaption>
                         <Text> Events </Text>
-                        <Title> Nature Hike </Title>
+                        <Title> Surf Lessons </Title>
                       </MDBCarouselCaption>
                     </Card>
                   </CardContainer>
                   <CardContainer>
                     <Card style={{ height: '35rem', width: '26rem' }}>
-                      <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg" />
-                      <MDBCarouselCaption>
-                        <Text> Events </Text>
-                        <Title> Bird Watching </Title>
-                      </MDBCarouselCaption>
-                    </Card>
-                  </CardContainer>
-                </SlideContainer>
-              </MDBCarouselItem>
-
-              <MDBCarouselItem itemId="2">
-                <SlideContainer>
-                  
-                  <CardContainer>
-                    <Card style={{ height: '35rem', width: '26rem' }}>
-                      <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(60).jpg" />
-                      <MDBCarouselCaption>
-                        <Text> Events </Text>
-                        <Title> Wedding Day </Title>
-                      </MDBCarouselCaption>
-                    </Card>
-                  </CardContainer>
-
-                  <CardContainer>
-                    <Card style={{ height: '35rem', width: '26rem' }}>
-                      <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(47).jpg" />
-                      <MDBCarouselCaption>
-                        <Text> Events </Text>
-                        <Title> Campfire </Title>
-                      </MDBCarouselCaption>
-                    </Card>
-                  </CardContainer>
-                  <CardContainer>
-                    <Card style={{ height: '35rem', width: '26rem' }}>
-                      <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(48).jpg" />
+                    <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(48).jpg" />
                       <MDBCarouselCaption>
                         <Text> Events </Text>
                         <Title> Excursion </Title>
@@ -87,7 +53,7 @@ const Events = () => {
                 </SlideContainer>
               </MDBCarouselItem>
 
-              <MDBCarouselItem itemId="3">
+              <MDBCarouselItem itemId="2">
                 <SlideContainer>
                   <CardContainer>
                     <Card style={{ height: '35rem', width: '26rem' }}>
@@ -103,7 +69,7 @@ const Events = () => {
                       <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg" />
                       <MDBCarouselCaption>
                         <Text> Events </Text>
-                        <Title> Football </Title>
+                        <Title> Fill Your Cup </Title>
                       </MDBCarouselCaption>
                     </Card>
                   </CardContainer>
@@ -170,12 +136,12 @@ const SlideContainer = styled.div`
 
 
 const CardContainer = styled.div`
-  display: flex !important;
-  justify-content: space-evenly !important;
-  align-content: space-around !important;
-  flex-wrap: wrap !important;
-  margin-right: 10px !important;
-  margin-left: 10px !important;
+  display: flex;
+  justify-content: space-evenly;
+  align-content: space-around;
+  flex-wrap: wrap;
+  margin-right: 10px;
+  margin-left: 10px;
   padding-right: 20px;
 
   
