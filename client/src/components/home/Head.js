@@ -23,7 +23,6 @@ const Top = () => {
     <Carousel nextIcon="" prevIcon="" >
       <Carousel.Item>
         <img
-          // className="d-block w-100"
           src={yellowstone}
           alt="First slide"
           width="100%"
@@ -32,7 +31,6 @@ const Top = () => {
 
       <Carousel.Item>
         <img
-          // className="d-block w-100"
           src={yellowstone1}
           alt="Second slide"
           width="100%"
@@ -41,7 +39,6 @@ const Top = () => {
 
       <Carousel.Item>
         <img
-          // className="d-block w-100"
           src={yellowstone2}
           alt="Third slide"
           width="100%"

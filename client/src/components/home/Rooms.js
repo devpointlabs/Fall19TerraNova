@@ -202,16 +202,16 @@ const Container = styled.div`
 `;
 
 const CardContainer = styled.div`
-  display: flex !important;
-  justify-content: space-evenly !important;
-  align-content: space-around !important;
-  flex-wrap: wrap !important;
-  margin-right: 100px !important;
-  margin-left: 100px !important;
-  margin-bottom: 8px !important;
-  margin-top: 8px !important;
-  padding-bottom: 8px !important;
-  padding-top: 8px !important;
+  display: flex;
+  justify-content: space-evenly;
+  align-content: space-around;
+  flex-wrap: wrap;
+  margin-right: 100px;
+  margin-left: 100px;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  padding-bottom: 8px;
+  padding-top: 8px;
   
 `;
 
