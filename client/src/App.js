@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Reservation from './components/Reservation';
 import { Switch, Route, } from 'react-router-dom';
 import { Container, } from "semantic-ui-react";
+// import { StateProvider } from './providers/StateProvider';
 
 
 const App = () => (
