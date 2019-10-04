@@ -23,14 +23,20 @@ import '../home/homestyles/PhotoGallery.css';
 
 
 const Container = styled.div` 
-    position: absolute;
+    
     left: 0;
     height: 40%;
     width: 100%;
-    z-index: 1;
+    /* z-index: 1; */
     -webkit-user-select: none;
     background-color: rgb(35, 35, 35);
 `
+
+const PhotoContainer = styled.div`
+    display: flex;
+    background: white;
+    justify-content: center;
+`;
 const Header = styled.span`
     display: flex;
     justify-content: center;
@@ -60,6 +66,8 @@ const PhotoGallery = () => (
     <br />
     <br />
     <br />
+    <PhotoContainer>
+
 <Carousel interval={false}>
     <Carousel.Item >
     <MDBContainer>
@@ -114,6 +122,7 @@ const PhotoGallery = () => (
     </MDBContainer>
     </Carousel.Item>
  </Carousel>
+    </PhotoContainer>
 </Container>
 
 
