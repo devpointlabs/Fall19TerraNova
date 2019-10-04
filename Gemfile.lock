@@ -1,12 +1,12 @@
 GIT
   remote: https://github.com/stripe/stripe-ruby
-  revision: 27718e0e47206a56b5b3061f9c687a0a8c8cf853
+  revision: c206a3cc0995954f112768995705b8db649b8c85
   specs:
-    stripe (5.4.1)
+    stripe (5.6.0)
 
 GIT
   remote: https://github.com/stympy/faker.git
-  revision: 7cd6baa41c074fd0c54cd1e43d6f34f551b0d221
+  revision: e7c898c05306409cedf5b795a622a326ec87e279
   branch: master
   specs:
     faker (2.5.0)
@@ -61,6 +61,7 @@ GEM
     bootsnap (1.4.5)
       msgpack (~> 1.0)
     builder (3.2.3)
+    coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
     devise (4.5.0)
@@ -100,7 +101,11 @@ GEM
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     pg (1.1.4)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
     pry-rails (0.3.9)
+      pry (>= 0.10.4)
     puma (3.12.1)
     rack (2.0.7)
     rack-test (1.1.0)

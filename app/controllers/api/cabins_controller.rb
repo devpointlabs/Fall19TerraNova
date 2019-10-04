@@ -34,7 +34,7 @@ class Api::CabinsController < ApplicationController
       render json: {message: "Authorized access denied. Admin status: #{current_user.admin ? "Granted" : "Not Granted" }"}    
     end
   end
-
+  
   # Destroy Disabled. See below
 
   def avail_cabins # ☑️ pass in an array of dates with THIS syntax "2019-10-02"  {params: {dates: ["2019-10-04", "2019-10-06"]}}
@@ -264,4 +264,3 @@ end
 #   # sorts through all wanted dates, if any of those dates are NOT included that dates is stored in availableDates
 
 #   render json: {cabin_id: c.id, cabin_details: {unavailable_dates: takenArray, available_dates: availableDates }}
-  

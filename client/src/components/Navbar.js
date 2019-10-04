@@ -71,7 +71,7 @@ class Navbar extends React.Component {
                                     </MenuButton>
                                     <MenuButton
                                         exact
-                                        to="/user"
+                                        to="/login"
                                         style={{marginRight: "10px"}}
                                         activeStyle={menuButtonActive}
                                     >
