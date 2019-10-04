@@ -52,13 +52,13 @@
 
 .left-box {
     background-color: #efefef;
-    width: 23%;
+    width: 24%;
     height: 700px;
 }
 
 .right-box {
     background-color: #efefef;
-    width: 77%;
+    width: 76%;
     padding-left: 20px;
     padding-right: 0px;
     margin-left: 30px;
@@ -108,4 +108,26 @@
 .small-room-container {
     display: flex;
     flex-direction: column;
+}
+
+.button-container {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.custom-button {
+    background: #8E7037;
+    color: white;
+    font-size: smaller;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.custom-button:hover {
+    background-color: rgb(223, 193, 141) !important;
 }

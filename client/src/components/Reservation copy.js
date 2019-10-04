@@ -3,58 +3,55 @@ import { Form, NavDropdown, Button, Popover, OverlayTrigger } from "react-boots
 import { Icon, Dropdown } from "semantic-ui-react";
 import "./Reservation.css";
 import { LinkedCalendar } from 'rb-datepicker';
+import { LinkedCalendarOne } from 'rb-datepicker';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import styled from "styled-components";
-import axios from "axios";
-import { fn } from 'moment';
 
-class Reservation extends React.Component {
-    state = {
-        step: 1,
-        date: new Date(),
-        startDate: null,
-        endDate: null,
-        test: {
-            $D: 4,
-            $L: 13,
-            $H: "en",
-            clone: function() {},
+const Reservation = () => {
+    const [step, setStep] = useState(1);
+    const [date, setDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(date.getTime());
+    const [endDate, setEndDate] = useState();
 
-        }
+    /*useEffect( () => {
+        setStartDate(this.props.startDate);
+        setEndDate(this.props.endDate);
+        debugger;
+    }, []);*/
+
+    useEffect( () => {
+        setStartDate(startDate);
+        debugger;
+    }, [startDate]);
+
+    useEffect( () => {
+        setStartDate(startDate);
+        debugger;
+    }, [date]);
+
+    const onChange = (startDate, endDate) => {
+        setStartDate(startDate);
+        setEndDate(endDate);
     }
 
-    onDatesChange = ({startDate, endDate}) => {
+    const onDatesChange = ({startDate, endDate}) => {
         debugger
-        let correctedStartMonth = startDate.$M + 1
-        let startDateString = `${startDate.$y}-${correctedStartMonth}-${startDate.$D}`
-        let correctedEndMonth = endDate.$M + 1
-        let endDateString = `${endDate.$y}-${correctedEndMonth}-${endDate.$D}`
-        this.setState({startDate: startDateString});
-        this.setState({endDate: endDateString});
+        console.log({ startDate, endDate });
+        setStartDate(startDate);
+        setEndDate(endDate);
     }
 
-    onDayClick = ({date}) => {
-        console.log(date)
+    const onDateChange = ({ date }) => {
+        console.log(({ date }))
     }
 
-    popover = (
+    const popover = (
         <Popover id="popover-basic">
-          <LinkedCalendar onDatesChange={this.onDatesChange} />
+          <LinkedCalendar onDatesChange={onDateChange} />
         </Popover>
     );
 
-    checkAvailability = () => {
-        axios.get("/api/avail_cabins", {params: {dates: [this.state.startDate, this.state.endDate]}} )
-            .then(res => {
-                debugger
-            })
-            .catch(err => {
-                debugger
-                console.log(err)
-        })
-    }
-
-    step1 = () => {
+    const step1 = () => {
         return(
             <>
                 <div className="header-container">
@@ -84,7 +81,7 @@ class Reservation extends React.Component {
                         <span style={{marginLeft: "20px", marginTop: "15px", marginRight: "0px", fontWeight: "bold", fontSize: "12px"}}>ARRIVE</span>
                         <div className="form-container">
                             <DateForm value="17/12/19" />
-                            <OverlayTrigger trigger="click" placement="right" overlay={this.popover}>
+                            <OverlayTrigger trigger="click" placement="right" overlay={popover}>
                                 <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
                             </OverlayTrigger>
                         </div>
@@ -125,7 +122,7 @@ class Reservation extends React.Component {
                             </CustomDropdown>
                         </div>
                         <div className="room-container">
-                            <span style={{marginLeft: "20px", fontWeight: "bold", fontSize: "12px", width: "25%"}}>ROOM 1</span>
+                            <span style={{marginLeft: "20px", fontWeight: "bold", fontSize: "12px"}}>ROOM 1</span>
                             <div className="small-room-container">
                                 <span style={{marginLeft: "20px", fontWeight: "bold", fontSize: "12px"}}>ADULT(S)</span>
                                 <div className="dropdown-container">
@@ -140,7 +137,7 @@ class Reservation extends React.Component {
                                     </CustomDropdown>
                                 </div>
                             </div>
-                            <div className="small-room-container" style={{width: "30%", marginRight: "15px"}}>
+                            <div className="small-room-container">
                                 <span style={{marginLeft: "20px", fontWeight: "bold", fontSize: "12px"}}>CHILD(REN)</span>
                                 <div className="dropdown-container">
                                     <CustomDropdown text='1'>
@@ -155,31 +152,25 @@ class Reservation extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="button-container">
-                            <span className="custom-button" onClick={this.checkAvailability}>
-                                CHECK AVAILABILITY
-                            </span>
-                        </div>
+                        <CustomButton>
+                            CHECK AVAILABILITY
+                        </CustomButton>
                     </div>
                     <div className="right-box">
                         <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>AVAILABILITY</p>
                         <div className="hr-container"><div className="line" /></div>
-                        <LinkedCalendar test={this.state.test} onDatesChange={this.onDatesChange} singleDatePicker={true} onChange={this.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} >
-
-                        </LinkedCalendar>
+                        <LinkedCalendar onDatesChange={() => onDatesChange(startDate, endDate)} showDropdowns={false} showWeekNumbers={false} applyButtonClasses={false} />
                     </div>
                 </div>
             </>
         );
     };
 
-    render() {
-        return (
-            <>
-                { this.step1() }
-            </>
-        );
-    };
+    return (
+        <>
+            { step1() }
+        </>
+    );
 };
 
 const DateForm = styled(Form.Control)`
