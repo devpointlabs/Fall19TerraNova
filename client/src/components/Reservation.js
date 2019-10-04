@@ -168,7 +168,7 @@ class Reservation extends React.Component {
                             </div>
                         </div>
                         <div className="reservation-button-container">
-                            <span className="custom-button" onClick={this.checkAvailability}>
+                            <span className="reservation-custom-button" onClick={this.checkAvailability}>
                                 CHECK AVAILABILITY
                             </span>
                         </div>
@@ -205,23 +205,6 @@ const CustomDropdown = styled(Dropdown)`
     width: 100%;
     border: 0 !important;
     font-family: "Nanum Gothic" !important;
-`;
-
-const CustomButton = styled(Button)`
-    border-radius: 0 !important;
-    border: 0 !important;
-    background: #8E7037 !important;
-    color: white;
-    font-size: smaller !important;
-    margin-left: 20px;
-    margin-top: 10px;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-    height: 40px;
-
-    &:hover {
-        background-color: rgb(223, 193, 141) !important;
-    }
 `;
 
 export default Reservation;
