@@ -3,6 +3,7 @@
     margin-right: 0px;
     margin-top: 40px;
     display: flex;
+    width: 100%;
     justify-content: space-between;
     flex-direction: row;
 }
@@ -52,7 +53,7 @@
 
 .reservation-left-box {
     background-color: #efefef;
-    width: 24%;
+    width: 20%;
     height: 700px;
 }
 
