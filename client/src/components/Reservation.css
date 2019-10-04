@@ -1,0 +1,111 @@
+.container {
+    margin-left: 120px;
+    margin-right: 0px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.header-container {
+    display: flex;
+    justify-content: center;
+}
+
+.header {
+    margin-top: 20px;
+    margin-bottom: 25px;
+    font-size: 40px;
+    font-family: 'EB Garamond';
+}
+
+.hr-container {
+    text-align: center;
+}
+
+.menu {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.number {
+    font-size: large;
+}
+
+.text {
+    font-size: small;
+    margin-top: 5px;
+    margin-left: 4px;
+}
+
+.active {
+    height: 35px;
+    border-bottom: 2px solid #8E7037;
+    display: flex;
+    justify-content: center;
+}
+
+.space {
+    margin-left: 30px;
+}
+
+.left-box {
+    background-color: #efefef;
+    width: 23%;
+    height: 700px;
+}
+
+.right-box {
+    background-color: #efefef;
+    width: 77%;
+    padding-left: 20px;
+    padding-right: 0px;
+    margin-left: 30px;
+    margin-right: 0;
+    height: 550px;
+}
+
+.line {
+    border-top: 1px solid #dbdbdb;
+}
+
+.form-container {
+    width: 84%;
+    height: 33px;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    margin-left: 20px;
+    margin-top: 7px;
+    margin-bottom: 20px;
+}
+
+.dropdown-container {
+    width: 84%;
+    height: 33px;
+    background-color: white;
+    padding-left: 8px;
+    margin-left: 20px;
+    margin-top: 7px;
+    margin-bottom: 20px;
+}
+
+.dropdown .icon {
+    position: absolute !important;
+    right: 10px !important;
+    top: 10px !important;
+}
+
+.room-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 14px;
+}
+
+.small-room-container {
+    display: flex;
+    flex-direction: column;
+}

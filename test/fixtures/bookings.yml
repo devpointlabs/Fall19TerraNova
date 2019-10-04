@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_date: 2019-09-30
+  end_date: 2019-09-30
+  guests: 1
+  expected_arrival: 2019-09-30 15:20:13
+  special_needs: MyText
+  booking_number: 1
+  user: one
+  cabin: one
+  transaction: one
+
+two:
+  start_date: 2019-09-30
+  end_date: 2019-09-30
+  guests: 1
+  expected_arrival: 2019-09-30 15:20:13
+  special_needs: MyText
+  booking_number: 1
+  user: two
+  cabin: two
+  transaction: two

@@ -71,5 +71,3 @@ const ContentBottom = styled.h3`
 
 
 export default Top;
-
-

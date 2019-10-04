@@ -10,10 +10,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_05_213244) do
+ActiveRecord::Schema.define(version: 2019_10_03_174155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "guests"
+    t.text "special_needs"
+    t.integer "booking_number"
+    t.bigint "user_id"
+    t.bigint "cabin_id"
+    t.bigint "payment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "expected_arrival"
+    t.index ["cabin_id"], name: "index_bookings_on_cabin_id"
+    t.index ["payment_id"], name: "index_bookings_on_payment_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "cabins", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.boolean "occupied"
+    t.integer "occupancy"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "name"
+    t.string "credit_card"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.integer "zip"
+    t.string "expiration"
+    t.string "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "priceevents", force: :cascade do |t|
+    t.string "name"
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "cabin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "multiplier"
+    t.decimal "adder"
+    t.boolean "recurring"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -32,17 +84,30 @@ ActiveRecord::Schema.define(version: 2019_04_05_213244) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.string "name"
     t.string "nickname"
     t.string "image"
     t.string "email"
     t.json "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.integer "zip"
+    t.string "country"
+    t.string "cellphone"
+    t.date "birthday"
+    t.date "anniversary"
+    t.boolean "admin"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "bookings", "cabins"
+  add_foreign_key "bookings", "payments"
+  add_foreign_key "bookings", "users"
 end
