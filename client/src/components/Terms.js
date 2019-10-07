@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import { MDBContainer, } from "mdbreact";
-import Foot from './Foot';
+import Foot from './home/Foot';
 
 
 

@@ -5,7 +5,7 @@ import { Menu } from 'semantic-ui-react';
 import { Navbar as Nav, Nav as Navv, NavDropdown } from 'react-bootstrap';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import styled from "styled-components";
-import "./Navbar.css";
+import "./styles/Navbar.css";
 import logo from "../images/logo.png";
 import { Icon } from "semantic-ui-react";
 
@@ -112,7 +112,7 @@ class Navbar extends React.Component {
                                     </NavButton>
                                     <NavButton
                                         exact
-                                        to="/rooms"
+                                        to="/roomsrates"
                                         activeStyle={navButtonActive}
                                     >
                                         ROOMS
