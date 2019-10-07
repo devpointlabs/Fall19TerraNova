@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Form, NavDropdown, Button, Popover, OverlayTrigger } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
-import "./Reservation.css";
+import "./styles/Reservation.css";
 import { LinkedCalendar } from 'rb-datepicker';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import styled from "styled-components";
