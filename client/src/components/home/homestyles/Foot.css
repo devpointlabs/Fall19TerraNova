@@ -11,6 +11,12 @@
   margin-left: 22px;
 }
 
+.mail-icon {
+  width: 06.25%;
+  margin-top: 14px;
+  margin-left: 124px;
+}
+
 
 .footer-wrapper {
   background-color: rgb(36, 36, 36);
@@ -33,7 +39,7 @@
 
 .icon-container {
   margin-left: 980px;
-  margin-top: 200px;
+  margin-top: 180px;
   width: 400px;
 }
 
