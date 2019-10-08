@@ -1,6 +1,6 @@
 import React from 'react';
-import { Form } from "react-bootstrap";
-import { Dropdown } from "semantic-ui-react";
+import { Form, OverlayTrigger } from "react-bootstrap";
+import { Icon, Dropdown } from "semantic-ui-react";
 import "./reservationstyles/Reservation.css";
 import styled from "styled-components";
 import axios from "axios";
@@ -117,6 +117,97 @@ class Reservation extends React.Component {
         this.setState({ rooms });
     };
 
+    renderLeftBox = () => (
+        <div className="reservation-left-box">
+            <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>YOUR RESERVATION</p>
+            <div className="reservation-hr-container"><div className="reservation-line" /></div>
+            <p style={{marginLeft: "20px", marginTop: "25px", fontWeight: "bold", fontSize: "14px", color: "#8E7037"}}>YOUR STAY DATES</p>
+            <span style={{marginLeft: "20px", marginTop: "5px", marginRight: "0px", fontWeight: "bold", fontSize: "12px"}}>ARRIVE</span>
+            <div className="reservation-form-container">
+                <DateForm value={this.state.startDate} readOnly />
+                <OverlayTrigger trigger="click" placement="right" overlay={this.popoverCalendar}>
+                    <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
+                </OverlayTrigger>
+            </div>
+            <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>NIGHT(S)</span>
+            <div className="reservation-dropdown-container">
+                <CustomDropdown text={this.state.nrNights}>
+                    <Dropdown.Menu>
+                        <Dropdown.Item text='1' onClick={() => this.setNrNights('1')} />
+                        <Dropdown.Item text='2' onClick={() => this.setNrNights('2')} />
+                        <Dropdown.Item text='3' onClick={() => this.setNrNights('3')} />
+                        <Dropdown.Item text='4' onClick={() => this.setNrNights('4')} />
+                        <Dropdown.Item text='5' onClick={() => this.setNrNights('5')} />
+                        <Dropdown.Item text='6' onClick={() => this.setNrNights('6')} />
+                        <Dropdown.Item text='7' onClick={() => this.setNrNights('7')} />
+                        <Dropdown.Item text='8' onClick={() => this.setNrNights('8')} />
+                        <Dropdown.Item text='9' onClick={() => this.setNrNights('9')} />
+                        <Dropdown.Item text='10' onClick={() => this.setNrNights('10')} />
+                        <Dropdown.Item text='10+' onClick={() => this.setNrNights('10+')} />
+                    </Dropdown.Menu>
+                </CustomDropdown>
+            </div>
+            <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>DEPARTURE</span>
+            <div className="reservation-form-container">
+                <DateForm value={this.state.endDate} readOnly />
+                <OverlayTrigger trigger="click" placement="right" overlay={this.popoverCalendar}>
+                    <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
+                </OverlayTrigger>
+            </div>
+            <p style={{marginLeft: "20px", marginTop: "10px", fontWeight: "bold", fontSize: "14px", color: "#8E7037"}}>ROOMS AND GUESTS</p>
+            <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>ROOM(S)</span>
+            <div className="reservation-dropdown-container" style={{marginBottom: "0px !important"}}>
+                <CustomDropdown text={this.state.nrRooms}>
+                    <Dropdown.Menu>
+                        <Dropdown.Item text='1' onClick={() => this.setNrRooms('1')} />
+                        <Dropdown.Item text='2' onClick={() => this.setNrRooms('2')} />
+                        <Dropdown.Item text='3' onClick={() => this.setNrRooms('3')} />
+                        <Dropdown.Item text='4' onClick={() => this.setNrRooms('4')} />
+                        <Dropdown.Item text='5' onClick={() => this.setNrRooms('5')} />
+                    </Dropdown.Menu>
+                </CustomDropdown>
+            </div>
+            { this.state.nrRoomsArray.map( room => (
+                <div className="reservation-room-container" key={parseInt(room, 10)-1}>
+                    <span style={{marginLeft: "20px", fontWeight: "bold", fontSize: "12px", width: "25%"}}>ROOM {room}</span>
+                    <div className="reservation-small-room-container">
+                        <span style={{marginLeft: "20px", fontWeight: "bold", fontSize: "12px"}}>ADULT(S)</span>
+                        <div className="reservation-dropdown-container">
+                            <CustomDropdown text={this.state.rooms[parseInt(room, 10)-1][0]}>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item text='1' onClick={() => this.setNrAdults({room}, '1')} />
+                                    <Dropdown.Item text='2' onClick={() => this.setNrAdults({room}, '2')} />
+                                    <Dropdown.Item text='3' onClick={() => this.setNrAdults({room}, '3')} />
+                                    <Dropdown.Item text='4' onClick={() => this.setNrAdults({room}, '4')} />
+                                    <Dropdown.Item text='5' onClick={() => this.setNrAdults({room}, '5')} />
+                                </Dropdown.Menu>
+                            </CustomDropdown>
+                        </div>
+                    </div>
+                    <div className="reservation-small-room-container" style={{width: "30%", marginRight: "15px"}}>
+                        <span style={{marginLeft: "20px", fontWeight: "bold", fontSize: "12px"}}>CHILD(REN)</span>
+                        <div className="reservation-dropdown-container">
+                            <CustomDropdown text={this.state.rooms[parseInt(room, 10)-1][1]} flip="true">
+                                <Dropdown.Menu>
+                                    <Dropdown.Item text='1' onClick={() => this.setNrChildren({room}, '1')} />
+                                    <Dropdown.Item text='2' onClick={() => this.setNrChildren({room}, '2')} />
+                                    <Dropdown.Item text='3' onClick={() => this.setNrChildren({room}, '3')} />
+                                    <Dropdown.Item text='4' onClick={() => this.setNrChildren({room}, '4')} />
+                                    <Dropdown.Item text='5' onClick={() => this.setNrChildren({room}, '5')} />
+                                </Dropdown.Menu>
+                            </CustomDropdown>
+                        </div>
+                    </div>
+                </div>
+            )) }
+            <div className="reservation-button-container">
+                <span className="reservation-custom-button" onClick={this.checkAvailability}>
+                    CHECK AVAILABILITY
+                </span>
+            </div>
+        </div>
+    );
+
     render() {
         return (
             <>
@@ -125,6 +216,7 @@ class Reservation extends React.Component {
                 </div>
                 { this.state.step === 1 && 
                     <Step1 
+                        renderLeftBox={this.renderLeftBox}
                         DateForm={DateForm}
                         CustomDropdown={CustomDropdown}
                         checkAvailability={this.checkAvailability}
@@ -142,6 +234,18 @@ class Reservation extends React.Component {
                     />
                 }
                 { this.state.step === 2 && 
+                    <Step2 
+                        DateForm={DateForm}
+                        CustomDropdown={CustomDropdown}
+                    />
+                }
+                { this.state.step === 3 && 
+                    <Step2 
+                        DateForm={DateForm}
+                        CustomDropdown={CustomDropdown}
+                    />
+                }
+                { this.state.step === 4 && 
                     <Step2 
                         DateForm={DateForm}
                         CustomDropdown={CustomDropdown}

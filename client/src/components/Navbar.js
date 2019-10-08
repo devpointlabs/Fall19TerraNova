@@ -2,7 +2,7 @@ import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { AuthConsumer } from "../providers/AuthProvider";
 import { Menu } from 'semantic-ui-react';
-import { Navbar as Nav, Nav as Navv, NavDropdown } from 'react-bootstrap';
+import { Navbar as NavbarBS, Nav, NavDropdown } from 'react-bootstrap';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import styled from "styled-components";
 import "./styles/Navbar.css";
@@ -49,110 +49,110 @@ class Navbar extends React.Component {
         return (
             <>
                 { this.props.location.pathname !== "/comingsoon" &&
-            <>
-                <div className="navbar-upper-background">
-                    <div>
-                        <Icon style={{marginRight: "5px", paddingTop: "0px !important", paddingBottom: "0px !important"}} name="snowflake" />
-                        72°F
-                        <Icon style={{marginLeft: "25px", marginRight: "3px"}} name="map marker alternate" />
-                        35 Kirkwood Creek Road, West Yellowstone, MT 59758
-                        <Icon style={{marginLeft: "30px", marginRight: "3px"}} name="phone" />
-                        (+1)406.646.7200
-                    </div>
-                    <div style={{alignItems: "right"}}>
-                        <Nav variant="dark" bg="#373737" expand="lg" collapseOnSelect style={{boxShadow: "none !important"}}>
-                            <Nav.Toggle aria-controls="basic-navbar-nav" />
-                            <Nav.Collapse id="basic-navbar-nav">
-                                <Navv className="mr-auto" style={{boxShadow: "none !important"}}>
-                                    <MenuButton
-                                        exact
-                                        to="/mytrips"
-                                        activeStyle={menuButtonActive}
-                                    >
-                                        <Icon name="briefcase" style={{marginBottom: "5px"}} />
-                                        My trips
-                                    </MenuButton>
-                                    <MenuButton
-                                        exact
-                                        to="/login"
-                                        style={{marginRight: "10px"}}
-                                        activeStyle={menuButtonActive}
-                                    >
-                                        <Icon name="user" style={{marginBottom: "5px"}} />
-                                        Sign In or Join
-                                    </MenuButton>
-                                    <NavDropdown className="navbar-navdropdown" alignRight title={<Icon name="dollar sign" />} id="collapsible-nav-dropdown" style={{marginTop: "3px"}}>
-                                        <NavDropdown.Item href="#action/3.1"><Icon name="dollar sign" /> (USD)</NavDropdown.Item>
-                                        <NavDropdown.Item href="#action/3.2"><Icon name="euro sign" /> (EUR)</NavDropdown.Item>
-                                        <NavDropdown.Item href="#action/3.3"><Icon name="pound sign" /> (GBP)</NavDropdown.Item>
-                                    </NavDropdown>
-                                    <NavDropdown alignRight title="ENG" id="collapsible-nav-dropdown" style={{marginTop: "3px"}}>
-                                        <NavDropdown.Item href="#action/3.1">ENG</NavDropdown.Item>
-                                        <NavDropdown.Item href="#action/3.2">GER</NavDropdown.Item>
-                                        <NavDropdown.Item href="#action/3.3">SWE</NavDropdown.Item>
-                                    </NavDropdown>
-                                </Navv>
-                            </Nav.Collapse>
-                        </Nav>
-                    </div>
-                </div>
-                <Nav className="navbar-background" expand="lg" sticky="top">
-                    <div className="navbar-left">
-                        <Nav.Brand href="/">
-                            <img src={logo} height="80px" width="50px" />
-                        </Nav.Brand>
-                    </div>
-                    <div className="navbar-right">
-                            <Nav.Toggle aria-controls="basic-navbar-nav" />
-                            <Nav.Collapse id="basic-navbar-nav">
-                                <Navv className="mr-auto">
-                                    <NavButton
-                                        exact
-                                        to="/"
-                                        activeStyle={navButtonActive}
-                                    >
-                                        HOME
-                                    </NavButton>
-                                    <NavButton
-                                        exact
-                                        to="/roomsrates"
-                                        activeStyle={navButtonActive}
-                                    >
-                                        ROOMS
-                                    </NavButton>
-                                    <NavButton
-                                        exact
-                                        to="/reservation"
-                                        activeStyle={navButtonActive}
-                                    >
-                                        RESERVATION
-                                    </NavButton>
-                                    <NavButton
-                                        exact
-                                        to="/gallery"
-                                        activeStyle={navButtonActive}
-                                    >
-                                        GALLERY
-                                    </NavButton>
-                                    <NavButton
-                                        exact
-                                        to="/about"
-                                        activeStyle={navButtonActive}
-                                    >
-                                        ABOUT
-                                    </NavButton>
-                                    <NavButton
-                                        exact
-                                        to="/contact"
-                                        activeStyle={navButtonActive}
-                                    >
-                                        CONTACT
-                                    </NavButton>
-                                </Navv>
-                            </Nav.Collapse>
-                    </div>
-                </Nav>
-            </>
+                    <>
+                        <div className="navbar-upper-background">
+                            <div>
+                                <Icon style={{marginRight: "5px", paddingTop: "0px !important", paddingBottom: "0px !important"}} name="snowflake" />
+                                72°F
+                                <Icon style={{marginLeft: "25px", marginRight: "3px"}} name="map marker alternate" />
+                                35 Kirkwood Creek Road, West Yellowstone, MT 59758
+                                <Icon style={{marginLeft: "30px", marginRight: "3px"}} name="phone" />
+                                (+1)406.646.7200
+                            </div>
+                            <div style={{alignItems: "right"}}>
+                                <NavbarBS variant="dark" bg="#373737" expand="lg" collapseOnSelect style={{boxShadow: "none !important"}}>
+                                    <NavbarBS.Toggle aria-controls="basic-navbar-nav" />
+                                    <NavbarBS.Collapse id="basic-navbar-nav">
+                                        <Nav className="mr-auto" style={{boxShadow: "none !important"}}>
+                                            <MenuButton
+                                                exact
+                                                to="/mytrips"
+                                                activeStyle={menuButtonActive}
+                                            >
+                                                <Icon name="briefcase" style={{marginBottom: "5px"}} />
+                                                My trips
+                                            </MenuButton>
+                                            <MenuButton
+                                                exact
+                                                to="/login"
+                                                style={{marginRight: "10px"}}
+                                                activeStyle={menuButtonActive}
+                                            >
+                                                <Icon name="user" style={{marginBottom: "5px"}} />
+                                                Sign In or Join
+                                            </MenuButton>
+                                            <NavDropdown className="navbar-navdropdown" alignRight title={<Icon name="dollar sign" />} id="collapsible-nav-dropdown" style={{marginTop: "3px"}}>
+                                                <NavDropdown.Item href="#action/3.1"><Icon name="dollar sign" /> (USD)</NavDropdown.Item>
+                                                <NavDropdown.Item href="#action/3.2"><Icon name="euro sign" /> (EUR)</NavDropdown.Item>
+                                                <NavDropdown.Item href="#action/3.3"><Icon name="pound sign" /> (GBP)</NavDropdown.Item>
+                                            </NavDropdown>
+                                            <NavDropdown alignRight title="ENG" id="collapsible-nav-dropdown" style={{marginTop: "3px"}}>
+                                                <NavDropdown.Item href="#action/3.1">ENG</NavDropdown.Item>
+                                                <NavDropdown.Item href="#action/3.2">GER</NavDropdown.Item>
+                                                <NavDropdown.Item href="#action/3.3">SWE</NavDropdown.Item>
+                                            </NavDropdown>
+                                        </Nav>
+                                    </NavbarBS.Collapse>
+                                </NavbarBS>
+                            </div>
+                        </div>
+                        <NavbarBS className="navbar-background" expand="lg" sticky="top">
+                            <div className="navbar-left">
+                                <NavbarBS.Brand href="/">
+                                    <img src={logo} height="80px" width="50px" />
+                                </NavbarBS.Brand>
+                            </div>
+                            <div className="navbar-right">
+                                <NavbarBS.Toggle aria-controls="basic-navbar-nav" />
+                                <NavbarBS.Collapse id="basic-navbar-nav">
+                                    <Nav className="mr-auto">
+                                        <NavButton
+                                            exact
+                                            to="/"
+                                            activeStyle={navButtonActive}
+                                        >
+                                            HOME
+                                        </NavButton>
+                                        <NavButton
+                                            exact
+                                            to="/roomsrates"
+                                            activeStyle={navButtonActive}
+                                        >
+                                            ROOMS
+                                        </NavButton>
+                                        <NavButton
+                                            exact
+                                            to="/reservation"
+                                            activeStyle={navButtonActive}
+                                        >
+                                            RESERVATION
+                                        </NavButton>
+                                        <NavButton
+                                            exact
+                                            to="/gallery"
+                                            activeStyle={navButtonActive}
+                                        >
+                                            GALLERY
+                                        </NavButton>
+                                        <NavButton
+                                            exact
+                                            to="/about"
+                                            activeStyle={navButtonActive}
+                                        >
+                                            ABOUT
+                                        </NavButton>
+                                        <NavButton
+                                            exact
+                                            to="/contact"
+                                            activeStyle={navButtonActive}
+                                        >
+                                            CONTACT
+                                        </NavButton>
+                                    </Nav>
+                                </NavbarBS.Collapse>
+                            </div>
+                        </NavbarBS>
+                    </>
                 }
             </>
         );
