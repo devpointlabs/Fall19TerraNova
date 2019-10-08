@@ -50,11 +50,6 @@ class Step1 extends React.Component {
         }
     }
 
-    onDayClick = ({date}) => {
-        debugger
-        console.log(date)
-    }
-
     popoverCalendar = (
         <Popover id="popover-basic">
           <LinkedCalendar onDatesChange={this.onDatesChange} />
