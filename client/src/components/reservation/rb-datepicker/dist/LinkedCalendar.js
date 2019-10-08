@@ -105,9 +105,6 @@ function (_React$Component) {
 
       var leftProps = props.leftProps,
           rightProps = props.rightProps;
-      var className = (0, _classnames["default"])({
-        "drp-calendar": true
-      });
       var classNameLeft = (0, _classnames["default"])({
         "drp-calendar": true,
         left: true

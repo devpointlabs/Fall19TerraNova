@@ -8,11 +8,10 @@ import Terms from './components/Terms';
 import RoomsRates from './components/RoomsRates'
 import FetchUser from './components/FetchUser';
 import ProtectedRoute from './components/ProtectedRoute';
-import Reservation from './components/Reservation';
+import Reservation from './components/reservation/Reservation';
 import { Switch, Route, } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
 // import { StateProvider } from './providers/StateProvider';
-
 
 const App = () => (
   <>
