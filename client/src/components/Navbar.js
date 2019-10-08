@@ -7,7 +7,8 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
 import styled from "styled-components";
 import "./styles/Navbar.css";
 import logo from "../images/logo.png";
-import { Icon } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react"
+import axios from 'axios'
 
 class Navbar extends React.Component {
     rightNavItems = () => {
@@ -43,7 +44,7 @@ class Navbar extends React.Component {
             );
         };
     };
-  
+
     render() {
         return (
             <>
