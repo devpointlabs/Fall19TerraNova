@@ -1,12 +1,12 @@
 GIT
   remote: https://github.com/stripe/stripe-ruby
-  revision: 27718e0e47206a56b5b3061f9c687a0a8c8cf853
+  revision: 7e5698e77dea17e59310bcafbdb781aa0f80a775
   specs:
-    stripe (5.4.1)
+    stripe (5.5.0)
 
 GIT
   remote: https://github.com/stympy/faker.git
-  revision: 7cd6baa41c074fd0c54cd1e43d6f34f551b0d221
+  revision: e7c898c05306409cedf5b795a622a326ec87e279
   branch: master
   specs:
     faker (2.5.0)
@@ -73,6 +73,10 @@ GEM
     devise_token_auth (1.0.0)
       devise (> 3.5.2, < 4.6)
       rails (>= 4.2.0, < 6)
+    dotenv (2.7.5)
+    dotenv-rails (2.7.5)
+      dotenv (= 2.7.5)
+      railties (>= 3.2, < 6.1)
     erubi (1.9.0)
     ffi (1.11.1)
     globalid (0.4.2)
@@ -104,8 +108,8 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
-
     pry-rails (0.3.9)
+      pry (>= 0.10.4)
     puma (3.12.1)
     rack (2.0.7)
     rack-test (1.1.0)
@@ -169,6 +173,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.1.0)
   devise_token_auth (~> 1.0.0)
+  dotenv-rails
   faker!
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
@@ -177,9 +182,7 @@ DEPENDENCIES
   rails (~> 5.2.3)
   spring
   spring-watcher-listen (~> 2.0.0)
-
   stripe!
-
 
 BUNDLED WITH
    2.0.2

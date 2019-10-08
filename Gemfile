@@ -14,6 +14,7 @@ gem "devise_token_auth", "~> 1.0.0"
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
 group :development, :test do
+  gem 'dotenv-rails'
   # Call 'pry' anywhere in the code to stop execution and get a debugger console
   gem "pry-rails"
   # Generates test data

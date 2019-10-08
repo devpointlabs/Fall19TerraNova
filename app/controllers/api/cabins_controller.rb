@@ -1,5 +1,5 @@
 class Api::CabinsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show, :avail_cabins, :single_cabin_availability]
   before_action :set_cabin, only: [:show, :create, :destroy]
 
   def index # ☑️ finds all cabins. For gallery show page
@@ -38,99 +38,11 @@ class Api::CabinsController < ApplicationController
   # Destroy Disabled. See below
 
   def avail_cabins # ☑️ pass in an array of dates with THIS syntax "2019-10-02"  {params: {dates: ["2019-10-04", "2019-10-06"]}}
-
-    cabin_info = []
-
-    Cabin.all.each do |c|          
-      grandWantedDates = (params[:dates].first..params[:dates].second).to_a
-      grandTakenArray = [] 
-      grandPriceArray = []
-      takenArray = [] 
-      availableDates = [] 
-      dateAndPriceEventHash = {}
-      price_total = 0
-
-      Booking.select(:start_date, :end_date).where(cabin_id: c.id).each {|date_pair| (date_pair.start_date..date_pair.end_date).each {|d| grandTakenArray << d} }
-
-      Priceevent.select(:start_date, :end_date, :id).where("cabin_id IS null AND start_date IS NOT null").each {|date_pair| grandPriceArray << {id: date_pair.id, dates: (date_pair.start_date..date_pair.end_date).to_a }}
-
-      grandPriceArray.each do |i|
-        i[:dates].each do |date|
-          d = date.to_s
-          if grandWantedDates.include?(d)
-            if dateAndPriceEventHash[d]
-              dateAndPriceEventHash[d] << i[:id]
-            else
-              dateAndPriceEventHash[d] = [i[:id]]
-            end                  
-          end
-        end
-      end
-
-      
-      dateAndPriceEventHash.each do |date, arr|
-        arrMult = []
-        arrAdd = []
-        arr.each do |id|
-          if Priceevent.find(id).multiplier
-            arrMult << Priceevent.find(id).multiplier.to_f
-          elsif Priceevent.find(id).adder
-            arrAdd << Priceevent.find(id).adder.to_f
-          end
-        end
-        price_total += c.price 
-        arrAdd.each {|n| price_total += n }
-        arrMult.each {|m| price_total *= m}
-      end
-      
-
-      # cabin specific Hike
-      # Priceevent.select(:adder).where(cabin_id: c.id)
-      # weekend specific Hike
-      
-      grandTakenArray.each do |tdate|
-        if grandWantedDates.include?(tdate.to_s)
-          takenArray << tdate.to_s
-        end
-      end
-
-      grandWantedDates.each do |wdate|
-        if takenArray.include?(wdate) == false
-          availableDates << wdate
-        end
-      end
-    
-      cabin_info << {cabin_id: c.id, cabin_details: {unavailable_dates: takenArray, available_dates: availableDates, price_total: price_total, numberofNights: grandWantedDates.length, aveNightlyRate: price_total/grandWantedDates.length  }}
-    end
-
-    render json: cabin_info
+    render json: Cabin.avail_cabins_model(params)
   end
 
   def single_cabin_availability # ☑️ send 1 cabin id. and pass in an array of dates with THIS syntax "2019-10-02", params[:dates] params[:id] {params: {dates: ["2019-10-04", ...]}, {id: 1}}
-
-    grandWantedDates = params[:dates] 
-    grandTakenArray = [] 
-    takenArray = []
-    availableDates = [] 
-
-
-    Booking.select(:start_date, :end_date).where(cabin_id: params[:id]).each {|date_pair| (date_pair.start_date..date_pair.end_date).each {|d| grandTakenArray << d} }
-  
-
-    grandTakenArray.each do |tdate|
-      if grandWantedDates.include?(tdate.to_s)
-        takenArray << tdate.to_s
-      end
-    end
-
-    grandWantedDates.each do |wdate|
-      if takenArray.include?(wdate) == false
-        availableDates << wdate
-      end
-    end
-
-    render json: {cabin_id: c.id, cabin_details: {unavailable_dates: takenArray, available_dates: availableDates }}
-    
+    render json: Cabin.single_cabin_avail(params)
   end
 
   private 
@@ -151,14 +63,7 @@ end
 
 
 
-  # def destroy #ADIMN ONLY. DONT DO!! If searching for a record where cabin_id doesn't exist thos Booking records WILL break.
-  #   if current_user.admin == true
-  #     @cabin.destroy
-  #     render json: {message: "Cabin Destroyed"}
-  #   else 
-  #     render json: {message: "Authorized access denied. Admin status:  #{current_user.admin ? "Granted" : "Not Granted" }"}    
-  #   end    
-  # end
+ 
 
 
 
