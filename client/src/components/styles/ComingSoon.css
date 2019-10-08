@@ -1,0 +1,52 @@
+
+
+
+.firstoverlay { 
+  color:white;
+  position:absolute;
+  font-size: 70px;
+  top: 50%;
+  width:100%;
+  text-align:center;
+  font-family: 'Muli', sans-serif;
+
+}
+
+.secondoverlay { 
+  color:white;
+  position:absolute;
+  font-size: 35px;
+  top: 62%;
+  width:100%;
+  text-align:center;
+  font-family: 'Muli', sans-serif;
+  
+}
+
+.thirdoverlay { 
+  color:white;
+  position:absolute;
+  font-size: 25px;
+  top: 72%;
+  width:100%;
+  text-align:center;
+  font-family: 'Muli', sans-serif;
+  
+}
+
+.timeoverlay { 
+  color:#fff;
+  position:absolute;
+  top:80%;
+  width:100%;
+  text-align:center;
+}
+
+.logooverlay { 
+  color:rgb(255, 255, 255);
+  position:absolute;
+  margin-top: -200px;
+  margin-left: 670px;
+  width:100%;
+
+}
