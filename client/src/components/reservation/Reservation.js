@@ -26,15 +26,12 @@ class Reservation extends React.Component {
     }
 
     checkAvailability = () => {
-        debugger
         if (this.state._isMounted)
-            axios.get("/api/avail_cabins", {params: {dates: [this.state.startDate, this.state.endDate]}} )
+            axios.get("/api/avail_cabins", {params: {dates: [this.state.startDate, this.state.endDateDB]}} )
                 .then(res => {
-                    debugger
                     this.setState({ availableCabins: res.data, step: 2 });
                 })
                 .catch(err => {
-                    debugger
                     console.log(err)
             });
     };
@@ -68,11 +65,17 @@ class Reservation extends React.Component {
 
     setStartDate = (startDate) => this.setState({ startDate });
 
-    setEndDate = (endDate) => this.setState({ endDate });
+    setEndDate = (endDate) => {
+        let endDateDB = (parseInt(endDate.substring(0,2), 10)-1).toString();
+        endDateDB = endDateDB.concat(endDate.substring(2,));
+        let nrNights = parseInt(endDate.substring(0,2), 10) - parseInt(this.state.startDate.substring(0,2), 10);
+        this.setState({ endDate, endDateDB, nrNights });
+    }
 
     setNrNights = (nrNights) => this.setState({ nrNights });
 
     setNrRooms = (nrRooms) => {
+        debugger
         this.setState({ nrRooms });
         switch(nrRooms) {
             case "1":
@@ -122,6 +125,10 @@ class Reservation extends React.Component {
                         setNrRooms={this.setNrRooms}
                         setNrAdults={this.setNrAdults}
                         setNrChildren={this.setNrChildren}
+                        nrNights={this.state.nrNights}
+                        nrRooms={this.state.nrRooms}
+                        nrRoomsArray={this.state.nrRoomsArray}
+                        rooms={this.state.rooms}
                     />
                 }
                 { this.state.step === 2 && 

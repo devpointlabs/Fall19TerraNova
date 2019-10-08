@@ -94,7 +94,7 @@ class Step1 extends React.Component {
                         </div>
                         <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>NIGHT(S)</span>
                         <div className="reservation-dropdown-container">
-                            <this.props.CustomDropdown text={this.state.nrNights}>
+                            <this.props.CustomDropdown text={this.props.nrNights}>
                                 <Dropdown.Menu>
                                     <Dropdown.Item text='1' onClick={() => this.props.setNrNights('1')} />
                                     <Dropdown.Item text='2' onClick={() => this.props.setNrNights('2')} />
@@ -120,7 +120,7 @@ class Step1 extends React.Component {
                         <p style={{marginLeft: "20px", marginTop: "10px", fontWeight: "bold", fontSize: "14px", color: "#8E7037"}}>ROOMS AND GUESTS</p>
                         <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>ROOM(S)</span>
                         <div className="reservation-dropdown-container" style={{marginBottom: "0px !important"}}>
-                            <this.props.CustomDropdown text={this.state.nrRooms}>
+                            <this.props.CustomDropdown text={this.props.nrRooms}>
                                 <Dropdown.Menu>
                                     <Dropdown.Item text='1' onClick={() => this.props.setNrRooms('1')} />
                                     <Dropdown.Item text='2' onClick={() => this.props.setNrRooms('2')} />
@@ -131,13 +131,13 @@ class Step1 extends React.Component {
                             </this.props.CustomDropdown>
                         </div>
                         
-                            { this.state.nrRoomsArray.map( room => (
+                            { this.props.nrRoomsArray.map( room => (
                                 <div className="reservation-room-container" key={parseInt(room, 10)-1}>
                                     <span style={{marginLeft: "20px", fontWeight: "bold", fontSize: "12px", width: "25%"}}>ROOM {room}</span>
                                     <div className="reservation-small-room-container">
                                         <span style={{marginLeft: "20px", fontWeight: "bold", fontSize: "12px"}}>ADULT(S)</span>
                                         <div className="reservation-dropdown-container">
-                                            <this.props.CustomDropdown text={this.state.rooms[parseInt(room, 10)-1][0]}>
+                                            <this.props.CustomDropdown text={this.props.rooms[parseInt(room, 10)-1][0]}>
                                                 <Dropdown.Menu>
                                                     <Dropdown.Item text='1' onClick={() => this.props.setNrAdults({room}, '1')} />
                                                     <Dropdown.Item text='2' onClick={() => this.props.setNrAdults({room}, '2')} />
@@ -151,7 +151,7 @@ class Step1 extends React.Component {
                                     <div className="reservation-small-room-container" style={{width: "30%", marginRight: "15px"}}>
                                         <span style={{marginLeft: "20px", fontWeight: "bold", fontSize: "12px"}}>CHILD(REN)</span>
                                         <div className="reservation-dropdown-container">
-                                            <this.props.CustomDropdown text={this.state.rooms[parseInt(room, 10)-1][1]} flip="true">
+                                            <this.props.CustomDropdown text={this.props.rooms[parseInt(room, 10)-1][1]} flip="true">
                                                 <Dropdown.Menu>
                                                     <Dropdown.Item text='1' onClick={() => this.props.setNrChildren({room}, '1')} />
                                                     <Dropdown.Item text='2' onClick={() => this.props.setNrChildren({room}, '2')} />
