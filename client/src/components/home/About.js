@@ -26,7 +26,7 @@ const About = () => (
                     <CustomButton as={NavLink} to="/about">READ MORE</CustomButton>
                 </div>
             </div>
-            <div className="about-column-right"><img src={collage} style={{marginRight: "0px !important;", paddingRight: "0px !important;", display: "flex !important", justifyContent: "flex-end !important"}} width="90%" /></div>
+            <div className="about-column-right"><img src={collage} style={{marginRight: "0px !important", paddingRight: "0px !important", display: "flex !important", justifyContent: "flex-end !important"}} width="90%" /></div>
         </div>
         <div className="about-lower">
             <div className="about-card-row">
