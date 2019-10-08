@@ -12,11 +12,13 @@ const Quotes = () => {
 
         <Carousel.Item>
           <SlideContainer>
-            <img className= "pic-img"
-            src={TerraNovaCircle}
-            alt="First slide"
-            width="25%"
-            />
+            <RatingContainer>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+            </RatingContainer>
             <Carousel.Caption>
               <Quote> "This is the best place to stay in Yellowstone, we'll definitely be back again!" </Quote>
               <Author> JACK JOHNSON </Author>
@@ -27,13 +29,15 @@ const Quotes = () => {
 
           <Carousel.Item>
           <SlideContainer>
-            <img className= "pic-img"
-            src={TerraNovaCircle}
-            alt="First slide"
-            width="25%"
-            />
+            <RatingContainer>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+            </RatingContainer>
             <Carousel.Caption>
-              <Quote> "Best trip ever!" </Quote>
+              <Quote> "Best trip ever, the golf course is amazing... but nothing beats their iced tea and lemonade!" </Quote>
               <Author> ARNOLD PALMER </Author>
               <Location> From Louisville, Kentucky </Location>
             </Carousel.Caption>
@@ -50,7 +54,13 @@ const Container = styled.div`
 `;
 
 const SlideContainer = styled.div`
+  display: flex;
+  justify-content: center;
   margin-bottom: 300px !important;
+`;
+
+const RatingContainer = styled.div`
+  margin-top: 80px;
 `;
 
 const Quote = styled.h2`

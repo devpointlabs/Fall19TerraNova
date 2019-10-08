@@ -69,28 +69,42 @@ class Timer extends Component {
             <div className="timer">
               <div className="countdown">
 
-              <div className="countnumber">
-                {days}
+              <div className="timecontainer">
+                <div className="countnumber">
+                  {days}
+                </div>
+                <span className="countword"> Days </span>
               </div>
+
               <p className="colon"> : </p>
-              <div className="countnumber">
-                {hours}
+
+              <div className="timecontainer">
+                <div className="countnumber">
+                  {hours}
+                </div>
+                <span className="countword"> Hours </span>
               </div>
+
               <p className="colon"> : </p>
-              <div className="countnumber">
-                {minutes}
+
+              <div className="timecontainer">
+                <div className="countnumber">
+                  {minutes}
+                </div>
+                <span className="countword"> Minutes </span>
               </div>
+
               <p className="colon"> : </p>
-              <div className="countnumber">
-                {seconds}
+
+              <div className="timecontainer">
+                <div className="countnumber">
+                  {seconds}
+                </div>
+                <span className="countword"> Seconds </span>
               </div>
+
               </div>
-              <div className="countdownwords">
-                <span className="days"> Days </span>
-                <span className="hours"> Hours </span>
-                <span className="minutes"> Minutes </span>
-                <span className="seconds"> Seconds </span>
-              </div>
+          
             
             
             </div>
@@ -120,6 +134,34 @@ class Timer extends Component {
   
   
 
+//  <div className="timer">
+//  <div className="countdown">
+
+//  <div className="countnumber">
+//    {days}
+//  </div>
+//  <p className="colon"> : </p>
+//  <div className="countnumber">
+//    {hours}
+//  </div>
+//  <p className="colon"> : </p>
+//  <div className="countnumber">
+//    {minutes}
+//  </div>
+//  <p className="colon"> : </p>
+//  <div className="countnumber">
+//    {seconds}
+//  </div>
+//  </div>
+//  <div className="countdownwords">
+//    <span className="days"> Days </span>
+//    <span className="hours"> Hours </span>
+//    <span className="minutes"> Minutes </span>
+//    <span className="seconds"> Seconds </span>
+//  </div>
+
+
+// </div>
 
 
 
