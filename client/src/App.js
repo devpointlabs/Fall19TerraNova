@@ -16,16 +16,9 @@ import ComingSoon from './components/ComingSoon';
 
 const App = () => (
   <>
-    <Navbar />
     <FetchUser>
         <Switch>
-          <Route exact path="/comingsoon" component={ComingSoon} />
-          <Route exact path="/" component={Home} />
-          <Route exact path="/reservation" component={Reservation} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/termsconditions" component={Terms} />
-          <Route exact path="/roomsrates" component={RoomsRates} />
+          <Route exact path="/" component={ComingSoon} />
           <Route component={NoMatch} />
         </Switch>
     </FetchUser>
