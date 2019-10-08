@@ -10,7 +10,7 @@ const ComingSoon = () => {
     const startDate = "2019/10/25 16:00"//new Date().getTime() + 31536000000; // 1 year (Milliseconds Unit)
     return (
       <>
-      <div className="coloroverlay"> 
+      
       <div className="comingsoon">
      
           <img className="forest-image" src={Forest} alt="forest" width="100%" />
@@ -34,7 +34,7 @@ const ComingSoon = () => {
         
 
       </div>
-      </div>
+      
     
       </>
     );
