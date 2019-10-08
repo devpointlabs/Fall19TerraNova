@@ -1,5 +1,6 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel'
+import Calendar from 'react-calendar'
 import yellowstone from '../../images/top/yellowstone.jpg'
 import yellowstone1 from '../../images/top/yellowstone1.jpg'
 import yellowstone2 from '../../images/top/yellowstone2.jpg'
@@ -18,6 +19,9 @@ const Top = () => {
       </div>
       <div className="bottomoverlay">
         <ContentBottom> AT WEST YELLOWSTONE </ContentBottom>
+      </div>
+      <div className="calendaroverlay">
+        <Calendar/>
       </div>
     
     <Carousel nextIcon="" prevIcon="" >

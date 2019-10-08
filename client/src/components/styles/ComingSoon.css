@@ -2,6 +2,8 @@
 
 
 .firstoverlay { 
+  display: flex;
+  justify-content: center;
   color:white;
   position:absolute;
   font-size: 70px;
@@ -13,6 +15,8 @@
 }
 
 .secondoverlay { 
+  display: flex;
+  justify-content: center;
   color:white;
   position:absolute;
   font-size: 35px;
@@ -24,6 +28,8 @@
 }
 
 .thirdoverlay { 
+  display: flex;
+  justify-content: center;
   color:white;
   position:absolute;
   font-size: 22px;
@@ -35,6 +41,8 @@
 }
 
 .timeoverlay { 
+  display: flex;
+  justify-content: center;
   color:#fff;
   position:absolute;
   top:60%;
@@ -43,10 +51,11 @@
 }
 
 .logooverlay { 
+  display: flex;
+  justify-content: center;
   color:rgb(255, 255, 255);
   position:absolute;
   top: 95%;
-  margin-left: 670px;
   width:95%;
 
 }
