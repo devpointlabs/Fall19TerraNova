@@ -6,6 +6,7 @@ import styled from "styled-components";
 import axios from "axios";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
+import * as dayjs from "dayjs";
 
 class Reservation extends React.Component {
     state = {
@@ -22,7 +23,15 @@ class Reservation extends React.Component {
     }
 
     componentDidMount() {
+        //let now = dayjs();
+        //console.log(now.format());
+        //debugger
         this.setState({ _isMounted: true })
+    }
+
+    onDayClick = ({date}) => {
+        console.log(date.format());
+        debugger
     }
 
     checkAvailability = () => {
@@ -129,6 +138,7 @@ class Reservation extends React.Component {
                         nrRooms={this.state.nrRooms}
                         nrRoomsArray={this.state.nrRoomsArray}
                         rooms={this.state.rooms}
+                        onDayClick={this.onDayClick}
                     />
                 }
                 { this.state.step === 2 && 

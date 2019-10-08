@@ -48,6 +48,8 @@ class Navbar extends React.Component {
     render() {
         return (
             <>
+                { this.props.location.pathname !== "/comingsoon" &&
+            <>
                 <div className="navbar-upper-background">
                     <div>
                         <Icon style={{marginRight: "5px", paddingTop: "0px !important", paddingBottom: "0px !important"}} name="snowflake" />
@@ -150,6 +152,8 @@ class Navbar extends React.Component {
                             </Nav.Collapse>
                     </div>
                 </Nav>
+            </>
+                }
             </>
         );
     };
