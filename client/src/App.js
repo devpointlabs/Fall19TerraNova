@@ -10,6 +10,7 @@ import FetchUser from './components/FetchUser';
 import ProtectedRoute from './components/ProtectedRoute';
 import Reservation from './components/Reservation';
 import { Switch, Route, } from 'react-router-dom';
+import ComingSoon from './components/ComingSoon';
 // import { StateProvider } from './providers/StateProvider';
 
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route exact path="/register" component={Register} />
           <Route exact path="/termsconditions" component={Terms} />
           <Route exact path="/roomsrates" component={RoomsRates} />
+          <Route exact path="/comingsoon" component={ComingSoon} />
           <Route component={NoMatch} />
         </Switch>
     </FetchUser>
