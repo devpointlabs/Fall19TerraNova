@@ -18,7 +18,7 @@ const About = () => (
         <div className="about-upper">
             <div className="about-column-left">
                 <div className="about-header">About Us</div>
-                <div className="about-hr-div"><hr class="about-line" /></div>
+                <div className="about-hr-div"><hr className="about-line" /></div>
                 <div className="about-text">
                     <p>Terra Nova Cabins represent the best in western hospitality and comfort, wrapped in a contemporary expression that will inspire your own unique adventures. Both a haven from the world and a basecamp for adventure, Terra Nova Cabins is your new Southwestern Montana destination rental.</p>
                     <p>From early morning walks near the lake, to late night gatherings around a fire, Terra Nova provides the perfect location for your Montana retreat. Explore Yellowstone's natural beauty, or simply stay snuggled up in our cozy cabins and enjoy the views from the inside out.</p>
