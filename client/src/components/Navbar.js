@@ -5,7 +5,7 @@ import { Menu } from 'semantic-ui-react';
 import { Navbar as Nav, Nav as Navv, NavDropdown } from 'react-bootstrap';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import styled from "styled-components";
-import "./Navbar.css";
+import "./styles/Navbar.css";
 import logo from "../images/logo.png";
 import { Icon } from "semantic-ui-react"
 import axios from 'axios'
@@ -48,7 +48,7 @@ class Navbar extends React.Component {
     render() {
         return (
             <>
-                <div className="upper-background">
+                <div className="navbar-upper-background">
                     <div>
                         <Icon style={{marginRight: "5px", paddingTop: "0px !important", paddingBottom: "0px !important"}} name="snowflake" />
                         72°F
@@ -58,10 +58,10 @@ class Navbar extends React.Component {
                         (+1)406.646.7200
                     </div>
                     <div style={{alignItems: "right"}}>
-                        <Nav variant="dark" bg="#373737" expand="lg" collapseOnSelect>
+                        <Nav variant="dark" bg="#373737" expand="lg" collapseOnSelect style={{boxShadow: "none !important"}}>
                             <Nav.Toggle aria-controls="basic-navbar-nav" />
                             <Nav.Collapse id="basic-navbar-nav">
-                                <Navv className="mr-auto">
+                                <Navv className="mr-auto" style={{boxShadow: "none !important"}}>
                                     <MenuButton
                                         exact
                                         to="/mytrips"
@@ -72,14 +72,14 @@ class Navbar extends React.Component {
                                     </MenuButton>
                                     <MenuButton
                                         exact
-                                        to="/user"
+                                        to="/login"
                                         style={{marginRight: "10px"}}
                                         activeStyle={menuButtonActive}
                                     >
                                         <Icon name="user" style={{marginBottom: "5px"}} />
                                         Sign In or Join
                                     </MenuButton>
-                                    <NavDropdown className="navdropdown" alignRight title={<Icon name="dollar sign" />} id="collapsible-nav-dropdown" style={{marginTop: "3px"}}>
+                                    <NavDropdown className="navbar-navdropdown" alignRight title={<Icon name="dollar sign" />} id="collapsible-nav-dropdown" style={{marginTop: "3px"}}>
                                         <NavDropdown.Item href="#action/3.1"><Icon name="dollar sign" /> (USD)</NavDropdown.Item>
                                         <NavDropdown.Item href="#action/3.2"><Icon name="euro sign" /> (EUR)</NavDropdown.Item>
                                         <NavDropdown.Item href="#action/3.3"><Icon name="pound sign" /> (GBP)</NavDropdown.Item>
@@ -94,13 +94,13 @@ class Navbar extends React.Component {
                         </Nav>
                     </div>
                 </div>
-                <Nav className="background" expand="lg" sticky="top">
-                    <div className="left">
+                <Nav className="navbar-background" expand="lg" sticky="top">
+                    <div className="navbar-left">
                         <Nav.Brand href="/">
                             <img src={logo} height="80px" width="50px" />
                         </Nav.Brand>
                     </div>
-                    <div className="right">
+                    <div className="navbar-right">
                             <Nav.Toggle aria-controls="basic-navbar-nav" />
                             <Nav.Collapse id="basic-navbar-nav">
                                 <Navv className="mr-auto">
@@ -113,7 +113,7 @@ class Navbar extends React.Component {
                                     </NavButton>
                                     <NavButton
                                         exact
-                                        to="/rooms"
+                                        to="/roomsrates"
                                         activeStyle={navButtonActive}
                                     >
                                         ROOMS

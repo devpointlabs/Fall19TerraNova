@@ -13,7 +13,7 @@ const Top = () => {
 
   return (
     <>
-      <div className="overlay">
+      <div className="topoverlay">
         <ContentTop>Welcome To Terra Nova Cabins</ContentTop>
       </div>
       <div className="bottomoverlay">
@@ -23,7 +23,6 @@ const Top = () => {
     <Carousel nextIcon="" prevIcon="" >
       <Carousel.Item>
         <img
-          // className="d-block w-100"
           src={yellowstone}
           alt="First slide"
           width="100%"
@@ -32,7 +31,6 @@ const Top = () => {
 
       <Carousel.Item>
         <img
-          // className="d-block w-100"
           src={yellowstone1}
           alt="Second slide"
           width="100%"
@@ -41,7 +39,6 @@ const Top = () => {
 
       <Carousel.Item>
         <img
-          // className="d-block w-100"
           src={yellowstone2}
           alt="Third slide"
           width="100%"
@@ -74,5 +71,3 @@ const ContentBottom = styled.h3`
 
 
 export default Top;
-
-

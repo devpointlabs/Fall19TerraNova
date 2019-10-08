@@ -1,0 +1,48 @@
+import React from 'react';
+import Timer from './Timer';
+import Foot from './home/Foot';
+import Forest from '../images/comingsoon/Landing_Forest.png'
+import Logo from '../images/Terra_Nova_Logo.png'
+import './styles/ComingSoon.css'
+
+
+
+const ComingSoon = () => {
+    const startDate = "2019/10/25 16:00"//new Date().getTime() + 31536000000; // 1 year (Milliseconds Unit)
+    return (
+      <>
+      <div className="coloroverlay"> 
+      <div className="comingsoon">
+     
+          <img className="forest-image" src={Forest} alt="forest" width="100%" />
+       
+        <div className="firstoverlay"> 
+          <p> COMING SOON </p>
+        </div>
+        <div className="secondoverlay"> 
+          <p> We are working harder! </p>
+        </div>
+        <div className="thirdoverlay"> 
+          <p> The website will be open in </p>
+        </div>
+        <div className="timeoverlay"> 
+          <Timer startDate={startDate} />
+        </div>
+
+        <div className="logooverlay">
+          <img src={Logo} alt="logo" width="7.5%"/>
+        </div>
+        
+
+      </div>
+      </div>
+      <Foot/>
+      </>
+    );
+  }
+
+
+
+
+
+  export default ComingSoon;

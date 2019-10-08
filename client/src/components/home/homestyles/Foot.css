@@ -1,0 +1,96 @@
+.foot-icon {
+  width: 13%;
+  margin-top: 15px;
+  margin-left: 160px;
+
+}
+
+.payment-icon {
+  width: 80%;
+  margin-top: -60px;
+  margin-left: 22px;
+}
+
+.mail-icon {
+  width: 06.25%;
+  margin-top: 14px;
+  margin-left: 124px;
+}
+
+
+.footer-wrapper {
+  background-color: rgb(36, 36, 36);
+}
+
+
+.email-container {
+  background-color: rgb(46, 46, 46);
+  height: 120px;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.link-container {
+  background-color: rgba(35, 35, 35, 1);
+  height: 395px;
+  width: 100%;
+ 
+}
+
+.icon-container {
+  margin-left: 980px;
+  margin-top: 180px;
+  width: 400px;
+}
+
+.cpy-container {
+  margin-left: 135px;
+  padding-top: 60px;
+  height: 20px;
+  width: 150px;
+}
+
+.dps-container {
+  margin-left: 265px;
+  padding-top: -200px;
+  height: 20px;
+  width: 150px;
+}
+
+.left-links {
+  display: flex;
+  flex-direction: column;
+  margin-left: 530px;
+  margin-top: -270px;
+  height: 100px;
+  width: 180px;
+  font-size: 14px;
+}
+
+.center-links {
+  display: flex;
+  flex-direction: column;
+  margin-left: 830px;
+  margin-top: -102px;
+  height: 100px;
+  width: 180px;
+  font-size: 14px;
+}
+
+.right-links {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1120px;
+  margin-top: -105px;
+  height: 100px;
+  width: 180px;
+  font-size: 14px;
+}
+ 
+.link {
+  color: #ACACAC;
+}
+
+.link:hover {
+  color: #484848
+}

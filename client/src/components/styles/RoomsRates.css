@@ -1,0 +1,65 @@
+
+.headcontainer {
+  display: flex;
+  justify-content: center;
+  background-color: #898989;
+  width: 100%;
+  height: 185px;
+}
+
+.rooms {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 200px;
+  margin-top: 50px;
+  margin-bottom: 210px;
+}
+
+.mountainview{
+  /* display: flex; */
+  width: 500px;
+  height: 400px;
+  
+}
+
+.lakeview{
+  /* display: flex; */
+  width: 500px;
+  height: 400px;
+  margin-left: 40px;
+  
+}
+
+.familyroom{
+  /* display: flex; */
+  width: 500px;
+  height: 400px;
+  margin-top: 200px;
+  
+}
+
+.kirkwood{
+  /* display: flex; */
+  width: 500px;
+  height: 400px;
+  margin-left: 40px;
+  margin-top: 200px;
+  
+}
+
+.listcontainer{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.detailscontainer{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.headtext {
+  padding-top:50px;
+  font-size: 35px;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+}
