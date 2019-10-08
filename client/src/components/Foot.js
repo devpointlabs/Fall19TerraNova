@@ -1,8 +1,8 @@
 import React from 'react';
-import icon from '../../images/foot/icon.png'
-import mail from '../../images/foot/mail.png'
-import paymenticons from '../../images/foot/paymenticons.png'
-import './homestyles/Foot.css'
+import icon from '../images/foot/icon.png'
+import mail from '../images/foot/mail.png'
+import paymenticons from '../images/foot/paymenticons.png'
+import './styles/Foot.css'
 
 
 const Foot = () => (

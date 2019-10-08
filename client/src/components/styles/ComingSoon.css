@@ -5,7 +5,7 @@
   color:white;
   position:absolute;
   font-size: 70px;
-  top: 50%;
+  top: 30%;
   width:100%;
   text-align:center;
   font-family: 'Muli', sans-serif;
@@ -16,7 +16,7 @@
   color:white;
   position:absolute;
   font-size: 35px;
-  top: 62%;
+  top: 42%;
   width:100%;
   text-align:center;
   font-family: 'Muli', sans-serif;
@@ -26,8 +26,8 @@
 .thirdoverlay { 
   color:white;
   position:absolute;
-  font-size: 25px;
-  top: 72%;
+  font-size: 22px;
+  top: 54%;
   width:100%;
   text-align:center;
   font-family: 'Muli', sans-serif;
@@ -37,7 +37,7 @@
 .timeoverlay { 
   color:#fff;
   position:absolute;
-  top:80%;
+  top:60%;
   width:100%;
   text-align:center;
 }
@@ -45,8 +45,8 @@
 .logooverlay { 
   color:rgb(255, 255, 255);
   position:absolute;
-  margin-top: -200px;
+  top: 95%;
   margin-left: 670px;
-  width:100%;
+  width:95%;
 
 }
