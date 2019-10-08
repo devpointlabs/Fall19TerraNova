@@ -1,14 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Form, NavDropdown, Button, Popover, OverlayTrigger } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
-import "./Reservation.css";
+import "./styles/Reservation.css";
 import { LinkedCalendar } from '../components/rb-datepicker';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import styled from "styled-components";
 import axios from "axios";
 import "./daterangepicker.css";
 import ReactDOM from "react-dom";
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 
 class Reservation extends React.Component {
     state = {

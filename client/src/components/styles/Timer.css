@@ -1,0 +1,96 @@
+.timer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  font-size: 20px;
+  justify-content: center;
+  border-style: solid;
+  border-width: 3px;
+  border-color: white;
+  width: 800px;
+  margin-left: 330px;
+}
+
+.countdown {
+  display: flex;
+}
+
+.countdownwords {
+  display: flex;
+  
+}
+
+.countnumber {
+  margin-left: 60px;
+  margin-right: 60px;
+  margin-top: 20px;
+  font-size: 60px;
+}
+
+.days {
+  margin-left: 30px;
+  margin-top: -30px;
+  font-size: 25px;
+
+}
+
+.hours {
+  margin-left: 140px;
+  margin-right: -20px;
+  margin-top: -30px;
+  font-size: 25px;
+}
+
+.minutes {
+  margin-left: 150px;
+  margin-top: -30px;
+  font-size: 25px;
+
+}
+
+.seconds {
+  margin-left: 110px;
+  margin-top: -30px;
+  font-size: 25px;
+
+}
+
+.colon {
+  font-size: 60px;
+  margin-top: 20px;
+}
+
+.timetext {
+  font-size: 100px;
+  color: black;
+}
+
+.timenames {
+  font-size: 100px;
+}
+
+
+
+/* .timer > div {
+  padding: 10px;
+  background:transparent;
+  color: #fff;
+  font-size: 60px;
+  margin-right: 2px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+}
+.timer > div > span {
+  text-transform: uppercase;
+  color: #999;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+} */
+.expired {
+  font-size: 20px;
+  color: rgb(126, 49, 49);
+  border: 1px solid rgb(126, 49, 49);
+  padding: 20px;
+}
