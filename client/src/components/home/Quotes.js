@@ -13,11 +13,11 @@ const Quotes = () => {
         <Carousel.Item>
           <SlideContainer>
             <RatingContainer>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
+              <span className="fa fa-star checked"></span>
+              <span className="fa fa-star checked"></span>
+              <span className="fa fa-star checked"></span>
+              <span className="fa fa-star checked"></span>
+              <span className="fa fa-star checked"></span>
             </RatingContainer>
             <Carousel.Caption>
               <Quote> "This is the best place to stay in Yellowstone, we'll definitely be back again!" </Quote>
@@ -30,11 +30,11 @@ const Quotes = () => {
           <Carousel.Item>
           <SlideContainer>
             <RatingContainer>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
+              <span className="fa fa-star checked"></span>
+              <span className="fa fa-star checked"></span>
+              <span className="fa fa-star checked"></span>
+              <span className="fa fa-star checked"></span>
+              <span className="fa fa-star checked"></span>
             </RatingContainer>
             <Carousel.Caption>
               <Quote> "Best trip ever, the golf course is amazing... but nothing beats their iced tea and lemonade!" </Quote>

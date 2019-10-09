@@ -13,11 +13,8 @@ class Step3 extends React.Component {
                     <div className="reservation-space" />
                     <div className="reservation-active">
                         <div className="reservation-number">3.</div>
-                        <div className="reservation-text">Make Reservation</div>
+                        <div className="reservation-text">Billing & Confirmation</div>
                     </div>
-                    <div className="reservation-space" />
-                    <div className="reservation-number">4.</div>
-                    <div className="reservation-text">Confirmation</div>
                 </div>
             </>
         )

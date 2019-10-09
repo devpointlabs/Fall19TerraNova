@@ -5,8 +5,8 @@ import Logo from '../../images/gallery-logo.png';
 import '../home/homestyles/PhotoGallery.css';
 // import Carousel, { Modal, ModalGateway } from 'react-images';
 import { OverlayTrigger, Popover, Carousel, Modal, Row } from 'react-bootstrap';
-import Hotel1 from '../../images/Hotel1.jpg'
-import Hotel2 from '../../images/Hotel2.jpg'
+import Hotel1 from '../../images/Hotel1.jpg';
+import Hotel2 from '../../images/Hotel2.jpg';
 import Hotel3 from '../../images/Hotel3.jpg';
 import Hotel4 from '../../images/Hotel4.jpg';
 import Hotel5 from '../../images/Hotel5.jpg';
