@@ -20,9 +20,9 @@ const Top = () => {
       <div className="bottomoverlay">
         <ContentBottom> AT WEST YELLOWSTONE </ContentBottom>
       </div>
-      <div className="calendaroverlay">
+      {/* <div className="calendaroverlay">
         <Calendar/>
-      </div>
+      </div> */}
     
     <Carousel nextIcon="" prevIcon="" >
       <Carousel.Item>
