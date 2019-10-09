@@ -12,7 +12,6 @@ const Home = () => (
     <About />
     <Quotes />
     <Events />
-    {/* <Rooms /> */}
     <PhotoGallery />
   
 
