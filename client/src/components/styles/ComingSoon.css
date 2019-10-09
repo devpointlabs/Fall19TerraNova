@@ -1,61 +1,129 @@
+/* mobile */
 
 
+@media all and (max-width: 699px) and (min-width: 400px) {
 
-.firstoverlay { 
-  display: flex;
-  justify-content: center;
-  color:white;
-  position:absolute;
-  font-size: 70px;
-  top: 30%;
-  width:100%;
-  text-align:center;
-  font-family: 'Muli', sans-serif;
+  .firstoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    z-index: 40;
+    font-size: 300%;
+    top: 5%;
+    width:100%;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+
+  }
+
+  .secondoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 140%;
+    top: 13%;
+    width:100%;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .thirdoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 90%;
+    top: 20%;
+    width:100%;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .timeoverlay { 
+    display: flex;
+    justify-content: center;
+    color:#fff;
+    position:absolute;
+    top: 25%;
+    width:100%;
+    text-align:center;
+  }
+
+  .logooverlay { 
+    display: flex;
+    justify-content: center;
+    color:rgb(255, 255, 255);
+    position:absolute;
+    top: 37%;
+    width:95%;
+
+  }
 
 }
 
-.secondoverlay { 
-  display: flex;
-  justify-content: center;
-  color:white;
-  position:absolute;
-  font-size: 35px;
-  top: 42%;
-  width:100%;
-  text-align:center;
-  font-family: 'Muli', sans-serif;
-  
-}
+/* web */
 
-.thirdoverlay { 
-  display: flex;
-  justify-content: center;
-  color:white;
-  position:absolute;
-  font-size: 22px;
-  top: 54%;
-  width:100%;
-  text-align:center;
-  font-family: 'Muli', sans-serif;
-  
-}
+@media all and (min-width: 700px) { 
+  .firstoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 500%;
+    top: 30%;
+    width:100%;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
 
-.timeoverlay { 
-  display: flex;
-  justify-content: center;
-  color:#fff;
-  position:absolute;
-  top:60%;
-  width:100%;
-  text-align:center;
-}
+  }
 
-.logooverlay { 
-  display: flex;
-  justify-content: center;
-  color:rgb(255, 255, 255);
-  position:absolute;
-  top: 95%;
-  width:95%;
+  .secondoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 250%;
+    top: 42%;
+    width:100%;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
 
+  .thirdoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 160%;
+    top: 54%;
+    width:100%;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .timeoverlay { 
+    display: flex;
+    justify-content: center;
+    color:#fff;
+    position:absolute;
+    top:60%;
+    width:100%;
+    text-align:center;
+  }
+
+  .logooverlay { 
+    display: flex;
+    justify-content: center;
+    color:rgb(255, 255, 255);
+    position:absolute;
+    top: 95%;
+    width:95%;
+
+  }
 }

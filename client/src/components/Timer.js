@@ -109,64 +109,10 @@ class Timer extends Component {
             
             </div>
 
-            {/* <div className="timer">
-                <div>
-                    {days}
-                    <span>Days</span>
-                </div>
-                <div>
-                    {hours}
-                    <span>Hours</span>
-                </div>
-                <div>
-                    {minutes}
-                    <span>Minutes</span>
-                </div>
-                <div>
-                    {seconds}
-                    <span>Seconds</span>
-                </div>
-                </div> */}
           </>
      );
    }
  }
   
-  
-
-//  <div className="timer">
-//  <div className="countdown">
-
-//  <div className="countnumber">
-//    {days}
-//  </div>
-//  <p className="colon"> : </p>
-//  <div className="countnumber">
-//    {hours}
-//  </div>
-//  <p className="colon"> : </p>
-//  <div className="countnumber">
-//    {minutes}
-//  </div>
-//  <p className="colon"> : </p>
-//  <div className="countnumber">
-//    {seconds}
-//  </div>
-//  </div>
-//  <div className="countdownwords">
-//    <span className="days"> Days </span>
-//    <span className="hours"> Hours </span>
-//    <span className="minutes"> Minutes </span>
-//    <span className="seconds"> Seconds </span>
-//  </div>
-
-
-// </div>
-
-
-
-
-
-
 
 export default Timer;
