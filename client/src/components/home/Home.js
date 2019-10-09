@@ -15,7 +15,7 @@ const Home = () => (
     <Events />
     {/* <Rooms /> */}
     <PhotoGallery />
-    <Foot />
+    {/* <Foot /> */}
 
   </>
 
