@@ -1,2 +1,0 @@
-class Priceevent < ApplicationRecord
-end
