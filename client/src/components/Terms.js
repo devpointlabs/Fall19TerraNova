@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
 import { MDBContainer, } from "mdbreact";
-import Foot from './home/Foot';
 
 
 
@@ -176,7 +175,7 @@ const Terms = () => (
                 </div>
         </MDBContainer>
     </TermsContainer>
-<Foot />
+
 </>
 );
 

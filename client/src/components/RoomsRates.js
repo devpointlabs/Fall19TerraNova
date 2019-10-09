@@ -1,5 +1,4 @@
 import React from 'react';
-import Foot from './home/Foot';
 import './styles/RoomsRates.css'
 import styled from 'styled-components'
 import mountainview from '../images/rooms/mountainview.jpg'
@@ -121,7 +120,6 @@ const RoomsRates = () => (
       </div>
     </div>
 
-    <Foot/>
   </>
 )
 

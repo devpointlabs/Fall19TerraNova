@@ -3,9 +3,9 @@
    position:absolute;
      z-index:12;
    top:40%;
-   /* left:0; */
    width:100%;
    text-align:center;
+   text-shadow: 4px 4px #373737;
  }
 
  .bottomoverlay { 
@@ -13,9 +13,18 @@
   position:absolute;
     z-index:12;
   top:58%;
-  /* left:0; */
   width:100%;
   text-align:center;
+  text-shadow: 4px 4px #373737;
+}
+
+.calendaroverlay {
+  position:absolute;
+    z-index:12;
+  top: 80%;
+  width:100%;
+  text-align:center;
+
 }
 
  .carouselcontrol {
