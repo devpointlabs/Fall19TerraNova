@@ -12,7 +12,15 @@ a:link {
     margin-top: -40px;
   }
 
-  .cabin-img {
+.carousel-gallery-item {
+    width: 100%;
+}
+
+.modal-content {
+    width: 100% !important;
+}
+
+  /* .cabin-img {
     margin-right: -20px !important;
     margin-left: 5px !important;
     width: 340px;
@@ -21,6 +29,4 @@ a:link {
     border: 0px;
     stroke: 0px;
     padding: 25px;
-  }
-
-
+  } */

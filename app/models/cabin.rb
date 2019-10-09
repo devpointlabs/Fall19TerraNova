@@ -85,11 +85,10 @@ class Cabin < ApplicationRecord
           if grandWantedDates.include?(tdate.to_s)
             takenArray << tdate.to_s
           end
-        end
-
-        grandWantedDates.each do |wdate|
-          if takenArray.include?(wdate) == false
-            availableDates << wdate
+          grandWantedDates.each do |wdate|
+            if takenArray.include?(wdate) == false
+              availableDates << wdate
+            end
           end
         end
 

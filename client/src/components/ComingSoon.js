@@ -12,7 +12,7 @@ const ComingSoon = () => {
       <>
       
       <div className="comingsoon">
-     
+          
           <img className="forest-image" src={Forest} alt="forest" width="100%" />
        
         <div className="firstoverlay"> 

@@ -9,6 +9,8 @@ const Foot = () => (
 
 
   <>
+  <div>
+
     <div className="email-container">
       <img className= "mail-icon" src={mail} alt="mail" />
     </div>
@@ -17,11 +19,15 @@ const Foot = () => (
     <div className="link-container">
       <img className= "foot-icon" src={icon} alt="icon" />
       
-      <div className="cpy-container">
-        <p style={{color: "#727272"}}> Copyright @ 2019 by </p>
-      </div>
-      <div className="dps-container">
-        <p style={{color: "white"}}> DevPointStudios LLC</p> 
+      <hr className="line"/>
+      
+      <div className="copyright">
+        <div className="cpy-container">
+          <p style={{color: "#727272"}}> Copyright @ 2019 by </p>
+        </div>
+        <div className="dps-container">
+          <p style={{color: "white"}}> DevPointStudios LLC</p> 
+        </div>
       </div>
 
       <div className="left-links">
@@ -63,6 +69,7 @@ const Foot = () => (
       </div>
       
     </div>
+  </div>
   </>
 )
 
