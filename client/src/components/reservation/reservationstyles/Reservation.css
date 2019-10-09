@@ -60,8 +60,37 @@
     width: 23%;
 }
 
+.reservation-left-box-lower {
+    display: flex;
+    flex-direction: column;
+    background-color: #efefef;
+}
+
+.reservation-left-box-container {
+    display: flex;
+    flex-direction: column;
+    width: 23%;
+}
+
+.reservation-left-box-select-rooms {
+    display: flex;
+    flex-direction: column;
+    background-color: #efefef;
+    margin-bottom: 20px;
+}
+
 .reservation-right-box {
     background-color: #efefef;
+    width: 77%;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+    height: 600px;
+}
+
+.reservation-right-box-white {
+    background-color: white;
     width: 77%;
     padding-left: 20px;
     padding-right: 20px;
@@ -129,6 +158,10 @@
 
 .reservation-custom-button:hover {
     background-color: rgb(223, 193, 141) !important;
+}
+
+.reservation-room-container {
+    
 }
 
 div[role="listbox"] {

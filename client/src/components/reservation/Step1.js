@@ -50,12 +50,6 @@ class Step1 extends React.Component {
         }
     }
 
-    popoverCalendar = (
-        <Popover id="popover-basic">
-          <LinkedCalendar onDatesChange={this.onDatesChange} />
-        </Popover>
-    );
-
     render() {
         return(
             <>
@@ -76,7 +70,9 @@ class Step1 extends React.Component {
                 </div>
                 <div className="reservation-hr-container"><hr style={{marginTop: "-1px", width: "60%"}} /></div>
                 <div className="reservation-container">
-                    { this.props.renderLeftBox() }
+                    <div className="reservation-left-box">
+                        { this.props.renderLeftBox() }
+                    </div>
                     <div className="reservation-right-box">
                         <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>AVAILABILITY</p>
                         <div className="reservation-hr-container"><div className="reservation-line" /></div>
