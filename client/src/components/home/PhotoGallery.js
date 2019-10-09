@@ -4,7 +4,7 @@ import '../home/homestyles/PhotoGallery.css';
 import Logo from '../../images/gallery-logo.png';
 import '../home/homestyles/PhotoGallery.css';
 // import Carousel, { Modal, ModalGateway } from 'react-images';
-import { OverlayTrigger, Popover, Carousel, Image } from 'react-bootstrap';
+import { OverlayTrigger, Popover, Carousel, Modal, Row } from 'react-bootstrap';
 import Hotel1 from '../../images/Hotel1.jpg'
 import Hotel2 from '../../images/Hotel2.jpg'
 import Hotel3 from '../../images/Hotel3.jpg';
@@ -21,9 +21,6 @@ import Room4 from '../../images/Room4.jpg';
 import Room5 from '../../images/Room5.jpg';
 import Room6 from '../../images/Room6.jpg';
 import Bathroom2 from '../../images/Bathroom2.jpg';
-
-
-
 
 const Container = styled.div`
     left: 0;
@@ -48,85 +45,81 @@ const Nav = styled.div`
 `
 
 class PhotoGallery extends React.Component {
+    state = { show: false };
 
-    popover = (
+    handleClose = () => this.setState({ show: false });
 
-        <Popover id="popover-basic">
-            <Carousel>
-                <Carousel.Item className="carousel-gallery-item">
-                    <img src={Hotel1} width="400%"/>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img src={Hotel2} />
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img src={Hotel3} />
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img src={Hotel4} />
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img src={Hotel5} />
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img src={Hotel6} />
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img src={Hotel7} />
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img src={Hotel8} />
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img src={Hotel9} />
-                </Carousel.Item>
-            </Carousel>
-        </Popover>
-     
-
-    );
+    handleShow = () => this.setState({ show: true });
 
     render() {
         
         return (
             <>
-            <Container>
-                <Header>Our Gallery</Header>
-                <img className="gallery-icon-img" src={Logo} />
-                    <Nav class="navbar">
-                        <a href="#Hotel & Ground" style={{marginRight: "60px", fontSize: "20px", color: "#ababab"}}>HOTEL & GROUND</a>
-                        <a href="#Room/Suite" style={{marginRight: "60px", fontSize: "20px", color: "#ababab"}}>ROOM/SUITE</a>
-                        <a href="#Bathroom" style={{marginRight: "55px", fontSize: "20px", color: "#ababab"}}>BATHROOM</a>
-                    </Nav>
-            </Container>
-                <OverlayTrigger trigger="click" placement="right" overlay={this.popover}>
-                <img src={Hotel1} width="425px" />
-                </OverlayTrigger>
-                <OverlayTrigger trigger="click" placement="right" overlay={this.popover}>
-                <img src={Hotel2} width="425px" />
-                </OverlayTrigger>    
-                <OverlayTrigger trigger="click" placement="right" overlay={this.popover}>
-                <img src={Hotel3} width="425px" />
-                </OverlayTrigger>          
-                <OverlayTrigger trigger="click" placement="right" overlay={this.popover}>
-                <img src={Hotel4} width="425px" />
-                </OverlayTrigger>          
-                <OverlayTrigger trigger="click" placement="right" overlay={this.popover}>
-                <img src={Hotel5} width="425px" />
-                </OverlayTrigger>          
-                <OverlayTrigger trigger="click" placement="right" overlay={this.popover}>
-                <img src={Hotel6} width="425px" />
-                </OverlayTrigger>          
-                <OverlayTrigger trigger="click" placement="right" overlay={this.popover}>
-                <img src={Hotel7} width="425px" />
-                </OverlayTrigger>          
-                <OverlayTrigger trigger="click" placement="right" overlay={this.popover}>
-                <img src={Hotel8} width="425px" />
-                </OverlayTrigger>          
-                <OverlayTrigger trigger="click" placement="right" overlay={this.popover}>
-                <img src={Hotel9} width="425px" />
-                </OverlayTrigger>          
+                <Container style={{paddingBottom: "30px"}}>
+                    <Header>Our Gallery</Header>
+                    <img className="gallery-icon-img" src={Logo} />
+                        <Nav class="navbar">
+                            <a href="#Hotel & Ground" style={{marginRight: "60px", fontSize: "20px", color: "#ababab"}}>HOTEL & GROUND</a>
+                            <a href="#Room/Suite" style={{marginRight: "60px", fontSize: "20px", color: "#ababab"}}>ROOM/SUITE</a>
+                            <a href="#Bathroom" style={{marginRight: "55px", fontSize: "20px", color: "#ababab"}}>BATHROOM</a>
+                        </Nav>
+                </Container>
+
+                <Container style={{display: "flex", justifyContent: "center", paddingLeft: "6%", paddingRight: "6%"}}>
+                    <Row style={{display: "flex", justifyContent: "center"}}>
+                        <img src={Hotel1} width="425px" onClick={this.handleShow} />
+                        <img src={Hotel2} width="425px" onClick={this.handleShow} />
+                        <img src={Hotel3} width="425px" onClick={this.handleShow} />
+                    </Row>
+                    <Row style={{display: "flex", justifyContent: "center"}}>
+                        <img src={Hotel4} width="425px" onClick={this.handleShow} />
+                        <img src={Hotel5} width="425px" onClick={this.handleShow} />
+                        <img src={Hotel6} width="425px" onClick={this.handleShow} />
+                    </Row>
+                    <Row style={{display: "flex", justifyContent: "center"}}>
+                        <img src={Hotel7} width="425px" onClick={this.handleShow} />
+                        <img src={Hotel8} width="425px" onClick={this.handleShow} />
+                        <img src={Hotel9} width="425px" onClick={this.handleShow} /> 
+                    </Row>
+                </Container>   
                  
+                <Modal 
+                    show={this.state.show} 
+                    onHide={this.handleClose}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Carousel>
+                        <Carousel.Item className="carousel-gallery-item">
+                            <img src={Hotel1} width="100%" />
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img src={Hotel2} width="100%" />
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img src={Hotel3} width="100%" />
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img src={Hotel4} width="100%" />
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img src={Hotel5} width="100%" />
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img src={Hotel6} width="100%" />
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img src={Hotel7} width="100%" />
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img src={Hotel8} width="100%" />
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img src={Hotel9} width="100%" />
+                        </Carousel.Item>
+                    </Carousel>
+                </Modal>
             </>
         );
     };
@@ -135,10 +128,3 @@ class PhotoGallery extends React.Component {
 
 
 export default PhotoGallery;
-
-
-
-
-
-
-
