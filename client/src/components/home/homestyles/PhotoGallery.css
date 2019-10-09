@@ -12,7 +12,13 @@ a:link {
     margin-top: -40px;
   }
 
-  .cabin-img {
+.carousel-gallery-item {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+}
+
+  /* .cabin-img {
     margin-right: -20px !important;
     margin-left: 5px !important;
     width: 340px;
@@ -21,6 +27,6 @@ a:link {
     border: 0px;
     stroke: 0px;
     padding: 25px;
-  }
+  } */
 
 
