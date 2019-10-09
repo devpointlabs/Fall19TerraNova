@@ -1,11 +1,14 @@
 import React from 'react';
-import { Form, OverlayTrigger } from "react-bootstrap";
+import { Form, OverlayTrigger, Popover } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
 import "./reservationstyles/Reservation.css";
+import { LinkedCalendar } from './rb-datepicker/dist';
 import styled from "styled-components";
 import axios from "axios";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
+import Step3 from "./Step3";
+import Step4 from "./Step4";
 import * as dayjs from "dayjs";
 
 class Reservation extends React.Component {
@@ -39,6 +42,7 @@ class Reservation extends React.Component {
             axios.get("/api/avail_cabins", {params: {dates: [this.state.startDate, this.state.endDateDB]}} )
                 .then(res => {
                     this.setState({ availableCabins: res.data, step: 2 });
+                    debugger
                 })
                 .catch(err => {
                     console.log(err)
@@ -84,7 +88,6 @@ class Reservation extends React.Component {
     setNrNights = (nrNights) => this.setState({ nrNights });
 
     setNrRooms = (nrRooms) => {
-        debugger
         this.setState({ nrRooms });
         switch(nrRooms) {
             case "1":
@@ -117,8 +120,14 @@ class Reservation extends React.Component {
         this.setState({ rooms });
     };
 
+    popoverCalendar = (
+        <Popover id="popover-basic">
+          <LinkedCalendar onDatesChange={this.onDatesChange} />
+        </Popover>
+    );
+
     renderLeftBox = () => (
-        <div className="reservation-left-box">
+        <>
             <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>YOUR RESERVATION</p>
             <div className="reservation-hr-container"><div className="reservation-line" /></div>
             <p style={{marginLeft: "20px", marginTop: "25px", fontWeight: "bold", fontSize: "14px", color: "#8E7037"}}>YOUR STAY DATES</p>
@@ -205,7 +214,7 @@ class Reservation extends React.Component {
                     CHECK AVAILABILITY
                 </span>
             </div>
-        </div>
+        </>
     );
 
     render() {
@@ -215,7 +224,7 @@ class Reservation extends React.Component {
                     <div className="reservation-header">Reservation</div>
                 </div>
                 { this.state.step === 1 && 
-                    <Step1 
+                    <Step1
                         renderLeftBox={this.renderLeftBox}
                         DateForm={DateForm}
                         CustomDropdown={CustomDropdown}
@@ -234,19 +243,21 @@ class Reservation extends React.Component {
                     />
                 }
                 { this.state.step === 2 && 
-                    <Step2 
+                    <Step2
+                        renderLeftBox={this.renderLeftBox}
                         DateForm={DateForm}
                         CustomDropdown={CustomDropdown}
+                        nrRoomsArray={this.state.nrRoomsArray}
                     />
                 }
                 { this.state.step === 3 && 
-                    <Step2 
+                    <Step3
                         DateForm={DateForm}
                         CustomDropdown={CustomDropdown}
                     />
                 }
                 { this.state.step === 4 && 
-                    <Step2 
+                    <Step4
                         DateForm={DateForm}
                         CustomDropdown={CustomDropdown}
                     />
