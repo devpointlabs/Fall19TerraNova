@@ -57,6 +57,7 @@
     display: flex;
     flex-direction: column;
     background-color: #efefef;
+    min-height: 300px;
     width: 23%;
 }
 
@@ -80,23 +81,24 @@
 }
 
 .reservation-right-box {
+    display: flex;
+    flex-direction: column;
     background-color: #efefef;
     width: 77%;
     padding-left: 20px;
     padding-right: 20px;
     margin-left: 30px;
     margin-right: 30px;
-    height: 600px;
 }
 
 .reservation-right-box-white {
+    display: flex;
+    flex-direction: column;
     background-color: white;
     width: 77%;
     padding-left: 20px;
     padding-right: 20px;
     margin-left: 30px;
-    margin-right: 30px;
-    height: 600px;
 }
 
 .reservation-line {
@@ -124,7 +126,16 @@
     margin-bottom: 20px;
 }
 
-.reservation-room-container {
+.reservation-dropdown-container2 {
+    width: 84%;
+    height: 33px;
+    background-color: white;
+    padding-left: 8px;
+    margin-top: 7px;
+    margin-bottom: 20px;
+}
+
+.reservation-choose-rooms-container {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -132,14 +143,75 @@
     padding-right: 14px;
 }
 
-.reservation-small-room-container {
+.reservation-choose-rooms-container-nopadding {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.reservation-booking-room-active {
+    display: flex;
+    background-color: #8E7037;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.reservation-small-choose-rooms-container-left {
     display: flex;
     flex-direction: column;
+    justify-content: left;
+    width: 30%;
+    margin-right: 20px;
+}
+
+.reservation-small-choose-rooms-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 30%;
+}
+
+.reservation-room-container {
+    display: flex;
+    background: white;
+    flex-direction: column;
+    margin-bottom: 4%;
+}
+
+.reservation-image-container {
+    width: 45%;
+    padding-right: 0;
+    margin-right: 30px;
+}
+
+.reservation-inner-room-container {
+    background: white;
+    display: flex;
+    padding-top: 15px;
+}
+
+.reservation-room-content {
+    width: 55%;
+}
+
+.reservation-price-and-bookbutton {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .reservation-button-container {
     width: 100%;
     margin-top: 10px;
+}
+
+.reservation-small-button-container {
+    width: 10% !important;
 }
 
 .reservation-custom-button {
@@ -156,12 +228,27 @@
     cursor: pointer;
 }
 
+.reservation-small-custom-button {
+    background: #8E7037;
+    color: white;
+    font-size: smaller;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-left: 12%;
+    margin-top: 1%;
+}
+
 .reservation-custom-button:hover {
     background-color: rgb(223, 193, 141) !important;
 }
 
-.reservation-room-container {
-    
+.reservation-small-custom-button:hover {
+    background-color: rgb(223, 193, 141) !important;
 }
 
 div[role="listbox"] {
@@ -178,4 +265,8 @@ div.text {
 .dropdown.icon {
     margin-right: 10px !important;
     margin-top: 10px !important;
+}
+
+ul {
+    padding-left: 4%;
 }
