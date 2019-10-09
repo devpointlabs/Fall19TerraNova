@@ -1,7 +1,7 @@
 /* mobile */
 
 
-@media all and (max-width: 699px) and (min-width: 400px) {
+@media all and (max-width: 699px) and (min-width: 300px) {
 
   .firstoverlay { 
     display: flex;
