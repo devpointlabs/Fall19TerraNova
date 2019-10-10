@@ -17,11 +17,19 @@ class Reservation extends React.Component {
         startDate: "",
         endDate: "",
         endDateDB: "",
-        availableCabins: [],
         nrNights: "1",
         nrRooms: "1",
         nrRoomsArray: ["1"],
-        rooms: [["1", "1"], ["0", "0"], ["0", "0"], ["0", "0"], ["0", "0"]] //room: (adults: ?, children: ?)
+        rooms: [["0", "0"]], //room: (adults: ?, children: ?)
+        aRooms: [],
+        bRooms: [],
+        familyCabins: [],
+        vip1: null,
+        vip2: null,
+        anyAvailableCabins: true,
+        bookedRooms: [],
+        bookedRoomLetters: [],
+        totalPrice: 0
     }
 
     componentDidMount() {
@@ -40,8 +48,15 @@ class Reservation extends React.Component {
         if (this.state._isMounted)
             axios.get("/api/avail_cabins", {params: {dates: [this.state.startDate, this.state.endDateDB]}} )
                 .then(res => {
-                    this.setState({ availableCabins: res.data, step: 2 });
-                    debugger
+                    this.setState({ 
+                        aRooms: res.data.aRooms,
+                        bRooms: res.data.bRooms,
+                        familyCabins: res.data.familyCabins,
+                        vip1: res.data.vip1,
+                        vip2: res.data.vip2, 
+                        step: 2
+                    });
+                    this.anyAvailableCabins();
                 })
                 .catch(err => {
                     console.log(err)
@@ -86,27 +101,6 @@ class Reservation extends React.Component {
 
     setNrNights = (nrNights) => this.setState({ nrNights });
 
-    setNrRooms = (nrRooms) => {
-        this.setState({ nrRooms });
-        switch(nrRooms) {
-            case "1":
-                this.setState({ nrRoomsArray: ["1"] });
-                break;
-            case "2":
-                this.setState({ nrRoomsArray: ["1", "2"] });
-                break;
-            case "3":
-                this.setState({ nrRoomsArray: ["1", "2", "3"] });
-                break;
-            case "4":
-                this.setState({ nrRoomsArray: ["1", "2", "3", "4"] })
-                break;
-            case "5":
-                this.setState({ nrRoomsArray: ["1", "2", "3", "4", "5"] })
-                break;
-        };
-    };
-
     setNrAdults = (room, nrAdults) => {
         let rooms = this.state.rooms;
         rooms[parseInt(room.room, 10)-1][0] = nrAdults;
@@ -124,11 +118,66 @@ class Reservation extends React.Component {
           <LinkedCalendar onDatesChange={this.onDatesChange} />
         </Popover>
     );
+
+    anyAvailableCabins = () => {
+        if (this.state.aRooms.length > 0 || 
+            this.state.bRooms.length > 0 || 
+            this.state.familyCabins.length > 0 ||
+            this.state.vip1 ||
+            this.state.vip2)
+            this.setState({ anyAvailableCabins: true });
+        else
+            this.setState({ anyAvailableCabins: false });
+    };
     
-    addRoom = () => (
-        <>
-        </>
-    );
+    addRoom = (roomLetter) => {
+        let bookedRooms = this.state.bookedRooms;
+        let bookedRoomLetters = this.state.bookedRoomLetters;
+        let room = null;
+        let aRooms = this.state.aRooms;
+        let bRooms = this.state.bRooms;
+        let familyCabins = this.state.familyCabins;
+        let nrRoomsArray = this.state.nrRoomsArray;
+        let rooms = this.state.rooms;
+        switch(roomLetter) {
+            case "A":
+                room = this.state.aRooms[0];
+                familyCabins = familyCabins.filter( familyCabin => 
+                    familyCabin.cabin_number != room.cabin_number );
+                break;
+            case "B":
+                room = this.state.bRooms[0];
+                familyCabins = familyCabins.filter( familyCabin => 
+                    familyCabin.cabin_number != room.cabin_number );
+                break;
+            case "F":
+                room = this.state.familyCabins[0];
+                aRooms = aRooms.filter( aRoom => 
+                    aRoom.cabin_number != room.cabin_number );
+                bRooms = bRooms.filter( bRoom => 
+                    bRoom.cabin_number != room.cabin_number );
+                break;
+            case "V1":
+                room = this.state.vip1;
+                break;
+            case "V2":
+                room = this.state.vip2;
+                break;
+        }
+        bookedRooms.push(room);
+        bookedRoomLetters.push(roomLetter);
+        rooms.push(["0", "0"]);
+        nrRoomsArray.push((nrRoomsArray.length+1).toString());
+        this.setState({ aRooms, bRooms, familyCabins, rooms, nrRoomsArray, bookedRooms, bookedRoomLetters });
+        this.calculateTotalPrice(bookedRooms);
+    };
+
+    calculateTotalPrice = (bookedRooms) => {
+        let totalPrice = 0;
+        bookedRooms.forEach( room => (
+            totalPrice = totalPrice + Math.round(room.cabinPricing.aveNightlyRate) * this.state.nrNights ));
+        this.setState({ totalPrice });
+    };
 
     goToBilling = () => this.setState({ step: 3 });
 
@@ -176,8 +225,18 @@ class Reservation extends React.Component {
                         nrRoomsArray={this.state.nrRoomsArray}
                         rooms={this.state.rooms}
                         onDayClick={this.onDayClick}
+                        aRooms={this.state.aRooms}
+                        bRooms={this.state.bRooms}
+                        familyCabins={this.state.familyCabins}
+                        vip1={this.state.vip1}
+                        vip2={this.state.vip2}
+                        anyAvailableCabins={this.state.anyAvailableCabins}
                         addRoom={this.addRoom}
                         goToBilling={this.goToBilling}
+                        bookedRooms={this.state.bookedRooms}
+                        bookedRoomLetters={this.state.bookedRoomLetters}
+                        calculateTotalPrice={this.calculateTotalPrice}
+                        totalPrice={this.state.totalPrice}
                     />
                 }
                 { this.state.step === 3 && 
