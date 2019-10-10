@@ -21,7 +21,7 @@
 .calendaroverlay {
   position:absolute;
     z-index:12;
-  top: 80%;
+  top: 88%;
   width:100%;
   text-align:center;
 
@@ -33,3 +33,4 @@
   width: 86px;
   background: black;
  }
+

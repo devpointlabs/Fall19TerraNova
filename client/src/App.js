@@ -13,6 +13,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Reservation from './components/reservation/Reservation';
 import { Switch, Route, } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
+import About from './components/about/About';
 // import { StateProvider } from './providers/StateProvider';
 
 const App = () => (

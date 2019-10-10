@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Form, NavDropdown, Button, Popover, OverlayTrigger } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
 import { LinkedCalendar } from './rb-datepicker/dist';
@@ -63,20 +63,56 @@ class Step1 extends React.Component {
                     <div className="reservation-text">Choose Room</div>
                     <div className="reservation-space" />
                     <div className="reservation-number">3.</div>
-                    <div className="reservation-text">Make Reservation</div>
-                    <div className="reservation-space" />
-                    <div className="reservation-number">4.</div>
-                    <div className="reservation-text">Confirmation</div>
+                    <div className="reservation-text">Billing & Confirmation</div>
                 </div>
-                <div className="reservation-hr-container"><hr style={{marginTop: "-1px", width: "60%"}} /></div>
+                <div className="reservation-hr-container"><hr style={{marginTop: "-1px", width: "83%"}} /></div>
                 <div className="reservation-container">
                     <div className="reservation-left-box">
-                        { this.props.renderLeftBox() }
+            <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>YOUR RESERVATION</p>
+            <div className="reservation-hr-container"><div className="reservation-line" /></div>
+            <p style={{marginLeft: "20px", marginTop: "25px", fontWeight: "bold", fontSize: "14px", color: "#8E7037"}}>YOUR STAY DATES</p>
+            <span style={{marginLeft: "20px", marginTop: "5px", marginRight: "0px", fontWeight: "bold", fontSize: "12px"}}>ARRIVE</span>
+            <div className="reservation-form-container">
+                <this.props.DateForm value={this.state.startDate} readOnly />
+                <OverlayTrigger trigger="click" placement="right">
+                    <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
+                </OverlayTrigger>
+            </div>
+            <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>NIGHT(S)</span>
+            <div className="reservation-dropdown-container">
+                <this.props.CustomDropdown text={this.props.nrNights}>
+                    <Dropdown.Menu>
+                        <Dropdown.Item text='1' onClick={() => this.props.setNrNights('1')} />
+                        <Dropdown.Item text='2' onClick={() => this.props.setNrNights('2')} />
+                        <Dropdown.Item text='3' onClick={() => this.props.setNrNights('3')} />
+                        <Dropdown.Item text='4' onClick={() => this.props.setNrNights('4')} />
+                        <Dropdown.Item text='5' onClick={() => this.props.setNrNights('5')} />
+                        <Dropdown.Item text='6' onClick={() => this.props.setNrNights('6')} />
+                        <Dropdown.Item text='7' onClick={() => this.props.setNrNights('7')} />
+                        <Dropdown.Item text='8' onClick={() => this.props.setNrNights('8')} />
+                        <Dropdown.Item text='9' onClick={() => this.props.setNrNights('9')} />
+                        <Dropdown.Item text='10' onClick={() => this.props.setNrNights('10')} />
+                        <Dropdown.Item text='10+' onClick={() => this.props.setNrNights('10+')} />
+                    </Dropdown.Menu>
+                </this.props.CustomDropdown>
+            </div>
+            <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>DEPARTURE</span>
+            <div className="reservation-form-container">
+                <this.props.DateForm value={this.state.endDate} readOnly />
+                <OverlayTrigger trigger="click" placement="right">
+                    <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
+                </OverlayTrigger>
+            </div>
+            <div className="reservation-button-container">
+                <span className="reservation-custom-button" onClick={this.props.checkAvailability}>
+                    CHECK AVAILABILITY
+                </span>
+            </div>
                     </div>
                     <div className="reservation-right-box">
                         <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>AVAILABILITY</p>
                         <div className="reservation-hr-container"><div className="reservation-line" /></div>
-                        <LinkedCalendar applyButtonClasses="" buttonClasses="" onDatesChange={this.onDatesChange} singleDatePicker={true} onChange={this.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} />
+                        <LinkedCalendar applyButtonClasses="" buttonClasses="" onDatesChange={this.props.onDatesChange} singleDatePicker={true} onChange={this.props.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} />
                     </div>
                 </div>
             </>

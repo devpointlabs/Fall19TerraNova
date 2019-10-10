@@ -10,7 +10,7 @@ import cabin3 from '../images/rooms/cabin3.jpg'
 
 const RoomsRates = () => (
   <>
-    <div className="headcontainer">
+    <div className="rrheadcontainer">
       <p className="headtext"> ROOMS & RATES </p>
     </div>
 
