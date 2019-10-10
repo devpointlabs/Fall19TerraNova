@@ -175,7 +175,7 @@ class Reservation extends React.Component {
     calculateTotalPrice = (bookedRooms) => {
         let totalPrice = 0;
         bookedRooms.forEach( room => (
-            totalPrice = totalPrice + Math.round(room.cabinPricing.aveNightlyRate) * this.state.nrNights ));
+            totalPrice = totalPrice + Math.round(room.cabinPricing.price_total)));
         this.setState({ totalPrice });
     };
 

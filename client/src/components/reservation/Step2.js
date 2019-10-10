@@ -12,7 +12,8 @@ class Step2 extends React.Component {
         modalShow: false,
         availableRooms: [],
         userHasChosenNrOfPeople: [false],
-        tempRoom: null
+        tempRoom: null,
+        occupancyAB: 4
     };
 
     componentDidMount() {
@@ -167,11 +168,30 @@ class Step2 extends React.Component {
         else if (room == "V2") return Math.round(this.props.vip2.cabinPricing.aveNightlyRate);
     };
 
+    renderTotalRoomPrice = (room) => {
+        if (room == "A") return Math.round(this.props.aRooms[0].cabinPricing.price_total);
+        else if (room == "B") return Math.round(this.props.bRooms[0].cabinPricing.price_total);
+        else if (room == "F") return Math.round(this.props.familyCabins[0].cabinPricing.price_total);
+        else if (room == "V1") return Math.round(this.props.vip1.cabinPricing.price_total);
+        else if (room == "V2") return Math.round(this.props.vip2.cabinPricing.price_total);
+    };
+
+    isNrOfPeopleValid = (room) => {
+        if ((parseInt(this.props.rooms[this.props.rooms.length-1][0], 10)+
+            parseInt(this.props.rooms[this.props.rooms.length-1][1], 10)) > this.state.occupancyAB &&
+            (room == "A" || room == "B" || room == "V1" || room == "V2")) {
+                this.setState({ validNrOfPeople: false })
+        } else {
+            this.setState({ validNrOfPeople: true })
+        }
+    };
+
     handleClose = () => this.setState({ modalShow: false });
 
     handleShow = (tempRoom) => {
         let roomNumber = parseInt(this.props.nrRoomsArray[this.props.nrRoomsArray.length-1], 10);
         this.userHasChosenNrOfPeople(roomNumber);
+        this.isNrOfPeopleValid(tempRoom);
         this.setState({ tempRoom, modalShow: true });
     };
 
@@ -221,7 +241,7 @@ class Step2 extends React.Component {
                                                 <div className="reservation-small-choose-rooms-container-left">
                                                     <span style={{fontWeight: "bold", fontSize: "12px"}}>ADULT(S)</span>
                                                     <div className="reservation-dropdown-container2">
-                                                        <this.props.CustomDropdown text={this.props.rooms[parseInt(room, 10)-1][0]} drop="down">
+                                                        <this.props.CustomDropdown text={this.props.rooms[parseInt(room, 10)-1][0]} drop='down'>
                                                             <Dropdown.Menu>
                                                                 <Dropdown.Item text='0' onClick={() => this.props.setNrAdults({room}, '0')} />
                                                                 <Dropdown.Item text='1' onClick={() => this.props.setNrAdults({room}, '1')} />
@@ -239,7 +259,7 @@ class Step2 extends React.Component {
                                                 <div className="reservation-small-choose-rooms-container">
                                                     <span style={{fontWeight: "bold", fontSize: "12px"}}>CHILD(REN)</span>
                                                     <div className="reservation-dropdown-container2">
-                                                        <this.props.CustomDropdown text={this.props.rooms[parseInt(room, 10)-1][1]} drop="down">
+                                                        <this.props.CustomDropdown text={this.props.rooms[parseInt(room, 10)-1][1]} drop='down'>
                                                             <Dropdown.Menu>
                                                                 <Dropdown.Item text='0' onClick={() => this.props.setNrChildren({room}, '0')} />
                                                                 <Dropdown.Item text='1' onClick={() => this.props.setNrChildren({room}, '1')} />
@@ -258,12 +278,23 @@ class Step2 extends React.Component {
                                         :
                                             <div className="reservation-booking-room-inactive">
                                                 <row>
-                                                    <span style={{fontWeight: "bold", fontSize: "13px"}}>ROOM {parseInt(room, 10)}</span>
-                                                    <span style={{fontSize: "11px", marginTop: "1px"}}>{ this.props.rooms[parseInt(room, 10)-1][0] } Adults, { this.props.rooms[parseInt(room, 10)-1][1] } Children</span>
+                                                    <span style={{fontWeight: "bold", fontSize: "13px"}}>
+                                                        ROOM {parseInt(room, 10)}
+                                                    </span>
+                                                    <span style={{fontSize: "11px", marginTop: "1px"}}>
+                                                        { this.props.rooms[parseInt(room, 10)-1][0] }
+                                                        { this.props.rooms[parseInt(room, 10)-1][0] == 1 ? " Adult, " : " Adults, " }
+                                                        { this.props.rooms[parseInt(room, 10)-1][1] }
+                                                        { this.props.rooms[parseInt(room, 10)-1][1] == 1 ? " Child " : " Children " }
+                                                    </span>
                                                 </row>
                                                 <row style={{marginTop: "15px"}}>
-                                                    <span style={{fontWeight: "bold", fontSize: "13px"}}>{ this.renderRoomName(this.props.bookedRoomLetters[parseInt(room, 10)-1]) }</span>
-                                                    <span style={{fontWeight: "bold", fontSize: "13px", color: "#8E7037"}}>${ this.renderRoomPrice(this.props.bookedRoomLetters[parseInt(room, 10)-1])*this.props.nrNights }</span>
+                                                    <span style={{fontWeight: "bold", fontSize: "13px"}}>
+                                                        { this.renderRoomName(this.props.bookedRoomLetters[parseInt(room, 10)-1]) }
+                                                    </span>
+                                                    <span style={{fontWeight: "bold", fontSize: "13px", color: "#8E7037"}}>
+                                                        ${ this.renderTotalRoomPrice(this.props.bookedRoomLetters[parseInt(room, 10)-1]) }
+                                                    </span>
                                                 </row>
                                             </div>
                                         }
@@ -274,8 +305,8 @@ class Step2 extends React.Component {
                             { this.props.nrRoomsArray.length > 1 &&
                                 <>
                                 <div className="reservation-booking-room-total-price">
-                                    <span style={{fontWeight: "bold", fontSize: "14px"}}>TOTAL</span>
-                                    <span style={{fontWeight: "bold", fontSize: "14px", color: "#8E7037"}}>${ this.props.totalPrice }</span>
+                                    <span style={{fontWeight: "bold", fontSize: "15px", marginBottom: "5px"}}>TOTAL</span>
+                                    <span style={{fontWeight: "bold", fontSize: "15px", color: "#8E7037"}}>${ this.props.totalPrice }</span>
                                 </div>
                                 <div className="reservation-button-container">
                                     <span className="reservation-custom-button" onClick={this.props.goToBilling}>
@@ -364,6 +395,7 @@ class Step2 extends React.Component {
                 </div>
                 <Modal show={this.state.modalShow} onHide={this.handleClose} centered>
                     { this.state.userHasChosenNrOfPeople[this.state.userHasChosenNrOfPeople.length-1] ?
+                        this.state.validNrOfPeople ?
                         <>
                             <Modal.Body>
                                 Do you want to book another room?
@@ -377,6 +409,10 @@ class Step2 extends React.Component {
                                 </span>
                             </Modal.Footer>
                         </>
+                        :
+                            <Modal.Body>
+                                The number of people exceeds the occupancy of the room, please choose a family room instead.
+                            </Modal.Body>
                     :
                         <Modal.Body>
                             You have to specify the number of adults and children!

@@ -8,6 +8,6 @@ const About = () => (
      <AboutUs />
      <HotelStatistics />   
     </>
-
+)
 
 export default About;
