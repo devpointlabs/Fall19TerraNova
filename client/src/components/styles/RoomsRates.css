@@ -4,7 +4,8 @@
   justify-content: center;
   background-color: #898989;
   width: 100%;
-  padding-bottom: 05.5%;
+  /* padding-top: 0%; */
+  padding-bottom: 05.6%;
 }
 
 .rooms {

@@ -1,4 +1,4 @@
-/* mobile */
+/* iphone 6/7/8/ plus */
 
 @media all and (max-width: 699px) and (min-width: 400px) {
 
@@ -51,6 +51,62 @@
     padding: 90%;
   }
 }
+
+
+/* galaxy and iphone 6/7/8 */
+
+@media all and (max-width: 400px) and (min-width: 350px) {
+
+  .timer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    font-size: .75em;
+    justify-content: center;
+    border-style: solid;
+    border-width: .1em;
+    border-color: white;
+    width: 18em;
+  }
+
+  .countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .timecontainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .countnumber {
+    margin-left: .75em;
+    margin-right: .75em;
+    margin-top: .5em;
+    font-size: 1em;
+  }
+
+  .countword {
+    margin-top: -.5em;
+    font-size: .75em;
+  }
+
+  .colon {
+    margin-bottom: 0em;
+    font-size: 1em;
+  }
+
+  .expired {
+    font-size: 1em;
+    color: rgb(126, 49, 49);
+    border: .1em solid rgb(126, 49, 49);
+    padding: 1em;
+  }
+}
+
 
 /* web */
 

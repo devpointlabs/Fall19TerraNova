@@ -1,7 +1,11 @@
-/* mobile */
+/* iphone 6/7/8/ plus */
 
 
-@media all and (max-width: 699px) and (min-width: 300px) {
+@media all and (max-width: 699px) and (min-width: 400px) {
+
+  .forest-image {
+    width: 27em;
+  }
 
   .firstoverlay { 
     display: flex;
@@ -9,9 +13,9 @@
     color:white;
     position:absolute;
     z-index: 40;
-    font-size: 300%;
-    top: 5%;
-    width:100%;
+    font-size: 2em;
+    top: 1em;
+    width: 13em;
     text-align:center;
     font-family: 'Muli', sans-serif;
 
@@ -22,9 +26,9 @@
     justify-content: center;
     color:white;
     position:absolute;
-    font-size: 140%;
-    top: 13%;
-    width:100%;
+    font-size: 1em;
+    top: 4.5em;
+    width: 26em;
     text-align:center;
     font-family: 'Muli', sans-serif;
     
@@ -35,9 +39,9 @@
     justify-content: center;
     color:white;
     position:absolute;
-    font-size: 90%;
-    top: 20%;
-    width:100%;
+    font-size: .6em;
+    top: 10em;
+    width: 43em;
     text-align:center;
     font-family: 'Muli', sans-serif;
     
@@ -46,10 +50,11 @@
   .timeoverlay { 
     display: flex;
     justify-content: center;
+    justify-items: center;
     color:#fff;
     position:absolute;
-    top: 25%;
-    width:100%;
+    top: 8.5em;
+    width: 26em;
     text-align:center;
   }
 
@@ -58,16 +63,163 @@
     justify-content: center;
     color:rgb(255, 255, 255);
     position:absolute;
-    top: 37%;
-    width:95%;
+    top: 13em;
+    width: 25em;
 
   }
 
 }
 
+/* galaxy and iphone 6/7/8 iphone x */
+
+@media all and (max-width: 400px) and (min-width: 350px) {
+
+  .forest-image {
+    width: 27em;
+  }
+
+  .firstoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    z-index: 40;
+    font-size: 2em;
+    top: 1em;
+    width: 13em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+
+  }
+
+  .secondoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 1em;
+    top: 4.5em;
+    width: 26em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .thirdoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: .6em;
+    top: 10em;
+    width: 43em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .timeoverlay { 
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    color:#fff;
+    position:absolute;
+    top: 8.5em;
+    width: 26em;
+    text-align:center;
+  }
+
+  .logooverlay { 
+    display: flex;
+    justify-content: center;
+    color:rgb(255, 255, 255);
+    position:absolute;
+    top: 13em;
+    width: 25em;
+
+  }
+
+}
+
+/* iphone se */
+/* 
+@media all and (max-width: 340px) and (min-width: 310px) {
+
+  .forest-image {
+    width: 27em;
+  }
+
+  .firstoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    z-index: 40;
+    font-size: 2em;
+    top: 1em;
+    width: 13em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+
+  }
+
+  .secondoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 1em;
+    top: 4.5em;
+    width: 26em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .thirdoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: .6em;
+    top: 10em;
+    width: 43em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .timeoverlay { 
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    color:#fff;
+    position:absolute;
+    top: 8.5em;
+    width: 26em;
+    text-align:center;
+  }
+
+  .logooverlay { 
+    display: flex;
+    justify-content: center;
+    color:rgb(255, 255, 255);
+    position:absolute;
+    top: 13em;
+    width: 25em;
+
+  }
+
+} */
+
 /* web */
 
 @media all and (min-width: 700px) { 
+
+  .forest-image {
+    width: 110em;
+  }
+
   .firstoverlay { 
     display: flex;
     justify-content: center;

@@ -4,6 +4,7 @@ import AboutUs from './AboutUs';
 const About = () => (
   <>
     <AboutUs />
+  
   </>
 )
 
