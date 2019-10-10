@@ -152,7 +152,15 @@ class Cabin < ApplicationRecord
 
       for i in 0..cabins_info.length-2 do 
         if cabins_info[i][:cabin_number] == cabins_info[i+1][:cabin_number]
-            familyCabins << {cabin_number: cabins_info[i][:cabin_number], cabinPricing: { aveNightlyRate: (cabins_info[i][:cabinPricing][:aveNightlyRate]+cabins_info[i+1][:cabinPricing][:aveNightlyRate])*0.95 }, pair: [cabins_info[i], cabins_info[i+1]] }
+          familyCabins << 
+            {cabin_number: cabins_info[i][:cabin_number], 
+             cabinPricing: 
+              {price_total: (cabins_info[i+1][:cabinPricing][:price_total] + cabins_info[i][:cabinPricing][:price_total]), 
+               numberofNights: cabins_info[i][:cabinPricing][:numberofNights], 
+               aveNightlyRate:  ((cabins_info[i][:cabinPricing][:aveNightlyRate]+cabins_info[i+1][:cabinPricing][:aveNightlyRate])*0.95) # ! 0.95 is the discounted rate for a family room/cabin
+               }, 
+             pair: [cabins_info[i], cabins_info[i+1]] 
+            }
         end
       end
 
