@@ -154,11 +154,36 @@
     display: flex;
     background-color: #8E7037;
     width: 100%;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding-top: 15px;
     padding-left: 20px;
     padding-right: 20px;
+}
+
+.reservation-booking-room-inactive {
+    display: flex;
+    background-color: #efefef;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.reservation-booking-room-total-price {
+    display: flex;
+    background-color: #efefef;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 15px;
 }
 
 .reservation-small-choose-rooms-container-left {
@@ -166,13 +191,12 @@
     flex-direction: column;
     justify-content: left;
     width: 30%;
-    margin-right: 20px;
 }
 
 .reservation-small-choose-rooms-container {
     display: flex;
     flex-direction: column;
-    justify-content: left;
+    justify-content: flex-end;
     width: 30%;
 }
 
@@ -224,7 +248,7 @@
     align-items: center;
     margin-left: 20px;
     margin-right: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     cursor: pointer;
 }
 
@@ -269,4 +293,10 @@ div.text {
 
 ul {
     padding-left: 4%;
+}
+
+row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
