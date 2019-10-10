@@ -7,6 +7,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Terms from './components/Terms';
 import RoomsRates from './components/RoomsRates'
+import About from './components/about/About';
 import FetchUser from './components/FetchUser';
 import ProtectedRoute from './components/ProtectedRoute';
 import Reservation from './components/reservation/Reservation';
