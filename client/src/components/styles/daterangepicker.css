@@ -45,11 +45,11 @@
   .daterangepicker .drp-calendar.left {
     background-color: #efefef !important;
     padding: 0;
-    margin-right: 30px;
   }
   
   .daterangepicker .drp-calendar.right {
     padding: 0;
+    margin-left: 30px;
   }
 
   .daterangepicker .calendar-table th, .daterangepicker .calendar-table td {
@@ -83,7 +83,7 @@
     border: 6px solid #efefef;
   }
 
-  .daterangepicker td.available:hover, .daterangepicker th.available:hover {
+  .daterangepicker td.available:hover {
     background-color: #8E7037;
     border: 6px solid #efefef;
     color: inherit;
@@ -113,6 +113,26 @@
 
   .daterangepicker td.end-date {
     background-color: #8E7037;
+  }
+
+  .daterangepicker td.historical {
+    background-color: #efefef;
+    color: rgb(177, 177, 177);
+    text-align: right;
+    vertical-align: top;
+    padding-right: 10px;
+    font-family: 'EB Garamond';
+    font-weight: bold;
+  }
+
+  .daterangepicker td.historical:hover {
+    background-color: #efefef;
+    color: rgb(177, 177, 177);
+    text-align: right;
+    vertical-align: top;
+    padding-right: 10px;
+    font-family: 'EB Garamond';
+    font-weight: bold;
   }
 
   .daterangepicker:before {
@@ -159,6 +179,16 @@
     border-radius: 0 !important;
     border: 0 !important;
     cursor: auto !important;
+  }
+
+  .modal-content {
+    max-width: 400px;
+  }
+
+  .singleleft {
+    display: flex;
+    width: 100%;
+    max-width: 400px;
   }
 
   /*.applyBtn:hover {
