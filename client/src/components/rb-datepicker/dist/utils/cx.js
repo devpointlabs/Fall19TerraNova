@@ -22,7 +22,8 @@ function cx(props) {
       maxDate = props.maxDate,
       minDate = props.minDate;
   var weekend = dates.isWeekend(day);
-  var inRange = dates.isBetweenExclusive(startDate, endDate, day) || dates.isBetweenExclusive(startDate, range, day);
+  //var inRange = dates.isBetweenExclusive(startDate, endDate, day) || dates.isBetweenExclusive(startDate, range, day);
+  var inRange = day.isAfter(startDate) && day.isBefore(endDate);
   var isEndDate = endDate && day.format("YYYY-MM-DD") === endDate.format("YYYY-MM-DD");
   var isStartDate = startDate && day.format("YYYY-MM-DD") === startDate.format("YYYY-MM-DD");
   var active = isStartDate || isEndDate;

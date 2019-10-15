@@ -1,3 +1,17 @@
+.reservation-dateform {
+    border-radius: 0 !important;
+    border: 0 !important;
+    align-self: center;
+    pointer-events: none;
+    background: white !important;
+}
+
+.reservation-custom-dropdown {
+    width: 100%;
+    border: 0 !important;
+    font-family: "Nanum Gothic" !important;
+}
+
 .reservation-container {
     width: 100%;
     margin-left: 120px;
@@ -252,6 +266,10 @@
     cursor: pointer;
 }
 
+.reservation-custom-button:hover {
+    background-color: rgb(223, 193, 141) !important;
+}
+
 .reservation-small-custom-button {
     background: #8E7037;
     color: white;
@@ -267,12 +285,96 @@
     margin-top: 1%;
 }
 
-.reservation-custom-button:hover {
+.reservation-small-custom-button:hover {
     background-color: rgb(223, 193, 141) !important;
 }
 
-.reservation-small-custom-button:hover {
+.reservation-custom-button-submit {
+    background: #8E7037;
+    color: white;
+    font-size: smaller;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 15px;
+}
+
+.reservation-custom-button-submit:hover {
     background-color: rgb(223, 193, 141) !important;
+}
+
+.reservation-custom-button-placeorder {
+    background: #8E7037;
+    width: 20%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 1.5% 2% 1.5% 2%;
+    margin-top: 2%;
+}
+
+.reservation-custom-button-placeorder:hover {
+    background-color: rgb(223, 193, 141) !important;
+}
+
+.reservation-coupon-box {
+    display: flex;
+    width: 100%;
+    background-color: #373737;
+    color: white;
+    padding: 1% 2% 1% 2%;
+    margin-bottom: 30px;
+}
+
+.reservation-radio {
+    display: flex;
+    flex-direction: column;
+}
+
+.reservation-radio-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.reservation-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: smaller;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.reservation-row-nosidemargin {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: smaller;
+    margin-bottom: 10px;
+}
+
+.reservation-room-information-container {
+    display: flex;
+    flex-direction: column;
+    padding: 7% 7% 0% 7%;
+}
+
+.reservation-grand-total-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: smaller;
+    padding: 5%;
+    background-color: #8E7037;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
 }
 
 div[role="listbox"] {
