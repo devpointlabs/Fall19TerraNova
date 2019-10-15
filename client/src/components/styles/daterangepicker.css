@@ -111,6 +111,10 @@
                                   supported by Chrome, Opera and Firefox */
   }
 
+  .daterangepicker td.end-date {
+    background-color: #8E7037;
+  }
+
   .daterangepicker:before {
     top: 0;
     border-right: 0;
