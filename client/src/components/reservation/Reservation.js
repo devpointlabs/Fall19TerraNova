@@ -2,7 +2,6 @@ import React from 'react';
 import { Form, OverlayTrigger, Popover } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
 import "./reservationstyles/Reservation.css";
-import { LinkedCalendar } from '../rb-datepicker/dist';
 import styled from "styled-components";
 import axios from "axios";
 import Step1 from "./Step1";
@@ -15,6 +14,7 @@ class Reservation extends React.Component {
         _isMounted: false,
         step: 1,
         startDate: "",
+        startDateDB: "",
         endDate: "",
         endDateDB: "",
         chooseStartDate: true,
@@ -38,19 +38,28 @@ class Reservation extends React.Component {
     componentDidMount() {
         let startDate = dayjs();
         let endDate = dayjs(startDate.add('1', 'day'));
-        this.setState({ startDate, endDate, nrNights: 1, _isMounted: true })
+        this.setState({ startDate, startDateDB: startDate.format("DD/MM/YYYY"), endDate, endDateDB: startDate.format("DD/MM/YYYY"), nrNights: 1, _isMounted: true })
     };
 
     onDayClick = (date) => {
-        if (this.state.chooseStartDate || date.isBefore(this.state.startDate))
-            this.setState({ startDate: date, endDate: "", nrNights: "", chooseStartDate: false, chooseEndDate: true });
-        else if (this.state.chooseEndDate)
-            this.setState({ endDate: date, endDateDB: date.format("DD/MM/YYYY"), chooseStartDate: true, chooseEndDate: false, nrNights: date.diff(this.state.startDate, "day") });
+        if (date.isAfter(dayjs().subtract('1', 'day'))) {
+            if (this.state.chooseStartDate || date.isBefore(this.state.startDate))
+                this.setState({ startDate: date, startDateDB: date.format("DD/MM/YYYY"), endDate: "", nrNights: "", chooseStartDate: false, chooseEndDate: true });
+            else if (this.state.chooseEndDate)
+                this.setState({ endDate: date, endDateDB: date.subtract('1', 'day').format("DD/MM/YYYY"), chooseStartDate: true, chooseEndDate: false, nrNights: date.diff(this.state.startDate, "day") });
+        };
+    };
+    onDayClickStart = (date) => {
+        this.setState({ startDate: date, startDateDB: date.format("DD/MM/YYYY"), endDate: "", nrNights: "", chooseStartDate: false, chooseEndDate: true })
+    };
+
+    onDayClickEnd = (date) => {
+        this.setState({ endDate: date, endDateDB: date.subtract('1', 'day').format("DD/MM/YYYY"), chooseStartDate: true, chooseEndDate: false, nrNights: date.diff(this.state.startDate, "day") });
     };
 
     checkAvailability = () => {
         if (this.state._isMounted)
-            axios.get("/api/avail_cabins", {params: {dates: [this.state.startDate, this.state.endDateDB]}} )
+            axios.get("/api/avail_cabins", {params: {dates: [this.state.startDateDB, this.state.endDateDB]}} )
                 .then(res => {
                     this.setState({ 
                         aRooms: res.data.aRooms,
@@ -68,7 +77,6 @@ class Reservation extends React.Component {
     };
 
     onDatesChange = ({startDate, endDate}) => {
-        debugger
         let startMonth = startDate.$M + 1
         if (startMonth < 10)
             startMonth = `0${startMonth}`
@@ -120,12 +128,6 @@ class Reservation extends React.Component {
         nrRoomsArray[parseInt(room, 10)-1].people[1] = nrChildren;
         this.setState({ nrRoomsArray });
     };
-
-    popoverCalendar = () => (
-        <Popover id="popover-basic">
-          <LinkedCalendar onDatesChange={this.onDatesChange} />
-        </Popover>
-    );
 
     anyAvailableCabins = () => {
         if (this.state.aRooms.length > 0 || 
@@ -205,7 +207,7 @@ class Reservation extends React.Component {
 
     changeRoom = (roomNumber) => {
         let nrRoomsArray = this.state.nrRoomsArray;
-        nrRoomsArray.map ( room => {
+        nrRoomsArray.map( room => {
             if (room.roomNumber === roomNumber)
                 room.active = true;
             else
@@ -213,6 +215,21 @@ class Reservation extends React.Component {
             return room;
         });
         this.setState({ nrRoomsArray });
+    };
+
+    deleteRoom = (room) => {
+        let nrRoomsArray = this.state.nrRoomsArray;
+        let bookedRooms = this.state.bookedRooms;
+        let roomIndex = parseInt(room.roomNumber, 10)-1;
+        nrRoomsArray.splice(roomIndex, 1);
+        bookedRooms.splice(roomIndex, 1);
+        nrRoomsArray = nrRoomsArray.map( (room, index) => {
+            if (index >= roomIndex)
+                room.roomNumber = (parseInt(room.roomNumber)-1).toString();
+            return room;
+        });
+        this.setState({ nrRoomsArray, bookedRooms });
+        this.calculateTotalPrice(bookedRooms);
     };
 
     calculateTotalPrice = (bookedRooms) => {
@@ -287,7 +304,8 @@ class Reservation extends React.Component {
                         nrRoomsArray={this.state.nrRoomsArray}
                         rooms={this.state.rooms}
                         onDayClick={this.onDayClick}
-                        popoverCalendar={this.popoverCalendar}
+                        onDayClickStart={this.onDayClickStart}
+                        onDayClickEnd={this.onDayClickEnd}
                     />
                 }
                 { this.state.step === 2 && 
@@ -323,6 +341,7 @@ class Reservation extends React.Component {
                         renderRoomName={this.renderRoomName}
                         renderRoomPrice={this.renderRoomPrice}
                         renderTotalRoomPrice={this.renderTotalRoomPrice}
+                        deleteRoom={this.deleteRoom}
                     />
                 }
                 { this.state.step === 3 && 

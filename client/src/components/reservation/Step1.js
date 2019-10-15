@@ -1,7 +1,7 @@
 import React from "react";
-import { Form, NavDropdown, Button, Popover, OverlayTrigger } from "react-bootstrap";
+import { Form, Modal, NavDropdown, Button, Popover, OverlayTrigger } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
-import { LinkedCalendar } from '../rb-datepicker/dist';
+import { LinkedCalendar, Calendar } from '../rb-datepicker/dist';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import "../styles/daterangepicker.css";
 import * as dayjs from "dayjs";
@@ -13,7 +13,9 @@ class Step1 extends React.Component {
         endDateDB: "",
         nrNights: "1",
         nrRooms: "1",
-        rooms: [["1", "1"], ["0", "0"], ["0", "0"], ["0", "0"], ["0", "0"]] //room: (adults: ?, children: ?)
+        rooms: [["1", "1"], ["0", "0"], ["0", "0"], ["0", "0"], ["0", "0"]], //room: (adults: ?, children: ?)
+        modalShowStart: false,
+        modalShowEnd: false
     };
 
     componentDidMount() {
@@ -42,6 +44,34 @@ class Step1 extends React.Component {
         };
     };
 
+    popoverCalendar = () => (
+        <Popover id="popover-basic">
+          <Calendar onDatesChange={this.onDatesChange} />
+        </Popover>
+    );
+
+    handleShowStart = () => this.setState({ modalShowStart: true });
+
+    handleCloseStart = () => this.setState({ modalShowStart: false });
+
+    handleShowEnd = () => this.setState({ modalShowEnd: true });
+
+    handleCloseEnd = () => this.setState({ modalShowEnd: false });
+
+    onDayClickStart = (date) => {
+        if (date.isAfter(dayjs().subtract('1', 'day'))) {
+            this.handleCloseStart();
+            this.props.onDayClickStart(date);
+        }
+    }
+
+    onDayClickEnd = (date) => {
+        if (date.isAfter(dayjs().subtract('1', 'day')) && date.isAfter(this.props.startDate)) {
+            this.handleCloseEnd();
+            this.props.onDayClickEnd(date);
+        }
+    }
+
     render() {
         return(
             <>
@@ -67,7 +97,7 @@ class Step1 extends React.Component {
             <div className="reservation-form-container">
                 <Form.Control className="reservation-dateform" value={this.props.startDate.format("MM/DD/YYYY")} readOnly />
                 {/* <OverlayTrigger trigger="click" placement="right" overlay={this.props.popoverCalendar}> */}
-                    <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
+                    <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} onClick={this.handleShowStart} />
                 {/* </OverlayTrigger> */}
             </div>
             <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>NIGHT(S)</span>
@@ -84,7 +114,6 @@ class Step1 extends React.Component {
                         <Dropdown.Item text='8' onClick={() => this.props.setNrNights('8')} />
                         <Dropdown.Item text='9' onClick={() => this.props.setNrNights('9')} />
                         <Dropdown.Item text='10' onClick={() => this.props.setNrNights('10')} />
-                        <Dropdown.Item text='10+' onClick={() => this.props.setNrNights('10+')} />
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
@@ -95,8 +124,8 @@ class Step1 extends React.Component {
                     value={this.props.endDate != "" ? this.props.endDate.format("MM/DD/YYYY") : this.props.endDate} 
                     readOnly 
                 />
-                {/* <OverlayTrigger trigger="click" placement="right"> */}
-                    <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
+                {/* <OverlayTrigger trigger="click" placement="right" overlay={this.props.popoverCalendar}> */}
+                    <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} onClick={this.handleShowEnd} />
                 {/* </OverlayTrigger> */}
             </div>
             <div className="reservation-button-container">
@@ -109,12 +138,26 @@ class Step1 extends React.Component {
                         <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>AVAILABILITY</p>
                         <div className="reservation-hr-container"><div className="reservation-line" /></div>
                         { this.props.endDate != "" ?
-                            <LinkedCalendar startDate={this.props.startDate != "" && this.props.startDate} endDate={this.props.endDate != "" && this.props.endDate} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onDayClick={this.props.onDayClick} onChange={this.props.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} />
+                            <LinkedCalendar startDate={this.props.startDate != "" && this.props.startDate} endDate={this.props.endDate != "" && this.props.endDate} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onDayClick={this.props.onDayClick} onChange={this.props.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
                         :
-                            <LinkedCalendar startDate={this.props.startDate != "" && this.props.startDate} endDate={null} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onChange={this.props.onDatesChange} onDayClick={this.props.onDayClick} showDropdowns={false} showWeekNumbers={false} autoApply={true} />
+                            <LinkedCalendar startDate={this.props.startDate != "" && this.props.startDate} endDate={null} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onChange={this.props.onDatesChange} onDayClick={this.props.onDayClick} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
                         }
                     </div>
                 </div>
+                <Modal show={this.state.modalShowStart} onHide={this.handleCloseStart} centered>
+                    { this.props.endDate != "" ?
+                        <Calendar startDate={this.props.startDate != "" && this.props.startDate} endDate={this.props.endDate != "" && this.props.endDate} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onDayClick={this.onDayClickStart} onChange={this.props.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
+                    :
+                        <Calendar startDate={this.props.startDate != "" && this.props.startDate} endDate={null} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onChange={this.props.onDatesChange} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
+                    }
+                </Modal>
+                <Modal show={this.state.modalShowEnd} onHide={this.handleCloseEnd} centered>
+                    { this.props.endDate != "" ?
+                        <Calendar startDate={this.props.startDate != "" && this.props.startDate} endDate={this.props.endDate != "" && this.props.endDate} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onDayClick={this.onDayClickEnd} onChange={this.props.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
+                    :
+                        <Calendar startDate={this.props.startDate != "" && this.props.startDate} endDate={null} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onChange={this.props.onDatesChange} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
+                    }
+                </Modal>
             </>
         );
     };
