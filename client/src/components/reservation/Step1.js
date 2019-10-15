@@ -1,9 +1,9 @@
 import React from "react";
 import { Form, NavDropdown, Button, Popover, OverlayTrigger } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
-import { LinkedCalendar } from './rb-datepicker/dist';
+import { LinkedCalendar } from '../rb-datepicker/dist';
 import 'bootstrap-daterangepicker/daterangepicker.css';
-import "./reservationstyles/daterangepicker.css";
+import "../styles/daterangepicker.css";
 
 class Step1 extends React.Component {
     state = {

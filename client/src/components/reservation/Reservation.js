@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, OverlayTrigger, Popover } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
 import "./reservationstyles/Reservation.css";
-import { LinkedCalendar } from './rb-datepicker/dist';
+import { LinkedCalendar } from '../rb-datepicker/dist';
 import styled from "styled-components";
 import axios from "axios";
 import Step1 from "./Step1";

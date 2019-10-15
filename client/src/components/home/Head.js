@@ -1,31 +1,83 @@
-import React from 'react';
-import Carousel from 'react-bootstrap/Carousel'
-// import Calendar from 'react-calendar'
+import React, {useState} from 'react';
+import { DatePicker, TimePicker, DateTimePicker, MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker,} from "@material-ui/pickers";
+import DayjsUtils from '@date-io/dayjs';
+import {Carousel, Modal, Button} from 'react-bootstrap'
+import { LinkedCalendar } from '../rb-datepicker/dist';
+import Grid from '@material-ui/core/Grid';
 import yellowstone from '../../images/top/yellowstone.jpg'
 import yellowstone1 from '../../images/top/yellowstone1.jpg'
 import yellowstone2 from '../../images/top/yellowstone2.jpg'
+import { Dropdown } from "semantic-ui-react"; 
 import styled from 'styled-components'
+import '../styles/daterangepicker.css'
 import './homestyles/Head.css'
 
 
-//make header text responsive to screen size change
 
 const Top = () => {
+
+const [arriveDate, setArriveDate] = React.useState(new Date('2019-10-11'));
+const [departDate, setDepartDate] = React.useState(new Date('2019-10-11'));
+
+  const handleArriveDateChange = date => {
+    setArriveDate(arriveDate);
+  };
+
+  const handleDepartDateChange = date => {
+    setDepartDate(departDate);
+  };
 
   return (
     <>
       <div className="topoverlay">
         <ContentTop>Welcome To Terra Nova Cabins</ContentTop>
       </div>
+
       <div className="bottomoverlay">
         <ContentBottom> AT WEST YELLOWSTONE </ContentBottom>
       </div>
+
       <div className="calendaroverlay">
-        <DateButton> <p> ARRIVAL DATE </p> </DateButton>
-        <DateButton> <p> DEPARTURE DATE </p> </DateButton>
-        <GuestButton> <p> ADULTS </p> </GuestButton>
-        <GuestButton> <p> CHILDREN </p> </GuestButton>
-        <CheckButton> <p> CHECK </p> <p> AVAILABILITY </p></CheckButton>
+        <MuiPickersUtilsProvider utils={DayjsUtils}>
+          <Grid container justify="space-around">
+
+            <div className="arrivedate">
+              <KeyboardDatePicker
+                disableToolbar
+                disablePast
+                variant="dialog"
+                format="MM/DD/YYYY"
+                
+                id="date-picker-dialog"
+                label="ARRIVE"
+                value={arriveDate}
+                onChange={handleArriveDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                
+                }}
+                />
+            </div>
+            <div className="departdate">
+              <KeyboardDatePicker
+                disableToolbar
+                disablePast
+                variant="dialog"
+                format="MM/DD/YYYY"
+                
+                id="date-picker-dialog"
+                label="DEPART"
+                value={departDate}
+                onChange={handleDepartDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+                />
+            </div>
+
+          </Grid>
+        </MuiPickersUtilsProvider>
+        
       </div>
     
     <Carousel nextIcon="" prevIcon="" >
@@ -57,9 +109,16 @@ const Top = () => {
 
 
   )
+  
 };
 
- 
+const CustomDropdown = styled(Dropdown)`
+width: 100%;
+border: 0;
+font-family: 'Playfair Display', serif;
+`;
+
+
 const ContentTop = styled.h1`
   position: relative;
   padding-top: 8px;
@@ -129,3 +188,60 @@ const CheckButton = styled.button`
 `;
 
 export default Top;
+
+
+        {/* <DateButton variant="primary" >
+          ARRIVAL DATE */}
+          {/* <CustomDropdown>
+          <Dropdown.Menu>
+            <Dropdown.Item>
+              <LinkedCalendar applyButtonClasses="" buttonClasses="" onDatesChange={onDatesChange}  showDropdowns={false} showWeekNumbers={false} autoApply={true} />
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </CustomDropdown> */}
+        {/* </DateButton> */}
+
+
+  
+//   const [show, setShow] = useState(false);
+//   const [startDate, setstartDate] = useState('');
+//   const [endDate, setendDate] = useState('');
+//   const [endDateDB, setendDateDB] = useState('');
+
+
+//   const handleClose = () => setShow(false);
+//   const handleShow = () => setShow(true);
+
+
+//   const onDatesChange = ({startDate, endDate}) => {
+//     let startMonth = startDate.$M + 1
+//     if (startMonth < 10)
+//         startMonth = `0${startMonth}`
+//     let startDay = startDate.$D
+//     if (startDay < 10)
+//         startDay = `0${startDay}`
+//     let endMonth = endDate.$M + 1
+//     if (endMonth < 10)
+//         endMonth = `0${endMonth}`
+//     let endDay = endDate.$D
+//     let endDayDB = endDate.$D - 1
+//     if (endDay < 10)
+//         endDay = `0${endDay}`
+//     if (endDayDB < 10)
+//         endDayDB = `0${endDayDB}`
+//     let startDateString = `${startDate.$y}-${startMonth}-${startDay}`
+//     let endDateString = `${endDate.$y}-${endMonth}-${endDay}`
+//     let endDateDBString = `${endDate.$y}-${endMonth}-${endDayDB}`
+    
+//     setstartDate(startDateString)
+//     setendDate(endDateString)
+//     setendDateDB(endDateDBString)
+// }
+
+
+
+        {/* <DateButton> <p> ARRIVAL DATE </p> </DateButton> */}
+        {/* <DateButton> <p> DEPARTURE DATE </p> </DateButton>
+        <GuestButton> <p> ADULTS </p> </GuestButton>
+        <GuestButton> <p> CHILDREN </p> </GuestButton>
+        <CheckButton> <p> CHECK </p> <p> AVAILABILITY </p></CheckButton> */}
