@@ -1,6 +1,6 @@
 import React from 'react';
 import Timer from './Timer';
-import Forest from '../images/comingsoon/Landing_Forest.png'
+// import Forest from '../images/comingsoon/Landing_Forest.png'
 import Logo from '../images/Terra_Nova_Logo.png'
 import './styles/ComingSoon.css'
 
@@ -13,7 +13,7 @@ const ComingSoon = () => {
       
       <div className="comingsoon">
           
-          <img className="forest-image" src={Forest} alt="forest" width="100%" />
+          {/* <img className="forest-image" src={Forest} alt="forest" width="100%" /> */}
        
         <div className="firstoverlay"> 
           <p> COMING SOON </p>

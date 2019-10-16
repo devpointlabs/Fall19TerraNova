@@ -41,6 +41,20 @@ Priceevent.create(name: "Cabin3RangeDecrease", start_date: "2019-10-03", end_dat
 Priceevent.create(name: "Area51Raid", start_date: "2019-09-22", end_date: "2019-10-18", adder: 50)  
 Priceevent.create(name: "SolarEclipse", start_date: "2020-12-20", end_date: "2020-12-23", adder: 120)
 Priceevent.create(name: "SolarEclipse", start_date: "2020-12-20", end_date: "2020-12-23", cabin_id: 1, adder: 120)
-puts "8 Price Events were create"
+puts "8 Price Events were created"
+Discount.create(name: "Nonrefunable", multiplier: 0.05, code: 12345678)
+Discount.create(name: "CompanyABC", set_price: 120, code: 23456789)
+Discount.create(name: "CompanyXYZ", subtractor: 25, code: 34567890)
+Discount.create(name: "Seven Plus Days", multiplier: 0.05, code: 45678901)
+Discount.create(name: "Fourteen Plus Days", multiplier: 0.10, code: 56789012)
+Discount.create(name: "Twenty-One Plus Days", multiplier: 0.15, code: 67890123)
+Discount.create(name: "CompanyMNO", multiplier: 0.05, code: 78901234)
+puts "7 Discounts were created"
+
+#! do discounts apply to VIP rooms? or do they need a special... something?
+#! that begs the question should we allow cabin specific discounts???
+
+# rand(19283746..99999999) # for Discount codes
+
 
 # Recurring, date with without year. Single Event, date with year

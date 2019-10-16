@@ -19,6 +19,12 @@ Rails.application.routes.draw do
     get "single_day_bookings", to: "bookings#single_day_bookings"
     
     resources :price_events
+    resources :discounts
+    
+    resources :stripe
+    get "pubkey", to: "stripe#pubkey"
+    post "createres", to: "stripe#createres"
+    get "getclientsecret", to: "stripe#getclientsecret"
     
   end
 
