@@ -95,7 +95,7 @@ class Step1 extends React.Component {
             <p style={{marginLeft: "20px", marginTop: "25px", fontWeight: "bold", fontSize: "14px", color: "#8E7037"}}>YOUR STAY DATES</p>
             <span style={{marginLeft: "20px", marginTop: "5px", marginRight: "0px", fontWeight: "bold", fontSize: "12px"}}>ARRIVE</span>
             <div className="reservation-form-container">
-                <Form.Control className="reservation-dateform" value={this.props.startDate.format("MM/DD/YYYY")} readOnly />
+                <Form.Control className="reservation-dateform" value={this.props.startDateString} readOnly />
                 {/* <OverlayTrigger trigger="click" placement="right" overlay={this.props.popoverCalendar}> */}
                     <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} onClick={this.handleShowStart} />
                 {/* </OverlayTrigger> */}
@@ -121,7 +121,7 @@ class Step1 extends React.Component {
             <div className="reservation-form-container">
                 <Form.Control 
                     className="reservation-dateform" 
-                    value={this.props.endDate != "" ? this.props.endDate.format("MM/DD/YYYY") : this.props.endDate} 
+                    value={this.props.endDateString} 
                     readOnly 
                 />
                 {/* <OverlayTrigger trigger="click" placement="right" overlay={this.props.popoverCalendar}> */}

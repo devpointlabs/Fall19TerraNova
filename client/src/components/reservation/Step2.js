@@ -6,6 +6,7 @@ import Hotel4 from '../../images/Hotel4.jpg';
 import Hotel5 from '../../images/Hotel5.jpg';
 import Hotel6 from '../../images/Hotel6.jpg';
 import Hotel7 from '../../images/Hotel7.jpg';
+import * as dayjs from "dayjs";
 
 class Step2 extends React.Component {
     state = { 
@@ -18,6 +19,7 @@ class Step2 extends React.Component {
     };
 
     componentDidMount() {
+        debugger
         let availableRooms = this.state.availableRooms;
         if (this.props.aRooms.length > 0) {
             availableRooms.push("A");
@@ -339,7 +341,7 @@ class Step2 extends React.Component {
                             <p style={{marginLeft: "20px", marginTop: "25px", fontWeight: "bold", fontSize: "14px", color: "#8E7037"}}>YOUR STAY DATES</p>
                             <span style={{marginLeft: "20px", marginTop: "5px", marginRight: "0px", fontWeight: "bold", fontSize: "12px"}}>ARRIVE</span>
                             <div className="reservation-form-container">
-                                <Form.Control className="reservation-dateform" value={this.props.startDate.format("MM/DD/YYYY")} readOnly />
+                                <Form.Control className="reservation-dateform" value={this.props.startDateString} readOnly />
                                 {/* <OverlayTrigger trigger="click" placement="right"> */}
                                     <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
                                 {/* </OverlayTrigger> */}
@@ -364,7 +366,7 @@ class Step2 extends React.Component {
                             </div>
                             <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>DEPARTURE</span>
                             <div className="reservation-form-container">
-                                <Form.Control className="reservation-dateform" value={this.props.endDate.format("MM/DD/YYYY")} readOnly />
+                                <Form.Control className="reservation-dateform" value={this.props.endDateString} readOnly />
                                     {/* <OverlayTrigger trigger="click" placement="right"> */}
                                         <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
                                     {/* </OverlayTrigger> */}

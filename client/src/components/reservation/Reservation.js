@@ -12,10 +12,13 @@ import * as dayjs from "dayjs";
 class Reservation extends React.Component {
     state = {
         _isMounted: false,
+        _redirection: false,
         step: 1,
         startDate: "",
+        startDateString: "",
         startDateDB: "",
         endDate: "",
+        endDateString: "",
         endDateDB: "",
         chooseStartDate: true,
         chooseEndDate: false,
@@ -36,31 +39,97 @@ class Reservation extends React.Component {
     };
 
     componentDidMount() {
-        let startDate = dayjs();
-        let endDate = dayjs(startDate.add('1', 'day'));
-        this.setState({ startDate, startDateDB: startDate.format("DD/MM/YYYY"), endDate, endDateDB: startDate.format("DD/MM/YYYY"), nrNights: 1, _isMounted: true })
+        if (this.props.history.location.state && 
+            this.props.history.location.state.startDate != dayjs() &&
+            this.props.history.location.state.endDate != dayjs(dayjs().add('1', 'day'))) {
+            // redirecting from another page
+            let passedState = this.props.history.location.state;
+            this.setState({ 
+                startDate: passedState.startDate,
+                startDateString: passedState.startDateString,
+                startDateDB: passedState.startDateDB,
+                endDate: passedState.endDate,
+                endDateString: passedState.endDateString,
+                endDateDB: passedState.endDateDB,
+                nrNights: passedState.nrNights,
+                _isMounted: true,
+                _redirection: true
+            })
+            this.checkAvailability(passedState.startDateDB, passedState.endDateDB);
+        } else {
+            // no redirecting
+            let startDate = dayjs();
+            let endDate = dayjs(startDate.add('1', 'day'));
+            this.setState({ 
+                startDate,
+                startDateString: startDate.format("MM/DD/YYYY"),
+                startDateDB: startDate.format("DD/MM/YYYY"),
+                endDate,
+                endDateString: endDate.format("MM/DD/YYYY"),
+                endDateDB: startDate.format("DD/MM/YYYY"),
+                nrNights: "1",
+                _isMounted: true
+            });
+        };
     };
 
     onDayClick = (date) => {
         if (date.isAfter(dayjs().subtract('1', 'day'))) {
             if (this.state.chooseStartDate || date.isBefore(this.state.startDate))
-                this.setState({ startDate: date, startDateDB: date.format("DD/MM/YYYY"), endDate: "", nrNights: "", chooseStartDate: false, chooseEndDate: true });
+                this.setState({ 
+                    startDate: date,
+                    startDateString: date.format("MM/DD/YYYY"),
+                    startDateDB: date.format("DD/MM/YYYY"),
+                    endDate: "",
+                    endDateString: "",
+                    endDateDB: "",
+                    nrNights: "",
+                    chooseStartDate: false,
+                    chooseEndDate: true
+                });
             else if (this.state.chooseEndDate)
-                this.setState({ endDate: date, endDateDB: date.subtract('1', 'day').format("DD/MM/YYYY"), chooseStartDate: true, chooseEndDate: false, nrNights: date.diff(this.state.startDate, "day") });
+                this.setState({ 
+                    endDate: date,
+                    endDateString: date.format("MM/DD/YYYY"),
+                    endDateDB: date.subtract('1', 'day').format("DD/MM/YYYY"),
+                    chooseStartDate: true,
+                    chooseEndDate: false,
+                    nrNights: date.diff(this.state.startDate, "day")
+                });
         };
     };
+
     onDayClickStart = (date) => {
-        this.setState({ startDate: date, startDateDB: date.format("DD/MM/YYYY"), endDate: "", nrNights: "", chooseStartDate: false, chooseEndDate: true })
+        this.setState({ 
+            startDate: date,
+            startDateString: date.format("MM/DD/YYYY"),
+            startDateDB: date.format("DD/MM/YYYY"),
+            endDate: "",
+            endDateString: "",
+            endDateDB: "",
+            nrNights: "",
+            chooseStartDate: false,
+            chooseEndDate: true
+        });
     };
 
     onDayClickEnd = (date) => {
-        this.setState({ endDate: date, endDateDB: date.subtract('1', 'day').format("DD/MM/YYYY"), chooseStartDate: true, chooseEndDate: false, nrNights: date.diff(this.state.startDate, "day") });
+        this.setState({ 
+            endDate: date,
+            endDateString: date.format("MM/DD/YYYY"),
+            endDateDB: date.subtract('1', 'day').format("DD/MM/YYYY"),
+            chooseStartDate: true,
+            chooseEndDate: false,
+            nrNights: date.diff(this.state.startDate, 'day')
+        });
     };
 
-    checkAvailability = () => {
-        if (this.state._isMounted)
-            axios.get("/api/avail_cabins", {params: {dates: [this.state.startDateDB, this.state.endDateDB]}} )
+    checkAvailability = (startDate, endDate) => {
+        let startDateDB = this.state.startDateDB ? this.state.startDateDB : startDate;
+        let endDateDB = this.state.endDateDB ? this.state.endDateDB : endDate;
+            axios.get("/api/avail_cabins", {params: {dates: [startDateDB, endDateDB]}} )  //!!!!!!!!!!!!!!!!!!!, discountcode: 23456789
                 .then(res => {
+                    debugger
                     this.setState({ 
                         aRooms: res.data.aRooms,
                         bRooms: res.data.bRooms,
@@ -72,6 +141,7 @@ class Reservation extends React.Component {
                     this.anyAvailableCabins();
                 })
                 .catch(err => {
+                    debugger
                     console.log(err)
             });
     };
@@ -114,7 +184,13 @@ class Reservation extends React.Component {
     };
 
     setNrNights = (nrNights) => {
-        this.setState({ nrNights, endDate: this.state.startDate.add(`${nrNights}`, 'day') });
+        let endDate = this.state.startDate.add(`${nrNights}`, 'day');
+        this.setState({ 
+            nrNights,
+            endDate,
+            endDateString: endDate.format("MM/DD/YYYY"),
+            endDateDB: endDate.subtract('1', 'day').format("DD/MM/YYYY")
+        });
     };
 
     setNrAdults = (room, nrAdults) => {
@@ -286,34 +362,42 @@ class Reservation extends React.Component {
                     <div className="reservation-header">Reservation</div>
                 </div>
                 { this.state._isMounted &&
-                <>
-                { this.state.step === 1 && 
-                    <Step1
-                        renderLeftBox={this.renderLeftBox}
-                        checkAvailability={this.checkAvailability}
-                        setStartDate={this.setStartDate}
-                        startDate={this.state.startDate}
-                        setEndDate={this.setEndDate}
-                        endDate={this.state.endDate}
-                        setNrNights={this.setNrNights}
-                        setNrRooms={this.setNrRooms}
-                        setNrAdults={this.setNrAdults}
-                        setNrChildren={this.setNrChildren}
-                        nrNights={this.state.nrNights}
-                        nrRooms={this.state.nrRooms}
-                        nrRoomsArray={this.state.nrRoomsArray}
-                        rooms={this.state.rooms}
-                        onDayClick={this.onDayClick}
-                        onDayClickStart={this.onDayClickStart}
-                        onDayClickEnd={this.onDayClickEnd}
-                    />
-                }
+                    <>
+                        { !this.state._redirection &&
+                            <>
+                                { this.state.step === 1 && 
+                                    <Step1
+                                        renderLeftBox={this.renderLeftBox}
+                                        checkAvailability={this.checkAvailability}
+                                        setStartDate={this.setStartDate}
+                                        startDate={this.state.startDate}
+                                        startDateString={this.state.startDateString}
+                                        setEndDate={this.setEndDate}
+                                        endDate={this.state.endDate}
+                                        endDateString={this.state.endDateString}
+                                        setNrNights={this.setNrNights}
+                                        setNrRooms={this.setNrRooms}
+                                        setNrAdults={this.setNrAdults}
+                                        setNrChildren={this.setNrChildren}
+                                        nrNights={this.state.nrNights}
+                                        nrRooms={this.state.nrRooms}
+                                        nrRoomsArray={this.state.nrRoomsArray}
+                                        rooms={this.state.rooms}
+                                        onDayClick={this.onDayClick}
+                                        onDayClickStart={this.onDayClickStart}
+                                        onDayClickEnd={this.onDayClickEnd}
+                                    />
+                                }
+                            </>
+                        }
                 { this.state.step === 2 && 
                     <Step2
                         renderLeftBox={this.renderLeftBox}
                         checkAvailability={this.checkAvailability}
                         startDate={this.state.startDate}
+                        startDateString={this.state.startDateString}
                         endDate={this.state.endDate}
+                        endDateString={this.state.endDateString}
                         setStartDate={this.setStartDate}
                         setEndDate={this.setEndDate}
                         setNrNights={this.setNrNights}
@@ -366,19 +450,5 @@ class Reservation extends React.Component {
         );
     };
 };
-
-const DateForm = styled(Form.Control)`
-    border-radius: 0 !important;
-    border: 0 !important;
-    align-self: center;
-    pointer-events: none;
-    background: white !important;
-`;
-
-const CustomDropdown = styled(Dropdown)`
-    width: 100%;
-    border: 0 !important;
-    font-family: "Nanum Gothic" !important;
-`;
 
 export default Reservation;
