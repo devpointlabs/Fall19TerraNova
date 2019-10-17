@@ -112,7 +112,7 @@ function (_React$Component) {
       var _this$props = this.props,
           opens = _this$props.opens,
           children = _this$props.children;
-      var className = (0, _classnames["default"])((_classNames2 = {}, (0, _defineProperty2["default"])(_classNames2, "opens".concat(opens), true), (0, _defineProperty2["default"])(_classNames2, "daterangepicker ltr show-calendar", true), _classNames2));
+      var className = (0, _classnames["default"])((_classNames2 = {}, (0, _defineProperty2["default"])(_classNames2, "single".concat(opens), true), (0, _defineProperty2["default"])(_classNames2, "daterangepicker ltr show-calendar", true), _classNames2));
       return _react["default"].createElement("div", {
         className: className,
         style: {

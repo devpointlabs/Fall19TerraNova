@@ -1,4 +1,5 @@
 "use strict";
+"use dayjs";
 
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
 
@@ -16,6 +17,7 @@ var dates = _interopRequireWildcard(require("./dates"));
 function cx(props) {
   var day = props.day,
       calendar = props.calendar,
+      today = props.today,
       startDate = props.startDate,
       endDate = props.endDate,
       range = props.range,
@@ -30,6 +32,7 @@ function cx(props) {
   var off = calendar.month() !== day.month() || dates.isNotBetween(minDate, maxDate, day);
   var disabled = dates.isNotBetween(minDate, maxDate, day);
   var available = !disabled;
+  var historical = (day.isBefore(today) && day.format("DD") != props.calendar.$D);
   return (0, _classnames["default"])({
     weekend: weekend,
     "in-range": inRange,
@@ -38,6 +41,7 @@ function cx(props) {
     active: active,
     off: off,
     disabled: disabled,
-    available: available
+    available: available,
+    historical: historical
   });
 }

@@ -298,6 +298,7 @@ class Step2 extends React.Component {
                                                 </row>
                                                 <row style={{marginTop: "12px", color: "#8E7037", fontSize: "12px"}}>
                                                     <u style={{cursor: "pointer"}} onClick={() => this.changeRoom(room.roomNumber)}>Change room</u>
+                                                    <Icon style={{color: "black"}} name="trash alternate" onClick={() => this.props.deleteRoom(room)} />
                                                 </row>
                                                     </>
                                                 :
@@ -363,7 +364,7 @@ class Step2 extends React.Component {
                             </div>
                             <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>DEPARTURE</span>
                             <div className="reservation-form-container">
-                                <Form.Control className="reservation-dateform" value={this.props.startDate.format("MM/DD/YYYY")} readOnly />
+                                <Form.Control className="reservation-dateform" value={this.props.endDate.format("MM/DD/YYYY")} readOnly />
                                     {/* <OverlayTrigger trigger="click" placement="right"> */}
                                         <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
                                     {/* </OverlayTrigger> */}
