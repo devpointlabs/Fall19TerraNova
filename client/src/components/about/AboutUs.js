@@ -52,7 +52,7 @@ const AboutUs = () => (
         <div className="whyus">
           <h1 className="aboutheader"> Why Guests Choose Terra Nova Cabins? </h1> 
             <p className="abouttext"> Terra Nova Cabins is the place to be. For generations, Terra Nova has been a retreat for everyone. When our founding 
-              fathers found Terra Nova after a long trek on the Oregon Trail, they knew this was someplace special. You can hear 
+              fathers found this land after a long trek on the Oregon Trail, they knew this was someplace special. You can hear 
               song birds chirping and butterfiles sing. Some may call it heaven on earth, if fact some have: "This place is Heaven on 
               Earth" -Mary Margeret Morrision. Don't take it from Mary though, come experience the magic for yourself. </p>
         </div>
