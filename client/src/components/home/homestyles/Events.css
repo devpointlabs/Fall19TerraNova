@@ -1,15 +1,64 @@
 .event-line-img {
-  margin-left: 125px;
-  max-width: 22%;
-  margin-top: -30px; 
+    margin-left: 125px;
+    max-width: 22%;
+    margin-top: -30px; 
 };
 
 .event-img {
-  
+    width: 100%;
+}
+
+.event-card-left {
+    position: relative;
+    width: 25%;
+}
+
+.space-between {
+    position: relative;
+    background-color: white;
+    width: 3%;
 }
 
 .event-card {
-  height: 35rem;
-  width: 26rem;
-  
+    position: relative;
+    width: 32%;
+}
+
+.event-overlay {
+    position: absolute;
+    width: 100%;
+    bottom: 0%;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.event-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+}
+
+.event-text {
+    font-size: 20px; 
+    font-weight: bold;
+    font-family: 'Raleway', sans-serif;
+}
+
+.fa-chevron-left {
+    position: absolute;
+    top: -10%;
+    right: 3%;
+    width: 1em;
+    font-size: 2.3em;
+}
+
+.fa-chevron-right {
+    position: absolute;
+    top: -10%;
+    right: 0%;
+    width: 1em;
+    font-size: 2.3em;
 }

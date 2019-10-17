@@ -1,16 +1,16 @@
 GIT
   remote: https://github.com/stripe/stripe-ruby
-  revision: c206a3cc0995954f112768995705b8db649b8c85
+  revision: 16c05468bcaf8f7616ad4f033ade6682a6b2297d
   specs:
-    stripe (5.6.0)
+    stripe (5.7.1)
 
 GIT
   remote: https://github.com/stympy/faker.git
-  revision: e7c898c05306409cedf5b795a622a326ec87e279
+  revision: 1c899db129e3c7a4465bffefd0ea670e6618ff75
   branch: master
   specs:
-    faker (2.5.0)
-      i18n (~> 1.6.0)
+    faker (2.6.0)
+      i18n (>= 1.6, < 1.8)
 
 GEM
   remote: https://rubygems.org/
@@ -66,7 +66,7 @@ GEM
     chronic (0.10.2)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
-    crass (1.0.4)
+    crass (1.0.5)
     devise (4.5.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -89,7 +89,7 @@ GEM
       raabro (~> 1.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    i18n (1.6.0)
+    i18n (1.7.0)
       concurrent-ruby (~> 1.0)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -144,8 +144,8 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.2.0)
-      loofah (~> 2.2, >= 2.2.2)
+    rails-html-sanitizer (1.3.0)
+      loofah (~> 2.3)
     railties (5.2.3)
       actionpack (= 5.2.3)
       activesupport (= 5.2.3)
@@ -166,7 +166,7 @@ GEM
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
-    sprockets (3.7.2)
+    sprockets (4.0.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.1)

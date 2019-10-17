@@ -15,7 +15,6 @@ import FetchUser from './components/FetchUser';
 import Reservation from './components/reservation/Reservation';
 import { Switch, Route, } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
-import About from './components/about/About';
 import { StripeProvider, Elements } from 'react-stripe-elements';
 // import axios from 'axios'
 import CheckoutForm from './components/CheckoutForm'
