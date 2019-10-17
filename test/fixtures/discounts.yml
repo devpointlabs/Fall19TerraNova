@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  code: 1
+  multiplier: 9.99
+  subtractor: 1
+  set_price: 1
+
+two:
+  name: MyString
+  code: 1
+  multiplier: 9.99
+  subtractor: 1
+  set_price: 1

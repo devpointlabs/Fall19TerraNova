@@ -59,7 +59,7 @@ class Reservation extends React.Component {
 
     checkAvailability = () => {
         if (this.state._isMounted)
-            axios.get("/api/avail_cabins", {params: {dates: [this.state.startDateDB, this.state.endDateDB]}} )
+            axios.get("/api/avail_cabins", {params: {dates: [this.state.startDate, this.state.endDateDB]}} ) //!!!!!!!!!!!!!!!!!!!, discountcode: 23456789
                 .then(res => {
                     this.setState({ 
                         aRooms: res.data.aRooms,

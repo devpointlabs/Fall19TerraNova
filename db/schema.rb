@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_09_174704) do
+ActiveRecord::Schema.define(version: 2019_10_15_183853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,15 +21,16 @@ ActiveRecord::Schema.define(version: 2019_10_09_174704) do
     t.integer "guests"
     t.text "special_needs"
     t.integer "booking_number"
-    t.bigint "user_id"
+    t.string "cabin_type"
+    t.integer "price"
+    t.integer "user_id"
+    t.boolean "modifiable", default: true
     t.bigint "cabin_id"
-    t.bigint "payment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "expected_arrival"
+    t.string "customer_payment_token", null: false
     t.index ["cabin_id"], name: "index_bookings_on_cabin_id"
-    t.index ["payment_id"], name: "index_bookings_on_payment_id"
-    t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
   create_table "cabins", force: :cascade do |t|
@@ -40,15 +41,12 @@ ActiveRecord::Schema.define(version: 2019_10_09_174704) do
     t.string "cabin_letter"
   end
 
-  create_table "payments", force: :cascade do |t|
+  create_table "discounts", force: :cascade do |t|
     t.string "name"
-    t.string "credit_card"
-    t.string "address"
-    t.string "city"
-    t.string "state"
-    t.integer "zip"
-    t.string "expiration"
-    t.string "price"
+    t.integer "code"
+    t.decimal "multiplier"
+    t.integer "subtractor"
+    t.integer "set_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -106,6 +104,4 @@ ActiveRecord::Schema.define(version: 2019_10_09_174704) do
   end
 
   add_foreign_key "bookings", "cabins"
-  add_foreign_key "bookings", "payments"
-  add_foreign_key "bookings", "users"
 end

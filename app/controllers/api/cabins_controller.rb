@@ -16,7 +16,7 @@ class Api::CabinsController < ApplicationController
       if cabin.save
         render json: cabin
       else
-        render json: {errors: cabin.error}, status: :unprocessable_entity
+        render json: {errors: cabin.errors}, status: :unprocessable_entity
       end
     else 
       render json: {message: "Authorized access denied. Admin status:  #{current_user.admin ? "Granted" : "Not Granted" }"}    
@@ -28,7 +28,7 @@ class Api::CabinsController < ApplicationController
       if @cabin.update(cabin_params)
         render json: @cabin
       else
-        render json: {errors: @cabin.error}, status: :unprocessable_entity
+        render json: {errors: @cabin.errors}, status: :unprocessable_entity
       end
     else 
       render json: {message: "Authorized access denied. Admin status: #{current_user.admin ? "Granted" : "Not Granted" }"}    

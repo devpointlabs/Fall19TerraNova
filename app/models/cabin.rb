@@ -1,8 +1,5 @@
 class Cabin < ApplicationRecord
   has_many :bookings, dependent: :destroy
-  has_many :users, through: :bookings
-  has_many :payments, through: :bookings
-
 
   def self.avail_cabins_model(params)
 
@@ -17,6 +14,36 @@ class Cabin < ApplicationRecord
     dateAndPriceEventHash = {}
     grandPriceArray = []
 
+
+    # ----------------- DISCOUNTS --------------------- 
+    
+    discArr = []
+    
+    # NON-REFUNDABLE
+    
+    nonref = Discount.find_by(name: "Nonrefundable")
+    discArr << nonref
+    
+    # STAY LENGTH 
+    
+    if grandWantedDates.length > 21
+      threeweek = Discount.find_by(name: "Twenty-One Plus Days")
+      discArr << threeweek
+    elsif grandWantedDates.length > 14
+      twoweek = Discount.find_by(name: "Fourteen Plus Days")
+      discArr << twoweek
+    elsif grandWantedDates.length > 7
+      oneweek = Discount.find_by(name: "Seven Plus Days")
+      discArr << oneweek
+    end
+
+    
+    #? IATA for travel agents? tbd
+    # --------------------------------------------
+
+
+
+
     Priceevent.select(:start_date, :end_date, :id, :multiplier, :adder).where("cabin_id IS null AND start_date IS NOT null").each {|date_pair| grandPriceArray << {id: date_pair.id, adder: date_pair.adder, multiplier: date_pair.multiplier, dates: (date_pair.start_date..date_pair.end_date).to_a }}
 
     grandPriceArray.each do |i|
@@ -24,20 +51,17 @@ class Cabin < ApplicationRecord
           d = date.to_s
           if grandWantedDates.include?(date)
             if dateAndPriceEventHash[d]
-            
               if i[:adder]
                 dateAndPriceEventHash[d][:adders] << i[:adder]
               elsif i[:multiplier]
                 dateAndPriceEventHash[d][:multipliers] << i[:multiplier]
               end
-
             else
               if i[:adder]
                 dateAndPriceEventHash[d] = {adders: [i[:adder]], multipliers: [] }
               elsif i[:multiplier]
                 dateAndPriceEventHash[d] = {adders: [], multipliers: [i[:multiplier]] }
               end
-
             end                  
           end
         end
@@ -62,13 +86,13 @@ class Cabin < ApplicationRecord
               elsif i[:multiplier]
                 dateAndPriceEventHash[f.to_s] = {adders: [], multipliers: [i[:multiplier]] }
               end
-             
             end 
           end
         end
       end
     end
 
+    weekendPE = Priceevent.select(:id, :adder, :multiplier).where("start_date IS null")
     
     Cabin.all.each do |c|  
       price_total = c.price 
@@ -119,20 +143,42 @@ class Cabin < ApplicationRecord
         cabinDandPeventhash.each do |date, value|
           w = date.to_date.wday 
           if w == 5 || w == 6 || w == 0
-            value[:multipliers].unshift(1.05) # This is the weekend priceevent multiplier. 
+            if weekendPE.first.multiplier
+              value[:multipliers].unshift(weekendPE.first.multiplier) 
+            elsif weekendPE.first.adder
+              value[:adders].unshift(weekendPE.first.adder) 
+            end
           end
           value[:adders].each {|n| price_total += n.to_f }
           value[:multipliers].each {|m| price_total *= m.to_f}
         end
         
         if takenArray.length == 0
+
+          discHash = {}
+
+          if params[:discountcode]
+            d = Discount.find_by(code: params[:discountcode])
+            if d.multiplier
+              discHash[d.name] = price_total * (1 - d.multiplier.to_f)
+            elsif d.subtractor
+              discHash[d.name] = price_total - d.subtractor
+            elsif d.set_price
+              discHash[d.name] = d.set_price * grandWantedDates.length
+            end
+          else 
+            discArr.each do |d|
+              if d.multiplier
+                discHash[d.name] = price_total * (1 - d.multiplier.to_f)
+              elsif d.subtractor
+                discHash[d.name] = price_total - d.subtractor
+              end
+            end
+            discHash["reg"] = price_total
+          end
           
-          a = {id: c.id, cabin_number: c.cabin_number, cabin_letter: c.cabin_letter,
-          cabinPricing: {
-            price_total: price_total, 
-            numberofNights: grandWantedDates.length, 
-            aveNightlyRate: price_total/grandWantedDates.length,
-            }}
+          
+          a = {id: c.id, cabin_number: c.cabin_number, cabin_letter: c.cabin_letter, cabinPricing: {price_hash: discHash, numberofNights: grandWantedDates.length}}
             
           cabins_info << a
 
@@ -153,18 +199,19 @@ class Cabin < ApplicationRecord
       for i in 0..cabins_info.length-2 do 
         if cabins_info[i][:cabin_number] == cabins_info[i+1][:cabin_number]
           familyCabins << 
-            {cabin_number: cabins_info[i][:cabin_number], 
-             cabinPricing: 
-              {price_total: (cabins_info[i+1][:cabinPricing][:price_total] + cabins_info[i][:cabinPricing][:price_total]), 
-               numberofNights: cabins_info[i][:cabinPricing][:numberofNights], 
-               aveNightlyRate:  ((cabins_info[i][:cabinPricing][:aveNightlyRate]+cabins_info[i+1][:cabinPricing][:aveNightlyRate])*0.95) # ! 0.95 is the discounted rate for a family room/cabin
-               }, 
-             pair: [cabins_info[i], cabins_info[i+1]] 
-            }
+             {cabin_number: cabins_info[i][:cabin_number], 
+              cabinPricing: 
+                {price_hash: {ahash: cabins_info[i][:cabinPricing][:price_hash], bhash: cabins_info[i+1][:cabinPricing][:price_hash]}, 
+                 numberofNights: cabins_info[i][:cabinPricing][:numberofNights]}, 
+              pair: [cabins_info[i], cabins_info[i+1]]}
         end
       end
 
       return {familyCabins: familyCabins, aRooms: aRooms, bRooms: bRooms, vip1: vip1, vip2: vip2}
+  end
+
+  def self.working
+    puts "You got into this file"
   end
    
   
