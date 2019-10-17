@@ -6,7 +6,8 @@ import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
 import Terms from './components/Terms';
-import RoomsRates from './components/RoomsRates'
+import RoomsRates from './components/RoomsRates';
+import RoomDetails from './components/RoomDetails';
 import About from './components/about/About';
 import FetchUser from './components/FetchUser';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -27,6 +28,7 @@ const App = () => (
           <Route exact path="/register" component={Register} />
           <Route exact path="/termsconditions" component={Terms} />
           <Route exact path="/roomsrates" component={RoomsRates} />
+          <Route exact path="/roomdetails" component={RoomDetails} />
           <Route exact path="/about" component={About} />
           <Route component={NoMatch} />
         </Switch>
