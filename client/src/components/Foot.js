@@ -41,19 +41,19 @@ const Foot = () => (
           <br/>
           <a className="link" href="/underconstruction"> Privacy Policy </a>
           <br/>
-          <a className="link" href="/underconstruction"> Help </a>
+          <a className="link" href="/contact"> Help </a>
           <br/>
           <a className="link" href="/underconstruction"> Affiliate </a>
         </div>
 
         <div className="center-links">
-          <a className="link" href="/underconstruction"> Our Location </a>
+          <a className="link" href="/about"> Our Location </a>
           <br/>
           <a className="link" href="/underconstruction"> Career </a>
           <br/>
-          <a className="link" href="/underconstruction"> About Us </a>
+          <a className="link" href="/about"> About Us </a>
           <br/>
-          <a className="link" href="/underconstruction"> Contact Us </a>
+          <a className="link" href="/contact"> Contact Us </a>
         </div> 
 
         <div className="right-links">
@@ -61,7 +61,7 @@ const Foot = () => (
           <br/>
           <a className="link" href="/underconstruction"> News </a>
           <br/>
-          <a className="link" href="/underconstruction"> Photo & Video </a>
+          <a className="link" href="/gallery"> Photo & Video </a>
           <br/>
           <a className="link" href="/underconstruction"> Restaurant </a>
           <br/>
@@ -85,7 +85,7 @@ const Foot = () => (
           <NavLink to="/underconstruction">
             <Dropdown.Item className="droplink" text='Site Map' />
           </NavLink>
-          <NavLink to="/termsconditions">
+          <NavLink to="/underconstruction">
             <Dropdown.Item text='Terms & Conditions' />
           </NavLink>
           <NavLink to="/underconstruction">
@@ -108,7 +108,7 @@ const Foot = () => (
           <NavLink to="/underconstruction">
             <Dropdown.Item text='Career' />
           </NavLink>
-          <NavLink to="/termsconditions">
+          <NavLink to="/underconstruction">
             <Dropdown.Item text='About Us' />
           </NavLink>
           <NavLink to="/underconstruction">
@@ -125,7 +125,7 @@ const Foot = () => (
           <NavLink to="/underconstruction">
             <Dropdown.Item text='New' />
           </NavLink>
-          <NavLink to="/termsconditions">
+          <NavLink to="/underconstruction">
             <Dropdown.Item text='Photo & Video' />
           </NavLink>
           <NavLink to="/underconstruction">
