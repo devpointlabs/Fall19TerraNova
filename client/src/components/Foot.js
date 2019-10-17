@@ -11,7 +11,7 @@ import './styles/Foot.css'
 const Foot = () => (
   <>
 
-  {window.screen.availWidth > 850 ?
+  {window.screen.availWidth > 825 ?
 
     <div>
 

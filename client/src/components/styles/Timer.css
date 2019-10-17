@@ -473,20 +473,18 @@
 }
 
 
-/* web */
-
-@media all and (min-width: 851px) {
-
+/* web 1024 by 640 */
+@media screen and (max-width: 1100px) and (min-width: 1000px) { 
   .timer {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    font-size: 150%;
+    font-size: 1.5em;
     justify-content: center;
     border-style: solid;
-    border-width: 10%;
+    border-width: .1em;
     border-color: white;
-    width: 50%;
+    width: 30em;
   }
 
   .countdown {
@@ -503,28 +501,133 @@
   }
 
   .countnumber {
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 10%;
-    font-size: 300%;
+    margin-left: .3em;
+    margin-right: .3em;
+    margin-top: .1em;
+    font-size: 3em;
   }
 
   .countword {
-    margin-top: -15%;
-    font-size: 120%;
+    margin-top: -1em;
+    font-size: 1.1em;
   }
 
   .colon {
-    font-size: 300%;
+    font-size: 3em;
   }
 
   .expired {
-    font-size: 150%;
+    font-size: 1.5em;
     color: rgb(126, 49, 49);
-    border: 5% solid rgb(126, 49, 49);
-    padding: 150%;
+    border: .1em solid rgb(126, 49, 49);
+    padding: .5em;
+  }
+}
+
+/* web 1280 by 800 */
+@media screen and (max-width: 1285px) and (min-width: 1101px) { 
+  .timer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    font-size: 1.5em;
+    justify-content: center;
+    border-style: solid;
+    border-width: .1em;
+    border-color: white;
+    width: 30em;
+  }
+
+  .countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .timecontainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .countnumber {
+    margin-left: .3em;
+    margin-right: .3em;
+    margin-top: .1em;
+    font-size: 3em;
+  }
+
+  .countword {
+    margin-top: -1em;
+    font-size: 1.1em;
+  }
+
+  .colon {
+    font-size: 3em;
+  }
+
+  .expired {
+    font-size: 1.5em;
+    color: rgb(126, 49, 49);
+    border: .1em solid rgb(126, 49, 49);
+    padding: .5em;
+  }
+}
+
+/* web 1440 by 560 */
+@media screen and (max-width: 1500px) and (min-width: 1286px) {
+
+  .timer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    font-size: 1.5em;
+    justify-content: center;
+    border-style: solid;
+    border-width: .1em;
+    border-color: white;
+    width: 30em;
+  }
+
+  .countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .timecontainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .countnumber {
+    margin-left: .3em;
+    margin-right: .3em;
+    margin-top: .1em;
+    font-size: 3em;
+  }
+
+  .countword {
+    margin-top: -1em;
+    font-size: 1.1em;
+  }
+
+  .colon {
+    font-size: 3em;
+  }
+
+  .expired {
+    font-size: 1.5em;
+    color: rgb(126, 49, 49);
+    border: .1em solid rgb(126, 49, 49);
+    padding: .5em;
   }
 }
 
 
-/* (max-width: 1400px) and  */
+/* web 1680 by 1050 */
+
+/* web 1920 by 1200 */

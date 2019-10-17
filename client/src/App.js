@@ -8,12 +8,13 @@ import Register from './components/Register';
 import Terms from './components/Terms';
 import RoomsRates from './components/RoomsRates'
 import About from './components/about/About';
+import Contact from './components/Contact';
 import FetchUser from './components/FetchUser';
 import ProtectedRoute from './components/ProtectedRoute';
 import Reservation from './components/reservation/Reservation';
 import { Switch, Route, } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
-
+// import { StateProvider } from './providers/StateProvider';
 
 const App = () => (
   <>
@@ -28,6 +29,7 @@ const App = () => (
           <Route exact path="/termsconditions" component={Terms} />
           <Route exact path="/roomsrates" component={RoomsRates} />
           <Route exact path="/about" component={About} />
+          <Route exact path="/contact" component={Contact} />
           <Route component={NoMatch} />
         </Switch>
     </FetchUser>

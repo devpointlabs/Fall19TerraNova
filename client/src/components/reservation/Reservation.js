@@ -17,31 +17,50 @@ class Reservation extends React.Component {
         startDate: "",
         endDate: "",
         endDateDB: "",
-        availableCabins: [],
+        chooseStartDate: true,
+        chooseEndDate: false,
         nrNights: "1",
         nrRooms: "1",
-        nrRoomsArray: ["1"],
-        rooms: [["1", "1"], ["0", "0"], ["0", "0"], ["0", "0"], ["0", "0"]] //room: (adults: ?, children: ?)
-    }
+        nrRoomsArray: [{roomNumber: "1", roomLetter: null, people: ["0", "0"], active: true}],
+        rooms: [["0", "0"]], //room: (adults: ?, children: ?)
+        aRooms: [],
+        bRooms: [],
+        familyCabins: [],
+        vip1: null,
+        vip2: null,
+        anyAvailableCabins: true,
+        bookedRooms: [],
+        bookedRoomLetters: [],
+        totalPrice: 0,
+        grandTotal: 0
+    };
 
     componentDidMount() {
-        //let now = dayjs();
-        //console.log(now.format());
-        //debugger
-        this.setState({ _isMounted: true })
-    }
+        let startDate = dayjs();
+        let endDate = dayjs(startDate.add('1', 'day'));
+        this.setState({ startDate, endDate, nrNights: 1, _isMounted: true })
+    };
 
-    onDayClick = ({date}) => {
-        console.log(date.format());
-        debugger
-    }
+    onDayClick = (date) => {
+        if (this.state.chooseStartDate || date.isBefore(this.state.startDate))
+            this.setState({ startDate: date, endDate: "", nrNights: "", chooseStartDate: false, chooseEndDate: true });
+        else if (this.state.chooseEndDate)
+            this.setState({ endDate: date, endDateDB: date.format("DD/MM/YYYY"), chooseStartDate: true, chooseEndDate: false, nrNights: date.diff(this.state.startDate, "day") });
+    };
 
     checkAvailability = () => {
         if (this.state._isMounted)
             axios.get("/api/avail_cabins", {params: {dates: [this.state.startDate, this.state.endDateDB]}} )
                 .then(res => {
-                    this.setState({ availableCabins: res.data, step: 2 });
-                    debugger
+                    this.setState({ 
+                        aRooms: res.data.aRooms,
+                        bRooms: res.data.bRooms,
+                        familyCabins: res.data.familyCabins,
+                        vip1: res.data.vip1,
+                        vip2: res.data.vip2, 
+                        step: 2
+                    });
+                    this.anyAvailableCabins();
                 })
                 .catch(err => {
                     console.log(err)
@@ -49,6 +68,7 @@ class Reservation extends React.Component {
     };
 
     onDatesChange = ({startDate, endDate}) => {
+        debugger
         let startMonth = startDate.$M + 1
         if (startMonth < 10)
             startMonth = `0${startMonth}`
@@ -73,50 +93,32 @@ class Reservation extends React.Component {
         this.setState({startDate: startDateFormatted});
         this.setState({endDate: endDateFormatted});
         this.setState({endDateDB: endDateDBFormatted});
-    }
+    };
 
-    setStartDate = (startDate) => this.setState({ startDate });
+    setStartDate = (startDate) => this.setState({ startDate: dayjs(startDate) });
 
     setEndDate = (endDate) => {
         let endDateDB = (parseInt(endDate.substring(0,2), 10)-1).toString();
         endDateDB = endDateDB.concat(endDate.substring(2,));
-        let nrNights = parseInt(endDate.substring(0,2), 10) - parseInt(this.state.startDate.substring(0,2), 10);
-        this.setState({ endDate, endDateDB, nrNights });
-    }
+        //let nrNights = parseInt(endDate.substring(0,2), 10) - parseInt(this.state.startDate.substring(0,2), 10);
+        let nrNights = 3;
+        this.setState({ endDate: dayjs(endDate), endDateDB, nrNights });
+    };
 
-    setNrNights = (nrNights) => this.setState({ nrNights });
-
-    setNrRooms = (nrRooms) => {
-        this.setState({ nrRooms });
-        switch(nrRooms) {
-            case "1":
-                this.setState({ nrRoomsArray: ["1"] });
-                break;
-            case "2":
-                this.setState({ nrRoomsArray: ["1", "2"] });
-                break;
-            case "3":
-                this.setState({ nrRoomsArray: ["1", "2", "3"] });
-                break;
-            case "4":
-                this.setState({ nrRoomsArray: ["1", "2", "3", "4"] })
-                break;
-            case "5":
-                this.setState({ nrRoomsArray: ["1", "2", "3", "4", "5"] })
-                break;
-        };
+    setNrNights = (nrNights) => {
+        this.setState({ nrNights, endDate: this.state.startDate.add(`${nrNights}`, 'day') });
     };
 
     setNrAdults = (room, nrAdults) => {
-        let rooms = this.state.rooms;
-        rooms[parseInt(room.room, 10)-1][0] = nrAdults;
-        this.setState({ rooms });
+        let nrRoomsArray = this.state.nrRoomsArray;
+        nrRoomsArray[parseInt(room, 10)-1].people[0] = nrAdults;
+        this.setState({ nrRoomsArray });
     };
 
     setNrChildren = (room, nrChildren) => {
-        let rooms = this.state.rooms;
-        rooms[parseInt(room.room, 10)-1][1] = nrChildren;
-        this.setState({ rooms });
+        let nrRoomsArray = this.state.nrRoomsArray;
+        nrRoomsArray[parseInt(room, 10)-1].people[1] = nrChildren;
+        this.setState({ nrRoomsArray });
     };
 
     popoverCalendar = () => (
@@ -124,13 +126,141 @@ class Reservation extends React.Component {
           <LinkedCalendar onDatesChange={this.onDatesChange} />
         </Popover>
     );
+
+    anyAvailableCabins = () => {
+        if (this.state.aRooms.length > 0 || 
+            this.state.bRooms.length > 0 || 
+            this.state.familyCabins.length > 0 ||
+            this.state.vip1 ||
+            this.state.vip2)
+            this.setState({ anyAvailableCabins: true });
+        else
+            this.setState({ anyAvailableCabins: false });
+    };
     
-    addRoom = () => (
+    addRoom = (roomLetter) => {
+        let bookedRooms = this.state.bookedRooms;
+        let bookedRoomLetters = this.state.bookedRoomLetters;
+        let room = null;
+        let aRooms = this.state.aRooms;
+        let bRooms = this.state.bRooms;
+        let familyCabins = this.state.familyCabins;
+        let nrRoomsArray = this.state.nrRoomsArray;
+        let rooms = this.state.rooms;
+        switch(roomLetter) {
+            case "A":
+                room = this.state.aRooms[0];
+                familyCabins = familyCabins.filter( familyCabin => 
+                    familyCabin.cabin_number != room.cabin_number );
+                break;
+            case "B":
+                room = this.state.bRooms[0];
+                familyCabins = familyCabins.filter( familyCabin => 
+                    familyCabin.cabin_number != room.cabin_number );
+                break;
+            case "F":
+                room = this.state.familyCabins[0];
+                aRooms = aRooms.filter( aRoom => 
+                    aRoom.cabin_number != room.cabin_number );
+                bRooms = bRooms.filter( bRoom => 
+                    bRoom.cabin_number != room.cabin_number );
+                break;
+            case "V1":
+                room = this.state.vip1;
+                break;
+            case "V2":
+                room = this.state.vip2;
+                break;
+        }
+        let activeRoom = nrRoomsArray.filter( room => room.active )[0];
+        if (parseInt(activeRoom.roomNumber, 10) > bookedRooms.length) {
+            // adding new room
+            bookedRooms.push(room);
+            bookedRoomLetters.push(roomLetter);
+            rooms.push(["0", "0"]);
+            nrRoomsArray[nrRoomsArray.length-1].active = false;
+            nrRoomsArray[nrRoomsArray.length-1].roomLetter = roomLetter;
+            nrRoomsArray.push( {roomNumber: (nrRoomsArray.length+1).toString(), roomLetter: null, people: ["0", "0"], active: true} );
+        } else {
+            // changing a room
+            bookedRooms = bookedRooms.map( (bookedRoom, index) => {
+                if (parseInt(activeRoom.roomNumber, 10)-1 === index)
+                    return room;
+                else
+                    return bookedRoom;
+            });
+            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].active = false;
+            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomLetter = roomLetter;
+            nrRoomsArray[nrRoomsArray.length-1].active = true;
+            bookedRoomLetters = bookedRoomLetters.map( (roomLetter, index) => {
+                if (parseInt(activeRoom.roomNumber, 10)-1 === index)
+                    return nrRoomsArray[0].roomLetter;
+                else
+                    return roomLetter;
+            });
+        };
+        this.setState({ aRooms, bRooms, familyCabins, rooms, nrRoomsArray, bookedRooms, bookedRoomLetters });
+        this.calculateTotalPrice(bookedRooms);
+    };
+
+    changeRoom = (roomNumber) => {
+        let nrRoomsArray = this.state.nrRoomsArray;
+        nrRoomsArray.map ( room => {
+            if (room.roomNumber === roomNumber)
+                room.active = true;
+            else
+                room.active = false;
+            return room;
+        });
+        this.setState({ nrRoomsArray });
+    };
+
+    calculateTotalPrice = (bookedRooms) => {
+        let totalPrice = 0;
+        bookedRooms.forEach( room => (
+            totalPrice = totalPrice + Math.round(room.cabinPricing.price_total)));
+        this.setState({ totalPrice });
+    };
+
+    goToBilling = () => this.setState({ step: 3 });
+
+    renderRoomName = (room) => (
         <>
+        { room == "A" &&
+            <>LAKE VIEW CABIN</>
+        }
+        { room == "B" &&
+            <>MOUNTAIN VIEW CABIN</>
+        }
+        { room == "F" &&
+            <>FAMILY CABIN</>
+        }
+        { room == "V1" &&
+            <>VIP ROOM 1</>
+        }
+        { room == "V2" &&
+            <>VIP ROOM 2</>
+        }
         </>
     );
 
-    goToBilling = () => this.setState({ step: 3 });
+    renderRoomPrice = (roomLetter) => {
+        if (roomLetter == "A") return Math.round(this.state.aRooms[0].cabinPricing.aveNightlyRate);
+        else if (roomLetter == "B") return Math.round(this.state.bRooms[0].cabinPricing.aveNightlyRate);
+        else if (roomLetter == "F") return Math.round(this.state.familyCabins[0].cabinPricing.aveNightlyRate);
+        else if (roomLetter == "V1") return Math.round(this.state.vip1.cabinPricing.aveNightlyRate);
+        else if (roomLetter == "V2") return Math.round(this.state.vip2.cabinPricing.aveNightlyRate);
+    };
+
+    renderTotalRoomPrice = (roomLetter) => {
+        if (roomLetter == "A") return Math.round(this.state.aRooms[0].cabinPricing.price_total);
+        else if (roomLetter == "B") return Math.round(this.state.bRooms[0].cabinPricing.price_total);
+        else if (roomLetter == "F") return Math.round(this.state.familyCabins[0].cabinPricing.price_total);
+        else if (roomLetter == "V1") return Math.round(this.state.vip1.cabinPricing.price_total);
+        else if (roomLetter == "V2") return Math.round(this.state.vip2.cabinPricing.price_total);
+    };
+
+    setGrandTotal = (grandTotal) => this.setState({ grandTotal });
 
     render() {
         return (
@@ -138,14 +268,16 @@ class Reservation extends React.Component {
                 <div className="reservation-header-container">
                     <div className="reservation-header">Reservation</div>
                 </div>
+                { this.state._isMounted &&
+                <>
                 { this.state.step === 1 && 
                     <Step1
                         renderLeftBox={this.renderLeftBox}
-                        DateForm={DateForm}
-                        CustomDropdown={CustomDropdown}
                         checkAvailability={this.checkAvailability}
                         setStartDate={this.setStartDate}
+                        startDate={this.state.startDate}
                         setEndDate={this.setEndDate}
+                        endDate={this.state.endDate}
                         setNrNights={this.setNrNights}
                         setNrRooms={this.setNrRooms}
                         setNrAdults={this.setNrAdults}
@@ -155,13 +287,12 @@ class Reservation extends React.Component {
                         nrRoomsArray={this.state.nrRoomsArray}
                         rooms={this.state.rooms}
                         onDayClick={this.onDayClick}
+                        popoverCalendar={this.popoverCalendar}
                     />
                 }
                 { this.state.step === 2 && 
                     <Step2
                         renderLeftBox={this.renderLeftBox}
-                        DateForm={DateForm}
-                        CustomDropdown={CustomDropdown}
                         checkAvailability={this.checkAvailability}
                         startDate={this.state.startDate}
                         endDate={this.state.endDate}
@@ -176,15 +307,41 @@ class Reservation extends React.Component {
                         nrRoomsArray={this.state.nrRoomsArray}
                         rooms={this.state.rooms}
                         onDayClick={this.onDayClick}
+                        aRooms={this.state.aRooms}
+                        bRooms={this.state.bRooms}
+                        familyCabins={this.state.familyCabins}
+                        vip1={this.state.vip1}
+                        vip2={this.state.vip2}
+                        anyAvailableCabins={this.state.anyAvailableCabins}
                         addRoom={this.addRoom}
+                        changeRoom={this.changeRoom}
                         goToBilling={this.goToBilling}
+                        bookedRooms={this.state.bookedRooms}
+                        bookedRoomLetters={this.state.bookedRoomLetters}
+                        calculateTotalPrice={this.calculateTotalPrice}
+                        totalPrice={this.state.totalPrice}
+                        renderRoomName={this.renderRoomName}
+                        renderRoomPrice={this.renderRoomPrice}
+                        renderTotalRoomPrice={this.renderTotalRoomPrice}
                     />
                 }
                 { this.state.step === 3 && 
                     <Step3
-                        DateForm={DateForm}
-                        CustomDropdown={CustomDropdown}
+                        nrRoomsArray={this.state.nrRoomsArray}
+                        startDate={this.state.startDate.format("MM/DD/YYYY")}
+                        endDate={this.state.endDate.format("MM/DD/YYYY")}
+                        nrNights={this.state.nrNights}
+                        totalPrice={this.state.totalPrice}
+                        totalNrAdults={this.state.totalNrAdults}
+                        totalNrChildren={this.state.totalNrChildren}
+                        renderRoomName={this.renderRoomName}
+                        renderRoomPrice={this.renderRoomPrice}
+                        renderTotalRoomPrice={this.renderTotalRoomPrice}
+                        bookedRooms={this.state.bookedRooms}
+                        setGrandTotal={this.setGrandTotal}
                     />
+                }
+                </>
                 }
             </>
         );

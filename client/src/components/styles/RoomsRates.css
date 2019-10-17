@@ -51,6 +51,7 @@
 .listcontainer{
   display: flex;
   flex-wrap: wrap;
+ 
 }
 
 .detailscontainer{

@@ -1,0 +1,14 @@
+.news-line-img {
+  margin-left: 125px;
+  width: 11.5%;
+  margin-top: -5px; 
+  background-color: #8E7037;
+}
+
+.newslink {
+  color: #8E7037;
+}
+
+.newslink:hover {
+  color: #7c612e;
+}

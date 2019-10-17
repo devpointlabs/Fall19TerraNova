@@ -4,6 +4,7 @@ import { Icon, Dropdown } from "semantic-ui-react";
 import { LinkedCalendar } from '../rb-datepicker/dist';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import "../styles/daterangepicker.css";
+import * as dayjs from "dayjs";
 
 class Step1 extends React.Component {
     state = {
@@ -12,22 +13,13 @@ class Step1 extends React.Component {
         endDateDB: "",
         nrNights: "1",
         nrRooms: "1",
-        nrRoomsArray: ["1"],
         rooms: [["1", "1"], ["0", "0"], ["0", "0"], ["0", "0"], ["0", "0"]] //room: (adults: ?, children: ?)
-    }
+    };
 
     componentDidMount() {
-        this.ticker = setInterval( () => this.tick(), 250 );
-        let drp_selected = document.getElementsByClassName("drp-selected");
-        if (drp_selected && drp_selected.length > 0) {
-            let dateString = drp_selected[0].innerText;
-            let startDate = dateString.substring(0, 10);
-            let endDate = dateString.substring(13);
-            this.setState({ startDate: startDate, endDate: endDate });
-            this.props.setStartDate(startDate);
-            this.props.setEndDate(endDate);
-        }
-    }
+        // this.ticker = setInterval( () => this.tick(), 1000 );
+
+    };
 
     tick = () => {
         let drp_selected = document.getElementsByClassName("drp-selected");
@@ -38,8 +30,8 @@ class Step1 extends React.Component {
             this.setState({ startDate: startDate, endDate: endDate });
             this.props.setStartDate(startDate);
             this.props.setEndDate(endDate);
-        }
-    }
+        };
+    };
 
     formatDate = (date) => {
         if (date != "") {
@@ -47,8 +39,8 @@ class Step1 extends React.Component {
             let month = date.substring(5, 7);
             let day = date.substring(8, 10);
             return `${day}/${month}/${year}`;
-        }
-    }
+        };
+    };
 
     render() {
         return(
@@ -73,14 +65,14 @@ class Step1 extends React.Component {
             <p style={{marginLeft: "20px", marginTop: "25px", fontWeight: "bold", fontSize: "14px", color: "#8E7037"}}>YOUR STAY DATES</p>
             <span style={{marginLeft: "20px", marginTop: "5px", marginRight: "0px", fontWeight: "bold", fontSize: "12px"}}>ARRIVE</span>
             <div className="reservation-form-container">
-                <this.props.DateForm value={this.state.startDate} readOnly />
-                <OverlayTrigger trigger="click" placement="right">
+                <Form.Control className="reservation-dateform" value={this.props.startDate.format("MM/DD/YYYY")} readOnly />
+                {/* <OverlayTrigger trigger="click" placement="right" overlay={this.props.popoverCalendar}> */}
                     <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
-                </OverlayTrigger>
+                {/* </OverlayTrigger> */}
             </div>
             <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>NIGHT(S)</span>
             <div className="reservation-dropdown-container">
-                <this.props.CustomDropdown text={this.props.nrNights}>
+                <Dropdown className="reservation-custom-dropdown" text={this.props.nrNights} drop='down'>
                     <Dropdown.Menu>
                         <Dropdown.Item text='1' onClick={() => this.props.setNrNights('1')} />
                         <Dropdown.Item text='2' onClick={() => this.props.setNrNights('2')} />
@@ -94,14 +86,18 @@ class Step1 extends React.Component {
                         <Dropdown.Item text='10' onClick={() => this.props.setNrNights('10')} />
                         <Dropdown.Item text='10+' onClick={() => this.props.setNrNights('10+')} />
                     </Dropdown.Menu>
-                </this.props.CustomDropdown>
+                </Dropdown>
             </div>
             <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>DEPARTURE</span>
             <div className="reservation-form-container">
-                <this.props.DateForm value={this.state.endDate} readOnly />
-                <OverlayTrigger trigger="click" placement="right">
+                <Form.Control 
+                    className="reservation-dateform" 
+                    value={this.props.endDate != "" ? this.props.endDate.format("MM/DD/YYYY") : this.props.endDate} 
+                    readOnly 
+                />
+                {/* <OverlayTrigger trigger="click" placement="right"> */}
                     <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
-                </OverlayTrigger>
+                {/* </OverlayTrigger> */}
             </div>
             <div className="reservation-button-container">
                 <span className="reservation-custom-button" onClick={this.props.checkAvailability}>
@@ -112,7 +108,11 @@ class Step1 extends React.Component {
                     <div className="reservation-right-box">
                         <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>AVAILABILITY</p>
                         <div className="reservation-hr-container"><div className="reservation-line" /></div>
-                        <LinkedCalendar applyButtonClasses="" buttonClasses="" onDatesChange={this.props.onDatesChange} singleDatePicker={true} onChange={this.props.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} />
+                        { this.props.endDate != "" ?
+                            <LinkedCalendar startDate={this.props.startDate != "" && this.props.startDate} endDate={this.props.endDate != "" && this.props.endDate} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onDayClick={this.props.onDayClick} onChange={this.props.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} />
+                        :
+                            <LinkedCalendar startDate={this.props.startDate != "" && this.props.startDate} endDate={null} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onChange={this.props.onDatesChange} onDayClick={this.props.onDayClick} showDropdowns={false} showWeekNumbers={false} autoApply={true} />
+                        }
                     </div>
                 </div>
             </>

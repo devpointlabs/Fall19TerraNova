@@ -305,9 +305,9 @@
     justify-content: center;
     color:white;
     position:absolute;
-    font-size: 1em;
-    top: 20em;
-    width: 26em;
+    font-size: 1.2em;
+    top: 16em;
+    width: 22.5em;
     text-align:center;
     font-family: 'Muli', sans-serif;
     
@@ -318,9 +318,9 @@
     justify-content: center;
     color:white;
     position:absolute;
-    font-size: .6em;
-    top: 39em;
-    width: 44em;
+    font-size: .7em;
+    top: 34em;
+    width: 37em;
     text-align:center;
     font-family: 'Muli', sans-serif;
     
@@ -446,9 +446,9 @@
     justify-content: center;
     color:white;
     position:absolute;
-    font-size: 1em;
-    top: 13em;
-    width: 30em;
+    font-size: 1.2em;
+    top: 10.5em;
+    width: 25em;
     text-align:center;
     font-family: 'Muli', sans-serif;
     
@@ -459,9 +459,9 @@
     justify-content: center;
     color:white;
     position:absolute;
-    font-size: .6em;
-    top: 30em;
-    width: 48.5em;
+    font-size: .7em;
+    top: 27em;
+    width: 42em;
     text-align:center;
     font-family: 'Muli', sans-serif;
     
@@ -700,9 +700,210 @@
 
 }
 
-/* web */
+/* tablet */
+/* @media screen and (min-width: 750px) and (max-height: 450px) and (min-height: 400px) { 
 
-@media screen and (min-width: 825px) { 
+  .forest-image {
+    width: 115em;
+  }
+
+  .firstoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 500%;
+    top: 30%;
+    width:100%;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+
+  }
+
+  .secondoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 250%;
+    top: 42%;
+    width:100%;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .thirdoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 160%;
+    top: 54%;
+    width:100%;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .timeoverlay { 
+    display: flex;
+    justify-content: center;
+    color:#fff;
+    position:absolute;
+    top:60%;
+    width:100%;
+    text-align:center;
+  }
+
+  .logooverlay { 
+    display: flex;
+    justify-content: center;
+    color:rgb(255, 255, 255);
+    position:absolute;
+    top: 58em;
+    width: 100em;
+
+  }
+} */
+
+
+/* web 1024 by 640 */
+@media screen and (max-width: 1100px) and (min-width: 1000px) { 
+
+  .forest-image {
+    width: 130em;
+  }
+
+  .firstoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 8em;
+    top: 2em;
+    width: 16.5em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+
+  }
+
+  .secondoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 4em;
+    top: 6.5em;
+    width: 33em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .thirdoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 2em;
+    top: 20.5em;
+    width: 64em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .timeoverlay { 
+    display: flex;
+    justify-content: center;
+    color:#fff;
+    position:absolute;
+    top: 44em;
+    width: 128em;
+    text-align:center;
+  }
+
+  .logooverlay { 
+    display: flex;
+    justify-content: center;
+    color:rgb(255, 255, 255);
+    position:absolute;
+    top: 70em;
+    width: 110em;
+    margin-left: 10em;
+  }
+}
+
+/* web 1280 by 800 */
+@media screen and (max-width: 1285px) and (min-width: 1101px) { 
+
+  .forest-image {
+    width: 130em;
+  }
+
+  .firstoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 8em;
+    top: 2em;
+    width: 16.5em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+
+  }
+
+  .secondoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 3.5em;
+    top: 7.5em;
+    width: 37em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .thirdoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 2em;
+    top: 20em;
+    width: 64em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .timeoverlay { 
+    display: flex;
+    justify-content: center;
+    color:#fff;
+    position:absolute;
+    top: 44em;
+    width: 126em;
+    text-align:center;
+  }
+
+  .logooverlay { 
+    display: flex;
+    justify-content: center;
+    color:rgb(255, 255, 255);
+    position:absolute;
+    top: 69em;
+    width: 105em;
+    margin-left: 10em;
+  }
+}
+
+/* web 1440 by 560 */
+@media screen and (max-width: 1500px) and (min-width: 1286px) { 
 
   .forest-image {
     width: 110em;
@@ -767,3 +968,142 @@
 
   }
 }
+
+
+
+/* still need to do these ones */
+
+/* web 1680 by 1050 */
+@media screen and (max-width: 1700px) and (min-width: 1501px) { 
+
+  .forest-image {
+    width: 115em;
+  }
+
+  .firstoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 7em;
+    top: 2em;
+    width: 18.5em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+
+  }
+
+  .secondoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 3em;
+    top: 7.5em;
+    width: 42em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .thirdoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 1.5em;
+    top: 20.5em;
+    width: 83em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .timeoverlay { 
+    display: flex;
+    justify-content: center;
+    color:#fff;
+    position:absolute;
+    top: 34em;
+    width: 126em;
+    text-align:center;
+  }
+
+  .logooverlay { 
+    display: flex;
+    justify-content: center;
+    color:rgb(255, 255, 255);
+    position:absolute;
+    top: 60em;
+    width: 100em;
+    margin-left: 10em;
+  }
+}
+
+/* web 1920 by 1200 */
+@media screen and (max-width: 1950px) and (min-width: 1701px) { 
+
+  .forest-image {
+    width: 115em;
+  }
+
+  .firstoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 7em;
+    top: 2em;
+    width: 18.5em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+
+  }
+
+  .secondoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 3em;
+    top: 7.5em;
+    width: 42em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .thirdoverlay { 
+    display: flex;
+    justify-content: center;
+    color:white;
+    position:absolute;
+    font-size: 1.5em;
+    top: 20.5em;
+    width: 83em;
+    text-align:center;
+    font-family: 'Muli', sans-serif;
+    
+  }
+
+  .timeoverlay { 
+    display: flex;
+    justify-content: center;
+    color:#fff;
+    position:absolute;
+    top: 34em;
+    width: 126em;
+    text-align:center;
+  }
+
+  .logooverlay { 
+    display: flex;
+    justify-content: center;
+    color:rgb(255, 255, 255);
+    position:absolute;
+    top: 60em;
+    width: 100em;
+    margin-left: 10em;
+  }
+}
+

@@ -9,7 +9,6 @@ import yellowstone1 from '../../images/top/yellowstone1.jpg'
 import yellowstone2 from '../../images/top/yellowstone2.jpg'
 import { Dropdown } from "semantic-ui-react"; 
 import styled from 'styled-components'
-import '../styles/daterangepicker.css'
 import './homestyles/Head.css'
 
 
@@ -38,7 +37,7 @@ const [departDate, setDepartDate] = React.useState(new Date('2019-10-11'));
       </div>
 
       <div className="calendaroverlay">
-        <MuiPickersUtilsProvider utils={DayjsUtils}>
+        {/* <MuiPickersUtilsProvider utils={DayjsUtils}>
           <Grid container justify="space-around">
 
             <div className="arrivedate">
@@ -73,11 +72,17 @@ const [departDate, setDepartDate] = React.useState(new Date('2019-10-11'));
                   'aria-label': 'change date',
                 }}
                 />
-            </div>
+            </div> */}
 
-          </Grid>
-        </MuiPickersUtilsProvider>
+          {/* </Grid>
+        </MuiPickersUtilsProvider> */} */}
         
+
+        <DateButton> <p> ARRIVAL DATE </p> </DateButton> 
+        <DateButton> <p> DEPARTURE DATE </p> </DateButton>
+        <GuestButton> <p> ADULTS </p> </GuestButton>
+        <GuestButton> <p> CHILDREN </p> </GuestButton>
+        <CheckButton> <p> CHECK </p> <p> AVAILABILITY </p></CheckButton>
       </div>
     
     <Carousel nextIcon="" prevIcon="" >
