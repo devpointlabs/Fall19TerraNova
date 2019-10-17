@@ -1,8 +1,5 @@
 class Cabin < ApplicationRecord
   has_many :bookings, dependent: :destroy
-  has_many :users, through: :bookings
-  has_many :payments, through: :bookings
-
 
   def self.avail_cabins_model(params)
 
@@ -24,7 +21,7 @@ class Cabin < ApplicationRecord
     
     # NON-REFUNDABLE
     
-    nonref = Discount.find_by(name: "Nonrefunable")
+    nonref = Discount.find_by(name: "Nonrefundable")
     discArr << nonref
     
     # STAY LENGTH 
@@ -211,6 +208,10 @@ class Cabin < ApplicationRecord
       end
 
       return {familyCabins: familyCabins, aRooms: aRooms, bRooms: bRooms, vip1: vip1, vip2: vip2}
+  end
+
+  def self.working
+    puts "You got into this file"
   end
    
   

@@ -1,5 +1,5 @@
 class Api::BookingsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:create]
   before_action :set_booking, only: [:show, :update, :destroy]
 
   def index # ☑️ ADMIN ONLY, to see all individual bookings create new method ((@user.bookings) this is used by nesting models in routes. ...
@@ -22,22 +22,22 @@ class Api::BookingsController < ApplicationController
   def create # ☑️ on submit button, a transaction will be created and a booking will be created
     booking = Booking.new(booking_params)
     if booking.save
-      render json: booking
+      render json: booking.booking_number
     else
-      render json: {errors: booking.error}, status: :unprocessable_entity
+      render json: {errors: booking.errors}, status: :unprocessable_entity
     end
   end
 
   def update # 📍 can be changed by admin or person, fee charged? # ! within a 24 hour time period of arrival
-    if current_user.admin == true || current_user.id == @booking.user_id  # Is this secure? 
+    # if current_user.admin == true # ! || current_user.id == @booking.user_id  
       if @booking.update(booking_params)
         render json: @booking
       else
-        render json: {errors: @booking.error}, status: :unprocessable_entity
+        render json: {errors: @booking.errors}, status: :unprocessable_entity
       end
-    else
-      render json: {message: "Authorized access denied." }    
-    end
+    # else
+    #   render json: {message: "Authorized access denied." }    
+    # end
   end
 
   def destroy # ☑️ cancelling a reservation. VS cancellation number. Add this to Booking info? 
@@ -61,10 +61,16 @@ class Api::BookingsController < ApplicationController
     render json: Booking.single_day_bookings(params)
   end
 
+  scheduler = Rufus::Scheduler.new
+
+  scheduler.in '3s' do
+    puts 'Hello... Rufus'
+  end
+
   protected
 
     def booking_params # ☑️
-      params.require(:booking).permit(:start_date, :end_date, :guests, :special_needs, :booking_number, :user_id, :cabin_id, :payment_id, :expected_arrival)
+      params.require(:booking).permit(:start_date, :end_date, :guests, :special_needs, :booking_number, :user_id, :cabin_id, :expected_arrival, :customer_payment_token, :price, :cabin_type)
     end
 
     def set_booking # ☑️

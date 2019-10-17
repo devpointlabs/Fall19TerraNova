@@ -25,7 +25,7 @@ class Api::DiscountsController < ApplicationController
       if discount.save
         render json: discount
       else
-        render json: {errors: discount.error}, status: :unprocessable_entity
+        render json: {errors: discount.errors}, status: :unprocessable_entity
       end
     else 
       render json: {message: "Authorized access denied. Admin status: #{current_user.admin ? "Granted" : "Not Granted" }"}    
@@ -37,7 +37,7 @@ class Api::DiscountsController < ApplicationController
       if @discount.update(discount_params)
         render json: @discount
       else
-        render json: {errors: @discount.error}, status: :unprocessable_entity
+        render json: {errors: @discount.errors}, status: :unprocessable_entity
       end
     else 
       render json: {message: "Authorized access denied. Admin status: #{current_user.admin ? "Granted" : "Not Granted" }"}    

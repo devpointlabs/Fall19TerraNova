@@ -7,27 +7,58 @@ const CheckoutForm = (props) => {
   const [client_secret, setClient_secret] = useState("")
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
+  const [cabin_type, setCabin_type] = useState("Family")
 
   useEffect(() => {
     axios.get('/api/getclientsecret')
       .then(res => { setClient_secret(res.data.client_secret) })
       .catch(err => { console.log(err) })
+    // setCabin_type(props.foo) // ! BRING IN THE TYPE OF CABIN BEING RESERVED
   }, [])
 
   const submit = async (ev) => {
     ev.preventDefault();
-    let { token } = await props.stripe.createToken({ name: `${firstName} ${lastName}` });
-    const { setupIntent, error } = await props.stripe.handleCardSetup(client_secret, { payment_method_data: { billing_details: { name: `${firstName} ${lastName}` } } });
+    // let { token } = await props.stripe.createToken({ name: `${firstName} ${lastName}` });
 
+    let res = await props.stripe.createPaymentMethod('card')
+
+    const { setupIntent, error } = await props.stripe.handleCardSetup(client_secret, {}); //  payment_method_data: { billing_details: { name: `${firstName} ${lastName}` } } 
     if (error) {
       console.log(error)
       console.log("YOU HAVE A CARD ERROR")
-      // Display error.message in your UI.
-    } else if (setupIntent.status == "Succeeded") { // Its a go! create the booking. add the customerpaymenttoken, go go go
-      await axios.post(`/api/createres?body=${token.id}`)
+    } else if (setupIntent.status == "succeeded") { // Its a go! create the booking. add the customerpaymenttoken, go go go
+      await axios.post(`/api/createres?body=${res.paymentMethod.id}`)//${token.id}
         .then(res => {
-          debugger
-          if (res.data.ok) setComplete(true)
+          
+          // CREATE A USER FIRST, THEN YOU CAN add that to the boooking
+          // ? REGARDING CABIN_ID, DO I CREATE TWO BOOKINGS? IF SO, CAN I CHARGE THE CARD TWICE?? OR SOMEHOW WORK AROUND THAT. 
+
+          if (cabin_type === "Family"){
+
+          } else {  
+
+          }
+
+
+           axios.post('/api/bookings', {
+            customer_payment_token: res.data.id, 
+            cabin_type, // import the cabin type
+            price: 1200, // import the price
+            start_date: "2019-10-04", 
+            end_date: "2019-10-10", 
+            guests: 3, 
+            special_needs: "Wants the cabin in far north", 
+            booking_number: 123456789, 
+            user_id: 1,  // if user is logged in or has created an account, put user_id here.
+            cabin_id: 10, 
+            expected_arrival: "2:00PM"}) // put all the customer information in this hash. 
+            .then(res=> {
+              debugger
+              setComplete(true)
+            })
+            .catch(err => { console.log(err) })
+
+
         })
         .catch(err => { console.log(err) })
 

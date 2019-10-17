@@ -25,7 +25,7 @@ class Api::PriceeventsController < ApplicationController
       if priceevent.save
         render json: priceevent
       else
-        render json: {errors: priceevent.error}, status: :unprocessable_entity
+        render json: {errors: priceevent.errors}, status: :unprocessable_entity
       end
     else 
       render json: {message: "Authorized access denied. Admin status: #{current_user.admin ? "Granted" : "Not Granted" }"}    
@@ -37,7 +37,7 @@ class Api::PriceeventsController < ApplicationController
       if @priceevent.update(priceevent_params)
         render json: @priceevent
       else
-        render json: {errors: @priceevent.error}, status: :unprocessable_entity
+        render json: {errors: @priceevent.errors}, status: :unprocessable_entity
       end
     else 
       render json: {message: "Authorized access denied. Admin status: #{current_user.admin ? "Granted" : "Not Granted" }"}    

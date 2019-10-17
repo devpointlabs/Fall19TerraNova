@@ -15,6 +15,8 @@ gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
 gem 'whenever', require: false
 
+gem 'rufus-scheduler'
+
 group :development, :test do
   gem 'dotenv-rails'
   # Call 'pry' anywhere in the code to stop execution and get a debugger console

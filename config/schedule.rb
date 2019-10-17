@@ -11,6 +11,16 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
+# every 1.day, at: '4:30 am' do
+#   runner "MyModel.task_to_run_at_four_thirty_in_the_morning"
+# end
+
+set :environment, 'development'
+
+every 1.minute do 
+  runner "Cabin.working"
+end
+
 
 
 # todo: prevent bookings from being changed 24-48 hours before their checkin. create column "updateable:boolean"
@@ -19,11 +29,6 @@
 # todo: allow receptionist to create a charge on a card. 
 #   that is "checked_in:boolean") every day, if (check-in_date == yesterday ) {create charge #? or hold} 
 
-# todo: Create a discounts table and have interactive prices. 
 
 # todo: 
-
-
-# you checkin, that night a hold is placed on your account. the charge is settled the next day.
-# you dont checkin, 
 

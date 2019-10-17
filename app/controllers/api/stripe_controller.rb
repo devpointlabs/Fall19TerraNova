@@ -3,11 +3,7 @@ class Api::StripeController < ApplicationController
   Stripe.api_key = Rails.configuration.stripe[:secret_key] # or ENV['STRIPE_SECRET_KEY']
 
   def createres
-    customer = Stripe::Customer.create({ #creates a "Customer" that can be charged. store this in db in booking model
-    source: params[:body],
-    email: 'paying.user@example.com',
-    })
-    binding.pry
+    render json: Stripe::Customer.create({payment_method: params[:body], email: 'paying.user@example.com'})
   end
   
   def getclientsecret
@@ -19,28 +15,14 @@ class Api::StripeController < ApplicationController
     #   currency: 'usd',
     #   payment_method_types: ['card'],
     #   customer: '{CUSTOMER_ID}',
-    #   payment_method: '{PAYMENT_METHOD_ID}',
+    #   payment_method: '{PAYMENT_METHOD_ID}', # DONT NEED THIS. JUST USE CUSTOMER ID
     #   off_session: true,
     #   confirm: true,)
 
     # binding.pry
 
-    # OR!!
-
-    # binding.pry
-
-    # charge = Stripe::Charge.create({ # when the time is right. charge the customer.
-    #   amount: 1500, # $15.00 this time
-    #   currency: 'usd',
-    #   customer: customer_id, # Previously stored, then retrieved
-    # })
-
-
-
-
-  
   protected
-  
+
   def booking_params # ☑️
     params.permit(:body)
   end
