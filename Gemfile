@@ -13,10 +13,16 @@ gem "devise_token_auth", "~> 1.0.0"
 # Stripe payment service
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
+gem 'whenever', require: false
+
+gem 'rufus-scheduler'
+
 group :development, :test do
   gem 'dotenv-rails'
   # Call 'pry' anywhere in the code to stop execution and get a debugger console
   gem "pry-rails"
+
+  gem "letter_opener"
   # Generates test data
   gem "faker", :git => "https://github.com/stympy/faker.git", :branch => "master"
 end

@@ -7,9 +7,11 @@ class CreateBookings < ActiveRecord::Migration[5.2]
       t.time :expected_arrival
       t.text :special_needs
       t.integer :booking_number
-      t.belongs_to :user, foreign_key: true
+      t.string :cabin_type
+      t.integer :price
+      t.integer :user_id
+      t.boolean :modifiable, default: true
       t.belongs_to :cabin, foreign_key: true
-      t.belongs_to :payment, foreign_key: true
       t.timestamps
     end
   end

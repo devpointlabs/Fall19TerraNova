@@ -2,13 +2,16 @@ import React from 'react';
 import icon from '../images/foot/icon.png'
 import mail from '../images/foot/mail.png'
 import paymenticons from '../images/foot/paymenticons.png'
+import { Dropdown } from "semantic-ui-react"; 
+import styled from 'styled-components';
+import {NavLink} from 'react-router-dom';
 import './styles/Foot.css'
 
 
 const Foot = () => (
   <>
 
-  {window.screen.availWidth > 500 ?
+  {window.screen.availWidth > 825 ?
 
     <div>
 
@@ -75,12 +78,76 @@ const Foot = () => (
 
   :
 
-  <p> hi </p>
+    <div className="mobilecontainer">
+      <hr/>
+      <CustomDropdown className="droplabel" placeholder="Help">
+        <Dropdown.Menu>
+          <NavLink to="/underconstruction">
+            <Dropdown.Item className="droplink" text='Site Map' />
+          </NavLink>
+          <NavLink to="/termsconditions">
+            <Dropdown.Item text='Terms & Conditions' />
+          </NavLink>
+          <NavLink to="/underconstruction">
+            <Dropdown.Item text='Privacy Policy' />
+          </NavLink>
+          <NavLink to="/underconstruction">
+            <Dropdown.Item text='Help' />
+          </NavLink>
+          <NavLink to="/underconstruction">
+            <Dropdown.Item text='Affiliate' />
+          </NavLink>
+        </Dropdown.Menu>
+      </CustomDropdown>
+      <hr/>
+      <CustomDropdown placeholder="Info">
+        <Dropdown.Menu>
+          <NavLink to="/underconstruction">
+            <Dropdown.Item text='Our Location'/>
+          </NavLink>
+          <NavLink to="/underconstruction">
+            <Dropdown.Item text='Career' />
+          </NavLink>
+          <NavLink to="/termsconditions">
+            <Dropdown.Item text='About Us' />
+          </NavLink>
+          <NavLink to="/underconstruction">
+            <Dropdown.Item text='Contact Us' />
+          </NavLink>
+        </Dropdown.Menu>
+      </CustomDropdown>
+      <hr/>
+      <CustomDropdown placeholder="FAQ">
+        <Dropdown.Menu>
+          <NavLink to="/underconstruction">
+            <Dropdown.Item text='FAQ' />
+          </NavLink>
+          <NavLink to="/underconstruction">
+            <Dropdown.Item text='New' />
+          </NavLink>
+          <NavLink to="/termsconditions">
+            <Dropdown.Item text='Photo & Video' />
+          </NavLink>
+          <NavLink to="/underconstruction">
+            <Dropdown.Item text='Restaurant' />
+          </NavLink>
+          <NavLink to="/underconstruction">
+            <Dropdown.Item text='Gift Card' />
+          </NavLink>
+        </Dropdown.Menu>
+      </CustomDropdown>
+      <hr/>
+    </div>
 
   }
   </>
 )
 
+const CustomDropdown = styled(Dropdown)`
+  width: 200%;
+  border: 0;
+  font-family: 'Playfair Display', serif;
+`;
 
 export default Foot;
 

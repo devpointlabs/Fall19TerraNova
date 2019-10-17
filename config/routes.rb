@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'api/auth'
 
   namespace :api do 
-
+    get "/contact", to: "contact#contact"
+    
     resources :users 
     get "show_self", to: "users#show_self"
 
@@ -19,6 +20,12 @@ Rails.application.routes.draw do
     get "single_day_bookings", to: "bookings#single_day_bookings"
     
     resources :price_events
+    resources :discounts
+    
+    resources :stripe
+    get "pubkey", to: "stripe#pubkey"
+    post "createres", to: "stripe#createres"
+    get "getclientsecret", to: "stripe#getclientsecret"
     
   end
 

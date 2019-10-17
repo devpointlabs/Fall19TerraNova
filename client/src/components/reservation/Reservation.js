@@ -127,7 +127,7 @@ class Reservation extends React.Component {
     checkAvailability = (startDate, endDate) => {
         let startDateDB = this.state.startDateDB ? this.state.startDateDB : startDate;
         let endDateDB = this.state.endDateDB ? this.state.endDateDB : endDate;
-            axios.get("/api/avail_cabins", {params: {dates: [startDateDB, endDateDB]}} )
+            axios.get("/api/avail_cabins", {params: {dates: [startDateDB, endDateDB]}} )  //!!!!!!!!!!!!!!!!!!!, discountcode: 23456789
                 .then(res => {
                     debugger
                     this.setState({ 

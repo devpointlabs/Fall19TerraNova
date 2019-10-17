@@ -9,13 +9,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 
+
 initMiddleware();
 
 ReactDOM.render(
-    <AuthProvider>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </AuthProvider>,
-    document.getElementById('root')
+  <AuthProvider>
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>
+  </AuthProvider>,
+  document.getElementById('root')
 );
