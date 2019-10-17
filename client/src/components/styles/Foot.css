@@ -1,6 +1,375 @@
-/* mobile */
+/* iphone se */
+@media screen and (orientation:portrait) and (max-width: 400px) and (min-width: 350px) {
 
-@media all and (max-width: 699px) and (min-width: 300px) {
+  .foot-icon {
+    width: 3.2em;
+    margin-top: .4em;
+    margin-left: 2em;
+
+  }
+
+  .payment-icon {
+    width: 6.5em;
+    margin-left: .8em;
+  }
+
+  .mail-icon {
+    width: 1.5em;
+    margin-top: .05em;
+    margin-left: 2em;
+  }
+
+
+  .footer-wrapper {
+    background-color: rgb(36, 36, 36);
+  }
+
+
+  .email-container {
+    background-color: rgb(46, 46, 46);
+    width: 30em;
+    padding-bottom: .45em;
+    padding-top: .25em;
+  }
+
+  .link-container {
+    background-color: rgba(35, 35, 35, 1);
+    width: 28em;
+  
+  }
+
+  .icon-container {
+    margin-left: 17em;
+    margin-top: 1em;
+    padding-bottom: .25em;
+    width: 6em;
+  }
+
+  .copyright {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    width: 11em;
+    padding-bottom: .5em;
+    margin-top: -.5em;
+
+  }
+  .cpy-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 3em;
+    padding-top: .8em;
+    width: 70em;
+    font-size: .35em;
+  }
+
+  .dps-container {
+    display: flex;
+    justify-content: center;
+    padding-left: 3em;
+    margin-top: .9em;
+    margin-bottom: 9em;
+    width: 80em;
+    font-size: .35em;
+  }
+
+  .left-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 29em;
+    margin-top: -28em;
+    font-size: .35em;
+  }
+
+  .center-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 45em;
+    margin-top: -13em;
+    font-size: .35em;
+  }
+
+  .right-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 58em;
+    margin-top: -10em;
+    font-size: .35em;
+  }
+  
+  .link {
+    color: #ACACAC;
+  }
+
+  .link:hover {
+    color: #484848
+  }
+
+  .line {
+    background-color: #464646;
+    width: 20em;
+   
+  }
+} 
+
+@media screen and (orientation:landscape) and (max-width: 600px) and (min-width: 310px) {
+
+  .foot-icon {
+    width: 3.2em;
+    margin-top: .4em;
+    margin-left: 2em;
+
+  }
+
+  .payment-icon {
+    width: 6.5em;
+    margin-left: .8em;
+  }
+
+  .mail-icon {
+    width: 1.5em;
+    margin-top: .05em;
+    margin-left: 2em;
+  }
+
+
+  .footer-wrapper {
+    background-color: rgb(36, 36, 36);
+  }
+
+
+  .email-container {
+    background-color: rgb(46, 46, 46);
+    width: 30em;
+    padding-bottom: .45em;
+    padding-top: .25em;
+  }
+
+  .link-container {
+    background-color: rgba(35, 35, 35, 1);
+    width: 28em;
+  
+  }
+
+  .icon-container {
+    margin-left: 17em;
+    margin-top: 1em;
+    padding-bottom: .25em;
+    width: 6em;
+  }
+
+  .copyright {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    width: 11em;
+    padding-bottom: .5em;
+    margin-top: -.5em;
+
+  }
+  .cpy-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 3em;
+    padding-top: .8em;
+    width: 70em;
+    font-size: .35em;
+  }
+
+  .dps-container {
+    display: flex;
+    justify-content: center;
+    padding-left: 3em;
+    margin-top: .9em;
+    margin-bottom: 9em;
+    width: 80em;
+    font-size: .35em;
+  }
+
+  .left-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 29em;
+    margin-top: -28em;
+    font-size: .35em;
+  }
+
+  .center-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 45em;
+    margin-top: -13em;
+    font-size: .35em;
+  }
+
+  .right-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 58em;
+    margin-top: -10em;
+    font-size: .35em;
+  }
+  
+  .link {
+    color: #ACACAC;
+  }
+
+  .link:hover {
+    color: #484848
+  }
+
+  .line {
+    background-color: #464646;
+    width: 20em;
+   
+  }
+} 
+
+
+/* galaxy and iphone 6/7/8 */
+@media screen and (orientation:portrait) and (max-width: 400px) and (min-width: 350px) {
+
+  .foot-icon {
+    width: 3.2em;
+    margin-top: .4em;
+    margin-left: 2em;
+
+  }
+
+  .payment-icon {
+    width: 6.5em;
+    margin-left: .8em;
+  }
+
+  .mail-icon {
+    width: 1.5em;
+    margin-top: .05em;
+    margin-left: 2em;
+  }
+
+
+  .footer-wrapper {
+    background-color: rgb(36, 36, 36);
+  }
+
+
+  .email-container {
+    background-color: rgb(46, 46, 46);
+    width: 30em;
+    padding-bottom: .45em;
+    padding-top: .25em;
+  }
+
+  .link-container {
+    background-color: rgba(35, 35, 35, 1);
+    width: 28em;
+  
+  }
+
+  .icon-container {
+    margin-left: 17em;
+    margin-top: 1em;
+    padding-bottom: .25em;
+    width: 6em;
+  }
+
+  .copyright {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    width: 11em;
+    padding-bottom: .5em;
+    margin-top: -.5em;
+
+  }
+  .cpy-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 3em;
+    padding-top: .8em;
+    width: 70em;
+    font-size: .35em;
+  }
+
+  .dps-container {
+    display: flex;
+    justify-content: center;
+    padding-left: 3em;
+    margin-top: .9em;
+    margin-bottom: 9em;
+    width: 80em;
+    font-size: .35em;
+  }
+
+  .left-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 29em;
+    margin-top: -28em;
+    font-size: .35em;
+  }
+
+  .center-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 45em;
+    margin-top: -13em;
+    font-size: .35em;
+  }
+
+  .right-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 58em;
+    margin-top: -10em;
+    font-size: .35em;
+  }
+  
+  .link {
+    color: #ACACAC;
+  }
+
+  .link:hover {
+    color: #484848
+  }
+
+  .line {
+    background-color: #464646;
+    width: 20em;
+   
+  }
+} 
+
+@media screen and (orientation:landscape) and (max-width: 699px) and (min-width: 601px) {
+
+  .mobilecontainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 38em;
+    font-size: 2.5em;
+    margin-bottom: 0em;
+  }
+
+} 
+
+
+/* iphone x */
+@media screen and (orientation:landscape) and (max-width: 820px) and (min-width: 800px) {
+
+  .mobilecontainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 46em;
+    font-size: 1.25em;
+    margin-bottom: 0em;
+  }
+
+} 
+
+
+
+/* iphone 6/7/8 plus and pixel*/
+@media screen and (orientation:portrait) and (max-width: 500px) and (min-width: 400px) {
 
   .foot-icon {
     width: 13%;
@@ -77,8 +446,6 @@
     flex-direction: column;
     margin-left: 39%;
     margin-top: -38%;
-    /* height: 100px; */
-    /* width: 180px; */
     font-size: 45%;
   }
 
@@ -87,8 +454,6 @@
     flex-direction: column;
     margin-left: 60%;
     margin-top: -16.5%;
-    /* height: 100px; */
-    /* width: 180px; */
     font-size: 45%;
   }
 
@@ -97,9 +462,139 @@
     flex-direction: column;
     margin-left: 78%;
     margin-top: -13%;
-    /* height: 100px; */
-    /* width: 180px; */
     font-size: 45%;
+  }
+  
+  .link {
+    color: #ACACAC;
+  }
+
+  .link:hover {
+    color: #484848
+  }
+
+  .line {
+    background-color: #464646;
+    width: 80%;
+   
+  }
+} 
+
+@media screen and (orientation:landscape) and (max-width: 799px) and (min-width: 700px) {
+
+  .mobilecontainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 43em;
+    font-size: 1.2em;
+    margin-bottom: 0em;
+  }
+} 
+
+/* pixel xl */
+@media screen and (orientation:landscape) and (max-width: 850px) and (min-width: 821px) {
+
+  .mobilecontainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 50em;
+    font-size: 4.5em;
+    margin-bottom: 0em;
+  }
+
+} 
+
+
+/* web 1024 by 640 */
+@media screen and (max-width: 1100px) and (min-width: 1000px) { 
+  .foot-icon {
+    width: 13%;
+    margin-top: 02%;
+    margin-left: 10%;
+
+  }
+
+  .payment-icon {
+    width: 80%;
+    margin-top: -14%;
+    margin-left: 10%;
+  }
+
+  .mail-icon {
+    width: 06.25%;
+    margin-top: 01%;
+    margin-left: 08%;
+  }
+
+
+  .footer-wrapper {
+    background-color: rgb(36, 36, 36);
+  }
+
+
+  .email-container {
+    background-color: rgb(46, 46, 46);
+    width: 178%;
+    padding-bottom: 1.5%;
+    padding-top: 0.75%;
+  }
+
+  .link-container {
+    background-color: rgba(35, 35, 35, 1);
+    width: 180%;
+  }
+
+  .icon-container {
+    margin-left: 65%;
+    margin-top: 11%;
+    padding-bottom: 01%;
+    width: 28%;
+  }
+
+  .copyright {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    width: 30%;
+  }
+  .cpy-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 14%;
+    padding-top: 5%;
+    width: 35%;
+  }
+
+  .dps-container {
+    display: flex;
+    justify-content: center;
+    margin-left: -11%;
+    margin-top: 5%;
+    width: 40%;
+  }
+
+  .left-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 38%;
+    margin-top: -20%;
+    font-size: 100%;
+  }
+
+  .center-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 58%;
+    margin-top: -10.5%;
+    font-size: 100%;
+  }
+
+  .right-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 78%;
+    margin-top: -8%;
+    font-size: 100%;
   }
   
   .link {
@@ -117,10 +612,116 @@
   }
 }
 
+/* web 1280 by 800 */
+@media screen and (max-width: 1285px) and (min-width: 1101px) { 
+  .foot-icon {
+    width: 13%;
+    margin-top: 02%;
+    margin-left: 10%;
 
-/* web */
+  }
 
-@media all and (min-width: 700px) {
+  .payment-icon {
+    width: 80%;
+    margin-top: -14%;
+    margin-left: 10%;
+  }
+
+  .mail-icon {
+    width: 06.25%;
+    margin-top: 01%;
+    margin-left: 08%;
+  }
+
+
+  .footer-wrapper {
+    background-color: rgb(36, 36, 36);
+  }
+
+
+  .email-container {
+    background-color: rgb(46, 46, 46);
+    width: 142%;
+    padding-bottom: 1%;
+    padding-top: .25%;
+  }
+
+  .link-container {
+    background-color: rgba(35, 35, 35, 1);
+    width: 142%;
+  
+  }
+
+  .icon-container {
+    margin-left: 65%;
+    margin-top: 11%;
+    padding-bottom: 01%;
+    width: 28%;
+  }
+
+  .copyright {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    width: 30%;
+  }
+  .cpy-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 14%;
+    padding-top: 3%;
+    width: 35%;
+  }
+
+  .dps-container {
+    display: flex;
+    justify-content: center;
+    margin-left: -11%;
+    margin-top: 3%;
+    width: 40%;
+  }
+
+  .left-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 38%;
+    margin-top: -20%;
+    font-size: 100%;
+  }
+
+  .center-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 58%;
+    margin-top: -10.5%;
+    font-size: 100%;
+  }
+
+  .right-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 78%;
+    margin-top: -8%;
+    font-size: 100%;
+  }
+  
+  .link {
+    color: #ACACAC;
+  }
+
+  .link:hover {
+    color: #484848
+  }
+
+  .line {
+    background-color: #464646;
+    width: 80%;
+   
+  }
+}
+
+/* web 1440 by 560 */
+@media screen and (max-width: 1500px) and (min-width: 1286px) {
   .foot-icon {
     width: 13%;
     margin-top: 02%;
@@ -193,8 +794,6 @@
     flex-direction: column;
     margin-left: 38%;
     margin-top: -20%;
-    /* height: 100px; */
-    /* width: 180px; */
     font-size: 100%;
   }
 
@@ -203,8 +802,6 @@
     flex-direction: column;
     margin-left: 58%;
     margin-top: -13.1%;
-    /* height: 100px; */
-    /* width: 180px; */
     font-size: 100%;
   }
 
@@ -213,8 +810,6 @@
     flex-direction: column;
     margin-left: 78%;
     margin-top: -10.25%;
-    /* height: 100px; */
-    /* width: 180px; */
     font-size: 100%;
   }
   
@@ -232,3 +827,7 @@
    
   }
 }
+
+
+/* web 1680 by 1050 */
+/* web 1920 by 1200 */

@@ -8,8 +8,6 @@ import './aboutstyles/AboutUs.css';
 
 const AboutUs = () => (
   <>
-    {/* <div className="aboutcontainer"> */}
-
       <div className="aboutheadcontainer">
         <p className="header"> ABOUT US </p>
       </div>
@@ -67,7 +65,7 @@ const AboutUs = () => (
             />
         </div>
       </div>
-    {/* </div> */}
+    
   </>
 )
 

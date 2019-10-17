@@ -1,0 +1,110 @@
+.contacthead {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  background-color: #898989;
+  width: 100%;
+  padding-bottom: 04em;
+}
+
+.headtext {
+  padding-top:50px;
+  font-size: 35px;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+}
+
+.contactbody {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  margin-top: 13em;
+
+}
+
+.contacttext {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 14em;
+  margin-top: -2em;
+}
+
+.texttop {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: -11.5em;
+  font-size: 2em;
+}
+
+.textbody {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 32em;
+  margin-top: -10.25em;
+  margin-left: -9.5em;
+}
+
+.contactdetails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin-top: -13em;
+}
+
+.address {
+  display: flex;
+
+}
+
+.phone {
+  display: flex;
+  padding-top: .5em;
+  padding-bottom: .5em;
+}
+
+.email {
+  display: flex;
+
+}
+
+.contactform {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin-top: -10em;
+  margin-bottom: 4em;
+  margin-right: 13em;
+  width: 40%;
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  width: 35em;
+}
+
+.topline-column {
+  display: flex;
+  width: 90%;
+  margin-bottom: 1em;
+}
+
+.topline-column2 {
+  display: flex;
+  width: 90%;
+  margin-left: .5em;
+  margin-bottom: 1em;
+}
+
+.field {
+  width: 100%;
+}
+
+

@@ -21,7 +21,7 @@
 .calendaroverlay {
   position:absolute;
     z-index:12;
-  top: 80%;
+  top: 88%;
   width:100%;
   text-align:center;
 
@@ -33,3 +33,46 @@
   width: 86px;
   background: black;
  }
+
+.arrivedate {
+  background-color: white;
+  margin-left: 10em;
+  padding-top: 1em; 
+  padding-bottom: 1em; 
+  padding-right: 1em; 
+  padding-left: 1em; 
+}
+
+.departdate {
+  background-color: white;
+  margin-right: 58em;
+  padding-top: 1em; 
+  padding-bottom: 1em; 
+  padding-right: 1em; 
+  padding-left: 1em; 
+
+}
+
+.MuiInputBase-root {
+  background-color: white;
+}
+
+.MuiInput-root {
+  background-color: white;
+}
+
+.MuiInput-underline {
+  background-color: white;
+}
+
+.MuiInputBase-formControl {
+  background-color: white;
+}
+
+.MuiInput-formControl {
+  background-color: white;
+}
+
+.MuiInputBase-adornedEnd {
+  background-color: white;
+}

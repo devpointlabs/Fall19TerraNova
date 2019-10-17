@@ -2,13 +2,11 @@ import React from 'react';
 import { Form, OverlayTrigger, Popover } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
 import "./reservationstyles/Reservation.css";
-import { LinkedCalendar } from './rb-datepicker/dist';
 import styled from "styled-components";
 import axios from "axios";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
-import Step4 from "./Step4";
 import * as dayjs from "dayjs";
 
 class Reservation extends React.Component {
@@ -16,33 +14,62 @@ class Reservation extends React.Component {
         _isMounted: false,
         step: 1,
         startDate: "",
+        startDateDB: "",
         endDate: "",
         endDateDB: "",
-        availableCabins: [],
+        chooseStartDate: true,
+        chooseEndDate: false,
         nrNights: "1",
         nrRooms: "1",
-        nrRoomsArray: ["1"],
-        rooms: [["1", "1"], ["0", "0"], ["0", "0"], ["0", "0"], ["0", "0"]] //room: (adults: ?, children: ?)
-    }
+        nrRoomsArray: [{roomNumber: "1", roomLetter: null, people: ["0", "0"], active: true}],
+        rooms: [["0", "0"]], //room: (adults: ?, children: ?)
+        aRooms: [],
+        bRooms: [],
+        familyCabins: [],
+        vip1: null,
+        vip2: null,
+        anyAvailableCabins: true,
+        bookedRooms: [],
+        bookedRoomLetters: [],
+        totalPrice: 0,
+        grandTotal: 0
+    };
 
     componentDidMount() {
-        //let now = dayjs();
-        //console.log(now.format());
-        //debugger
-        this.setState({ _isMounted: true })
-    }
+        let startDate = dayjs();
+        let endDate = dayjs(startDate.add('1', 'day'));
+        this.setState({ startDate, startDateDB: startDate.format("DD/MM/YYYY"), endDate, endDateDB: startDate.format("DD/MM/YYYY"), nrNights: 1, _isMounted: true })
+    };
 
-    onDayClick = ({date}) => {
-        console.log(date.format());
-        debugger
-    }
+    onDayClick = (date) => {
+        if (date.isAfter(dayjs().subtract('1', 'day'))) {
+            if (this.state.chooseStartDate || date.isBefore(this.state.startDate))
+                this.setState({ startDate: date, startDateDB: date.format("DD/MM/YYYY"), endDate: "", nrNights: "", chooseStartDate: false, chooseEndDate: true });
+            else if (this.state.chooseEndDate)
+                this.setState({ endDate: date, endDateDB: date.subtract('1', 'day').format("DD/MM/YYYY"), chooseStartDate: true, chooseEndDate: false, nrNights: date.diff(this.state.startDate, "day") });
+        };
+    };
+    onDayClickStart = (date) => {
+        this.setState({ startDate: date, startDateDB: date.format("DD/MM/YYYY"), endDate: "", nrNights: "", chooseStartDate: false, chooseEndDate: true })
+    };
+
+    onDayClickEnd = (date) => {
+        this.setState({ endDate: date, endDateDB: date.subtract('1', 'day').format("DD/MM/YYYY"), chooseStartDate: true, chooseEndDate: false, nrNights: date.diff(this.state.startDate, "day") });
+    };
 
     checkAvailability = () => {
         if (this.state._isMounted)
             axios.get("/api/avail_cabins", {params: {dates: [this.state.startDate, this.state.endDateDB]}} ) //!!!!!!!!!!!!!!!!!!!, discountcode: 23456789
                 .then(res => {
-                    this.setState({ availableCabins: res.data, step: 2 });
-                    debugger
+                    this.setState({ 
+                        aRooms: res.data.aRooms,
+                        bRooms: res.data.bRooms,
+                        familyCabins: res.data.familyCabins,
+                        vip1: res.data.vip1,
+                        vip2: res.data.vip2, 
+                        step: 2
+                    });
+                    this.anyAvailableCabins();
                 })
                 .catch(err => {
                     console.log(err)
@@ -74,148 +101,183 @@ class Reservation extends React.Component {
         this.setState({startDate: startDateFormatted});
         this.setState({endDate: endDateFormatted});
         this.setState({endDateDB: endDateDBFormatted});
-    }
+    };
 
-    setStartDate = (startDate) => this.setState({ startDate });
+    setStartDate = (startDate) => this.setState({ startDate: dayjs(startDate) });
 
     setEndDate = (endDate) => {
         let endDateDB = (parseInt(endDate.substring(0,2), 10)-1).toString();
         endDateDB = endDateDB.concat(endDate.substring(2,));
-        let nrNights = parseInt(endDate.substring(0,2), 10) - parseInt(this.state.startDate.substring(0,2), 10);
-        this.setState({ endDate, endDateDB, nrNights });
-    }
+        //let nrNights = parseInt(endDate.substring(0,2), 10) - parseInt(this.state.startDate.substring(0,2), 10);
+        let nrNights = 3;
+        this.setState({ endDate: dayjs(endDate), endDateDB, nrNights });
+    };
 
-    setNrNights = (nrNights) => this.setState({ nrNights });
-
-    setNrRooms = (nrRooms) => {
-        this.setState({ nrRooms });
-        switch(nrRooms) {
-            case "1":
-                this.setState({ nrRoomsArray: ["1"] });
-                break;
-            case "2":
-                this.setState({ nrRoomsArray: ["1", "2"] });
-                break;
-            case "3":
-                this.setState({ nrRoomsArray: ["1", "2", "3"] });
-                break;
-            case "4":
-                this.setState({ nrRoomsArray: ["1", "2", "3", "4"] })
-                break;
-            case "5":
-                this.setState({ nrRoomsArray: ["1", "2", "3", "4", "5"] })
-                break;
-        };
+    setNrNights = (nrNights) => {
+        this.setState({ nrNights, endDate: this.state.startDate.add(`${nrNights}`, 'day') });
     };
 
     setNrAdults = (room, nrAdults) => {
-        let rooms = this.state.rooms;
-        rooms[parseInt(room.room, 10)-1][0] = nrAdults;
-        this.setState({ rooms });
+        let nrRoomsArray = this.state.nrRoomsArray;
+        nrRoomsArray[parseInt(room, 10)-1].people[0] = nrAdults;
+        this.setState({ nrRoomsArray });
     };
 
     setNrChildren = (room, nrChildren) => {
-        let rooms = this.state.rooms;
-        rooms[parseInt(room.room, 10)-1][1] = nrChildren;
-        this.setState({ rooms });
+        let nrRoomsArray = this.state.nrRoomsArray;
+        nrRoomsArray[parseInt(room, 10)-1].people[1] = nrChildren;
+        this.setState({ nrRoomsArray });
     };
 
-    popoverCalendar = (
-        <Popover id="popover-basic">
-          <LinkedCalendar onDatesChange={this.onDatesChange} />
-        </Popover>
-    );
+    anyAvailableCabins = () => {
+        if (this.state.aRooms.length > 0 || 
+            this.state.bRooms.length > 0 || 
+            this.state.familyCabins.length > 0 ||
+            this.state.vip1 ||
+            this.state.vip2)
+            this.setState({ anyAvailableCabins: true });
+        else
+            this.setState({ anyAvailableCabins: false });
+    };
+    
+    addRoom = (roomLetter) => {
+        let bookedRooms = this.state.bookedRooms;
+        let bookedRoomLetters = this.state.bookedRoomLetters;
+        let room = null;
+        let aRooms = this.state.aRooms;
+        let bRooms = this.state.bRooms;
+        let familyCabins = this.state.familyCabins;
+        let nrRoomsArray = this.state.nrRoomsArray;
+        let rooms = this.state.rooms;
+        switch(roomLetter) {
+            case "A":
+                room = this.state.aRooms[0];
+                familyCabins = familyCabins.filter( familyCabin => 
+                    familyCabin.cabin_number != room.cabin_number );
+                break;
+            case "B":
+                room = this.state.bRooms[0];
+                familyCabins = familyCabins.filter( familyCabin => 
+                    familyCabin.cabin_number != room.cabin_number );
+                break;
+            case "F":
+                room = this.state.familyCabins[0];
+                aRooms = aRooms.filter( aRoom => 
+                    aRoom.cabin_number != room.cabin_number );
+                bRooms = bRooms.filter( bRoom => 
+                    bRoom.cabin_number != room.cabin_number );
+                break;
+            case "V1":
+                room = this.state.vip1;
+                break;
+            case "V2":
+                room = this.state.vip2;
+                break;
+        }
+        let activeRoom = nrRoomsArray.filter( room => room.active )[0];
+        if (parseInt(activeRoom.roomNumber, 10) > bookedRooms.length) {
+            // adding new room
+            bookedRooms.push(room);
+            bookedRoomLetters.push(roomLetter);
+            rooms.push(["0", "0"]);
+            nrRoomsArray[nrRoomsArray.length-1].active = false;
+            nrRoomsArray[nrRoomsArray.length-1].roomLetter = roomLetter;
+            nrRoomsArray.push( {roomNumber: (nrRoomsArray.length+1).toString(), roomLetter: null, people: ["0", "0"], active: true} );
+        } else {
+            // changing a room
+            bookedRooms = bookedRooms.map( (bookedRoom, index) => {
+                if (parseInt(activeRoom.roomNumber, 10)-1 === index)
+                    return room;
+                else
+                    return bookedRoom;
+            });
+            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].active = false;
+            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomLetter = roomLetter;
+            nrRoomsArray[nrRoomsArray.length-1].active = true;
+            bookedRoomLetters = bookedRoomLetters.map( (roomLetter, index) => {
+                if (parseInt(activeRoom.roomNumber, 10)-1 === index)
+                    return nrRoomsArray[0].roomLetter;
+                else
+                    return roomLetter;
+            });
+        };
+        this.setState({ aRooms, bRooms, familyCabins, rooms, nrRoomsArray, bookedRooms, bookedRoomLetters });
+        this.calculateTotalPrice(bookedRooms);
+    };
 
-    renderLeftBox = () => (
+    changeRoom = (roomNumber) => {
+        let nrRoomsArray = this.state.nrRoomsArray;
+        nrRoomsArray.map( room => {
+            if (room.roomNumber === roomNumber)
+                room.active = true;
+            else
+                room.active = false;
+            return room;
+        });
+        this.setState({ nrRoomsArray });
+    };
+
+    deleteRoom = (room) => {
+        let nrRoomsArray = this.state.nrRoomsArray;
+        let bookedRooms = this.state.bookedRooms;
+        let roomIndex = parseInt(room.roomNumber, 10)-1;
+        nrRoomsArray.splice(roomIndex, 1);
+        bookedRooms.splice(roomIndex, 1);
+        nrRoomsArray = nrRoomsArray.map( (room, index) => {
+            if (index >= roomIndex)
+                room.roomNumber = (parseInt(room.roomNumber)-1).toString();
+            return room;
+        });
+        this.setState({ nrRoomsArray, bookedRooms });
+        this.calculateTotalPrice(bookedRooms);
+    };
+
+    calculateTotalPrice = (bookedRooms) => {
+        let totalPrice = 0;
+        bookedRooms.forEach( room => (
+            totalPrice = totalPrice + Math.round(room.cabinPricing.price_total)));
+        this.setState({ totalPrice });
+    };
+
+    goToBilling = () => this.setState({ step: 3 });
+
+    renderRoomName = (room) => (
         <>
-            <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>YOUR RESERVATION</p>
-            <div className="reservation-hr-container"><div className="reservation-line" /></div>
-            <p style={{marginLeft: "20px", marginTop: "25px", fontWeight: "bold", fontSize: "14px", color: "#8E7037"}}>YOUR STAY DATES</p>
-            <span style={{marginLeft: "20px", marginTop: "5px", marginRight: "0px", fontWeight: "bold", fontSize: "12px"}}>ARRIVE</span>
-            <div className="reservation-form-container">
-                <DateForm value={this.state.startDate} readOnly />
-                <OverlayTrigger trigger="click" placement="right" overlay={this.popoverCalendar}>
-                    <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
-                </OverlayTrigger>
-            </div>
-            <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>NIGHT(S)</span>
-            <div className="reservation-dropdown-container">
-                <CustomDropdown text={this.state.nrNights}>
-                    <Dropdown.Menu>
-                        <Dropdown.Item text='1' onClick={() => this.setNrNights('1')} />
-                        <Dropdown.Item text='2' onClick={() => this.setNrNights('2')} />
-                        <Dropdown.Item text='3' onClick={() => this.setNrNights('3')} />
-                        <Dropdown.Item text='4' onClick={() => this.setNrNights('4')} />
-                        <Dropdown.Item text='5' onClick={() => this.setNrNights('5')} />
-                        <Dropdown.Item text='6' onClick={() => this.setNrNights('6')} />
-                        <Dropdown.Item text='7' onClick={() => this.setNrNights('7')} />
-                        <Dropdown.Item text='8' onClick={() => this.setNrNights('8')} />
-                        <Dropdown.Item text='9' onClick={() => this.setNrNights('9')} />
-                        <Dropdown.Item text='10' onClick={() => this.setNrNights('10')} />
-                        <Dropdown.Item text='10+' onClick={() => this.setNrNights('10+')} />
-                    </Dropdown.Menu>
-                </CustomDropdown>
-            </div>
-            <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>DEPARTURE</span>
-            <div className="reservation-form-container">
-                <DateForm value={this.state.endDate} readOnly />
-                <OverlayTrigger trigger="click" placement="right" overlay={this.popoverCalendar}>
-                    <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
-                </OverlayTrigger>
-            </div>
-            <p style={{marginLeft: "20px", marginTop: "10px", fontWeight: "bold", fontSize: "14px", color: "#8E7037"}}>ROOMS AND GUESTS</p>
-            <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>ROOM(S)</span>
-            <div className="reservation-dropdown-container" style={{marginBottom: "0px !important"}}>
-                <CustomDropdown text={this.state.nrRooms}>
-                    <Dropdown.Menu>
-                        <Dropdown.Item text='1' onClick={() => this.setNrRooms('1')} />
-                        <Dropdown.Item text='2' onClick={() => this.setNrRooms('2')} />
-                        <Dropdown.Item text='3' onClick={() => this.setNrRooms('3')} />
-                        <Dropdown.Item text='4' onClick={() => this.setNrRooms('4')} />
-                        <Dropdown.Item text='5' onClick={() => this.setNrRooms('5')} />
-                    </Dropdown.Menu>
-                </CustomDropdown>
-            </div>
-            { this.state.nrRoomsArray.map( room => (
-                <div className="reservation-room-container" key={parseInt(room, 10)-1}>
-                    <span style={{marginLeft: "20px", fontWeight: "bold", fontSize: "12px", width: "25%"}}>ROOM {room}</span>
-                    <div className="reservation-small-room-container">
-                        <span style={{marginLeft: "20px", fontWeight: "bold", fontSize: "12px"}}>ADULT(S)</span>
-                        <div className="reservation-dropdown-container">
-                            <CustomDropdown text={this.state.rooms[parseInt(room, 10)-1][0]}>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item text='1' onClick={() => this.setNrAdults({room}, '1')} />
-                                    <Dropdown.Item text='2' onClick={() => this.setNrAdults({room}, '2')} />
-                                    <Dropdown.Item text='3' onClick={() => this.setNrAdults({room}, '3')} />
-                                    <Dropdown.Item text='4' onClick={() => this.setNrAdults({room}, '4')} />
-                                    <Dropdown.Item text='5' onClick={() => this.setNrAdults({room}, '5')} />
-                                </Dropdown.Menu>
-                            </CustomDropdown>
-                        </div>
-                    </div>
-                    <div className="reservation-small-room-container" style={{width: "30%", marginRight: "15px"}}>
-                        <span style={{marginLeft: "20px", fontWeight: "bold", fontSize: "12px"}}>CHILD(REN)</span>
-                        <div className="reservation-dropdown-container">
-                            <CustomDropdown text={this.state.rooms[parseInt(room, 10)-1][1]} flip="true">
-                                <Dropdown.Menu>
-                                    <Dropdown.Item text='1' onClick={() => this.setNrChildren({room}, '1')} />
-                                    <Dropdown.Item text='2' onClick={() => this.setNrChildren({room}, '2')} />
-                                    <Dropdown.Item text='3' onClick={() => this.setNrChildren({room}, '3')} />
-                                    <Dropdown.Item text='4' onClick={() => this.setNrChildren({room}, '4')} />
-                                    <Dropdown.Item text='5' onClick={() => this.setNrChildren({room}, '5')} />
-                                </Dropdown.Menu>
-                            </CustomDropdown>
-                        </div>
-                    </div>
-                </div>
-            )) }
-            <div className="reservation-button-container">
-                <span className="reservation-custom-button" onClick={this.checkAvailability}>
-                    CHECK AVAILABILITY
-                </span>
-            </div>
+        { room == "A" &&
+            <>LAKE VIEW CABIN</>
+        }
+        { room == "B" &&
+            <>MOUNTAIN VIEW CABIN</>
+        }
+        { room == "F" &&
+            <>FAMILY CABIN</>
+        }
+        { room == "V1" &&
+            <>VIP ROOM 1</>
+        }
+        { room == "V2" &&
+            <>VIP ROOM 2</>
+        }
         </>
     );
+
+    renderRoomPrice = (roomLetter) => {
+        if (roomLetter == "A") return Math.round(this.state.aRooms[0].cabinPricing.aveNightlyRate);
+        else if (roomLetter == "B") return Math.round(this.state.bRooms[0].cabinPricing.aveNightlyRate);
+        else if (roomLetter == "F") return Math.round(this.state.familyCabins[0].cabinPricing.aveNightlyRate);
+        else if (roomLetter == "V1") return Math.round(this.state.vip1.cabinPricing.aveNightlyRate);
+        else if (roomLetter == "V2") return Math.round(this.state.vip2.cabinPricing.aveNightlyRate);
+    };
+
+    renderTotalRoomPrice = (roomLetter) => {
+        if (roomLetter == "A") return Math.round(this.state.aRooms[0].cabinPricing.price_total);
+        else if (roomLetter == "B") return Math.round(this.state.bRooms[0].cabinPricing.price_total);
+        else if (roomLetter == "F") return Math.round(this.state.familyCabins[0].cabinPricing.price_total);
+        else if (roomLetter == "V1") return Math.round(this.state.vip1.cabinPricing.price_total);
+        else if (roomLetter == "V2") return Math.round(this.state.vip2.cabinPricing.price_total);
+    };
+
+    setGrandTotal = (grandTotal) => this.setState({ grandTotal });
 
     render() {
         return (
@@ -223,12 +285,35 @@ class Reservation extends React.Component {
                 <div className="reservation-header-container">
                     <div className="reservation-header">Reservation</div>
                 </div>
+                { this.state._isMounted &&
+                <>
                 { this.state.step === 1 && 
                     <Step1
                         renderLeftBox={this.renderLeftBox}
-                        DateForm={DateForm}
-                        CustomDropdown={CustomDropdown}
                         checkAvailability={this.checkAvailability}
+                        setStartDate={this.setStartDate}
+                        startDate={this.state.startDate}
+                        setEndDate={this.setEndDate}
+                        endDate={this.state.endDate}
+                        setNrNights={this.setNrNights}
+                        setNrRooms={this.setNrRooms}
+                        setNrAdults={this.setNrAdults}
+                        setNrChildren={this.setNrChildren}
+                        nrNights={this.state.nrNights}
+                        nrRooms={this.state.nrRooms}
+                        nrRoomsArray={this.state.nrRoomsArray}
+                        rooms={this.state.rooms}
+                        onDayClick={this.onDayClick}
+                        onDayClickStart={this.onDayClickStart}
+                        onDayClickEnd={this.onDayClickEnd}
+                    />
+                }
+                { this.state.step === 2 && 
+                    <Step2
+                        renderLeftBox={this.renderLeftBox}
+                        checkAvailability={this.checkAvailability}
+                        startDate={this.state.startDate}
+                        endDate={this.state.endDate}
                         setStartDate={this.setStartDate}
                         setEndDate={this.setEndDate}
                         setNrNights={this.setNrNights}
@@ -240,27 +325,42 @@ class Reservation extends React.Component {
                         nrRoomsArray={this.state.nrRoomsArray}
                         rooms={this.state.rooms}
                         onDayClick={this.onDayClick}
-                    />
-                }
-                { this.state.step === 2 && 
-                    <Step2
-                        renderLeftBox={this.renderLeftBox}
-                        DateForm={DateForm}
-                        CustomDropdown={CustomDropdown}
-                        nrRoomsArray={this.state.nrRoomsArray}
+                        aRooms={this.state.aRooms}
+                        bRooms={this.state.bRooms}
+                        familyCabins={this.state.familyCabins}
+                        vip1={this.state.vip1}
+                        vip2={this.state.vip2}
+                        anyAvailableCabins={this.state.anyAvailableCabins}
+                        addRoom={this.addRoom}
+                        changeRoom={this.changeRoom}
+                        goToBilling={this.goToBilling}
+                        bookedRooms={this.state.bookedRooms}
+                        bookedRoomLetters={this.state.bookedRoomLetters}
+                        calculateTotalPrice={this.calculateTotalPrice}
+                        totalPrice={this.state.totalPrice}
+                        renderRoomName={this.renderRoomName}
+                        renderRoomPrice={this.renderRoomPrice}
+                        renderTotalRoomPrice={this.renderTotalRoomPrice}
+                        deleteRoom={this.deleteRoom}
                     />
                 }
                 { this.state.step === 3 && 
                     <Step3
-                        DateForm={DateForm}
-                        CustomDropdown={CustomDropdown}
+                        nrRoomsArray={this.state.nrRoomsArray}
+                        startDate={this.state.startDate.format("MM/DD/YYYY")}
+                        endDate={this.state.endDate.format("MM/DD/YYYY")}
+                        nrNights={this.state.nrNights}
+                        totalPrice={this.state.totalPrice}
+                        totalNrAdults={this.state.totalNrAdults}
+                        totalNrChildren={this.state.totalNrChildren}
+                        renderRoomName={this.renderRoomName}
+                        renderRoomPrice={this.renderRoomPrice}
+                        renderTotalRoomPrice={this.renderTotalRoomPrice}
+                        bookedRooms={this.state.bookedRooms}
+                        setGrandTotal={this.setGrandTotal}
                     />
                 }
-                { this.state.step === 4 && 
-                    <Step4
-                        DateForm={DateForm}
-                        CustomDropdown={CustomDropdown}
-                    />
+                </>
                 }
             </>
         );
