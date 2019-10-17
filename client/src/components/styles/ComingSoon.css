@@ -775,6 +775,8 @@
     width: 130em;
   }
 
+  
+
   .firstoverlay { 
     display: flex;
     justify-content: center;
@@ -906,7 +908,7 @@
 @media screen and (max-width: 1500px) and (min-width: 1286px) { 
 
   .forest-image {
-    width: 110em;
+    width: 130em;
   }
 
   .firstoverlay { 
