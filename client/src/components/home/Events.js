@@ -12,139 +12,124 @@ import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBRow, MDBCarouselCapt
 
 
 const Events = () => {
-  return(
-    <>
-    <Header> Our Events </Header>
-    <img className="event-line-img" src={line} alt="line break" />
+    return(
+        <>
+            <Header>Our Events</Header>
+            <img className="event-line-img" src={line} alt="line break" />
 
-      <EventContainer>
-        <MDBCarousel interval={false} activeItem={1} length={2} slide={true} showControls={true} showIndicators={true} multiItem>
-          <MDBCarouselInner>
-            <MDBRow>
-              <MDBCarouselItem itemId="1">
-                <SlideContainer>
-                  <CardContainer>
-                    <Card className="event-card">
-                      <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" />
-                      <MDBCarouselCaption>
-                        <Text> Events </Text>
-                        <Title> Nature Hike </Title>
-                      </MDBCarouselCaption>
-                    </Card>
-                  </CardContainer>
-                  <CardContainer>
-                    <Card style={{ height: '35rem', width: '26rem' }}>
-                      <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" />
-                      <MDBCarouselCaption>
-                        <Text> Events </Text>
-                        <Title> Surf Lessons </Title>
-                      </MDBCarouselCaption>
-                    </Card>
-                  </CardContainer>
-                  <CardContainer>
-                    <Card style={{ height: '35rem', width: '26rem' }}>
-                    <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(48).jpg" />
-                      <MDBCarouselCaption>
-                        <Text> Events </Text>
-                        <Title> Excursion </Title>
-                      </MDBCarouselCaption>
-                    </Card>
-                  </CardContainer>
-                </SlideContainer>
-              </MDBCarouselItem>
-
-              <MDBCarouselItem itemId="2">
-                <SlideContainer>
-                  <CardContainer>
-                    <Card style={{ height: '35rem', width: '26rem' }}>
-                      <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(53).jpg" />
-                      <MDBCarouselCaption>
-                        <Text> Events </Text>
-                        <Title> Yodeling </Title>
-                      </MDBCarouselCaption>
-                    </Card>
-                  </CardContainer>
-                  <CardContainer>
-                    <Card style={{ height: '35rem', width: '26rem' }}>
-                      <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg" />
-                      <MDBCarouselCaption>
-                        <Text> Events </Text>
-                        <Title> Fill Your Cup </Title>
-                      </MDBCarouselCaption>
-                    </Card>
-                  </CardContainer>
-                  <CardContainer>
-                    <Card style={{ height: '35rem', width: '26rem' }}>
-                      <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(41).jpg" />
-                      <MDBCarouselCaption>
-                        <Text> Events </Text>
-                        <Title> Bee Keeping </Title>
-                      </MDBCarouselCaption>
-                    </Card>
-                  </CardContainer>
-                </SlideContainer>
-              </MDBCarouselItem>
-
-            </MDBRow>
-          </MDBCarouselInner>
-        </MDBCarousel>
-      </EventContainer>
-    
-
-
-    </>                                                   
-  )
-}
+            <EventContainer>
+                <MDBCarousel interval={false} activeItem={1} length={2} slide={true} showControls={true} showIndicators={true} multiItem>
+                    <MDBCarouselInner>
+                        <MDBRow>
+                            <MDBCarouselItem itemId="1">
+                                <SlideContainer>
+                                    <div className="event-card">
+                                        <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" />
+                                        <div className="event-overlay">
+                                            <div className="event-text">Events</div>
+                                            <div className="event-title">Nature Hike</div>
+                                        </div>
+                                    </div>
+                                    <div className="space-between" />
+                                    <div className="event-card">
+                                        <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" />
+                                        <div className="event-overlay">
+                                            <div className="event-text">Events</div>
+                                            <div className="event-title">Surf Lessons</div>
+                                        </div>
+                                    </div>
+                                    <div className="space-between" />
+                                    <div className="event-card">
+                                        <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(48).jpg" />
+                                        <div className="event-overlay">
+                                            <div className="event-text">Events</div>
+                                            <div className="event-title">Excursion</div>
+                                        </div>
+                                    </div>
+                                </SlideContainer>
+                            </MDBCarouselItem>
+                            <MDBCarouselItem itemId="2">
+                                <SlideContainer>
+                                    <div className="event-card">
+                                        <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(53).jpg" />
+                                        <div className="event-overlay">
+                                            <div className="event-text">Events</div>
+                                            <div className="event-title">Yodeling</div>
+                                        </div>
+                                    </div>
+                                    <div className="space-between" />
+                                    <div className="event-card">
+                                        <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg" />
+                                        <div className="event-overlay">
+                                            <div className="event-text">Events</div>
+                                            <div className="event-title">Fill Your Cup</div>
+                                        </div>
+                                    </div>
+                                    <div className="space-between" />
+                                    <div className="event-card">
+                                        <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(41).jpg" />
+                                        <div className="event-overlay">
+                                            <div className="event-text">Events</div>
+                                            <div className="event-title">Bee Keeping</div>
+                                        </div>
+                                    </div>
+                                </SlideContainer>
+                            </MDBCarouselItem>
+                        </MDBRow>
+                    </MDBCarouselInner>
+                </MDBCarousel>
+            </EventContainer>
+        </>                                                   
+    );
+};
 
 const Header = styled.h1`
-  display: flex;
-  margin-top: 70px;
-  margin-left: 135px;
-  color: black;
-  font-size: 50px;  
-  font-family: 'Playfair Display', serif;
+    display: flex;
+    margin-top: 70px;
+    margin-left: 135px;
+    color: black;
+    font-size: 50px;  
+    font-family: 'Playfair Display', serif;
 `;
 
 const Title = styled.h3`
-  color: white;
-  font-size: 40px;  
-  font-family: 'Playfair Display', serif;
-  margin-top: 50px;
-  margin-bottom: 40px !important;
-  padding-left: 0px;
+    color: white;
+    font-size: 40px;  
+    font-family: 'Playfair Display', serif;
+    margin-top: 50px;
+    margin-bottom: 40px !important;
+    padding-left: 0px;
 `;
 
 const Text = styled.p`
-  position: absolute;
-  color: white;
-  font-size: 20px;  
-  font-weight: bold;
-  font-family: 'Raleway', sans-serif;
-  margin-left: 100px;
+    position: absolute;
+    color: white;
+    font-size: 20px;  
+    font-weight: bold;
+    font-family: 'Raleway', sans-serif;
+    margin-left: 100px;
 `;
 
 const EventContainer = styled.div`
-  margin-left: 130px;
-  margin-right: 130px;
+    margin-left: 130px;
+    margin-right: 130px;
 `;
 
 const SlideContainer = styled.div`
-  display: flex;
-  margin-bottom: 100px;
-  margin-left: 0px;
-  `;
-
+    position: relative;
+    display: flex;
+    margin-bottom: 20px;
+    margin-left: 0px;
+`;
 
 const CardContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-content: space-around;
-  flex-wrap: wrap;
-  margin-right: 10px;
-  margin-left: 10px;
-  padding-right: 20px;
-
-  
+    display: flex;
+    width: 30%;
+    justify-content: space-evenly;
+    align-content: space-around;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-right: 20px;
 `;
 
 
