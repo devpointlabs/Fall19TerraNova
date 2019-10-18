@@ -32,6 +32,7 @@ class RoomDetails extends React.Component {
         nrNights: "1",
         modalShowStart: false,
         modalShowEnd: false,
+        modalShowNoEndDate: false,
         roomReferences: ["A", "B", "F", "V1", "V2"],
         roomImages: ["1", "2", "3", "4", "5", "6", "7"],
         currentRoom: "",
@@ -60,11 +61,11 @@ class RoomDetails extends React.Component {
 
     handleShowStart = () => this.setState({ modalShowStart: true });
 
-    handleCloseStart = () => this.setState({ modalShowStart: false });
-
     handleShowEnd = () => this.setState({ modalShowEnd: true });
 
-    handleCloseEnd = () => this.setState({ modalShowEnd: false });
+    handleShowNoEndDate = () => this.setState({ modalShowNoEndDate: true });
+
+    handleClose = () => this.setState({ modalShowStart: false, modalShowEnd: false, modalShowNoEndDate: false });
 
     onDayClickStart = (date) => {
         this.setState({ 
@@ -122,12 +123,17 @@ class RoomDetails extends React.Component {
     Button = withRouter(({ history }) => (
         <span
             className="roomdetails-custom-button"
-            onClick={() => { history.push({
+            onClick={ this.state.endDate != "" ? () => { 
+                history.push({
                 pathname: '/reservation',
                 state: this.state
-            }) }}
+            }) }
+            :
+                this.state._isMounted &&
+                    (() => this.setState({ modalShowNoEndDate: true }))
+            }
         >
-            BOOK NOW
+            CHECK AVAILABILITY
         </span>
     ));
 
@@ -316,7 +322,7 @@ class RoomDetails extends React.Component {
                             </span> 
                             <div className="roomdetails-hr-container"><div className="roomdetails-line" /></div>
                             <div className="roomdetails-right-lower-container">
-                                <span>ARRIVE</span>
+                                <span>ARRIVAL</span>
                                 <div className="roomdetails-form-container">
                                     <Form.Control className="roomdetails-dateform" value={this.state.startDate.format("MM/DD/YYYY")} readOnly />
                                     <Icon name="calendar alternate outline" style={{marginTop: "8px", marginRight: "8px"}} onClick={this.handleShowStart} />
@@ -363,19 +369,24 @@ class RoomDetails extends React.Component {
                         )) }
                     </div>
                 </div>
-                <Modal show={this.state.modalShowStart} onHide={this.handleCloseStart} centered>
+                <Modal show={this.state.modalShowStart} onHide={this.handleClose} centered>
                     { this.props.endDate != "" ?
                         <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
                         <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
-                <Modal show={this.state.modalShowEnd} onHide={this.handleCloseEnd} centered>
+                <Modal show={this.state.modalShowEnd} onHide={this.handleClose} centered>
                     { this.props.endDate != "" ?
                         <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
                         <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
+                </Modal>
+                <Modal show={this.state.modalShowNoEndDate} onHide={this.handleClose} centered>
+                    <Modal.Body>
+                        You have to choose a departure date!
+                    </Modal.Body>
                 </Modal>
             </>
         );

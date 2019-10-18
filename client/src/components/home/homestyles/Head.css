@@ -1,161 +1,26 @@
-.top {
-    width: 100%;
-    position: relative;
+.overlay { 
+   color:#fff;
+   position:absolute;
+     z-index:12;
+   top:40%;
+   /* left:0; */
+   width:100%;
+   text-align:center;
+ }
+
+ .bottomoverlay { 
+  color:#fff;
+  position:absolute;
+    z-index:12;
+  top:58%;
+  /* left:0; */
+  width:100%;
+  text-align:center;
 }
 
-.text-overlay {
-    color: white;
-    position: absolute;
-    z-index: 12;
-    width: 100%;
-    top: 25%;
-}
-
-.topoverlay { 
-    width: 100%;
-    text-align: center;
-    text-shadow: 4px 4px #373737;
-    margin-bottom: 3em;
-}
-
-.bottomoverlay { 
-    width: 100%;
-    text-align: center;
-    text-shadow: 4px 4px #373737;
-}
-
-.calendaroverlay {
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    z-index: 12;
-    bottom: 20%;
-    width: 100%;
-    height: 9em;
-    padding-left: 120px;
-    padding-right: 120px;
-    text-align: center;
-}
-
-.date-box-row {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-}
-
-.date-box {
-    position: relative;
-    border: none;
-    background: white;
-    color: #8E7037;
-    height: 100%;
-    width: 30%;
-    margin-right: 3em;
-    padding: 1.5em 3em 1.5em 3em;
-    letter-spacing: 0.1em;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    cursor: pointer;
-}
-
-.date-box-day {
-    color: black;
-    font-family: 'Playfair Display', serif;
-    font-size: 4.4em;
-    margin-right: 0.3em;
-    margin-top: -0.18em;
-}
-
-.date-box-month {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    color: rgb(180, 180, 180);
-    margin-top: 0.8em;
-    margin-right: 0.3em;
-}
-
-.date-box-year {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    color: rgb(180, 180, 180);
-    margin-top: 0.94em;
-}
-
-.date-box-icon-holder {
-    position: absolute;
-    right: 3%;
-    bottom: 27%;
-}
-
-.check-availability-button {
-    border: none;
-    background: #8E7037;
-    color: white;
-    font-size: 1em;
-    height: 100%;
-    width: 15%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    letter-spacing: 0.2em;
-    font-family: 'Raleway', sans-serif;
-    font-weight: bolder;
-    cursor: pointer;
-}
-
-.check-availability-button:hover {
-    /* background-color: #7c612f; */
-    background-color: rgb(223, 193, 141);
-    cursor: pointer;
-}
-
-.carouselcontrol {
-    height: 26%;
-    top: 33%;
-    width: 86px;
-    background: black;
-}
-
-.arrivedate {
-    background-color: white;
-    margin-left: 10em;
-    padding-top: 1em; 
-    padding-bottom: 1em; 
-    padding-right: 1em; 
-    padding-left: 1em; 
-}
-
-.departdate {
-    background-color: white;
-    margin-right: 58em;
-    padding-top: 1em; 
-    padding-bottom: 1em; 
-    padding-right: 1em; 
-    padding-left: 1em; 
-}
-
-.MuiInputBase-root {
-    background-color: white;
-}
-
-.MuiInput-root {
-    background-color: white;
-}
-
-.MuiInput-underline {
-    background-color: white;
-}
-
-.MuiInputBase-formControl {
-    background-color: white;
-}
-
-.MuiInput-formControl {
-    background-color: white;
-}
-
-.MuiInputBase-adornedEnd {
-    background-color: white;
-}
+ .carouselcontrol {
+  height: 26%;
+  top: 33%;
+  width: 86px;
+  background: black;
+ }

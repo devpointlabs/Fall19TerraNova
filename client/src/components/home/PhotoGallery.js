@@ -28,103 +28,86 @@ const Container = styled.div`
     width: 100%;
     -webkit-user-select: none;
     background-color: rgb(35, 35, 35);
+    padding: 1em 4.5% 5em 4.5%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 `
+
+const HeaderContainer = styled.div`
+    left: 0;
+    height: 40%;
+    width: 100%;
+    -webkit-user-select: none;
+    background-color: rgb(35, 35, 35);
+    padding-bottom: "30px";
+`;
+
 const Header = styled.span`
     display: flex;
     justify-content: center;
     font-family: 'Playfair Display', serif;
-    font-size: 55px;
+    font-size: 50px;
     color: white;
-    padding: 30px;
-`
+    padding: 30px 0 5px 0;
+`;
+
 const Nav = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 15px;
-`
+    margin-top: 1em;
+`;
 
 class PhotoGallery extends React.Component {
-    state = { show: false };
+    state = { show: false, picture: 1 };
 
     handleClose = () => this.setState({ show: false });
 
-    handleShow = () => this.setState({ show: true });
+    handleShow = (picture) => this.setState({ show: true, picture });
 
     render() {
         
         return (
             <>
-                <Container style={{paddingBottom: "30px"}}>
+                <HeaderContainer>
                     <Header>Our Gallery</Header>
                     <img className="gallery-icon-img" src={Logo} />
-                        <Nav class="navbar">
-                            <a href="#Hotel & Ground" style={{marginRight: "60px", fontSize: "20px", color: "#ababab"}}>HOTEL & GROUND</a>
-                            <a href="#Room/Suite" style={{marginRight: "60px", fontSize: "20px", color: "#ababab"}}>ROOM/SUITE</a>
-                            <a href="#Bathroom" style={{marginRight: "55px", fontSize: "20px", color: "#ababab"}}>BATHROOM</a>
+                        <Nav>
+                            <a href="#Hotel & Ground" style={{marginRight: "60px", fontSize: "16px", color: "#ababab"}}>HOTEL & GROUND</a>
+                            <a href="#Room/Suite" style={{marginRight: "60px", fontSize: "16px", color: "#ababab"}}>ROOM/SUITE</a>
+                            <a href="#Bathroom" style={{marginRight: "55px", fontSize: "16px", color: "#ababab"}}>BATHROOM</a>
+                            <a href="#Bathroom" style={{marginRight: "55px", fontSize: "16px", color: "#ababab"}}>DINING</a>
                         </Nav>
-                </Container>
-
-                <Container style={{display: "flex", justifyContent: "center", paddingLeft: "6%", paddingRight: "6%"}}>
-                    <Row style={{display: "flex", justifyContent: "center"}}>
-                        <img src={Hotel1} width="425px" onClick={this.handleShow} />
-                        <img src={Hotel2} width="425px" onClick={this.handleShow} />
-                        <img src={Hotel3} width="425px" onClick={this.handleShow} />
+                </HeaderContainer>
+                <Container>
+                    <Row style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
+                        <img className="gallery-image" src={Hotel1} onClick={() => this.handleShow(1)} />
+                        <img className="gallery-image" src={Hotel2} onClick={() => this.handleShow(2)} />
+                        <img className="gallery-image" src={Hotel3} onClick={() => this.handleShow(3)} />
                     </Row>
-                    <Row style={{display: "flex", justifyContent: "center"}}>
-                        <img src={Hotel4} width="425px" onClick={this.handleShow} />
-                        <img src={Hotel5} width="425px" onClick={this.handleShow} />
-                        <img src={Hotel6} width="425px" onClick={this.handleShow} />
+                    <Row style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
+                        <img className="gallery-image" src={Hotel4} onClick={() => this.handleShow(4)} />
+                        <img className="gallery-image" src={Hotel5} onClick={() => this.handleShow(5)} />
+                        <img className="gallery-image" src={Hotel6} onClick={() => this.handleShow(6)} />
                     </Row>
-                    <Row style={{display: "flex", justifyContent: "center"}}>
-                        <img src={Hotel7} width="425px" onClick={this.handleShow} />
-                        <img src={Hotel8} width="425px" onClick={this.handleShow} />
-                        <img src={Hotel9} width="425px" onClick={this.handleShow} /> 
+                    <Row style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
+                        <img className="gallery-image" src={Hotel7} onClick={() => this.handleShow(7)} />
+                        <img className="gallery-image" src={Hotel8} onClick={() => this.handleShow(8)} />
+                        <img className="gallery-image" src={Hotel9} onClick={() => this.handleShow(9)} /> 
                     </Row>
                 </Container>   
-                 
                 <Modal 
                     show={this.state.show} 
                     onHide={this.handleClose}
                     size="lg"
-                    aria-labelledby="contained-modal-title-vcenter"
                     centered
                 >
-                    <Carousel>
-                        <Carousel.Item className="carousel-gallery-item">
-                            <img src={Hotel1} width="100%" />
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <img src={Hotel2} width="100%" />
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <img src={Hotel3} width="100%" />
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <img src={Hotel4} width="100%" />
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <img src={Hotel5} width="100%" />
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <img src={Hotel6} width="100%" />
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <img src={Hotel7} width="100%" />
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <img src={Hotel8} width="100%" />
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <img src={Hotel9} width="100%" />
-                        </Carousel.Item>
-                    </Carousel>
+                    <img src={require(`../../images/Hotel${this.state.picture}.jpg`)} width="200%" />
                 </Modal>
             </>
         );
     };
 };
-
-
 
 export default PhotoGallery;
