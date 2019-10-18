@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2019_10_15_183853) do
     t.string "cabin_type"
     t.integer "price"
     t.integer "user_id"
+    t.string "pm"
     t.boolean "modifiable", default: true
     t.bigint "cabin_id"
     t.datetime "created_at", null: false

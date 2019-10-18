@@ -61,16 +61,11 @@ class Api::BookingsController < ApplicationController
     render json: Booking.single_day_bookings(params)
   end
 
-  scheduler = Rufus::Scheduler.new
-
-  scheduler.in '3s' do
-    puts 'Hello... Rufus'
-  end
 
   protected
 
     def booking_params # ☑️
-      params.require(:booking).permit(:start_date, :end_date, :guests, :special_needs, :booking_number, :user_id, :cabin_id, :expected_arrival, :customer_payment_token, :price, :cabin_type)
+      params.require(:booking).permit(:start_date, :end_date, :guests, :special_needs, :booking_number, :user_id, :cabin_id, :expected_arrival, :customer_payment_token, :price, :cabin_type, :pm)
     end
 
     def set_booking # ☑️

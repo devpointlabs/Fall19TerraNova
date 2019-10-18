@@ -18,16 +18,13 @@ const CheckoutForm = (props) => {
 
   const submit = async (ev) => {
     ev.preventDefault();
-    // let { token } = await props.stripe.createToken({ name: `${firstName} ${lastName}` });
-
-    let res = await props.stripe.createPaymentMethod('card')
-
+    let result = await props.stripe.createPaymentMethod('card')
     const { setupIntent, error } = await props.stripe.handleCardSetup(client_secret, {}); //  payment_method_data: { billing_details: { name: `${firstName} ${lastName}` } } 
     if (error) {
       console.log(error)
       console.log("YOU HAVE A CARD ERROR")
     } else if (setupIntent.status == "succeeded") { // Its a go! create the booking. add the customerpaymenttoken, go go go
-      await axios.post(`/api/createres?body=${res.paymentMethod.id}`)//${token.id}
+      await axios.post(`/api/createres?body=${result.paymentMethod.id}`)//${token.id}
         .then(res => {
           
           // CREATE A USER FIRST, THEN YOU CAN add that to the boooking
@@ -38,14 +35,13 @@ const CheckoutForm = (props) => {
           } else {  
 
           }
-
-
            axios.post('/api/bookings', {
-            customer_payment_token: res.data.id, 
+            customer_payment_token: res.data.c.id, 
+            pm: res.data.pm,
             cabin_type, // import the cabin type
             price: 1200, // import the price
-            start_date: "2019-10-04", 
-            end_date: "2019-10-10", 
+            start_date: "2019-10-16", 
+            end_date: "2019-10-20", 
             guests: 3, 
             special_needs: "Wants the cabin in far north", 
             booking_number: 123456789, 
