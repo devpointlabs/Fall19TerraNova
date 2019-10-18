@@ -107,10 +107,15 @@ class Top extends React.Component {
     Button = withRouter(({ history }) => (
         <span
             className="check-availability-button"
-            onClick={() => { history.push({
+            onClick={ this.state.endDate != "" ? () => { 
+                history.push({
                 pathname: '/reservation',
                 state: this.state
-            }) }}
+            }) }
+            :
+                this.state._isMounted &&
+                    (() => this.setState({ modalShowNoEndDate: true }))
+            }
         >
             CHECK AVAILABILITY
         </span>
@@ -251,8 +256,10 @@ class Top extends React.Component {
                         <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
-                <Modal show={this.state.modalShowNoEndDate} onHide={this.handleClose}>
-                    You have to choose an end date!
+                <Modal show={this.state.modalShowNoEndDate} onHide={this.handleClose} centered>
+                    <Modal.Body>
+                        You have to choose a departure date!
+                    </Modal.Body>
                 </Modal>
             </div>
         );
