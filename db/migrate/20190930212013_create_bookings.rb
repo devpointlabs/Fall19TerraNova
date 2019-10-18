@@ -10,6 +10,7 @@ class CreateBookings < ActiveRecord::Migration[5.2]
       t.string :cabin_type
       t.integer :price
       t.integer :user_id
+      t.string :pm
       t.boolean :modifiable, default: true
       t.belongs_to :cabin, foreign_key: true
       t.timestamps

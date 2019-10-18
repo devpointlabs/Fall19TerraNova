@@ -123,7 +123,7 @@ const Contact = () => {
 }
 
 const StyledInput = styled(Form.Input)`
-
+  
   & > div {  
     & > input {
       border-color: black !important;
@@ -144,7 +144,7 @@ const StyledTextArea = styled(Form.TextArea)`
   }
 `;
 
-export const StyledButton = styled.button`
+const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   background: rgb(142, 112, 55);

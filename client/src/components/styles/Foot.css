@@ -726,7 +726,18 @@
     width: 13%;
     margin-top: 02%;
     margin-left: 10%;
+  }
 
+  .emailbar {
+    width: 26em;
+    margin-left: 17em;
+    margin-top: -5em;
+    margin-bottom: .5em;
+  }
+
+  .submitbutton {
+    margin-left: 26em;
+    margin-top: -4.15em;
   }
 
   .payment-icon {
@@ -738,6 +749,7 @@
   .mail-icon {
     width: 06.25%;
     margin-top: 01%;
+    margin-bottom: .2%;
     margin-left: 08%;
   }
 
