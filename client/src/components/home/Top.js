@@ -1,9 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-// import { DatePicker, TimePicker, DateTimePicker, MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker,} from "@material-ui/pickers";
-// import Grid from '@material-ui/core/Grid';
-// import DayjsUtils from '@date-io/dayjs';
-import { Carousel, Modal, Button } from 'react-bootstrap';
+import { Carousel, Modal } from 'react-bootstrap';
 import { Calendar } from '../rb-datepicker/dist';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import "../styles/daterangepicker.css";
@@ -11,9 +8,8 @@ import yellowstone from '../../images/top/yellowstone.jpg';
 import yellowstone1 from '../../images/top/yellowstone1.jpg';
 import yellowstone2 from '../../images/top/yellowstone2.jpg';
 import calendar from '../../images/calendar-icon.png';
-import { Dropdown, Icon } from "semantic-ui-react";
 import styled from 'styled-components';
-import './homestyles/Head.css';
+import './homestyles/Top.css';
 import * as dayjs from "dayjs";
 
 class Top extends React.Component {
@@ -27,6 +23,7 @@ class Top extends React.Component {
         nrNights: "1",
         modalShowStart: false,
         modalShowEnd: false,
+        modalShowNoEndDate: false,
         startDay: "",
         endDay: "",
         startMonth: "",
@@ -59,11 +56,11 @@ class Top extends React.Component {
 
     handleShowStart = () => this.setState({ modalShowStart: true });
 
-    handleCloseStart = () => this.setState({ modalShowStart: false });
-
     handleShowEnd = () => this.setState({ modalShowEnd: true });
 
-    handleCloseEnd = () => this.setState({ modalShowEnd: false });
+    handleShowNoEndDate = () => this.setState({ modalShowNoEndDate: true });
+
+    handleClose = () => this.setState({ modalShowStart: false, modalShowEnd: false, modalShowNoEndDate: false });
 
     onDayClickStart = (date) => {
         this.setState({ 
@@ -73,6 +70,9 @@ class Top extends React.Component {
             endDate: "",
             endDateString: "",
             endDateDB: "",
+            endDay: "",
+            endMonth: "",
+            endYear: "",
             nrNights: "",
             modalShowStart: false
         });
@@ -189,7 +189,7 @@ class Top extends React.Component {
                     </div>
                 </div>
                 <div className="calendaroverlay">
-                    <div className="date-box">
+                    <div className="date-box" onClick={this.handleShowStart}>
                         <span className="date-box-text">ARRIVAL DATE</span>
                         <span className="date-box-row">
                             <span className="date-box-day">{ this.state.startDay }</span>
@@ -197,10 +197,10 @@ class Top extends React.Component {
                             <span className="date-box-year">{ this.state.startYear }</span>
                         </span>
                         <span className="date-box-icon-holder">
-                            <img src={calendar} width="50%" onClick={this.handleShowStart} />
+                            <img src={calendar} width="50%" />
                         </span>
                     </div> 
-                    <div className="date-box">
+                    <div className="date-box" onClick={this.handleShowEnd}>
                         <span className="date-box-text">DEPARTURE DATE</span>
                         <span className="date-box-row">
                             <span className="date-box-day">{ this.state.endDay }</span>
@@ -208,7 +208,7 @@ class Top extends React.Component {
                             <span className="date-box-year">{ this.state.endYear }</span>
                         </span>
                         <span className="date-box-icon-holder">
-                            <img src={calendar} width="50%" onClick={this.handleShowEnd} />
+                            <img src={calendar} width="50%" />
                         </span>
                     </div>
                     <this.Button />
@@ -237,31 +237,27 @@ class Top extends React.Component {
                     />
                     </Carousel.Item>
                 </Carousel>
-                <Modal show={this.state.modalShowStart} onHide={this.handleCloseStart} centered>
+                <Modal show={this.state.modalShowStart} onHide={this.handleClose} centered>
                     { this.props.endDate != "" ?
                         <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
                         <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
-                <Modal show={this.state.modalShowEnd} onHide={this.handleCloseEnd} centered>
+                <Modal show={this.state.modalShowEnd} onHide={this.handleClose} centered>
                     { this.props.endDate != "" ?
                         <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
                         <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
+                <Modal show={this.state.modalShowNoEndDate} onHide={this.handleClose}>
+                    You have to choose an end date!
+                </Modal>
             </div>
         );
     };
 };
-
-const CustomDropdown = styled(Dropdown)`
-    width: 100%;
-    border: 0;
-    font-family: 'Playfair Display', serif;
-`;
-
 
 const ContentTop = styled.h1`
     position: relative;
@@ -277,55 +273,6 @@ const ContentBottom = styled.h3`
     color: white;
     font-size: 25px;
     font-family: 'Playfair Display', serif;
-`;
-
-const DateButton = styled.button`
-    border: none;
-    background: white;
-    color: #8E7037;
-    font-size: small;
-    height: 100%;
-    width: 30%;
-    margin-right: 3em;
-    padding-left: 0.6em;
-    letter-spacing: 0.1em;
-    display: flex;
-    flex-direction: column;
-`;
-
-const CheckButton = styled.button`
-    border: none;
-    background: #8E7037;
-    color: white;
-    font-size: 1em;
-    height: 100%;
-    width: 15%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    letter-spacing: 0.2em;
-    font-family: 'Raleway', sans-serif;
-    font-weight: bolder;
-
-    &:hover {
-        background-color: #7c612f;
-    }
-`;
-
-const GuestButton = styled.button`
-    border-color: transparent;
-    background: white;
-    color: #8E7037;
-    font-size: smaller;
-    padding-left: 70px;
-    padding-right: 70px;
-    padding-top: 62px;
-    padding-bottom: 62px;
-    margin-left: 10px;
-
-    &:hover {
-        background-color: #7c612f;
-    }
 `;
 
 export default Top;

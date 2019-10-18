@@ -342,9 +342,7 @@ class Step2 extends React.Component {
                             <span style={{marginLeft: "20px", marginTop: "5px", marginRight: "0px", fontWeight: "bold", fontSize: "12px"}}>ARRIVE</span>
                             <div className="reservation-form-container">
                                 <Form.Control className="reservation-dateform" value={this.props.startDateString} readOnly />
-                                {/* <OverlayTrigger trigger="click" placement="right"> */}
-                                    <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
-                                {/* </OverlayTrigger> */}
+                                <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
                             </div>
                             <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>NIGHT(S)</span>
                             <div className="reservation-dropdown-container">
@@ -367,9 +365,7 @@ class Step2 extends React.Component {
                             <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>DEPARTURE</span>
                             <div className="reservation-form-container">
                                 <Form.Control className="reservation-dateform" value={this.props.endDateString} readOnly />
-                                    {/* <OverlayTrigger trigger="click" placement="right"> */}
-                                        <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
-                                    {/* </OverlayTrigger> */}
+                                <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
                             </div>
                             <div className="reservation-button-container">
                                 <span className="reservation-custom-button" onClick={this.props.checkAvailability}>
