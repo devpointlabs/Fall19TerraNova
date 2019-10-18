@@ -2,6 +2,9 @@ class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :cabin
 
+  Stripe.api_key = Rails.configuration.stripe[:secret_key] 
+
+
 
 
   def self.single_day_bookings
@@ -31,4 +34,15 @@ class Booking < ApplicationRecord
     end
     return {already_here: already_here, arriving_today: arriving_today, last_night: last_night, checking_out_today: checking_out_today}
   end
+
+  def self.charge
+    arr = []
+    Booking.select(:customer_payment_token, :booking_number, :price, :pm).where(start_date: Date.today.prev_day).select{|i| i.booking_number != nil}.each do |d|
+      arr << Stripe::PaymentIntent.create(amount: d.price, currency: 'usd', payment_method_types: ['card'], payment_method: "#{d.pm}", customer: "#{d.customer_payment_token}", off_session: true, confirm: true,)
+      # ! What do I do with this payment intent code ??
+    end
+    return arr
+  end
+
+
 end
