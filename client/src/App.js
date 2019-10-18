@@ -6,19 +6,17 @@ import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
 import Terms from './components/Terms';
-import RoomsRates from './components/RoomsRates'
+import RoomsRates from './components/RoomsRates';
+import RoomDetails from './components/RoomDetails';
 import About from './components/about/About';
 import Contact from './components/Contact';
 import FetchUser from './components/FetchUser';
-// import ProtectedRoute from './components/ProtectedRoute';
 import Reservation from './components/reservation/Reservation';
 import { Switch, Route, } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
 import { StripeProvider, Elements } from 'react-stripe-elements';
 // import axios from 'axios'
 import CheckoutForm from './components/CheckoutForm'
-// import { StateProvider } from './providers/StateProvider';
-
 
 const App = () => {
   
@@ -39,10 +37,12 @@ const App = () => {
             <Route exact path="/register" component={Register} />
             <Route exact path="/termsconditions" component={Terms} />
             <Route exact path="/roomsrates" component={RoomsRates} />
+            <Route exact path="/roomdetails" component={RoomDetails} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/contact" component={Contact} />
             <Elements>
               <Route exact path="/stripe" component={CheckoutForm} />
             </Elements>
-            <Route exact path="/about" component={About} />
             <Route component={NoMatch} />
           </Switch>
         </FetchUser>

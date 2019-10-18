@@ -1,145 +1,185 @@
 import React from 'react';
-import './styles/RoomsRates.css'
-import styled from 'styled-components'
-import mountainview from '../images/rooms/mountainview.jpg'
-import lakeview from '../images/rooms/lakeview.jpg'
-import cabin3 from '../images/rooms/cabin3.jpg'
- 
+import { withRouter } from 'react-router-dom';
+import './styles/RoomsRates.css';
+import mountainview from '../images/rooms/mountainview.jpg';
+import lakeview from '../images/rooms/lakeview.jpg';
+import cabin3 from '../images/rooms/cabin3.jpg';
+import cabin1 from '../images/rooms/cabin1.jpg';
+import person from '../images/small-person-image.png';
+import bed from '../images/small-bed-image.png';
+import eye from '../images/small-eye-image.png';
 
-
+const Button = withRouter(({ history, room }) => (
+    <span
+        className="roomsrates-button"
+        onClick={() => { history.push({
+            pathname: '/roomdetails',
+            room
+        }) }}
+    >
+        VIEW DETAILS
+    </span>
+));
 
 const RoomsRates = () => (
-  <>
-    <div className="rrheadcontainer">
-      <p className="headtext"> ROOMS & RATES </p>
-    </div>
+    <>
+        <div className="roomsrates-header">
+            ROOMS & RATES
+        </div>
+        <div className="roomsrates-rooms">
+            <div className="roomsrates-room">
+                <div className="roomsrates-room-header">MOUNTAIN VIEW</div>
+                <img
+                    src={mountainview}
+                    alt="mountainview"
+                    width="100%"
+                />
+                <p style={{marginTop: "1em"}}>A modern duplex cabin with beautiful mountain view.</p>
+                <div className="roomsrates-list-container">
+                    <div className="roomsrates-ul-column">
+                        <ul>
+                            <li>Max: 4 Persons</li>
+                            <li>Size: 376 ft<sup>2</sup> / 35 m<sup>2</sup></li>
+                        </ul>
+                    </div>
+                    <div className="roomsrates-ul-column">
+                        <ul>
+                            <li>View: Mountain</li>
+                            <li>Bed: King-Size or twin beds</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr width="100%" style={{margin: "0.5em 0 0.7em 0"}} />
+                <div className="roomsrates-details-container">
+                    Starting at $260 /night
+                    <Button room="B" />
+                </div>
+                <hr width="100%" style={{marginTop: "0.7em"}} />
+            </div>
 
-    <div className="rooms">
-      <div className="mountainview">
-        <p> Mountain View </p>
-        <img
-            src={mountainview}
-            alt="mountainview"
-            width="100%"
-          />
-          <p> Description </p>
-          <div className="listcontainer">
-            <ul>
-              <li> one </li>
-              <li> two </li>
-            </ul>
-            <ul>
-              <li> three </li>
-              <li> four </li>
-            </ul>
-          </div>
-          <hr width="100%"/>
-          <div className="detailscontainer">
-            <p> Details </p> 
-            <ViewButton> View Details </ViewButton>
-          </div>
-          <hr width="100%"/>
-      </div>
+            <div className="roomsrates-room">
+                <div className="roomsrates-room-header">LAKE VIEW</div>
+                <img
+                    src={lakeview}
+                    alt="lakeview"
+                    width="100%"
+                />
+                <p style={{marginTop: "1em"}}>A modern duplex cabin with partial view of Hebgen Lake.</p>
+                <div className="roomsrates-list-container">
+                    <div className="roomsrates-ul-column">
+                        <ul>
+                            <li>Max: 4 Persons</li>
+                            <li>Size: 376 ft<sup>2</sup> / 35 m<sup>2</sup></li>
+                        </ul>
+                    </div>
+                    <div className="roomsrates-ul-column">
+                        <ul>
+                            <li>View: Mountain</li>
+                            <li>Bed: King-Size or twin beds</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr width="100%" style={{margin: "0.5em 0 0.7em 0"}} />
+                <div className="roomsrates-details-container">
+                    Starting at $260 /night
+                    <Button room="A" />
+                </div>
+                <hr width="100%" style={{marginTop: "0.7em"}} />
+            </div>
 
-      <div className="lakeview">
-        <p> Lake View </p>
-        <img
-            src={lakeview}
-            alt="lakeview"
-            width="100%"
-          />
-          <p> Description </p>
-          <div className="listcontainer">
-            <ul>
-              <li> one </li>
-              <li> two </li>
-            </ul>
-            <ul>
-              <li> three </li>
-              <li> four </li>
-            </ul>
-          </div>
-          <hr width="100%"/>
-          <div className="detailscontainer">
-            <p> Details </p> 
-            <ViewButton> View Details </ViewButton>
-          </div>
-          <hr width="100%"/>
-      </div>
+            <div className="roomsrates-room">
+                <div className="roomsrates-room-header">FAMILY ROOM</div>
+                <img
+                    src={cabin3}
+                    alt="familyroom"
+                    width="100%"
+                />
+                <p style={{marginTop: "1em"}}>A whole unit with both a mountain view room and lake view room.</p>
+                <div className="roomsrates-list-container">
+                    <div className="roomsrates-ul-column">
+                        <ul>
+                            <li>Max: 8 Persons</li>
+                            <li>Size: 752 ft<sup>2</sup> / 70 m<sup>2</sup></li>
+                        </ul>
+                    </div>
+                    <div className="roomsrates-ul-column">
+                        <ul>
+                            <li>View: Lake & Mountain</li>
+                            <li>Bed: Two King-Size or twin beds</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr width="100%" style={{margin: "0.5em 0 0.7em 0"}} />
+                <div className="roomsrates-details-container">
+                    Starting at $500 /night
+                    <Button room="F" />
+                </div>
+                <hr width="100%" style={{marginTop: "0.7em"}} />
+            </div>
 
-      <div className="familyroom">
-        <p> Family Room </p>
-        <img
-            src={cabin3}
-            alt="familyroom"
-            width="100%"
-          />
-          <p> Description </p>
-          <div className="listcontainer">
-            <ul>
-              <li> one </li>
-              <li> two </li>
-            </ul>
-            <ul>
-              <li> three </li>
-              <li> four </li>
-            </ul>
-          </div>
-          <hr width="100%"/>
-          <div className="detailscontainer">
-            <p> Details </p> 
-            <ViewButton> View Details </ViewButton>
-          </div>
-          <hr width="100%"/>
-      </div>
+            <div className="roomsrates-room">
+                <div className="roomsrates-room-header">VIP ROOM #1</div>
+                <img
+                    src={cabin1}
+                    alt="viproom1"
+                    width="100%"
+                    height="376px"
+                />
+                <p style={{marginTop: "1em"}}>A deluxe room for deluxe people.</p>
+                <div className="roomsrates-list-container">
+                    <div className="roomsrates-ul-column">
+                        <ul>
+                            <li>Max: 4 Persons</li>
+                            <li>Size: 376 ft<sup>2</sup> / 35 m<sup>2</sup></li>
+                        </ul>
+                    </div>
+                    <div className="roomsrates-ul-column">
+                        <ul>
+                            <li>View: Mountain</li>
+                            <li>Bed: King-Size or twin beds</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr width="100%" style={{margin: "0.5em 0 0.7em 0"}} />
+                <div className="roomsrates-details-container">
+                    Starting at $520 /night
+                    <Button room="V1" />
+                </div>
+                <hr width="100%" style={{marginTop: "0.7em"}} />
+            </div>
 
-      <div className="kirkwood">
-        <p> Kirkwood Room </p>
-        <img
-            src={cabin3}
-            alt="kirkwood"
-            width="100%"
-          />
-          <p> Description </p>
-          <div className="listcontainer">
-            <ul>
-              <li> one </li>
-              <li> two </li>
-            </ul>
-            <ul>
-              <li> three </li>
-              <li> four </li>
-            </ul>
-          </div>
-          <hr width="100%"/>
-          <div className="detailscontainer">
-            <p> Details </p> 
-            <ViewButton> View Details </ViewButton>
-          </div>
-          <hr width="100%"/>
-      </div>
-    </div>
-
-  </>
-)
-
-const ViewButton = styled.button`
-  background: #8E7037;
-  font-family: Arial, Helvetica, sans-serif;
-  border: none;
-  color: white;
-  padding: 5px 10px;
-  cursor: pointer;
-  outline: none;
-  font-size: 14px;
-  margin-left: 350px;
- 
-
-  &:hover {
-    background: #755a29;
-    transition: background 0.2s ease;
-  }
-
-`;
+            <div className="roomsrates-room">
+                <div className="roomsrates-room-header">VIP ROOM #2</div>
+                <img
+                    src={cabin1}
+                    alt="viproom2"
+                    width="100%"
+                    height="376px"
+                />
+                <p style={{marginTop: "1em"}}>A deluxe room for deluxe people.</p>
+                <div className="roomsrates-list-container">
+                    <div className="roomsrates-ul-column">
+                        <ul>
+                            <li>Max: 4 Persons</li>
+                            <li>Size: 376 ft<sup>2</sup> / 35 m<sup>2</sup></li>
+                        </ul>
+                    </div>
+                    <div className="roomsrates-ul-column">
+                        <ul>
+                            <li>View: Mountain</li>
+                            <li>Bed: King-Size or twin beds</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr width="100%" style={{margin: "0.5em 0 0.7em 0"}} />
+                <div className="roomsrates-details-container">
+                    Starting at $520 /night
+                    <Button room="V2" />
+                </div>
+                <hr width="100%" style={{marginTop: "0.7em"}} />
+            </div>
+        </div>
+    </>
+);
 
 export default RoomsRates;

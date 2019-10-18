@@ -1,0 +1,307 @@
+.roomdetails-header-container {
+    display: flex;
+    justify-content: center;
+    background-color: #898989;
+}
+
+.roomdetails-header {
+    margin-top: 20px;
+    margin-bottom: 25px;
+    font-size: 40px;
+    font-family: 'EB Garamond';
+    color: white;
+    background-color: #898989;
+}
+
+.roomdetails-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #232323;
+    padding: 4% 9% 4% 9%;
+}
+
+.roomdetails-upper-container {
+    display: flex;
+    width: 100%;
+    background-color: #232323;
+    margin-bottom: 1.5%;
+}
+
+.roomdetails-upper-container-image {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    background: white;
+    /* -webkit-animation: slideIn 1s forwards;
+    -moz-animation: slideIn 1s forwards;
+    animation: slideIn 1s forwards; */
+}
+
+@-webkit-keyframes slideIn {
+    0% {
+        transform: translateX(-900px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@-moz-keyframes slideIn {
+    0% {
+        transform: translateX(-900px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(-900px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.roomdetails-left-arrow {
+    position: absolute;
+    top: 50%;
+    left: 1%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    z-index: 10;
+    color: white;
+}
+
+.roomdetails-right-arrow {
+    position: absolute;
+    top: 50%;
+    left: 95%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    z-index: 10;
+    color: white;
+}
+
+.roomdetails-left-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 77%;
+    background-color: #efefef;
+}
+
+.roomdetails-left-lower-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #232323;
+}
+
+.roomdetails-left-lower-container-image {
+    width: 13%;
+    margin-top: 1em;
+    border: 2px solid #232323;
+}
+
+.roomdetails-left-lower-container-image-active {
+    width: 13%;
+    margin-top: 1em;
+    border: 2px solid white;
+}
+
+.roomdetails-right-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 23%;
+    background-color: #efefef;
+    padding-top: 1.5%;
+    margin-left: 4%;
+}
+
+.roomdetails-right-upper-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 23%;
+    background-color: #efefef;
+}
+
+.roomdetails-right-lower-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 7% 9% 7% 9%;
+    background-color: #efefef;
+    font-size: 12px;
+}
+
+.roomdetails-hr-container {
+    text-align: center;
+    margin-top: 3%;
+    height: 1px;
+    width: 100%;
+}
+
+.roomdetails-line {
+    border-top: 1px solid #dbdbdb;
+}
+
+.roomdetails-form-container {
+    width: 100%;
+    height: 34px;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 7px;
+    margin-bottom: 30px;
+}
+
+.roomdetails-dateform {
+    border-radius: 0 !important;
+    border: 0 !important;
+    align-self: center;
+    pointer-events: none;
+    background: white !important;
+}
+
+.roomdetails-dropdown-container {
+    width: 100%;
+    height: 34px;
+    background-color: white;
+    padding-left: 8px;
+    margin-top: 7px;
+    margin-bottom: 30px;
+}
+
+.roomdetails-custom-dropdown {
+    width: 100%;
+    background-color: white;
+    border: 0 !important;
+    font-family: "Nanum Gothic" !important;
+}
+
+.roomdetails-button-container {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.roomdetails-custom-button {
+    background: #8E7037;
+    color: white;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.roomdetails-custom-button:hover {
+    background-color: rgb(223, 193, 141) !important;
+}
+
+.roomdetails-viewdetails-button {
+    background: #232323;
+    color: rgb(100, 100, 100);
+    border: 1px solid rgb(100, 100, 100);
+    height: 30px;
+    width: 40%;
+    margin-top: 2em;
+    display: flex;
+    font-size: x-small;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.roomdetails-viewdetails-button:hover {
+    background-color: #373737 !important;
+}
+
+.roomdetails-lower-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #232323;
+    margin-top: 7%;
+}
+
+.roomdetails-small-room-container {
+    display: flex;
+    flex-direction: column;
+    width: 23%;
+    background-color: #232323;
+    color: rgb(100, 100, 100);
+}
+
+.roomdetails-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.roomdetails-text-header {
+    font-size: large;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.roomdetails-small-images-column {
+    display: flex;
+    flex-direction: column;
+    margin-right: 1em;
+}
+
+.roomdetails-text-column {
+    display: flex;
+    flex-direction: column;
+}
+
+div[role="listbox"] {
+    display: flex !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+}
+
+div.text {
+    font-size: 14px !important;
+    margin-top: 5px !important;
+    margin-left: 2px;
+    margin-bottom: 0px;
+}
+
+.dropdown.icon {
+    margin-right: 10px !important;
+    margin-top: 10px !important;
+}
+
+.carousel.slide {
+    width: 100%;
+}
+
+#slide1_container {
+    width:450px;
+    height:281px;
+    overflow:hidden; /* So the sliding bit doesn't stick out. */
+    margin:0 auto;
+}
+
+#slide1_images {
+    /* This is the bit that moves. It has 4 images, so 4 * 450 = 1800. You could use javascript
+    to work this out instead by counting images. */
+    width:1800px;
+  
+    -webkit-transition:all 1.0s ease-in-out;
+    -moz-transition:all 1.0s ease-in-out;
+    -o-transition:all 1.0s ease-in-out;
+    transition:all 1.0s ease-in-out;
+}
+
+#slide1_images img {
+    padding:0;
+    margin:0;
+    float:left; /* All the images are in a row next to each other. */
+  }
