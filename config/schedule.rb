@@ -1,25 +1,56 @@
-
-# set :output, "/path/to/my/cron_log.log"
-#
-# every 2.hours do
-#   command "/usr/bin/some_great_command"
-#   runner "MyModel.some_method"
-#   rake "some:great:rake:task"
-# end
-#
-# every 4.days do
-#   runner "AnotherModel.prune_old_records"
-# end
-
-# every 1.day, at: '4:30 am' do
-#   runner "MyModel.task_to_run_at_four_thirty_in_the_morning"
-# end
-
 set :environment, 'development'
+ENV['RAILS_ENV'] = "development"
+
+set :output, 'log/whenever.log'
 
 every 1.minute do 
-  runner "Cabin.working"
+  rake "stripe:test"
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
