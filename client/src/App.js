@@ -19,6 +19,8 @@ import CheckoutForm from './components/CheckoutForm'
 import FindBooking from './components/FindBooking'
 import AdminProtRoute from './components/AdminProtRoute'
 import AdminHome from './components/AdminHome'
+import UnderConstruction from './components/UnderConstruction'
+
 
 const App = () => {
   return (
@@ -39,6 +41,7 @@ const App = () => {
             <Route exact path="/about" component={About} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/findmybooking" component={FindBooking} />
+            <Route exact path="/underconstruction" component={UnderConstruction} />
             <Elements>
               <Route exact path="/stripe" component={CheckoutForm} />
             </Elements>

@@ -1,0 +1,39 @@
+.forest-image {
+  width: 100%;
+}
+
+.constructionoverlay1 { 
+  display: flex;
+  justify-content: center;
+  color:white;
+  position:absolute;
+  font-size: 500%;
+  top: 30%;
+  width:100%;
+  text-align:center;
+  font-family: 'Muli', sans-serif;
+}
+
+.constructionoverlay2 { 
+  display: flex;
+  justify-content: center;
+  color:white;
+  position:absolute;
+  font-size: 250%;
+  top: 42%;
+  width:100%;
+  text-align:center;
+  font-family: 'Muli', sans-serif;
+}
+
+.constructionoverlay3 { 
+  display: flex;
+  justify-content: center;
+  color:white;
+  position:absolute;
+  font-size: 160%;
+  top: 54%;
+  width:100%;
+  text-align:center;
+  font-family: 'Muli', sans-serif;
+}
