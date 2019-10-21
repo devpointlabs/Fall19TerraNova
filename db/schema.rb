@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2019_10_18_031255) do
     t.datetime "updated_at", null: false
     t.string "expected_arrival"
     t.string "customer_payment_token", null: false
+    t.integer "cancellation_num"
     t.index ["cabin_id"], name: "index_bookings_on_cabin_id"
   end
 
