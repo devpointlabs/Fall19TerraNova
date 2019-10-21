@@ -43,12 +43,12 @@ class Navbar extends React.Component {
                 { this.props.location.pathname !== "/comingsoon" &&
                     <>
                         <div className="navbar-upper-background">
-                            <div>
-                                <Icon style={{ marginRight: "5px", paddingTop: "0px !important", paddingBottom: "0px !important" }} name="snowflake" />
+                            <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                <Icon style={{ marginRight: "5px", marginBottom: "4px" }} name="snowflake" />
                                 72°F
-                                <Icon style={{ marginLeft: "25px", marginRight: "3px" }} name="map marker alternate" />
+                                <Icon style={{ marginLeft: "25px", marginRight: "3px", marginBottom: "4px" }} name="map marker alternate" />
                                 35 Kirkwood Creek Road, West Yellowstone, MT 59758
-                                <Icon style={{ marginLeft: "30px", marginRight: "3px" }} name="phone" />
+                                <Icon style={{ marginLeft: "30px", marginRight: "3px", marginBottom: "16px" }} name="phone" />
                                 (+1)406.646.7200
                             </div>
                             <div style={{ alignItems: "right" }}>
