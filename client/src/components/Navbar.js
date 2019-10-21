@@ -11,37 +11,29 @@ import { Icon } from "semantic-ui-react"
 import axios from 'axios'
 
 class Navbar extends React.Component {
-    rightNavItems = () => {
-        const { auth: { user, handleLogout, }, location, } = this.props;
-    
-        if (user) {
-            return (
-                <Menu.Menu position='right'>
-                    <Menu.Item
-                        name='logout'
-                        onClick={ () => handleLogout(this.props.history) }
-                    />
-                </Menu.Menu>
-            )
-        } else {
-            return (
-                <Menu.Menu position='right'>
-                    <Link to='/login'>
-                        <Menu.Item
-                            id='login'
-                            name='login'
-                            active={location.pathname === '/login'}
-                        />
-                    </Link>
-                    <Link to='/register'>
-                        <Menu.Item
-                            id='register'
-                            name='register'
-                            active={location.pathname === '/register'}
-                        />
-                    </Link>
-                </Menu.Menu>
-            );
+    state = {
+        _isMounted: false
+    };
+
+    componentDidMount() {
+        this.setState({ _isMounted: true })
+    };
+
+    adminVer = () => {
+        if (this.state._isMounted === true) {
+            if (this.props.auth.user) {
+                if (this.props.auth.user.admin === true) {
+                    return (
+                        <MenuButton
+                            exact
+                            to="/admin"
+                            activeStyle={menuButtonActive}
+                        >
+                            Administrator
+                        </MenuButton>
+                    );
+                };
+            };
         };
     };
 
@@ -51,34 +43,35 @@ class Navbar extends React.Component {
                 { this.props.location.pathname !== "/comingsoon" &&
                     <>
                         <div className="navbar-upper-background">
-                            <div style={{display: "flex", alignItems: "center"}}>
-                                <Icon style={{marginRight: "5px", marginBottom: "4px"}} name="snowflake" />
+                            <div>
+                                <Icon style={{ marginRight: "5px", paddingTop: "0px !important", paddingBottom: "0px !important" }} name="snowflake" />
                                 72°F
-                                <Icon style={{marginLeft: "25px", marginRight: "3px", marginBottom: "4px"}} name="map marker alternate" />
+                                <Icon style={{ marginLeft: "25px", marginRight: "3px" }} name="map marker alternate" />
                                 35 Kirkwood Creek Road, West Yellowstone, MT 59758
-                                <Icon style={{marginLeft: "30px", marginRight: "3px", marginBottom: "15px"}} name="phone" />
+                                <Icon style={{ marginLeft: "30px", marginRight: "3px" }} name="phone" />
                                 (+1)406.646.7200
                             </div>
-                            <div style={{alignItems: "right"}}>
-                                <NavbarBS variant="dark" bg="#373737" expand="lg" collapseOnSelect style={{boxShadow: "none !important"}}>
+                            <div style={{ alignItems: "right" }}>
+                                <NavbarBS variant="dark" bg="#373737" expand="lg" collapseOnSelect style={{ boxShadow: "none !important" }}>
                                     <NavbarBS.Toggle aria-controls="basic-navbar-nav" />
                                     <NavbarBS.Collapse id="basic-navbar-nav">
-                                        <Nav className="mr-auto" style={{boxShadow: "none !important"}}>
+                                        <Nav className="mr-auto" style={{ boxShadow: "none !important" }}>
+                                            { this.adminVer() }
                                             <MenuButton
                                                 exact
                                                 to="/mytrips"
                                                 activeStyle={menuButtonActive}
                                             >
-                                                <Icon name="briefcase" style={{marginBottom: "5px"}} />
+                                                <Icon name="briefcase" style={{ marginBottom: "5px" }} />
                                                 My trips
                                             </MenuButton>
                                             <MenuButton
                                                 exact
                                                 to="/login"
-                                                style={{marginRight: "10px"}}
+                                                style={{ marginRight: "10px" }}
                                                 activeStyle={menuButtonActive}
                                             >
-                                                <Icon name="user" style={{marginBottom: "5px"}} />
+                                                <Icon name="user" style={{ marginBottom: "5px" }} />
                                                 Sign In or Join
                                             </MenuButton>
                                             <NavDropdown className="navbar-navdropdown" alignRight title={<Icon name="dollar sign" />} id="collapsible-nav-dropdown" style={{marginTop: "3px"}}>
@@ -162,9 +155,9 @@ class Navbar extends React.Component {
 export class ConnectedNavbar extends React.Component {
     render() {
         return (
-            <AuthConsumer> 
-                { auth => 
-                    <Navbar { ...this.props } auth={auth} />
+            <AuthConsumer>
+                { auth =>
+                    <Navbar {...this.props} auth={auth} />
                 }
             </AuthConsumer>
         );
