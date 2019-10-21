@@ -16,7 +16,7 @@ import { Switch, Route, } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
 import { StripeProvider, Elements } from 'react-stripe-elements';
 // import axios from 'axios'
-import CheckoutForm from './components/CheckoutForm'
+import CheckoutForm from './components/reservation/CheckoutForm'
 
 const App = () => {
   

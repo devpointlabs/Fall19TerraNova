@@ -51,12 +51,12 @@ class Navbar extends React.Component {
                 { this.props.location.pathname !== "/comingsoon" &&
                     <>
                         <div className="navbar-upper-background">
-                            <div>
-                                <Icon style={{marginRight: "5px", paddingTop: "0px !important", paddingBottom: "0px !important"}} name="snowflake" />
+                            <div style={{display: "flex", alignItems: "center"}}>
+                                <Icon style={{marginRight: "5px", marginBottom: "4px"}} name="snowflake" />
                                 72°F
-                                <Icon style={{marginLeft: "25px", marginRight: "3px"}} name="map marker alternate" />
+                                <Icon style={{marginLeft: "25px", marginRight: "3px", marginBottom: "4px"}} name="map marker alternate" />
                                 35 Kirkwood Creek Road, West Yellowstone, MT 59758
-                                <Icon style={{marginLeft: "30px", marginRight: "3px"}} name="phone" />
+                                <Icon style={{marginLeft: "30px", marginRight: "3px", marginBottom: "15px"}} name="phone" />
                                 (+1)406.646.7200
                             </div>
                             <div style={{alignItems: "right"}}>
@@ -82,14 +82,14 @@ class Navbar extends React.Component {
                                                 Sign In or Join
                                             </MenuButton>
                                             <NavDropdown className="navbar-navdropdown" alignRight title={<Icon name="dollar sign" />} id="collapsible-nav-dropdown" style={{marginTop: "3px"}}>
-                                                <NavDropdown.Item href="#action/3.1"><Icon name="dollar sign" /> (USD)</NavDropdown.Item>
-                                                <NavDropdown.Item href="#action/3.2"><Icon name="euro sign" /> (EUR)</NavDropdown.Item>
-                                                <NavDropdown.Item href="#action/3.3"><Icon name="pound sign" /> (GBP)</NavDropdown.Item>
+                                                <NavDropdown.Item href=""><Icon name="dollar sign" style={{color: "black"}} /><font style={{color: "black"}}> (USD)</font></NavDropdown.Item>
+                                                <NavDropdown.Item disabled><Icon name="euro sign" disabled /> (EUR)</NavDropdown.Item>
+                                                <NavDropdown.Item disabled><Icon name="pound sign" disabled /> (GBP)</NavDropdown.Item>
                                             </NavDropdown>
                                             <NavDropdown alignRight title="ENG" id="collapsible-nav-dropdown" style={{marginTop: "3px"}}>
-                                                <NavDropdown.Item href="#action/3.1">ENG</NavDropdown.Item>
-                                                <NavDropdown.Item href="#action/3.2">GER</NavDropdown.Item>
-                                                <NavDropdown.Item href="#action/3.3">SWE</NavDropdown.Item>
+                                                <NavDropdown.Item href=""><font style={{color: "black"}}>ENG</font></NavDropdown.Item>
+                                                <NavDropdown.Item disabled>GER</NavDropdown.Item>
+                                                <NavDropdown.Item disabled>FRA</NavDropdown.Item>
                                             </NavDropdown>
                                         </Nav>
                                     </NavbarBS.Collapse>
