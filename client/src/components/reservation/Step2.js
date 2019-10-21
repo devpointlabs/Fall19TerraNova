@@ -339,12 +339,10 @@ class Step2 extends React.Component {
                             <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>YOUR RESERVATION</p>
                             <div className="reservation-hr-container"><div className="reservation-line" /></div>
                             <p style={{marginLeft: "20px", marginTop: "25px", fontWeight: "bold", fontSize: "14px", color: "#8E7037"}}>YOUR STAY DATES</p>
-                            <span style={{marginLeft: "20px", marginTop: "5px", marginRight: "0px", fontWeight: "bold", fontSize: "12px"}}>ARRIVE</span>
+                            <span style={{marginLeft: "20px", marginTop: "5px", marginRight: "0px", fontWeight: "bold", fontSize: "12px"}}>ARRIVAL</span>
                             <div className="reservation-form-container">
                                 <Form.Control className="reservation-dateform" value={this.props.startDateString} readOnly />
-                                {/* <OverlayTrigger trigger="click" placement="right"> */}
-                                    <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
-                                {/* </OverlayTrigger> */}
+                                <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
                             </div>
                             <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>NIGHT(S)</span>
                             <div className="reservation-dropdown-container">
@@ -367,9 +365,7 @@ class Step2 extends React.Component {
                             <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>DEPARTURE</span>
                             <div className="reservation-form-container">
                                 <Form.Control className="reservation-dateform" value={this.props.endDateString} readOnly />
-                                    {/* <OverlayTrigger trigger="click" placement="right"> */}
-                                        <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
-                                    {/* </OverlayTrigger> */}
+                                <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
                             </div>
                             <div className="reservation-button-container">
                                 <span className="reservation-custom-button" onClick={this.props.checkAvailability}>

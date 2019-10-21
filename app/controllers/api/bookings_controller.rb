@@ -1,5 +1,5 @@
 class Api::BookingsController < ApplicationController
-  before_action :authenticate_user!, except: [:create]
+  before_action :authenticate_user!, except: [:create, :findmybooking]
   before_action :set_booking, only: [:show, :update, :destroy]
 
   def index # ☑️ ADMIN ONLY, to see all individual bookings create new method ((@user.bookings) this is used by nesting models in routes. ...
@@ -28,16 +28,16 @@ class Api::BookingsController < ApplicationController
     end
   end
 
-  def update # 📍 can be changed by admin or person, fee charged? # ! within a 24 hour time period of arrival
-    # if current_user.admin == true # ! || current_user.id == @booking.user_id  
+  def update # 📍 can be changed by admin or person, fee charged? 
+     if current_user.admin == true || current_user.id == @booking.user_id  
       if @booking.update(booking_params)
         render json: @booking
       else
         render json: {errors: @booking.errors}, status: :unprocessable_entity
       end
-    # else
-    #   render json: {message: "Authorized access denied." }    
-    # end
+     else
+       render json: {message: "Authorized access denied." }    
+     end
   end
 
   def destroy # ☑️ cancelling a reservation. VS cancellation number. Add this to Booking info? 
@@ -61,11 +61,14 @@ class Api::BookingsController < ApplicationController
     render json: Booking.single_day_bookings(params)
   end
 
+  def findmybooking #! add other personal information to the booking class??
+    render json: Booking.where(booking_number: ActiveRecord::Base.connection.quote(params[:booking_number]))[0] # email: connection.quote(params[:email]), last_name: connection.quote(params[:last_name])
+  end
 
   protected
 
     def booking_params # ☑️
-      params.require(:booking).permit(:start_date, :end_date, :guests, :special_needs, :booking_number, :user_id, :cabin_id, :expected_arrival, :customer_payment_token, :price, :cabin_type, :pm)
+      params.require(:booking).permit(:start_date, :end_date, :guests, :special_needs, :booking_number, :user_id, :cabin_id, :expected_arrival, :customer_payment_token, :price, :cabin_type, :pm, :last_name, :email)
     end
 
     def set_booking # ☑️

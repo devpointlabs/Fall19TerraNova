@@ -1,14 +1,30 @@
-import React from 'react';
+import React, {useState, } from 'react';
 import icon from '../images/foot/icon.png'
 import mail from '../images/foot/mail.png'
+import send from '../images/foot/sendarrow.png'
 import paymenticons from '../images/foot/paymenticons.png'
-import { Dropdown } from "semantic-ui-react"; 
+import { Dropdown, Form } from "semantic-ui-react"; 
 import styled from 'styled-components';
 import {NavLink} from 'react-router-dom';
+import axios from "axios";
 import './styles/Foot.css'
 
 
-const Foot = () => (
+
+const Foot = () => {
+  const [email, setEmail] = useState("");
+
+
+  const handleSubmit = (e) => {
+    axios.get(`/api/contact?email=${email}`)
+      .then( () => {
+        // message "email sent"
+        setEmail("");
+    
+      })
+  }
+
+  return (
   <>
 
   {window.screen.availWidth > 825 ?
@@ -16,7 +32,25 @@ const Foot = () => (
     <div>
 
       <div className="email-container">
-        <img className= "mail-icon" src={mail} alt="mail" />
+        <a href="/contact">  
+          <img className= "mail-icon" src={mail} alt="mail" />
+        </a>
+        <div className="emailbar">
+          <Form onSubmit={handleSubmit} >
+                <StyledInput
+                  name="email"
+                  placeholder="Your email address"
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+          </Form>
+          <div className="submitbutton">
+            <StyledButton type="submit"> 
+              <img src={send} alt={send} width="45%"/>
+             </StyledButton>
+          </div>
+        </div>
       </div>
       
 
@@ -141,12 +175,50 @@ const Foot = () => (
 
   }
   </>
-)
+  )
+}
 
 const CustomDropdown = styled(Dropdown)`
   width: 200%;
   border: 0;
   font-family: 'Playfair Display', serif;
+`;
+
+const StyledInput = styled(Form.Input)`
+  
+    & > div {  
+      & > input {
+        color: white !important;
+        background-color: rgb(62, 62, 62) !important;
+        border-radius: 0em !important;
+        padding-top: 1.4em !important;
+        padding-bottom: 1.4em !important;
+        padding-left: 2em !important;
+        
+        &::-webkit-input-placeholder {
+        color: white !important ;
+        font-size: 1.1em !important;
+        font-family: 'Raleway', sans-serif;
+      }
+    }
+  }
+`;
+
+const StyledButton = styled.button`
+  display: flex;
+  justify-content: center;
+  background: rgb(62, 62, 62);
+  border-right: 0em;
+  border-top: 0em;
+  border-bottom: 0em;
+  border-left: .1em solid rgb(76, 76, 76);
+  cursor: pointer;
+  outline: none;
+  transition: background 0.2s ease;
+  width: 6em;
+  height: 4.15em;
+
+
 `;
 
 export default Foot;
