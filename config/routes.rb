@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     
     resources :bookings
     get "my_bookings", to: "bookings#my_bookings"
+    get "findmybooking", to: "bookings#findmybooking"
     get "single_day_bookings", to: "bookings#single_day_bookings"
     
     resources :price_events

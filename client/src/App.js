@@ -15,21 +15,19 @@ import Reservation from './components/reservation/Reservation';
 import { Switch, Route, } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
 import { StripeProvider, Elements } from 'react-stripe-elements';
-// import axios from 'axios'
 import CheckoutForm from './components/CheckoutForm'
+import FindBooking from './components/FindBooking'
+import AdminProtRoute from './components/AdminProtRoute'
+import AdminHome from './components/AdminHome'
 
 const App = () => {
-  
-  // const pubkey = null
-  // apiKey={`${pubkey}`}>
-  // useEffect(() => {axios.get('api/pubkey').then(res=> {pubkey = res.data}).catch(err => {console.log(err)})}, [])
-
   return (
     <>
       <Navbar />
       <StripeProvider apiKey='pk_test_K4KS4eaxZnZBLpbElbfccWNx00evq50l7g'>
         <FetchUser>
           <Switch>
+            <AdminProtRoute exact path="/admin" component={AdminHome} />
             <Route exact path="/comingsoon" component={ComingSoon} />
             <Route exact path="/" component={Home} />
             <Route exact path="/reservation" component={Reservation} />
@@ -40,6 +38,7 @@ const App = () => {
             <Route exact path="/roomdetails" component={RoomDetails} />
             <Route exact path="/about" component={About} />
             <Route exact path="/contact" component={Contact} />
+            <Route exact path="/findmybooking" component={FindBooking} />
             <Elements>
               <Route exact path="/stripe" component={CheckoutForm} />
             </Elements>
@@ -53,5 +52,3 @@ const App = () => {
 }
 
 export default App;
-
-// apiKey={ENV['STRIPE_PUBLISHABLE_KEY']}
