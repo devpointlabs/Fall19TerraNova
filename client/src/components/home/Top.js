@@ -33,7 +33,7 @@ class Top extends React.Component {
     };
 
     componentDidMount() {
-        let startDate = dayjs();
+        let startDate = dayjs(dayjs().format("YYYY-MM-DD"));
         let endDate = dayjs(startDate.add('1', 'day'));
         this.setState({ 
             _isMounted: true,
@@ -92,6 +92,10 @@ class Top extends React.Component {
         this.getDayFromDate(date, "end");
         this.getMonthFromDate(date, "end");
         this.getYearFromDate(date, "end");
+        console.log(this.state.startDate)
+        console.log(date.diff(this.state.startDate, 'day'));
+        let startDate = this.state.startDate;
+        debugger
     };
 
     setNrNights = (nrNights) => {
@@ -110,7 +114,9 @@ class Top extends React.Component {
             onClick={ this.state.endDate != "" ? () => { 
                 history.push({
                 pathname: '/reservation',
-                state: this.state
+                state: this.state,
+                startDateParse: this.state.startDate.format("YYYY-MM-DD"),
+                endDateParse: this.state.endDate.format("YYYY-MM-DD")
             }) }
             :
                 this.state._isMounted &&
@@ -272,6 +278,7 @@ const ContentTop = styled.h1`
     color: white;
     font-size: 85px;
     font-family: 'Playfair Display', serif;
+    text-shadow: none;
 `;
 
 const ContentBottom = styled.h3`
@@ -280,6 +287,7 @@ const ContentBottom = styled.h3`
     color: white;
     font-size: 25px;
     font-family: 'Playfair Display', serif;
+    text-shadow: none;
 `;
 
 export default Top;

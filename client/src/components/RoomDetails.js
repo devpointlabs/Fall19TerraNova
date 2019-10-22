@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
-import { Form, Modal, Carousel } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
 import "./styles/RoomDetails.css";
 import RoomImage from '../images/room_image.png';
@@ -126,7 +126,9 @@ class RoomDetails extends React.Component {
             onClick={ this.state.endDate != "" ? () => { 
                 history.push({
                 pathname: '/reservation',
-                state: this.state
+                state: this.state,
+                startDateParse: this.state.startDate.format("YYYY-MM-DD"),
+                endDateParse: this.state.endDate.format("YYYY-MM-DD")
             }) }
             :
                 this.state._isMounted &&
@@ -323,9 +325,9 @@ class RoomDetails extends React.Component {
                             <div className="roomdetails-hr-container"><div className="roomdetails-line" /></div>
                             <div className="roomdetails-right-lower-container">
                                 <span>ARRIVAL</span>
-                                <div className="roomdetails-form-container">
+                                <div className="roomdetails-form-container" onClick={this.handleShowStart}>
                                     <Form.Control className="roomdetails-dateform" value={this.state.startDate.format("MM/DD/YYYY")} readOnly />
-                                    <Icon name="calendar alternate outline" style={{marginTop: "8px", marginRight: "8px"}} onClick={this.handleShowStart} />
+                                    <Icon name="calendar alternate outline" style={{marginTop: "8px", marginRight: "8px"}} />
                                 </div>
                                 <span>NIGHT(S)</span>
                                 <div className="roomdetails-dropdown-container">
@@ -345,13 +347,13 @@ class RoomDetails extends React.Component {
                                     </Dropdown>
                                 </div>
                                 <span>DEPARTURE</span>
-                                <div className="roomdetails-form-container">
+                                <div className="roomdetails-form-container" onClick={this.handleShowEnd}>
                                     <Form.Control 
                                         className="roomdetails-dateform" 
                                         value={this.state.endDate != "" ? this.state.endDate.format("MM/DD/YYYY") : this.state.endDate} 
                                         readOnly 
                                     />
-                                    <Icon name="calendar alternate outline" style={{marginTop: "8px", marginRight: "8px"}} onClick={this.handleShowEnd} />
+                                    <Icon name="calendar alternate outline" style={{marginTop: "8px", marginRight: "8px"}} />
                                 </div>
                                 <div className="roomdetails-button-container">
                                     <this.Button />

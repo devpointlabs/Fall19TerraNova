@@ -15,7 +15,7 @@ import Reservation from './components/reservation/Reservation';
 import { Switch, Route, } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
 import { StripeProvider, Elements } from 'react-stripe-elements';
-import CheckoutForm from './components/CheckoutForm'
+import CheckoutForm from './components/reservation/CheckoutForm'
 import FindBooking from './components/FindBooking'
 import AdminProtRoute from './components/AdminProtRoute'
 import AdminHome from './components/AdminHome'
@@ -25,6 +25,7 @@ import AdminCabins from './components/admin/AdminCabins'
 import AdminImages from './components/admin/AdminImages'
 import AdminPE from './components/admin/AdminPE'
 import AdminDiscounts from './components/admin/AdminDiscounts'
+import UnderConstruction from './components/UnderConstruction'
 
 const App = () => {
   return (
@@ -42,7 +43,9 @@ const App = () => {
             <AdminProtRoute exact path="/adminimages" component={AdminImages} />
             <Route exact path="/comingsoon" component={ComingSoon} />
             <Route exact path="/" component={Home} />
-            <Route exact path="/reservation" component={Reservation} />
+            <Elements> 
+                <Route exact path="/reservation" component={Reservation} />
+            </Elements>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/termsconditions" component={Terms} />
@@ -51,6 +54,7 @@ const App = () => {
             <Route exact path="/about" component={About} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/findmybooking" component={FindBooking} />
+            <Route exact path="/underconstruction" component={UnderConstruction} />
             <Elements>
               <Route exact path="/stripe" component={CheckoutForm} />
             </Elements>
@@ -61,6 +65,6 @@ const App = () => {
       <Foot />
     </>
   )
-}
+};
 
 export default App;

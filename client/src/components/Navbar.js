@@ -7,33 +7,63 @@ import styled from "styled-components";
 import "./styles/Navbar.css";
 import logo from "../images/logo.png";
 import { Icon } from "semantic-ui-react";
+import axios from 'axios';
 
 class Navbar extends React.Component {
-  state = {
-    _isMounted: false
-  }
+    state = {
+        weather: null,
+        temperature: null, 
+        _isMounted: false
+    };
 
-  componentDidMount() {
-    this.setState({ _isMounted: true })
-  }
+    componentDidMount() {
+        axios.get("http://api.openweathermap.org/data/2.5/weather?id=5685767&appid=af9da42f618060b239282c8960fa9955")
+            .then( response => {
+                switch (response.data.weather.main) {
+                    case "Thunderstorm":
+                        this.setState({ weather: "⚡️" });
+                        break;
+                    case "Drizzle":
+                        this.setState({ weather: "🌧" });
+                        break;
+                    case "Rain":
+                        this.setState({ weather: "🌧" });
+                        break;
+                    case "Snow":
+                        this.setState({ weather: "❄️" });
+                        break;
+                    case "Clear":
+                        this.setState({ weather: "☀️" });
+                        break;
+                    case "Clouds":
+                        this.setState({ weather: "☁️" });
+                        break;
+                    default:
+                        this.setState({ weather: "🌫" })
+                        break;
+                };
+                this.setState({ temperature: response.data.main.temp * 9/5 - 459.67 });
+            })
+        this.setState({ _isMounted: true })
+    };
 
-  adminVer = () => {
-    if (this.state._isMounted === true) {
-      if (this.props.auth.user) {
-        if (this.props.auth.user.admin === true) {
-          return (
-            <MenuButton
-              exact
-              to="/admin"
-              activeStyle={menuButtonActive}
-            >
-              Administrator
-            </MenuButton>
-          )
-        }
-      }
-    }
-  }
+    adminVer = () => {
+        if (this.state._isMounted === true) {
+            if (this.props.auth.user) {
+                if (this.props.auth.user.admin === true) {
+                    return (
+                        <MenuButton
+                            exact
+                            to="/admin"
+                            activeStyle={menuButtonActive}
+                        >
+                            Administrator
+                        </MenuButton>
+                    );
+                };
+            };
+        };
+    };
 
   render() {
     const { auth: { user, handleLogout, } } = this.props;
@@ -43,8 +73,10 @@ class Navbar extends React.Component {
           <>
             <div className="navbar-upper-background">
               <div>
-                <Icon style={{ marginRight: "5px", paddingTop: "0px !important", paddingBottom: "0px !important" }} name="snowflake" />
-                72°F
+                <span style={{fontSize: "16px"}}> 
+                  {this.state.weather}
+                </span>
+                {Math.round(this.state.temperature)}°F
                 <Icon style={{ marginLeft: "25px", marginRight: "3px" }} name="map marker alternate" />
                 35 Kirkwood Creek Road, West Yellowstone, MT 59758
                 <Icon style={{ marginLeft: "30px", marginRight: "3px" }} name="phone" />
@@ -121,62 +153,62 @@ class Navbar extends React.Component {
                     >
                       HOME
                                         </NavButton>
-                    <NavButton
-                      exact
-                      to="/roomsrates"
-                      activeStyle={navButtonActive}
-                    >
-                      ROOMS
+                                        <NavButton
+                                            exact
+                                            to="/roomsrates"
+                                            activeStyle={navButtonActive}
+                                        >
+                                            ROOMS
                                         </NavButton>
-                    <NavButton
-                      exact
-                      to="/reservation"
-                      activeStyle={navButtonActive}
-                    >
-                      RESERVATION
+                                        <NavButton
+                                            exact
+                                            to="/reservation"
+                                            activeStyle={navButtonActive}
+                                        >
+                                            RESERVATION
                                         </NavButton>
-                    <NavButton
-                      exact
-                      to="/gallery"
-                      activeStyle={navButtonActive}
-                    >
-                      GALLERY
+                                        <NavButton
+                                            exact
+                                            to="/gallery"
+                                            activeStyle={navButtonActive}
+                                        >
+                                            GALLERY
                                         </NavButton>
-                    <NavButton
-                      exact
-                      to="/about"
-                      activeStyle={navButtonActive}
-                    >
-                      ABOUT
+                                        <NavButton
+                                            exact
+                                            to="/about"
+                                            activeStyle={navButtonActive}
+                                        >
+                                            ABOUT
                                         </NavButton>
-                    <NavButton
-                      exact
-                      to="/contact"
-                      activeStyle={navButtonActive}
-                    >
-                      CONTACT
+                                        <NavButton
+                                            exact
+                                            to="/contact"
+                                            activeStyle={navButtonActive}
+                                        >
+                                            CONTACT
                                         </NavButton>
-                  </Nav>
-                </NavbarBS.Collapse>
-              </div>
-            </NavbarBS>
-          </>
-        }
-      </>
-    );
-  };
+                                    </Nav>
+                                </NavbarBS.Collapse>
+                            </div>
+                        </NavbarBS>
+                    </>
+                }
+            </>
+        );
+    };
 };
 
 export class ConnectedNavbar extends React.Component {
-  render() {
-    return (
-      <AuthConsumer>
-        {auth =>
-          <Navbar {...this.props} auth={auth} />
-        }
-      </AuthConsumer>
-    );
-  };
+    render() {
+        return (
+            <AuthConsumer>
+                { auth =>
+                    <Navbar {...this.props} auth={auth} />
+                }
+            </AuthConsumer>
+        );
+    };
 };
 
 const NavButton = styled(NavLink)`
@@ -199,8 +231,8 @@ const NavButton = styled(NavLink)`
 `;
 
 const navButtonActive = {
-  color: "#8E7037",
-  borderBottom: "2px solid #8E7037",
+    color: "#8E7037",
+    borderBottom: "2px solid #8E7037",
 }
 
 const MenuButton = styled(NavLink)`
@@ -222,7 +254,7 @@ const MenuButton = styled(NavLink)`
 `;
 
 const menuButtonActive = {
-  borderBottom: "2px solid white",
+    borderBottom: "2px solid white",
 }
 
 export default withRouter(ConnectedNavbar);

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 
 const CheckoutForm = (props) => {
@@ -53,21 +53,12 @@ const CheckoutForm = (props) => {
               setComplete(true)
             })
             .catch(err => { console.log(err) })
-
-
         })
         .catch(err => { console.log(err) })
 
       // The setup has succeeded. Display a success message.
     }
-
-
-
   }
-
-
-
-
 
   return (
     <div className="checkout">

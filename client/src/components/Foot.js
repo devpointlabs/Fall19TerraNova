@@ -11,6 +11,7 @@ import './styles/Foot.css'
 
 
 
+
 const Foot = () => {
   const [email, setEmail] = useState("");
 
@@ -24,6 +25,7 @@ const Foot = () => {
       })
   }
 
+  
   return (
   <>
 
