@@ -7,15 +7,44 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
 import styled from "styled-components";
 import "./styles/Navbar.css";
 import logo from "../images/logo.png";
-import { Icon } from "semantic-ui-react"
-import axios from 'axios'
+import { Icon } from "semantic-ui-react";
+import axios from 'axios';
 
 class Navbar extends React.Component {
     state = {
+        weather: null,
+        temperature: null,
         _isMounted: false
     };
 
     componentDidMount() {
+        axios.get("http://api.openweathermap.org/data/2.5/weather?id=5685767&appid=af9da42f618060b239282c8960fa9955")
+            .then( response => {
+                switch (response.data.weather.main) {
+                    case "Thunderstorm":
+                        this.setState({ weather: "" });
+                        break;
+                    case "Drizzle":
+                        this.setState({ weather: "" });
+                        break;
+                    case "Rain":
+                        this.setState({ weather: "" });
+                        break;
+                    case "Snow":
+                        this.setState({ weather: "" });
+                        break;
+                    case "Clear":
+                        this.setState({ weather: "" });
+                        break;
+                    case "Clouds":
+                        this.setState({ weather: "" });
+                        break;
+                    default:
+                        this.setState({ weather: "" })
+                        break;
+                };
+                this.setState({ temperature: response.data.main.temp * 9/5 - 459.67 });
+            })
         this.setState({ _isMounted: true })
     };
 
@@ -45,7 +74,7 @@ class Navbar extends React.Component {
                         <div className="navbar-upper-background">
                             <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
                                 <Icon style={{ marginRight: "5px", marginBottom: "4px" }} name="snowflake" />
-                                72°F
+                                { this.state.temperature }°F
                                 <Icon style={{ marginLeft: "25px", marginRight: "3px", marginBottom: "4px" }} name="map marker alternate" />
                                 35 Kirkwood Creek Road, West Yellowstone, MT 59758
                                 <Icon style={{ marginLeft: "30px", marginRight: "3px", marginBottom: "16px" }} name="phone" />

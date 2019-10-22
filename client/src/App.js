@@ -21,7 +21,6 @@ import AdminProtRoute from './components/AdminProtRoute'
 import AdminHome from './components/AdminHome'
 import UnderConstruction from './components/UnderConstruction'
 
-
 const App = () => {
   return (
     <>
@@ -32,7 +31,9 @@ const App = () => {
             <AdminProtRoute exact path="/admin" component={AdminHome} />
             <Route exact path="/comingsoon" component={ComingSoon} />
             <Route exact path="/" component={Home} />
-            <Route exact path="/reservation" component={Reservation} />
+            <Elements> 
+                <Route exact path="/reservation" component={Reservation} />
+            </Elements>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/termsconditions" component={Terms} />
@@ -52,6 +53,6 @@ const App = () => {
       <Foot />
     </>
   )
-}
+};
 
 export default App;

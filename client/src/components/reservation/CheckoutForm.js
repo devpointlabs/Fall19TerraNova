@@ -53,21 +53,12 @@ const CheckoutForm = (props) => {
               setComplete(true)
             })
             .catch(err => { console.log(err) })
-
-
         })
         .catch(err => { console.log(err) })
 
       // The setup has succeeded. Display a success message.
     }
-
-
-
   }
-
-
-
-
 
   return (
     <div className="checkout">
