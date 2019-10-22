@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Home from './components/home/Home';
 import Foot from './components/Foot';
 import NoMatch from './components/NoMatch';
@@ -15,7 +15,6 @@ import Reservation from './components/reservation/Reservation';
 import { Switch, Route, } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
 import { StripeProvider, Elements } from 'react-stripe-elements';
-import CheckoutForm from './components/reservation/CheckoutForm'
 import FindBooking from './components/FindBooking'
 import AdminProtRoute from './components/AdminProtRoute'
 import AdminHome from './components/AdminHome'
@@ -43,9 +42,6 @@ const App = () => {
             <AdminProtRoute exact path="/adminimages" component={AdminImages} />
             <Route exact path="/comingsoon" component={ComingSoon} />
             <Route exact path="/" component={Home} />
-            <Elements> 
-                <Route exact path="/reservation" component={Reservation} />
-            </Elements>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/termsconditions" component={Terms} />
@@ -55,9 +51,7 @@ const App = () => {
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/findmybooking" component={FindBooking} />
             <Route exact path="/underconstruction" component={UnderConstruction} />
-            <Elements>
-              <Route exact path="/stripe" component={CheckoutForm} />
-            </Elements>
+            <Route exact path="/reservation" component={Reservation} />
             <Route component={NoMatch} />
           </Switch>
         </FetchUser>

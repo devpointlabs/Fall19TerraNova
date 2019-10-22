@@ -4,6 +4,7 @@ import styled from "styled-components";
 import RenderCountries from "./RenderCountries";
 import RenderStates from "./RenderStates";
 import CheckoutForm from "./CheckoutForm";
+import { Elements } from 'react-stripe-elements';
 
 class Step3 extends React.Component {
     state = { 
@@ -40,7 +41,6 @@ class Step3 extends React.Component {
         this.calculateGrandTotal(taxes);
         this.setState({ _isMounted: true });
         let state = this.state;
-        debugger
     };
 
     handleChange = (e) => {
@@ -107,6 +107,7 @@ class Step3 extends React.Component {
         return(
             this.state._isMounted &&
             <>
+            
                 <div className="reservation-menu">
                     <div className="reservation-number">1.</div>
                     <div className="reservation-text">Choose Date</div>
@@ -374,13 +375,16 @@ class Step3 extends React.Component {
                                     CREDIT CARD
                                     </label>
                                     { this.state.showCreditCard &&
+                                      <Elements> 
                                         <CheckoutForm />
+                                      </Elements>
                                     }
                             </div>
                             <span className="reservation-custom-button-placeorder">PLACE ORDER</span>
                         </Form>
                     </div>
                 </div>
+                
             </>
         );
     };
