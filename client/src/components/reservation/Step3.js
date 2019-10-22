@@ -4,6 +4,7 @@ import styled from "styled-components";
 import RenderCountries from "./RenderCountries";
 import RenderStates from "./RenderStates";
 import CheckoutForm from "./CheckoutForm";
+import { Elements } from 'react-stripe-elements';
 
 class Step3 extends React.Component {
     state = { 
@@ -96,7 +97,11 @@ class Step3 extends React.Component {
     };
 
     toggleCreditCard = () => {
-        this.setState({ showCreditCard: !this.state.showCreditCard })
+        this.setState({ showCreditCard: true, showBankTransfer: false })
+    };
+
+    toggleBankTransfer = () => {
+        this.setState({ showBankTransfer: true, showBankTransfer: false })
     };
 
     handleSubmit = () => {
@@ -362,19 +367,17 @@ class Step3 extends React.Component {
                             </div>
                             <div className="reservation-radio">
                             <label>
-                                    <input type="radio" name="payment-choice" value="bank" style={{marginRight: "10px", marginBottom: "20px"}} />
+                                    <input type="radio" name="payment-choice" value="bank" style={{marginRight: "10px", marginBottom: "20px"}} onClick={this.toggleBankTransfer} />
                                     DIRECT BANK TRANSFER
-                                    </label>
-                                    <label>
-                                    <input type="radio" name="payment-choice" value="check" style={{marginRight: "10px", marginBottom: "20px"}} />
-                                    CHECK PAYMENT
                                     </label>
                                     <label>
                                     <input type="radio" name="payment-choice" value="card" style={{marginRight: "10px", marginBottom: "20px"}} onClick={this.toggleCreditCard} />
                                     CREDIT CARD
                                     </label>
                                     { this.state.showCreditCard &&
-                                        <CheckoutForm />
+                                        <Elements>
+                                            <CheckoutForm />
+                                        </Elements>
                                     }
                             </div>
                             <span className="reservation-custom-button-placeorder">PLACE ORDER</span>

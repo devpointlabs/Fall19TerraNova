@@ -73,8 +73,8 @@ class Navbar extends React.Component {
                     <>
                         <div className="navbar-upper-background">
                             <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                                <Icon style={{ marginRight: "5px", marginBottom: "4px" }} name="snowflake" />
-                                { this.state.temperature }°F
+                                <span style={{fontSize: "20px"}}>{ this.state.weather }</span>
+                                { Math.round(this.state.temperature) }°F
                                 <Icon style={{ marginLeft: "25px", marginRight: "3px", marginBottom: "4px" }} name="map marker alternate" />
                                 35 Kirkwood Creek Road, West Yellowstone, MT 59758
                                 <Icon style={{ marginLeft: "30px", marginRight: "3px", marginBottom: "16px" }} name="phone" />
