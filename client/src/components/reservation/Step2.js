@@ -66,7 +66,7 @@ class Step2 extends React.Component {
             endDateDB: this.props.endDateDB,
             nrNights: this.props.nrNights
         });
-        debugger
+        
     };
 
     handleShowStart = () => this.setState({ modalShowStart: true });

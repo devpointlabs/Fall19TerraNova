@@ -15,10 +15,16 @@ import Reservation from './components/reservation/Reservation';
 import { Switch, Route, } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
 import { StripeProvider } from 'react-stripe-elements';
-import FindBooking from './components/FindBooking';
-import AdminProtRoute from './components/AdminProtRoute';
-import AdminHome from './components/AdminHome';
-import UnderConstruction from './components/UnderConstruction';
+import FindBooking from './components/FindBooking'
+import AdminProtRoute from './components/AdminProtRoute'
+import AdminHome from './components/AdminHome'
+import AdminBookings from './components/admin/AdminBookings'
+import AdminUsers from './components/admin/AdminUsers'
+import AdminCabins from './components/admin/AdminCabins'
+import AdminImages from './components/admin/AdminImages'
+import AdminPE from './components/admin/AdminPE'
+import AdminDiscounts from './components/admin/AdminDiscounts'
+import UnderConstruction from './components/UnderConstruction'
 
 const App = () => {
   return (
@@ -28,6 +34,12 @@ const App = () => {
         <FetchUser>
           <Switch>
             <AdminProtRoute exact path="/admin" component={AdminHome} />
+            <AdminProtRoute exact path="/adminusers" component={AdminUsers} />
+            <AdminProtRoute exact path="/adminbookings" component={AdminBookings} />
+            <AdminProtRoute exact path="/admincabins" component={AdminCabins} />
+            <AdminProtRoute exact path="/adminpe" component={AdminPE} />
+            <AdminProtRoute exact path="/admindiscounts" component={AdminDiscounts} />
+            <AdminProtRoute exact path="/adminimages" component={AdminImages} />
             <Route exact path="/comingsoon" component={ComingSoon} />
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
