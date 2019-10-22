@@ -1,14 +1,12 @@
 import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Menu } from 'semantic-ui-react';
 import { Navbar as NavbarBS, Nav, NavDropdown } from 'react-bootstrap';
-import { NavLink, Link, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import styled from "styled-components";
 import "./styles/Navbar.css";
 import logo from "../images/logo.png";
-import { Icon } from "semantic-ui-react"
-import axios from 'axios'
+import { Icon } from "semantic-ui-react";
 
 class Navbar extends React.Component {
   state = {
@@ -38,6 +36,7 @@ class Navbar extends React.Component {
   }
 
   render() {
+    const { auth: { user, handleLogout, } } = this.props;
     return (
       <>
         {this.props.location.pathname !== "/comingsoon" &&
@@ -46,34 +45,50 @@ class Navbar extends React.Component {
               <div>
                 <Icon style={{ marginRight: "5px", paddingTop: "0px !important", paddingBottom: "0px !important" }} name="snowflake" />
                 72°F
-                                <Icon style={{ marginLeft: "25px", marginRight: "3px" }} name="map marker alternate" />
+                <Icon style={{ marginLeft: "25px", marginRight: "3px" }} name="map marker alternate" />
                 35 Kirkwood Creek Road, West Yellowstone, MT 59758
-                                <Icon style={{ marginLeft: "30px", marginRight: "3px" }} name="phone" />
+                <Icon style={{ marginLeft: "30px", marginRight: "3px" }} name="phone" />
                 (+1)406.646.7200
-                            </div>
+                </div>
               <div style={{ alignItems: "right" }}>
                 <NavbarBS variant="dark" bg="#373737" expand="lg" collapseOnSelect style={{ boxShadow: "none !important" }}>
                   <NavbarBS.Toggle aria-controls="basic-navbar-nav" />
                   <NavbarBS.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto" style={{ boxShadow: "none !important" }}>
                       {this.adminVer()}
-                      <MenuButton
-                        exact
-                        to="/mytrips"
-                        activeStyle={menuButtonActive}
-                      >
-                        <Icon name="briefcase" style={{ marginBottom: "5px" }} />
-                        My trips
-                                            </MenuButton>
-                      <MenuButton
-                        exact
-                        to="/login"
-                        style={{ marginRight: "10px" }}
-                        activeStyle={menuButtonActive}
-                      >
-                        <Icon name="user" style={{ marginBottom: "5px" }} />
-                        Sign In or Join
-                                            </MenuButton>
+                      { user ? 
+                        <MenuButton
+                          exact
+                          to="/mytrips"
+                          activeStyle={menuButtonActive}
+                        >
+                          <Icon name="briefcase" style={{ marginBottom: "5px" }} />
+                          My trips
+                        </MenuButton>
+                        :
+                        ""
+                      }
+                      {user ?
+                        <div onClick={() => handleLogout(this.props.history)}>
+                          <MenuButton
+                            to='/login'
+                            style={{ marginRight: "10px" }}
+                          >
+                            <Icon name="user" style={{ marginBottom: "5px" }} />
+                            Logout
+                        </MenuButton>
+                        </div>
+                        :
+                        <MenuButton
+                          exact
+                          to="/login"
+                          style={{ marginRight: "10px" }}
+                          activeStyle={menuButtonActive}
+                        >
+                          <Icon name="user" style={{ marginBottom: "5px" }} />
+                          Sign In or Join
+                        </MenuButton>
+                      }
                       <NavDropdown className="navbar-navdropdown" alignRight title={<Icon name="dollar sign" />} id="collapsible-nav-dropdown" style={{ marginTop: "3px" }}>
                         <NavDropdown.Item href="#action/3.1"><Icon name="dollar sign" /> (USD)</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2"><Icon name="euro sign" /> (EUR)</NavDropdown.Item>

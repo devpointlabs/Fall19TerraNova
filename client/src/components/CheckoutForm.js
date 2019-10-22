@@ -8,7 +8,7 @@ const CheckoutForm = (props) => {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [cabin_type, setCabin_type] = useState("Family")
-
+  
   useEffect(() => {
     axios.get('/api/getclientsecret')
       .then(res => { setClient_secret(res.data.client_secret) })

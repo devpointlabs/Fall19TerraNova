@@ -4,32 +4,32 @@ class Booking < ApplicationRecord
 
   Stripe.api_key = Rails.configuration.stripe[:secret_key] 
 
-
-
-
-  def self.single_day_bookings
+  def self.single_day_bookings(params)
+    idate = params["date"].to_date
     already_here = []
     arriving_today = []
     last_night = []
     checking_out_today = []
     grandArrofBookings = []
-    Booking.select(:id, :start_date, :end_date).each {|date_pair| grandArrofBookings << {id: date_pair.id, pair: (date_pair.start_date..date_pair.end_date).to_a} }
-    grandArrofBookings.each do |arr|
-      booking_and_guest = {booking_info: Booking.find(arr[:id]), guest_info: Booking.find(arr[:id]).user}
-      case params[:date]
-      when arr[:pair].last.to_s 
-       last_night << booking_and_guest
-      when arr[:pair].last.next_day.to_s 
-       checking_out_today << booking_and_guest
-      when arr[:pair].first.to_s  
-       arriving_today << booking_and_guest
+    Booking.where("start_date > ?", 1.month.ago).each do |b|
+      arr = (b.start_date..b.end_date).to_a
+      c = Cabin.select(:cabin_number, :cabin_letter).where(id: b[:cabin_id])[0]
+      a = b.as_json
+      a["cabin_number"] = c.cabin_number
+      a["cabin_letter"] = c.cabin_letter
+      booking_and_guest = a
+      
+      case idate
+      when arr.last.next_day
+        checking_out_today << booking_and_guest
+      when arr.last
+        last_night << booking_and_guest
+      when arr.first 
+        arriving_today << booking_and_guest
       else
-        arr[:pair][0...-1].drop(1).each do |date|
-          if date.to_s == params[:date]
-            already_here << booking_and_guest 
-            break
-          end
-        end
+        if arr[0...-1].drop(1).include?(idate)
+          already_here << booking_and_guest 
+        end   
       end
     end
     return {already_here: already_here, arriving_today: arriving_today, last_night: last_night, checking_out_today: checking_out_today}
