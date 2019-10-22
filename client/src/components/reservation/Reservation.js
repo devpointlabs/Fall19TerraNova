@@ -51,7 +51,7 @@ class Reservation extends React.Component {
             this.props.history.location.state.startDate != dayjs() &&
             this.props.history.location.state.endDate != dayjs(dayjs().add('1', 'day'))) {
             // redirecting from another page
-            debugger
+            
             let passedState = this.props.history.location.state;
             this.setState({ 
                 step: 1,
@@ -69,7 +69,7 @@ class Reservation extends React.Component {
                 this.checkAvailability(passedState.startDateDB, passedState.endDateDB);
         } else {
             // no redirecting
-            debugger
+            
             let startDate = dayjs();
             let endDate = dayjs(startDate.add('1', 'day'));
             this.setState({ 
@@ -148,7 +148,7 @@ class Reservation extends React.Component {
 
     checkAvailability = (startDate, endDate, override) => {
         console.log(this.state.step)
-        debugger
+    
         let startDateDB = "";
         let endDateDB = "";
         // let startDateDB = this.state.startDateDB ? this.state.startDateDB : startDate;
@@ -166,7 +166,7 @@ class Reservation extends React.Component {
         };
             axios.get("/api/avail_cabins", {params: {dates: [startDateDB, endDateDB]}} )  //!!!!!!!!!!!!!!!!!!!, discountcode: 23456789
                 .then(res => {
-                    debugger
+                
                     this.setState({ 
                         aRooms: res.data.aRooms,
                         bRooms: res.data.bRooms,
@@ -184,7 +184,7 @@ class Reservation extends React.Component {
                     this.setState({ prices });
                 })
                 .catch(err => {
-                    debugger
+                
                     console.log(err)
             });
         // let startDateDay = startDateDB.substring(0, 2);
@@ -461,7 +461,7 @@ class Reservation extends React.Component {
     };
 
     setExtendedRoomPrices = (prices, aRooms, bRooms, familyCabins, vip1, vip2) => {
-        debugger
+    
         if (aRooms.length > 0) {
             for (var index in this.state.aRooms[0].cabinPricing.price_hash)
                 if (index.includes("Plus"))

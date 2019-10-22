@@ -1,9 +1,8 @@
 import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Menu } from 'semantic-ui-react';
 import { Navbar as NavbarBS, Nav, NavDropdown } from 'react-bootstrap';
-import { NavLink, Link, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import styled from "styled-components";
 import "./styles/Navbar.css";
 import logo from "../images/logo.png";
@@ -13,7 +12,7 @@ import axios from 'axios';
 class Navbar extends React.Component {
     state = {
         weather: null,
-        temperature: null,
+        temperature: null, 
         _isMounted: false
     };
 
@@ -22,25 +21,25 @@ class Navbar extends React.Component {
             .then( response => {
                 switch (response.data.weather.main) {
                     case "Thunderstorm":
-                        this.setState({ weather: "" });
+                        this.setState({ weather: "⚡️" });
                         break;
                     case "Drizzle":
-                        this.setState({ weather: "" });
+                        this.setState({ weather: "🌧" });
                         break;
                     case "Rain":
-                        this.setState({ weather: "" });
+                        this.setState({ weather: "🌧" });
                         break;
                     case "Snow":
-                        this.setState({ weather: "" });
+                        this.setState({ weather: "❄️" });
                         break;
                     case "Clear":
-                        this.setState({ weather: "" });
+                        this.setState({ weather: "☀️" });
                         break;
                     case "Clouds":
-                        this.setState({ weather: "" });
+                        this.setState({ weather: "☁️" });
                         break;
                     default:
-                        this.setState({ weather: "" })
+                        this.setState({ weather: "🌫" })
                         break;
                 };
                 this.setState({ temperature: response.data.main.temp * 9/5 - 459.67 });
@@ -66,74 +65,93 @@ class Navbar extends React.Component {
         };
     };
 
-    render() {
-        return (
-            <>
-                { this.props.location.pathname !== "/comingsoon" &&
-                    <>
-                        <div className="navbar-upper-background">
-                            <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                                <Icon style={{ marginRight: "5px", marginBottom: "4px" }} name="snowflake" />
-                                { this.state.temperature }°F
-                                <Icon style={{ marginLeft: "25px", marginRight: "3px", marginBottom: "4px" }} name="map marker alternate" />
-                                35 Kirkwood Creek Road, West Yellowstone, MT 59758
-                                <Icon style={{ marginLeft: "30px", marginRight: "3px", marginBottom: "16px" }} name="phone" />
-                                (+1)406.646.7200
-                            </div>
-                            <div style={{ alignItems: "right" }}>
-                                <NavbarBS variant="dark" bg="#373737" expand="lg" collapseOnSelect style={{ boxShadow: "none !important" }}>
-                                    <NavbarBS.Toggle aria-controls="basic-navbar-nav" />
-                                    <NavbarBS.Collapse id="basic-navbar-nav">
-                                        <Nav className="mr-auto" style={{ boxShadow: "none !important" }}>
-                                            { this.adminVer() }
-                                            <MenuButton
-                                                exact
-                                                to="/mytrips"
-                                                activeStyle={menuButtonActive}
-                                            >
-                                                <Icon name="briefcase" style={{ marginBottom: "5px" }} />
-                                                My trips
-                                            </MenuButton>
-                                            <MenuButton
-                                                exact
-                                                to="/login"
-                                                style={{ marginRight: "10px" }}
-                                                activeStyle={menuButtonActive}
-                                            >
-                                                <Icon name="user" style={{ marginBottom: "5px" }} />
-                                                Sign In or Join
-                                            </MenuButton>
-                                            <NavDropdown className="navbar-navdropdown" alignRight title={<Icon name="dollar sign" />} id="collapsible-nav-dropdown" style={{marginTop: "3px"}}>
-                                                <NavDropdown.Item href=""><Icon name="dollar sign" style={{color: "black"}} /><font style={{color: "black"}}> (USD)</font></NavDropdown.Item>
-                                                <NavDropdown.Item disabled><Icon name="euro sign" disabled /> (EUR)</NavDropdown.Item>
-                                                <NavDropdown.Item disabled><Icon name="pound sign" disabled /> (GBP)</NavDropdown.Item>
-                                            </NavDropdown>
-                                            <NavDropdown alignRight title="ENG" id="collapsible-nav-dropdown" style={{marginTop: "3px"}}>
-                                                <NavDropdown.Item href=""><font style={{color: "black"}}>ENG</font></NavDropdown.Item>
-                                                <NavDropdown.Item disabled>GER</NavDropdown.Item>
-                                                <NavDropdown.Item disabled>FRA</NavDropdown.Item>
-                                            </NavDropdown>
-                                        </Nav>
-                                    </NavbarBS.Collapse>
-                                </NavbarBS>
-                            </div>
+  render() {
+    const { auth: { user, handleLogout, } } = this.props;
+    return (
+      <>
+        {this.props.location.pathname !== "/comingsoon" &&
+          <>
+            <div className="navbar-upper-background">
+              <div>
+                <span style={{fontSize: "16px"}}> 
+                  {this.state.weather}
+                </span>
+                {Math.round(this.state.temperature)}°F
+                <Icon style={{ marginLeft: "25px", marginRight: "3px" }} name="map marker alternate" />
+                35 Kirkwood Creek Road, West Yellowstone, MT 59758
+                <Icon style={{ marginLeft: "30px", marginRight: "3px" }} name="phone" />
+                (+1)406.646.7200
+                </div>
+              <div style={{ alignItems: "right" }}>
+                <NavbarBS variant="dark" bg="#373737" expand="lg" collapseOnSelect style={{ boxShadow: "none !important" }}>
+                  <NavbarBS.Toggle aria-controls="basic-navbar-nav" />
+                  <NavbarBS.Collapse id="basic-navbar-nav">
+                    <Nav className="mr-auto" style={{ boxShadow: "none !important" }}>
+                      {this.adminVer()}
+                      { user ? 
+                        <MenuButton
+                          exact
+                          to="/mytrips"
+                          activeStyle={menuButtonActive}
+                        >
+                          <Icon name="briefcase" style={{ marginBottom: "5px" }} />
+                          My trips
+                        </MenuButton>
+                        :
+                        ""
+                      }
+                      {user ?
+                        <div onClick={() => handleLogout(this.props.history)}>
+                          <MenuButton
+                            to='/login'
+                            style={{ marginRight: "10px" }}
+                          >
+                            <Icon name="user" style={{ marginBottom: "5px" }} />
+                            Logout
+                        </MenuButton>
                         </div>
-                        <NavbarBS className="navbar-background" expand="lg" sticky="top">
-                            <div className="navbar-left">
-                                <NavbarBS.Brand href="/">
-                                    <img src={logo} height="80px" width="50px" />
-                                </NavbarBS.Brand>
-                            </div>
-                            <div className="navbar-right">
-                                <NavbarBS.Toggle aria-controls="basic-navbar-nav" />
-                                <NavbarBS.Collapse id="basic-navbar-nav">
-                                    <Nav className="mr-auto">
-                                        <NavButton
-                                            exact
-                                            to="/"
-                                            activeStyle={navButtonActive}
-                                        >
-                                            HOME
+                        :
+                        <MenuButton
+                          exact
+                          to="/login"
+                          style={{ marginRight: "10px" }}
+                          activeStyle={menuButtonActive}
+                        >
+                          <Icon name="user" style={{ marginBottom: "5px" }} />
+                          Sign In or Join
+                        </MenuButton>
+                      }
+                      <NavDropdown className="navbar-navdropdown" alignRight title={<Icon name="dollar sign" />} id="collapsible-nav-dropdown" style={{ marginTop: "3px" }}>
+                        <NavDropdown.Item href="#action/3.1"><Icon name="dollar sign" /> (USD)</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.2"><Icon name="euro sign" /> (EUR)</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.3"><Icon name="pound sign" /> (GBP)</NavDropdown.Item>
+                      </NavDropdown>
+                      <NavDropdown alignRight title="ENG" id="collapsible-nav-dropdown" style={{ marginTop: "3px" }}>
+                        <NavDropdown.Item href="#action/3.1">ENG</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.2">GER</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.3">SWE</NavDropdown.Item>
+                      </NavDropdown>
+                    </Nav>
+                  </NavbarBS.Collapse>
+                </NavbarBS>
+              </div>
+            </div>
+            <NavbarBS className="navbar-background" expand="lg" sticky="top">
+              <div className="navbar-left">
+                <NavbarBS.Brand href="/">
+                  <img src={logo} height="80px" width="50px" />
+                </NavbarBS.Brand>
+              </div>
+              <div className="navbar-right">
+                <NavbarBS.Toggle aria-controls="basic-navbar-nav" />
+                <NavbarBS.Collapse id="basic-navbar-nav">
+                  <Nav className="mr-auto">
+                    <NavButton
+                      exact
+                      to="/"
+                      activeStyle={navButtonActive}
+                    >
+                      HOME
                                         </NavButton>
                                         <NavButton
                                             exact
