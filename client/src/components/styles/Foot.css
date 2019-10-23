@@ -514,6 +514,17 @@
 
   }
 
+  .emailbar {
+    width: 18em;
+    margin-left: 12em;
+    margin-top: -4.25em;
+  }
+
+  .submitbutton {
+    margin-left: 18em;
+    margin-top: -4.15em;
+  }
+
   .payment-icon {
     width: 80%;
     margin-top: -14%;
@@ -521,8 +532,8 @@
   }
 
   .mail-icon {
-    width: 06.25%;
-    margin-top: 01%;
+    width: 07%;
+    margin-top: 01.5%;
     margin-left: 08%;
   }
 
@@ -534,19 +545,19 @@
 
   .email-container {
     background-color: rgb(46, 46, 46);
-    width: 178%;
-    padding-bottom: 1.5%;
+    width: 100%;
+    padding-bottom: 2.25%;
     padding-top: 0.75%;
   }
 
   .link-container {
     background-color: rgba(35, 35, 35, 1);
-    width: 180%;
+    width: 100%;
   }
 
   .icon-container {
     margin-left: 65%;
-    margin-top: 11%;
+    margin-top: 8%;
     padding-bottom: 01%;
     width: 28%;
   }
@@ -555,7 +566,7 @@
     display: flex;
     justify-content: center;
     justify-items: center;
-    width: 30%;
+    width: 40%;
   }
   .cpy-container {
     display: flex;
@@ -568,7 +579,7 @@
   .dps-container {
     display: flex;
     justify-content: center;
-    margin-left: -11%;
+    margin-left: -3%;
     margin-top: 5%;
     width: 40%;
   }
@@ -577,24 +588,24 @@
     display: flex;
     flex-direction: column;
     margin-left: 38%;
-    margin-top: -20%;
-    font-size: 100%;
+    margin-top: -24%;
+    font-size: 90%;
   }
 
   .center-links {
     display: flex;
     flex-direction: column;
     margin-left: 58%;
-    margin-top: -10.5%;
-    font-size: 100%;
+    margin-top: -16%;
+    font-size: 90%;
   }
 
   .right-links {
     display: flex;
     flex-direction: column;
     margin-left: 78%;
-    margin-top: -8%;
-    font-size: 100%;
+    margin-top: -12%;
+    font-size: 90%;
   }
   
   .link {
@@ -621,6 +632,18 @@
 
   }
 
+  .emailbar {
+    width: 26em;
+    margin-left: 17em;
+    margin-top: -4.5em;
+    margin-bottom: .5em;
+  }
+
+  .submitbutton {
+    margin-left: 26em;
+    margin-top: -4.15em;
+  }
+
   .payment-icon {
     width: 80%;
     margin-top: -14%;
@@ -641,20 +664,20 @@
 
   .email-container {
     background-color: rgb(46, 46, 46);
-    width: 142%;
+    width: 100%;
     padding-bottom: 1%;
     padding-top: .25%;
   }
 
   .link-container {
     background-color: rgba(35, 35, 35, 1);
-    width: 142%;
+    width: 100%;
   
   }
 
   .icon-container {
     margin-left: 65%;
-    margin-top: 11%;
+    margin-top: 8.5%;
     padding-bottom: 01%;
     width: 28%;
   }
@@ -663,20 +686,20 @@
     display: flex;
     justify-content: center;
     justify-items: center;
-    width: 30%;
+    width: 50%;
   }
   .cpy-container {
     display: flex;
     justify-content: center;
-    margin-left: 14%;
+    margin-left: -15%;
     padding-top: 3%;
-    width: 35%;
+    width: 40%;
   }
 
   .dps-container {
     display: flex;
     justify-content: center;
-    margin-left: -11%;
+    margin-left: -18%;
     margin-top: 3%;
     width: 40%;
   }
@@ -685,7 +708,7 @@
     display: flex;
     flex-direction: column;
     margin-left: 38%;
-    margin-top: -20%;
+    margin-top: -23%;
     font-size: 100%;
   }
 
@@ -693,7 +716,7 @@
     display: flex;
     flex-direction: column;
     margin-left: 58%;
-    margin-top: -10.5%;
+    margin-top: -14.75%;
     font-size: 100%;
   }
 
@@ -701,7 +724,7 @@
     display: flex;
     flex-direction: column;
     margin-left: 78%;
-    margin-top: -8%;
+    margin-top: -11.5%;
     font-size: 100%;
   }
   
@@ -774,7 +797,7 @@
 
   .icon-container {
     margin-left: 65%;
-    margin-top: 8%;
+    margin-top: 7.5%;
     padding-bottom: 01%;
     width: 28%;
   }
@@ -840,6 +863,242 @@
   }
 }
 
-
 /* web 1680 by 1050 */
+@media screen and (max-width: 1700px) and (min-width: 1501px) {
+  .foot-icon {
+    width: 13%;
+    margin-top: 02%;
+    margin-left: 10%;
+  }
+
+  .emailbar {
+    width: 26em;
+    margin-left: 17em;
+    margin-top: -5.5em;
+    margin-bottom: .5em;
+  }
+
+  .submitbutton {
+    margin-left: 26em;
+    margin-top: -4.15em;
+  }
+
+  .payment-icon {
+    width: 80%;
+    margin-top: -14%;
+    margin-left: 10%;
+  }
+
+  .mail-icon {
+    width: 06.25%;
+    margin-top: 01%;
+    margin-bottom: .2%;
+    margin-left: 08%;
+  }
+
+
+  .footer-wrapper {
+    background-color: rgb(36, 36, 36);
+  }
+
+
+  .email-container {
+    background-color: rgb(46, 46, 46);
+    width: 100%;
+    padding-bottom: 1.5%;
+    padding-top: 0.5%;
+  }
+
+  .link-container {
+    background-color: rgba(35, 35, 35, 1);
+    width: 100%;
+  
+  }
+
+  .icon-container {
+    margin-left: 65%;
+    margin-top: 10%;
+    padding-bottom: 01%;
+    width: 28%;
+  }
+
+  .copyright {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    width: 30%;
+  }
+  .cpy-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 14%;
+    padding-top: 3%;
+    width: 35%;
+  }
+
+  .dps-container {
+    display: flex;
+    justify-content: center;
+    margin-left: -10%;
+    margin-top: 3%;
+    width: 40%;
+  }
+
+  .left-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 38%;
+    margin-top: -20%;
+    font-size: 100%;
+  }
+
+  .center-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 58%;
+    margin-top: -11.5%;
+    font-size: 100%;
+  }
+
+  .right-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 78%;
+    margin-top: -9%;
+    font-size: 100%;
+  }
+  
+  .link {
+    color: #ACACAC;
+  }
+
+  .link:hover {
+    color: #484848
+  }
+
+  .line {
+    background-color: #464646;
+    width: 80%;
+   
+  }
+}
+
 /* web 1920 by 1200 */
+@media screen and (max-width: 1950px) and (min-width: 1701px) {
+  .foot-icon {
+    width: 13%;
+    margin-top: 02%;
+    margin-left: 10%;
+  }
+
+  .emailbar {
+    width: 26em;
+    margin-left: 17em;
+    margin-top: -5em;
+    margin-bottom: .5em;
+  }
+
+  .submitbutton {
+    margin-left: 26em;
+    margin-top: -4.15em;
+  }
+
+  .payment-icon {
+    width: 80%;
+    margin-top: -14%;
+    margin-left: 10%;
+  }
+
+  .mail-icon {
+    width: 06.25%;
+    margin-top: 01%;
+    margin-bottom: .2%;
+    margin-left: 08%;
+  }
+
+
+  .footer-wrapper {
+    background-color: rgb(36, 36, 36);
+  }
+
+
+  .email-container {
+    background-color: rgb(46, 46, 46);
+    width: 100%;
+    padding-bottom: 1.5%;
+    padding-top: 0.75%;
+  }
+
+  .link-container {
+    background-color: rgba(35, 35, 35, 1);
+    width: 100%;
+  
+  }
+
+  .icon-container {
+    margin-left: 65%;
+    margin-top: 7.5%;
+    padding-bottom: 01%;
+    width: 28%;
+  }
+
+  .copyright {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    width: 30%;
+  }
+  .cpy-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 14%;
+    padding-top: 3%;
+    width: 35%;
+  }
+
+  .dps-container {
+    display: flex;
+    justify-content: center;
+    margin-left: -5.5%;
+    margin-top: 3%;
+    width: 40%;
+  }
+
+  .left-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 38%;
+    margin-top: -20%;
+    font-size: 100%;
+  }
+
+  .center-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 58%;
+    margin-top: -13.1%;
+    font-size: 100%;
+  }
+
+  .right-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 78%;
+    margin-top: -10.25%;
+    font-size: 100%;
+  }
+  
+  .link {
+    color: #ACACAC;
+  }
+
+  .link:hover {
+    color: #484848
+  }
+
+  .line {
+    background-color: #464646;
+    width: 80%;
+   
+  }
+}

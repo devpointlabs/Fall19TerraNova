@@ -240,8 +240,9 @@ class Step2 extends React.Component {
     handleClick = (option) => {
         this.props.addRoom(this.state.tempRoomLetter, this.state.tempPriceType);
         this.setState({ modalShow: false });
-        if (option === "nextStep")
-            this.props.goToBilling();
+        if (option === "nextStep") {
+            this.goToBilling2();
+        }
     };
 
     userHasChosenNrOfPeople = (roomNumber) => {
@@ -263,9 +264,27 @@ class Step2 extends React.Component {
 
     goToBilling = () => {
         if (this.isNrOfPeopleValidExludingUnfinished())
-            this.props.goToBilling();
+            this.goToBilling2();
         else
             this.setState({ modalShow: true });
+    };
+
+    goToBilling2 = () => {
+        localStorage.setItem('startDateString', this.props.startDateString);
+        localStorage.setItem('endDateString', this.props.endDateString);
+        localStorage.setItem('nrRoomsArray', this.props.nrRoomsArray);
+        localStorage.setItem('nrNights', this.props.nrNights);
+        localStorage.setItem('totalPrice', this.props.totalPrice);
+        this.props.nrRoomsArray.map( (room, index) => {
+            if (room.roomLetter) {
+                localStorage.setItem(`room${index+1}_roomNumber`, this.props.nrRoomsArray[index].roomNumber);
+                localStorage.setItem(`room${index+1}_roomLetter`, this.props.nrRoomsArray[index].roomLetter);
+                localStorage.setItem(`room${index+1}_roomPrice`, this.props.nrRoomsArray[index].roomPrice);
+                localStorage.setItem(`room${index+1}_roomPriceType`, this.props.nrRoomsArray[index].roomPriceType);
+                localStorage.setItem(`room${index+1}_nrAdults`, this.props.nrRoomsArray[index].people[0]);
+                localStorage.setItem(`room${index+1}_nrChildren`, this.props.nrRoomsArray[index].people[1]);
+            }});
+        this.props.goToBilling();
     };
 
     renderRoomPrice = (roomLetter, priceType) => {
@@ -309,9 +328,6 @@ class Step2 extends React.Component {
 
     checkAvailability = (history) => {
         this.setState({ _isMounted: false });
-        // this.props.getRegRoomPrice("A");
-        // this.props.getNonrefundableRoomPrice("A");
-        // this.props.getExtendedRoomPrice("A");
         this.props.setStep(1);
         this.props.setNrNights(this.state.nrNights);
         this.props.setStartDate(this.state.startDate);

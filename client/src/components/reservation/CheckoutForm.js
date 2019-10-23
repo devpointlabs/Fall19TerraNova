@@ -62,11 +62,6 @@ const CheckoutForm = (props) => {
 
   return (
     <div className="checkout">
-      <br />
-      <br />
-      <br />
-      <br />
-      <p>Would you like to complete the purchase?</p>
       <input
         name="firstName"
         value={firstName}
@@ -80,17 +75,12 @@ const CheckoutForm = (props) => {
         onChange={(e) => setLastName(e.target.value)}
       />
       <CardElement />
-      <button onClick={submit}>Purchase</button>
-      {complete ? (
+      <span className="reservation-custom-button-placeorder" onClick={submit}>PLACE ORDER</span>
+      { complete ? (
         <div>
           Payment went through
           </div>
-      ) : ""}
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      ) : "" }
       <br />
     </div>
   )

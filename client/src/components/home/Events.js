@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBRow} from "mdbreact";
 
 
+
 //make indicators visible
 //remove padding from image
 //enlarge and move arrows
@@ -24,7 +25,9 @@ const Events = () => {
                             <MDBCarouselItem itemId="1">
                                 <SlideContainer>
                                     <div className="event-card">
-                                        <img alt= "nature" className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" />
+                                        <div className="event-img">
+                                            <img alt= "nature" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" />
+                                        </div>
                                         <div className="event-overlay">
                                             <div className="event-text">Events</div>
                                             <div className="event-title">Nature Hike</div>

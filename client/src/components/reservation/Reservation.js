@@ -82,11 +82,37 @@ class Reservation extends React.Component {
     };
 
     componentDidMount() {
-        if (!this.state.reload && this.props.history.location.state &&
+
+        if (localStorage.startDateString) {
+            this.setState({
+                startDateString: localStorage.getItem('startDateString'),
+                endDateString: localStorage.getItem('endDateString'),
+                nrNights: localStorage.getItem('nrNights'),
+                totalPrice: parseFloat(localStorage.getItem('totalPrice'))
+            });
+            var nrRoomsArray = [];
+            let nextRoom = true;
+            let room = 1;
+            while (nextRoom) {
+                let tempRoom = {};
+                let tempPeople = ["0", "0"];
+                tempRoom.roomNumber = localStorage.getItem(`room${room}_roomNumber`);
+                tempRoom.roomLetter = localStorage.getItem(`room${room}_roomLetter`);
+                tempRoom.roomPrice = parseFloat(localStorage.getItem(`room${room}_roomPrice`));
+                tempRoom.roomPriceType = localStorage.getItem(`room${room}_roomPriceType`);
+                tempPeople[0] = localStorage.getItem(`room${room}_nrAdults`);
+                tempPeople[1] = localStorage.getItem(`room${room}_nrChildren`);
+                tempRoom.people = tempPeople;
+                tempRoom.active = false;
+                nrRoomsArray.push(tempRoom);
+                this.setState({ nrRoomsArray, step: 3, _isMounted: true });
+                room += 1;
+                if (!localStorage.getItem(`room${room}_roomNumber`)) nextRoom = false;
+            }
+        } else if (!this.state.reload && this.props.history.location.state &&
             this.props.history.location.state.startDate !== dayjs() &&
             this.props.history.location.state.endDate !== dayjs(dayjs().add('1', 'day'))) {
             // redirecting from another page
-            
             let passedState = this.props.history.location.state;
             this.setState({ 
                 step: 1,
@@ -104,7 +130,6 @@ class Reservation extends React.Component {
                 this.checkAvailability(passedState.startDateDB, passedState.endDateDB);
         } else {
             // no redirecting
-            
             let startDate = dayjs();
             let endDate = dayjs(startDate.add('1', 'day'));
             this.setState({ 

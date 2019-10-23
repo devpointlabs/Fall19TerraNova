@@ -47,11 +47,12 @@ const App = () => {
             <Route exact path="/termsconditions" component={Terms} />
             <Route exact path="/roomsrates" component={RoomsRates} />
             <Route exact path="/roomdetails" component={RoomDetails} />
+            <Route exact path="/reservation" component={Reservation} />
+            <Route exact path="/gallery" component={NoMatch} />
             <Route exact path="/about" component={About} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/findmybooking" component={FindBooking} />
             <Route exact path="/underconstruction" component={UnderConstruction} />
-            <Route exact path="/reservation" component={Reservation} />
             <Route component={NoMatch} />
           </Switch>
         </FetchUser>

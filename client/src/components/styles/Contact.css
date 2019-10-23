@@ -28,7 +28,8 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  margin-left: 14em;
+  width: 28em;
+  margin-left: 12em;
   margin-top: -2em;
 }
 
@@ -44,7 +45,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 32em;
+  width: 100%;
   margin-top: -10.25em;
   margin-left: -9.5em;
 }
@@ -80,7 +81,8 @@
   align-content: center;
   margin-top: -10em;
   margin-bottom: 4em;
-  margin-right: 13em;
+  margin-right: 10em;
+  margin-left: 5em;
   width: 40%;
 }
 
