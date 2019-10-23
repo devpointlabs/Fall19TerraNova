@@ -2,7 +2,7 @@ import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { AuthConsumer } from "../providers/AuthProvider";
 import { Navbar as NavbarBS, Nav, NavDropdown, Modal } from 'react-bootstrap';
-import { NavLink, withRouter, Redirect } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import styled from "styled-components";
 import "./styles/Navbar.css";
 import logo from "../images/logo.png";

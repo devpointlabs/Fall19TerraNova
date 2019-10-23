@@ -212,17 +212,21 @@ class Step2 extends React.Component {
 
     isNrOfPeopleValid = () => {
         let validNrOfPeople = true;
-        this.props.nrRoomsArray.map ( room => (validNrOfPeople = (parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F") && false));
+        debugger
+        this.props.nrRoomsArray.map ( room => validNrOfPeople = !(parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F"));
         this.setState({ validNrOfPeople });
+        debugger
         return validNrOfPeople;
     };
 
     isNrOfPeopleValidExludingUnfinished = () => {
         let validNrOfPeople = true;
-        this.props.nrRoomsArray.map ( room => validNrOfPeople = (parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F" && room.roomLetter !== null) && false);
+        this.props.nrRoomsArray.map ( room => validNrOfPeople = !(parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F" && room.roomLetter !== null));
         this.setState({ validNrOfPeople });
         return validNrOfPeople;
-    };
+    }; 
+
+   
 
     handleClose = () => this.setState({ modalShow: false, modalShowStart: false, modalShowEnd: false, modalShowNoEndDate: false });
 
@@ -270,21 +274,37 @@ class Step2 extends React.Component {
     };
 
     goToBilling2 = () => {
-        localStorage.setItem('startDateString', this.props.startDateString);
-        localStorage.setItem('endDateString', this.props.endDateString);
-        localStorage.setItem('nrRoomsArray', this.props.nrRoomsArray);
-        localStorage.setItem('nrNights', this.props.nrNights);
-        localStorage.setItem('totalPrice', this.props.totalPrice);
-        this.props.nrRoomsArray.map( (room, index) => {
-            if (room.roomLetter) {
-                localStorage.setItem(`room${index+1}_roomNumber`, this.props.nrRoomsArray[index].roomNumber);
-                localStorage.setItem(`room${index+1}_roomLetter`, this.props.nrRoomsArray[index].roomLetter);
-                localStorage.setItem(`room${index+1}_roomPrice`, this.props.nrRoomsArray[index].roomPrice);
-                localStorage.setItem(`room${index+1}_roomPriceType`, this.props.nrRoomsArray[index].roomPriceType);
-                localStorage.setItem(`room${index+1}_nrAdults`, this.props.nrRoomsArray[index].people[0]);
-                localStorage.setItem(`room${index+1}_nrChildren`, this.props.nrRoomsArray[index].people[1]);
-            }});
-        this.props.goToBilling();
+        const {startDateString, endDateString, nrRoomsArray, nrNights, totalPrice, goToBilling} = this.props
+        const {setItem} = localStorage
+
+        setItem('startDateString', startDateString);
+        setItem('endDateString', endDateString);
+        setItem('nrRoomsArray', nrRoomsArray);
+        setItem('nrNights', nrNights);
+        setItem('totalPrice', totalPrice);
+
+        for (let i = 0; i < nrRoomsArray.length; i++) {
+          if (nrRoomsArray[i].roomLetter) {
+            setItem(`room${i+1}_roomNumber`, nrRoomsArray[i].roomNumber);
+            setItem(`room${i+1}_roomLetter`, nrRoomsArray[i].roomLetter);
+            setItem(`room${i+1}_roomPrice`, nrRoomsArray[i].roomPrice);
+            setItem(`room${i+1}_roomPriceType`, nrRoomsArray[i].roomPriceType);
+            setItem(`room${i+1}_nrAdults`, nrRoomsArray[i].people[0]);
+            setItem(`room${i+1}_nrChildren`, nrRoomsArray[i].people[1]);
+          }
+        }
+
+        // nrRoomsArray.map( (room, i) => {
+        //     if (room.roomLetter) {
+        //         setItem(`room${i+1}_roomNumber`, room.roomNumber);
+        //         setItem(`room${i+1}_roomLetter`, room.roomLetter);
+        //         setItem(`room${i+1}_roomPrice`, room.roomPrice);
+        //         setItem(`room${i+1}_roomPriceType`, room.roomPriceType);
+        //         setItem(`room${i+1}_nrAdults`, room.people[0]);
+        //         setItem(`room${i+1}_nrChildren`, room.people[1]);
+        //     }});
+
+        goToBilling();
     };
 
     renderRoomPrice = (roomLetter, priceType) => {
