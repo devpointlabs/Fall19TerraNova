@@ -74,10 +74,10 @@ class PhotoGallery extends React.Component {
                     <Header>Our Gallery</Header>
                     <img className="gallery-icon-img" src={Logo} />
                         <Nav>
-                            <a href="#Hotel & Ground" style={{marginRight: "60px", fontSize: "16px", color: "#ababab"}}>HOTEL & GROUND</a>
-                            <a href="#Room/Suite" style={{marginRight: "60px", fontSize: "16px", color: "#ababab"}}>ROOM/SUITE</a>
-                            <a href="#Bathroom" style={{marginRight: "55px", fontSize: "16px", color: "#ababab"}}>BATHROOM</a>
-                            <a href="#Bathroom" style={{marginRight: "55px", fontSize: "16px", color: "#ababab"}}>DINING</a>
+                            <a href="#Hotel & Ground" style={{fontFamily: 'Catamaran', marginRight: "60px", fontSize: "16px", color: "#ababab"}}>HOTEL & GROUND</a>
+                            <a href="#Room/Suite" style={{fontFamily: 'Catamaran', marginRight: "60px", fontSize: "16px", color: "#ababab"}}>ROOM/SUITE</a>
+                            <a href="#Bathroom" style={{fontFamily: 'Catamaran', marginRight: "55px", fontSize: "16px", color: "#ababab"}}>BATHROOM</a>
+                            <a href="#Bathroom" style={{fontFamily: 'Catamaran', marginRight: "55px", fontSize: "16px", color: "#ababab"}}>DINING</a>
                         </Nav>
                 </HeaderContainer>
                 <Container>

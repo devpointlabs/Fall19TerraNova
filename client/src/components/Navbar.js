@@ -78,9 +78,9 @@ class Navbar extends React.Component {
                 </span>
                 {Math.round(this.state.temperature)}°F
                 <Icon style={{ marginLeft: "25px", marginRight: "3px", marginBottom: "4px" }} name="map marker alternate" />
-                35 Kirkwood Creek Road, West Yellowstone, MT 59758
+                88 Cedarwood River Lane, West Yellowstone, MT
                 <Icon style={{ marginLeft: "30px", marginRight: "3px", marginBottom: "16px" }} name="phone" />
-                (+1)406.646.7200
+                (+1)888-867-5309
                 </div>
               <div style={{ alignItems: "right" }}>
                 <NavbarBS variant="dark" bg="#373737" expand="lg" collapseOnSelect style={{ boxShadow: "none !important" }}>

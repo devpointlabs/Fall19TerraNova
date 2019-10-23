@@ -19,7 +19,7 @@ const News = () => (
         <p className="year"> 2019 </p>
       </div>
       <div className="newsdescription">
-        <p> Launch Day for Terra Nova Cabins! </p>
+        <p> Launch Day for Devination Cabins! </p>
       </div>
       <a className="newslink" href="/underconstruction"> Read More </a>
     </div>

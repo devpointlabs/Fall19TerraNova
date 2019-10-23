@@ -563,7 +563,7 @@ class Reservation extends React.Component {
         return (
             <>
                 <div className="reservation-header-container">
-                    <div className="reservation-header">Reservation</div>
+                    <div className="reservation-header">RESERVATION</div>
                 </div>
                 { this.state._isMounted &&
                     <>

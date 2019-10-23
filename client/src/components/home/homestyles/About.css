@@ -37,12 +37,12 @@
 
 .about-header {
     font-size: 50px;
-    font-family: 'EB Garamond';
+    font-family: 'Playfair Display', serif;
 }
 
 .about-text {
     font-size: 16px;
-    font-family: 'Nanum Gothic';
+    font-family: 'Catamaran', sans-serif;
 }
 
 .about-hr-div {
@@ -115,4 +115,5 @@
     font-size: small;
     font-weight: bold;
     margin-top: 14px;
+    font-family: 'Catamaran';
 }

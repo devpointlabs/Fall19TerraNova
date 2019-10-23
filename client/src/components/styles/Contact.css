@@ -11,7 +11,7 @@
   padding-top:50px;
   font-size: 35px;
   color: white;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Catamaran', sans-serif;
 }
 
 .contactbody {
@@ -31,6 +31,7 @@
   width: 28em;
   margin-left: 12em;
   margin-top: -2em;
+  
 }
 
 .texttop {
@@ -38,7 +39,9 @@
   flex-wrap: wrap;
   justify-content: center;
   margin-top: -11.5em;
+  margin-left: -1em;
   font-size: 2em;
+  font-family: 'Catamaran', sans-serif;
 }
 
 .textbody {
@@ -46,8 +49,10 @@
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
-  margin-top: -10.25em;
-  margin-left: -9.5em;
+  margin-top: -7em;
+  margin-left: -7em;
+  font-size: 1.2em;
+  font-family: 'Catamaran', sans-serif;
 }
 
 .contactdetails {
@@ -55,7 +60,9 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   flex-direction: column;
-  margin-top: -13em;
+  margin-top: -8em;
+  margin-left: -2em;
+  font-family: 'Catamaran', sans-serif;
 }
 
 .address {
