@@ -14,7 +14,7 @@ const FindBooking = () => {
     } else {
       Axios.get("api/findmybooking", { params: { email, last_name, booking_number } })
         .then(res => {
-          debugger
+      
         })
         .catch(err => {
           console.log(err)

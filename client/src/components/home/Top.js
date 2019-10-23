@@ -44,7 +44,6 @@ class Top extends React.Component {
             endDateString: endDate.format("MM/DD/YYYY"),
             endDateDB: startDate.format("DD/MM/YYYY"),
             nrNights: 1,
-            _isMounted: true
         });
         this.getDayFromDate(startDate, "start");
         this.getDayFromDate(endDate, "end");
@@ -94,8 +93,6 @@ class Top extends React.Component {
         this.getYearFromDate(date, "end");
         console.log(this.state.startDate)
         console.log(date.diff(this.state.startDate, 'day'));
-        let startDate = this.state.startDate;
-        debugger
     };
 
     setNrNights = (nrNights) => {
@@ -111,7 +108,7 @@ class Top extends React.Component {
     Button = withRouter(({ history }) => (
         <span
             className="check-availability-button"
-            onClick={ this.state.endDate != "" ? () => { 
+            onClick={ this.state.endDate !== "" ? () => { 
                 history.push({
                 pathname: '/reservation',
                 state: this.state,
@@ -174,6 +171,8 @@ class Top extends React.Component {
             case 12:
                 month = "DEC";
                 break;
+            default: 
+                break;
         };
         if (startOrEnd === "start")
             this.setState({ startMonth: month });
@@ -208,7 +207,7 @@ class Top extends React.Component {
                             <span className="date-box-year">{ this.state.startYear }</span>
                         </span>
                         <span className="date-box-icon-holder">
-                            <img src={calendar} width="50%" />
+                            <img alt="calendar" src={calendar} width="50%" />
                         </span>
                     </div> 
                     <div className="date-box" onClick={this.handleShowEnd}>
@@ -219,7 +218,7 @@ class Top extends React.Component {
                             <span className="date-box-year">{ this.state.endYear }</span>
                         </span>
                         <span className="date-box-icon-holder">
-                            <img src={calendar} width="50%" />
+                            <img alt="calendar" src={calendar} width="50%" />
                         </span>
                     </div>
                     <this.Button />
@@ -249,17 +248,17 @@ class Top extends React.Component {
                     </Carousel.Item>
                 </Carousel>
                 <Modal show={this.state.modalShowStart} onHide={this.handleClose} centered>
-                    { this.props.endDate != "" ?
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    { this.props.endDate !== "" ?
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={this.state.endDate !== "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
                 <Modal show={this.state.modalShowEnd} onHide={this.handleClose} centered>
-                    { this.props.endDate != "" ?
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    { this.props.endDate !== "" ?
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={this.state.endDate !== "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
                 <Modal show={this.state.modalShowNoEndDate} onHide={this.handleClose} centered>

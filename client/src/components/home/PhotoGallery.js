@@ -4,7 +4,7 @@ import '../home/homestyles/PhotoGallery.css';
 import Logo from '../../images/gallery-logo.png';
 import '../home/homestyles/PhotoGallery.css';
 // import Carousel, { Modal, ModalGateway } from 'react-images';
-import { OverlayTrigger, Popover, Carousel, Modal, Row } from 'react-bootstrap';
+import { Modal, Row } from 'react-bootstrap';
 import Hotel1 from '../../images/Hotel1.jpg';
 import Hotel2 from '../../images/Hotel2.jpg';
 import Hotel3 from '../../images/Hotel3.jpg';
@@ -14,13 +14,13 @@ import Hotel6 from '../../images/Hotel6.jpg';
 import Hotel7 from '../../images/Hotel7.jpg';
 import Hotel8 from '../../images/Hotel8.jpg';
 import Hotel9 from '../../images/Hotel9.jpg';
-import Room1 from '../../images/Room1.jpg';
-import Room2 from '../../images/Room2.jpg';
-import Room3 from '../../images/Room3.jpg';
-import Room4 from '../../images/Room4.jpg';
-import Room5 from '../../images/Room5.jpg';
-import Room6 from '../../images/Room6.jpg';
-import Bathroom2 from '../../images/Bathroom2.jpg';
+// import Room1 from '../../images/Room1.jpg';
+// import Room2 from '../../images/Room2.jpg';
+// import Room3 from '../../images/Room3.jpg';
+// import Room4 from '../../images/Room4.jpg';
+// import Room5 from '../../images/Room5.jpg';
+// import Room6 from '../../images/Room6.jpg';
+// import Bathroom2 from '../../images/Bathroom2.jpg';
 
 const Container = styled.div`
     left: 0;
@@ -72,7 +72,7 @@ class PhotoGallery extends React.Component {
             <>
                 <HeaderContainer>
                     <Header>Our Gallery</Header>
-                    <img className="gallery-icon-img" src={Logo} />
+                    <img alt="views" className="gallery-icon-img" src={Logo} />
                         <Nav>
                             <a href="#Hotel & Ground" style={{marginRight: "60px", fontSize: "16px", color: "#ababab"}}>HOTEL & GROUND</a>
                             <a href="#Room/Suite" style={{marginRight: "60px", fontSize: "16px", color: "#ababab"}}>ROOM/SUITE</a>
@@ -82,19 +82,19 @@ class PhotoGallery extends React.Component {
                 </HeaderContainer>
                 <Container>
                     <Row style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
-                        <img className="gallery-image" src={Hotel1} onClick={() => this.handleShow(1)} />
-                        <img className="gallery-image" src={Hotel2} onClick={() => this.handleShow(2)} />
-                        <img className="gallery-image" src={Hotel3} onClick={() => this.handleShow(3)} />
+                        <img alt="views" className="gallery-image" src={Hotel1} onClick={() => this.handleShow(1)} />
+                        <img alt="views" className="gallery-image" src={Hotel2} onClick={() => this.handleShow(2)} />
+                        <img alt="views" className="gallery-image" src={Hotel3} onClick={() => this.handleShow(3)} />
                     </Row>
                     <Row style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
-                        <img className="gallery-image" src={Hotel4} onClick={() => this.handleShow(4)} />
-                        <img className="gallery-image" src={Hotel5} onClick={() => this.handleShow(5)} />
-                        <img className="gallery-image" src={Hotel6} onClick={() => this.handleShow(6)} />
+                        <img alt="views" className="gallery-image" src={Hotel4} onClick={() => this.handleShow(4)} />
+                        <img alt="views" className="gallery-image" src={Hotel5} onClick={() => this.handleShow(5)} />
+                        <img alt="views" className="gallery-image" src={Hotel6} onClick={() => this.handleShow(6)} />
                     </Row>
                     <Row style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
-                        <img className="gallery-image" src={Hotel7} onClick={() => this.handleShow(7)} />
-                        <img className="gallery-image" src={Hotel8} onClick={() => this.handleShow(8)} />
-                        <img className="gallery-image" src={Hotel9} onClick={() => this.handleShow(9)} /> 
+                        <img alt="views" className="gallery-image" src={Hotel7} onClick={() => this.handleShow(7)} />
+                        <img alt="views" className="gallery-image" src={Hotel8} onClick={() => this.handleShow(8)} />
+                        <img alt="views" className="gallery-image" src={Hotel9} onClick={() => this.handleShow(9)} /> 
                     </Row>
                 </Container>   
                 <Modal 
@@ -103,7 +103,7 @@ class PhotoGallery extends React.Component {
                     size="lg"
                     centered
                 >
-                    <img src={require(`../../images/Hotel${this.state.picture}.jpg`)} width="200%" />
+                    <img alt="views" src={require(`../../images/Hotel${this.state.picture}.jpg`)} width="200%" />
                 </Modal>
             </>
         );

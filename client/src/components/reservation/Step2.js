@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
-import { Form, NavDropdown, Button, Popover, OverlayTrigger, Modal } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
 import Hotel3 from '../../images/Hotel3.jpg';
 import Hotel4 from '../../images/Hotel4.jpg';
@@ -112,7 +112,7 @@ class Step2 extends React.Component {
 
     renderRoomDescription = (roomLetter) => (
         <>
-            { roomLetter == "A" &&
+            { roomLetter === "A" &&
                 <>
                     A modern duplex cabin with partial view of Hebgen Lake.
                     <br />
@@ -127,7 +127,7 @@ class Step2 extends React.Component {
                     </ul>
                 </>
             }
-            { roomLetter == "B" &&
+            { roomLetter === "B" &&
                 <>
                     A modern duplex cabin with beautiful mountain view.
                     <br />
@@ -142,7 +142,7 @@ class Step2 extends React.Component {
                     </ul>
                 </>
             }
-            { roomLetter == "F" &&
+            { roomLetter === "F" &&
                 <>
                     A whole unit with both a mountain view room and lake view room.
                     <br />
@@ -157,7 +157,7 @@ class Step2 extends React.Component {
                     </ul>
                 </>
             }
-            { roomLetter == "V1" &&
+            { roomLetter === "V1" &&
                 <>
                     A deluxe room for deluxe people.
                     <br />
@@ -172,7 +172,7 @@ class Step2 extends React.Component {
                     </ul>
                 </>
             }
-            { roomLetter == "V2" &&
+            { roomLetter === "V2" &&
                 <>
                     A deluxe room for deluxe people.
                     <br />
@@ -192,44 +192,34 @@ class Step2 extends React.Component {
 
     renderRoomPicture = (roomLetter) => (
         <>
-            { roomLetter == "A" &&
-                <img src={Hotel3} width="100%" />
+            { roomLetter === "A" &&
+                <img alt="hotel" src={Hotel3} width="100%" />
             }
-            { roomLetter == "B" &&
-                <img src={Hotel4} width="100%" />
+            { roomLetter === "B" &&
+                <img alt="hotel" src={Hotel4} width="100%" />
             }
-            { roomLetter == "F" &&
-                <img src={Hotel5} width="100%" />
+            { roomLetter === "F" &&
+                <img alt="hotel" src={Hotel5} width="100%" />
             }
-            { roomLetter == "V1" &&
-                <img src={Hotel6} width="100%" />
+            { roomLetter === "V1" &&
+                <img alt="hotel" src={Hotel6} width="100%" />
             }
-            { roomLetter == "V2" &&
-                <img src={Hotel7} width="100%" />
+            { roomLetter === "V2" &&
+                <img alt="hotel" src={Hotel7} width="100%" />
             }
         </>
     );
 
     isNrOfPeopleValid = () => {
         let validNrOfPeople = true;
-        this.props.nrRoomsArray.map ( room => {
-            if (parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB &&
-                room.roomLetter != "F")
-                    validNrOfPeople = false;
-        });
+        this.props.nrRoomsArray.map ( room => (validNrOfPeople = (parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F") && false));
         this.setState({ validNrOfPeople });
         return validNrOfPeople;
     };
 
     isNrOfPeopleValidExludingUnfinished = () => {
         let validNrOfPeople = true;
-        debugger;
-        this.props.nrRoomsArray.map ( room => {
-            if (parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB &&
-                room.roomLetter != "F" &&
-                room.roomLetter != null)
-                    validNrOfPeople = false;
-        });
+        this.props.nrRoomsArray.map ( room => validNrOfPeople = (parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F" && room.roomLetter !== null) && false);
         this.setState({ validNrOfPeople });
         return validNrOfPeople;
     };
@@ -257,7 +247,7 @@ class Step2 extends React.Component {
     userHasChosenNrOfPeople = (roomNumber) => {
         let room = this.props.nrRoomsArray[parseInt(roomNumber, 10)-1];
         let userHasChosenNrOfPeople = this.state.userHasChosenNrOfPeople;
-        if (room.people[0] == "0" && room.people[1] == "0")
+        if (room.people[0] === "0" && room.people[1] === "0")
             userHasChosenNrOfPeople[parseInt(roomNumber, 10)-1] = false;
         else
             userHasChosenNrOfPeople[parseInt(roomNumber, 10)-1] = true;
@@ -344,7 +334,7 @@ class Step2 extends React.Component {
         <span
             className="reservation-custom-button"
             onClick={
-                this.state.endDate != "" ?
+                this.state.endDate !== "" ?
                     (() => this.checkAvailability(history))
                 : 
                 this.state._isMounted &&
@@ -430,9 +420,9 @@ class Step2 extends React.Component {
                                                     </span>
                                                     <span style={{fontSize: "11px", marginTop: "1px"}}>
                                                         { room.people[0] }
-                                                        { room.people[0] == 1 ? " Adult, " : " Adults, " }
+                                                        { room.people[0] === 1 ? " Adult, " : " Adults, " }
                                                         { room.people[1] }
-                                                        { room.people[1] == 1 ? " Child " : " Children " }
+                                                        { room.people[1] === 1 ? " Child " : " Children " }
                                                     </span>
                                                 </row>
                                                 <row style={{marginTop: "15px"}}>
@@ -612,17 +602,17 @@ class Step2 extends React.Component {
                     }
                 </Modal>
                 <Modal show={this.state.modalShowStart} onHide={this.handleClose} centered>
-                    { this.state.endDate != "" ?
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    { this.state.endDate !== "" ?
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={this.state.endDate !== "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
                 <Modal show={this.state.modalShowEnd} onHide={this.handleClose} centered>
-                    { this.state.endDate != "" ?
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    { this.state.endDate !== "" ?
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={this.state.endDate !== "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
                 <Modal show={this.state.modalShowNoEndDate} onHide={this.handleClose} centered>

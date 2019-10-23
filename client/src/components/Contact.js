@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import { Form, } from "semantic-ui-react";
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import axios from "axios";
 import './styles/Contact.css'
 import Location from '../images/contact/LocationIcon.png'

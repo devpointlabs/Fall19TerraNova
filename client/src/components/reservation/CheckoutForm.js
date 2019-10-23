@@ -7,7 +7,7 @@ const CheckoutForm = (props) => {
   const [client_secret, setClient_secret] = useState("")
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
-  const [cabin_type, setCabin_type] = useState("Family")
+  // const [cabin_type, setCabin_type] = useState("Family")
   
   useEffect(() => {
     axios.get('/api/getclientsecret')
@@ -23,22 +23,22 @@ const CheckoutForm = (props) => {
     if (error) {
       console.log(error)
       console.log("YOU HAVE A CARD ERROR")
-    } else if (setupIntent.status == "succeeded") { 
+    } else if (setupIntent.status === "succeeded") { 
       await axios.post(`/api/createres?body=${result.paymentMethod.id}`)
         .then(res => {
           
           // CREATE A USER FIRST, THEN YOU CAN add that to the boooking
           // ? REGARDING CABIN_ID, DO I CREATE TWO BOOKINGS? IF SO, CAN I CHARGE THE CARD TWICE?? OR SOMEHOW WORK AROUND THAT. 
 
-          if (cabin_type === "Family"){
+          // if (cabin_type === "Family"){
 
-          } else {  
+          // } else {  
 
-          }
+          // }
            axios.post('/api/bookings', {
             customer_payment_token: res.data.c.id, 
             pm: res.data.pm,
-            cabin_type, // import the cabin type
+            // cabin_type, // import the cabin type
             price: 1200, // import the price
             start_date: "2019-10-16", 
             end_date: "2019-10-20", 

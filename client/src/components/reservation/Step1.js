@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
-import { Form, Modal, NavDropdown, Button, Popover, OverlayTrigger } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
 import { LinkedCalendar, Calendar } from '../rb-datepicker/dist';
 import 'bootstrap-daterangepicker/daterangepicker.css';
@@ -48,7 +48,7 @@ class Step1 extends React.Component {
     };
 
     checkAvailability = () => {
-        if (this.props.endDate != "") {
+        if (this.props.endDate !== "") {
             this.setState({ _isMounted: false });
             this.props.checkAvailability();
         } else {
@@ -60,7 +60,7 @@ class Step1 extends React.Component {
         <span
             className="reservation-custom-button"
             onClick={
-                this.state.endDate != "" ?
+                this.state.endDate !== "" ?
                     (() => this.checkAvailability(history))
                 : 
                 this.state._isMounted &&
@@ -133,25 +133,25 @@ class Step1 extends React.Component {
                     <div className="reservation-right-box">
                         <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>AVAILABILITY</p>
                         <div className="reservation-hr-container"><div className="reservation-line" /></div>
-                        { this.props.endDate != "" ?
-                            <LinkedCalendar startDate={this.props.startDate != "" && this.props.startDate} endDate={this.props.endDate != "" && this.props.endDate} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onDayClick={this.props.onDayClick} onChange={this.props.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
+                        { this.props.endDate !== "" ?
+                            <LinkedCalendar startDate={this.props.startDate !== "" && this.props.startDate} endDate={this.props.endDate !== "" && this.props.endDate} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onDayClick={this.props.onDayClick} onChange={this.props.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
                         :
-                            <LinkedCalendar startDate={this.props.startDate != "" && this.props.startDate} endDate={null} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onChange={this.props.onDatesChange} onDayClick={this.props.onDayClick} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
+                            <LinkedCalendar startDate={this.props.startDate !== "" && this.props.startDate} endDate={null} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onChange={this.props.onDatesChange} onDayClick={this.props.onDayClick} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
                         }
                     </div>
                 </div>
                 <Modal show={this.state.modalShowStart} onHide={this.handleCloseStart} centered>
-                    { this.props.endDate != "" ?
-                        <Calendar startDate={this.props.startDate != "" && this.props.startDate} endDate={this.props.endDate != "" && this.props.endDate} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onDayClick={this.onDayClickStart} onChange={this.props.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
+                    { this.props.endDate !== "" ?
+                        <Calendar startDate={this.props.startDate !== "" && this.props.startDate} endDate={this.props.endDate !== "" && this.props.endDate} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onDayClick={this.onDayClickStart} onChange={this.props.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
                     :
-                        <Calendar startDate={this.props.startDate != "" && this.props.startDate} endDate={null} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onChange={this.props.onDatesChange} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
+                        <Calendar startDate={this.props.startDate !== "" && this.props.startDate} endDate={null} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onChange={this.props.onDatesChange} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
                     }
                 </Modal>
                 <Modal show={this.state.modalShowEnd} onHide={this.handleClose} centered>
-                    { this.props.endDate != "" ?
-                        <Calendar startDate={this.props.startDate != "" && this.props.startDate} endDate={this.props.endDate != "" && this.props.endDate} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onDayClick={this.onDayClickEnd} onChange={this.props.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
+                    { this.props.endDate !== "" ?
+                        <Calendar startDate={this.props.startDate !== "" && this.props.startDate} endDate={this.props.endDate !== "" && this.props.endDate} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onDayClick={this.onDayClickEnd} onChange={this.props.onDatesChange} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
                     :
-                        <Calendar startDate={this.props.startDate != "" && this.props.startDate} endDate={null} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onChange={this.props.onDatesChange} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
+                        <Calendar startDate={this.props.startDate !== "" && this.props.startDate} endDate={null} onDatesChange={this.props.onDatesChange} singleDatePicker={true} onChange={this.props.onDatesChange} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs().subtract('1', 'day')} />
                     }
                 </Modal>
                 <Modal show={this.state.modalShowNoEndDate} onHide={this.handleClose} centered>

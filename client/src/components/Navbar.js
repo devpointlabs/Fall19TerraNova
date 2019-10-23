@@ -19,7 +19,7 @@ class Navbar extends React.Component {
     componentDidMount() {
         axios.get("http://api.openweathermap.org/data/2.5/weather?id=5685767&appid=af9da42f618060b239282c8960fa9955")
             .then( response => {
-                switch (response.data.weather.main) {
+                switch (response.data.weather[0].main) {
                     case "Thunderstorm":
                         this.setState({ weather: "⚡️" });
                         break;
@@ -139,7 +139,7 @@ class Navbar extends React.Component {
             <NavbarBS className="navbar-background" expand="lg" sticky="top">
               <div className="navbar-left">
                 <NavbarBS.Brand href="/">
-                  <img src={logo} height="80px" width="50px" />
+                  <img alt="logo" src={logo} height="80px" width="50px" />
                 </NavbarBS.Brand>
               </div>
               <div className="navbar-right">
