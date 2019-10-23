@@ -46,7 +46,6 @@ class Step3 extends React.Component {
             nrNights: this.props.nrNights,
             totalPrice: this.props.totalPrice
         });
-        debugger
         this.setTotalNrRooms(this.props.nrRoomsArray);
         this.setTotalNrAdults(this.props.nrRoomsArray);
         this.setTotalNrChildren(this.props.nrRoomsArray);

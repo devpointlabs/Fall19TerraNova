@@ -155,7 +155,6 @@ class Reservation extends React.Component {
         //     this.checkAvailability(passedState.startDateDB, passedState.endDateDB);
         } else {
             // no redirecting
-            debugger
             let startDate = dayjs();
             let endDate = dayjs(startDate.add('1', 'day'));
             this.setState({ 
@@ -172,10 +171,6 @@ class Reservation extends React.Component {
     };
 
     onDayClick = (date) => {
-        let startDate = this.state.startDate
-        let chooseEndDate = this.state.chooseEndDate
-        let chooseStartDate = this.state.chooseStartDate
-        debugger
         if (date.isAfter(dayjs().subtract('1', 'day'))) {
             if (this.state.chooseStartDate || date.isBefore(this.state.startDate))
                 this.setState({ 
@@ -199,8 +194,6 @@ class Reservation extends React.Component {
                     nrNights: date.diff(this.state.startDate, "day")
                 });
         };
-        console.log(this.state);
-        debugger
     };
 
     onDayClickStart = (date) => {
@@ -229,8 +222,6 @@ class Reservation extends React.Component {
     };
 
     checkAvailability = (startDate, endDate, override, nrRoomsArray) => {
-        console.log(this.state)
-        debugger
         let startDateDB = "";
         let endDateDB = "";
         // let startDateDB = this.state.startDateDB ? this.state.startDateDB : startDate;
@@ -246,72 +237,69 @@ class Reservation extends React.Component {
             startDateDB = startDate;
             endDateDB = endDate;
         };
-            axios.get("/api/avail_cabins", {params: {dates: [startDateDB, endDateDB]}} )  //!!!!!!!!!!!!!!!!!!!, discountcode: 23456789
-                .then(res => {
-                    debugger
-                    this.setState({
-                        _isMounted: true,
-                        aRooms: res.data.aRooms,
-                        bRooms: res.data.bRooms,
-                        familyCabins: res.data.familyCabins,
-                        vip1: res.data.vip1,
-                        vip2: res.data.vip2, 
-                        step: 2
-                    });
-                    this.anyAvailableCabins();
-                    let prices = this.state.prices;
-                    prices = this.setRegularRoomPrices(prices, res.data.aRooms, res.data.bRooms, res.data.familyCabins, res.data.vip1, res.data.vip2);
-                    prices = this.setNonrefundableRoomPrices(prices, res.data.aRooms, res.data.bRooms, res.data.familyCabins, res.data.vip1, res.data.vip2);
-                    if (this.state.nrNights > 7)
-                        prices = this.setExtendedRoomPrices(prices, res.data.aRooms, res.data.bRooms, res.data.familyCabins, res.data.vip1, res.data.vip2);
-                    this.setState({ prices });
-                    if (nrRoomsArray) {
-                        // user refreshes page => have to automatically add rooms again
-                        debugger
-                        var bookedRooms = this.state.bookedRooms;
-                        var aRooms = res.data.aRooms;
-                        var bRooms = res.data.bRooms;
-                        var familyCabins = res.data.familyCabins;
-                        var vip1 = res.data.vip1;
-                        var vip2 = res.data.vip2;
-                        var room = null;
-                        for (var i = 0; i < nrRoomsArray.length; i++) {
-                            switch(nrRoomsArray[i].roomLetter) {
-                                case "A":
-                                    room = res.data.aRooms[0];
-                                    familyCabins = familyCabins.filter( familyCabin => 
-                                        familyCabin.cabin_number != room.cabin_number );
-                                    break;
-                                case "B":
-                                    room = res.data.bRooms[0];
-                                    familyCabins = familyCabins.filter( familyCabin => 
-                                        familyCabin.cabin_number != room.cabin_number );
-                                    break;
-                                case "F":
-                                    room = res.data.familyCabins[0];
-                                    aRooms = aRooms.filter( aRoom => 
-                                        aRoom.cabin_number != room.cabin_number );
-                                    bRooms = bRooms.filter( bRoom => 
-                                        bRoom.cabin_number != room.cabin_number );
-                                    break;
-                                case "V1":
-                                    room = vip1;
-                                    vip1 = null;
-                                    break;
-                                case "V2":
-                                    room = vip2;
-                                    vip2 = null;
-                                    break;
-                            };
-                            bookedRooms.push(room);
+        axios.get("/api/avail_cabins", {params: {dates: [startDateDB, endDateDB]}} )  //!!!!!!!!!!!!!!!!!!!, discountcode: 23456789
+            .then(res => {
+                this.setState({
+                    _isMounted: true,
+                    aRooms: res.data.aRooms,
+                    bRooms: res.data.bRooms,
+                    familyCabins: res.data.familyCabins,
+                    vip1: res.data.vip1,
+                    vip2: res.data.vip2, 
+                    step: 2
+                });
+                this.anyAvailableCabins();
+                let prices = this.state.prices;
+                prices = this.setRegularRoomPrices(prices, res.data.aRooms, res.data.bRooms, res.data.familyCabins, res.data.vip1, res.data.vip2);
+                prices = this.setNonrefundableRoomPrices(prices, res.data.aRooms, res.data.bRooms, res.data.familyCabins, res.data.vip1, res.data.vip2);
+                if (this.state.nrNights > 7)
+                    prices = this.setExtendedRoomPrices(prices, res.data.aRooms, res.data.bRooms, res.data.familyCabins, res.data.vip1, res.data.vip2);
+                this.setState({ prices });
+                if (nrRoomsArray) {
+                    // user refreshes page => have to automatically add rooms again
+                    var bookedRooms = this.state.bookedRooms;
+                    var aRooms = res.data.aRooms;
+                    var bRooms = res.data.bRooms;
+                    var familyCabins = res.data.familyCabins;
+                    var vip1 = res.data.vip1;
+                    var vip2 = res.data.vip2;
+                    var room = null;
+                    for (var i = 0; i < nrRoomsArray.length; i++) {
+                        switch(nrRoomsArray[i].roomLetter) {
+                            case "A":
+                                room = res.data.aRooms[0];
+                                familyCabins = familyCabins.filter( familyCabin => 
+                                    familyCabin.cabin_number != room.cabin_number );
+                                break;
+                            case "B":
+                                room = res.data.bRooms[0];
+                                familyCabins = familyCabins.filter( familyCabin => 
+                                    familyCabin.cabin_number != room.cabin_number );
+                                break;
+                            case "F":
+                                room = res.data.familyCabins[0];
+                                aRooms = aRooms.filter( aRoom => 
+                                    aRoom.cabin_number != room.cabin_number );
+                                bRooms = bRooms.filter( bRoom => 
+                                    bRoom.cabin_number != room.cabin_number );
+                                break;
+                            case "V1":
+                                room = vip1;
+                                vip1 = null;
+                                break;
+                            case "V2":
+                                room = vip2;
+                                vip2 = null;
+                                break;
                         };
-                        this.setState({ bookedRooms, aRooms, bRooms, familyCabins, vip1, vip2 });
+                        bookedRooms.push(room);
                     };
-                })
-                .catch(err => {
-                    debugger
-                    console.log(err)
-            });
+                    this.setState({ bookedRooms, aRooms, bRooms, familyCabins, vip1, vip2 });
+                };
+            })
+            .catch(err => {
+                console.log(err)
+        });
         // let startDateDay = startDateDB.substring(0, 2);
         // let startDateMonth = startDateDB.substring(3, 5);
         // let startDateYear = startDateDB.substring(6, 10);
@@ -497,7 +485,6 @@ class Reservation extends React.Component {
         this.setState({ aRooms, bRooms, familyCabins, rooms, nrRoomsArray, bookedRooms, bookedRoomLetters });
         let totalPrice = this.calculateTotalPrice(nrRoomsArray);
         this.addToLocalStorage(nrRoomsArray, totalPrice);
-        debugger
     };
 
     addToLocalStorage = (nrRoomsArray, totalPrice) => {
@@ -509,7 +496,6 @@ class Reservation extends React.Component {
         localStorage.setItem('endDateParse', this.state.endDate.format("YYYY-MM-DD"));
         localStorage.setItem('nrNights', this.state.nrNights);
         localStorage.setItem('totalPrice', totalPrice);
-        debugger
         nrRoomsArray.map( (room, index) => {
             if (room.roomLetter) {
                 localStorage.setItem(`room${index+1}_roomNumber`, nrRoomsArray[index].roomNumber);
@@ -530,7 +516,6 @@ class Reservation extends React.Component {
         localStorage.setItem('endDateParse', this.state.endDate.format("YYYY-MM-DD"));
         localStorage.setItem('nrNights', this.state.nrNights);
         localStorage.setItem('step', 2);
-        debugger
     };
 
     changeRoom = (roomNumber) => {
@@ -722,12 +707,10 @@ class Reservation extends React.Component {
     setGrandTotal = (grandTotal) => this.setState({ grandTotal });
 
     setStep = (step) => {
-        debugger
         this.setState({ step, _isMounted: false });
     };
 
     goBackToStep1 = () => {
-        debugger
         this.cleanLocalStorage();
         // this.setState({ step: 1, _isMounted: false });
         // this.loadData(true);
@@ -735,7 +718,6 @@ class Reservation extends React.Component {
     };
 
     goBackToStep2 = () => {
-        debugger
         // this.cleanLocalStorageRooms();
         localStorage.setItem('step', 2);
         this.setState({

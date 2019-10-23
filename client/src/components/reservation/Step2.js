@@ -35,7 +35,6 @@ class Step2 extends React.Component {
     };
 
     componentDidMount() {
-        debugger
         let availableRooms = this.state.availableRooms;
         if (this.props.aRooms.length > 0) {
             availableRooms.push("A");
@@ -213,10 +212,8 @@ class Step2 extends React.Component {
 
     isNrOfPeopleValid = () => {
         let validNrOfPeople = true;
-        debugger
         this.props.nrRoomsArray.map ( room => validNrOfPeople = !(parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F"));
         this.setState({ validNrOfPeople });
-        debugger
         return validNrOfPeople;
     };
 
@@ -230,7 +227,6 @@ class Step2 extends React.Component {
     handleClose = () => this.setState({ modalShow: false, modalShowStart: false, modalShowEnd: false, modalShowNoEndDate: false });
 
     handleShow = (roomLetter, priceType) => {
-        debugger
         let roomNumber = this.props.nrRoomsArray.filter( room => room.active )[0].roomNumber;
         this.userHasChosenNrOfPeople(roomNumber);
         this.isNrOfPeopleValid();
@@ -286,26 +282,25 @@ class Step2 extends React.Component {
     //     localStorage.setItem('step', 3);
     // };
 
-    addToLocalStorage = () => {
-        debugger
-        const {startDateString, endDateString, nrRoomsArray, nrNights, totalPrice} = this.props;
-        localStorage.setItem('startDateString', startDateString);
-        localStorage.setItem('endDateString', endDateString);
-        localStorage.setItem('nrRoomsArray', nrRoomsArray);
-        localStorage.setItem('nrNights', nrNights);
-        localStorage.setItem('totalPrice', totalPrice);
-        localStorage.setItem('step', 3);
-        for (let i = 0; i < nrRoomsArray.length; i++) {
-            if (nrRoomsArray[i].roomLetter) {
-                localStorage.setItem(`room${i+1}_roomNumber`, nrRoomsArray[i].roomNumber);
-                localStorage.setItem(`room${i+1}_roomLetter`, nrRoomsArray[i].roomLetter);
-                localStorage.setItem(`room${i+1}_roomPrice`, nrRoomsArray[i].roomPrice);
-                localStorage.setItem(`room${i+1}_roomPriceType`, nrRoomsArray[i].roomPriceType);
-                localStorage.setItem(`room${i+1}_nrAdults`, nrRoomsArray[i].people[0]);
-                localStorage.setItem(`room${i+1}_nrChildren`, nrRoomsArray[i].people[1]);
-            };
-        };
-    };
+    // addToLocalStorage = () => {
+    //     const {startDateString, endDateString, nrRoomsArray, nrNights, totalPrice} = this.props;
+    //     localStorage.setItem('startDateString', startDateString);
+    //     localStorage.setItem('endDateString', endDateString);
+    //     localStorage.setItem('nrRoomsArray', nrRoomsArray);
+    //     localStorage.setItem('nrNights', nrNights);
+    //     localStorage.setItem('totalPrice', totalPrice);
+    //     localStorage.setItem('step', 3);
+    //     for (let i = 0; i < nrRoomsArray.length; i++) {
+    //         if (nrRoomsArray[i].roomLetter) {
+    //             localStorage.setItem(`room${i+1}_roomNumber`, nrRoomsArray[i].roomNumber);
+    //             localStorage.setItem(`room${i+1}_roomLetter`, nrRoomsArray[i].roomLetter);
+    //             localStorage.setItem(`room${i+1}_roomPrice`, nrRoomsArray[i].roomPrice);
+    //             localStorage.setItem(`room${i+1}_roomPriceType`, nrRoomsArray[i].roomPriceType);
+    //             localStorage.setItem(`room${i+1}_nrAdults`, nrRoomsArray[i].people[0]);
+    //             localStorage.setItem(`room${i+1}_nrChildren`, nrRoomsArray[i].people[1]);
+    //         };
+    //     };
+    // };
 
     renderRoomPrice = (roomLetter, priceType) => {
         let price = "";

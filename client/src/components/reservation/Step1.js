@@ -81,7 +81,6 @@ class Step1 extends React.Component {
         localStorage.setItem('endDateParse', this.props.endDate.format("YYYY-MM-DD"));
         localStorage.setItem('nrNights', this.props.nrNights);
         localStorage.setItem('step', 2);
-        debugger
     };
 
     render() {
