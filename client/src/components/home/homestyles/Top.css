@@ -159,3 +159,39 @@
 .MuiInputBase-adornedEnd {
     background-color: white;
 }
+
+/* web 1680 by 1050 */
+@media screen and (max-width: 1700px) and (min-width: 1501px) { 
+
+    .date-box {
+        position: relative;
+        border: none;
+        background: white;
+        color: #8E7037;
+        height: 100%;
+        width: 23%;
+        margin-right: 3em;
+        padding: 1.5em 3em 1.5em 3em;
+        letter-spacing: 0.1em;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        cursor: pointer;
+    }
+
+    .check-availability-button {
+        border: none;
+        background: #8E7037;
+        color: white;
+        font-size: 1em;
+        height: 100%;
+        width: 12%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        letter-spacing: 0.2em;
+        font-family: 'Raleway', sans-serif;
+        font-weight: bolder;
+        cursor: pointer;
+    }
+}

@@ -1,28 +1,26 @@
-import React, {useState, } from 'react';
+import React, {useState, useContext, } from 'react';
 import icon from '../images/foot/icon.png'
 import mail from '../images/foot/mail.png'
 import send from '../images/foot/sendarrow.png'
 import paymenticons from '../images/foot/paymenticons.png'
 import { Dropdown, Form } from "semantic-ui-react"; 
 import styled from 'styled-components';
-import {NavLink} from 'react-router-dom';
-import axios from "axios";
-import './styles/Foot.css'
+import './styles/Foot.css';
+import {StateContext} from '../providers/StateProvider';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 
 
 
-
-const Foot = () => {
+const Foot = (props) => {
   const [email, setEmail] = useState("");
-
+  const {saveemail} = useContext(StateContext)
 
   const handleSubmit = (e) => {
-    axios.get(`/api/contact?email=${email}`)
-      .then( () => {
-        // message "email sent"
-        setEmail("");
-    
-      })
+    e.preventDefault()
+    saveemail(email)
+    props.history.push("/contact")
+    setEmail("")
+
   }
 
   
@@ -44,11 +42,11 @@ const Foot = () => {
                   placeholder="Your email address"
                   type="email"
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
           </Form>
-          <div className="submitbutton">
-            <StyledButton type="submit"> 
+          <div className="submitbutton" onClick={handleSubmit}>
+            <StyledButton> 
               <img src={send} alt={send} width="45%"/>
              </StyledButton>
           </div>
@@ -223,6 +221,6 @@ const StyledButton = styled.button`
 
 `;
 
-export default Foot;
 
 
+export default withRouter(Foot);

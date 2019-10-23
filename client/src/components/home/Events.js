@@ -2,8 +2,7 @@ import React from 'react';
 import line from '../../images/events/line.png'
 import './homestyles/Events.css'
 import styled from 'styled-components';
-import Card from 'react-bootstrap/Card';
-import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBRow, MDBCarouselCaption} from "mdbreact";
+import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBRow, } from "mdbreact";
 
 
 //make indicators visible
@@ -24,7 +23,9 @@ const Events = () => {
                             <MDBCarouselItem itemId="1">
                                 <SlideContainer>
                                     <div className="event-card">
-                                        <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" />
+                                        <div className="event-img">
+                                            <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" />
+                                        </div>
                                         <div className="event-overlay">
                                             <div className="event-text">Events</div>
                                             <div className="event-title">Nature Hike</div>
