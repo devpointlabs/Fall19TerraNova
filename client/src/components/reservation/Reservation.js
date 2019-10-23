@@ -1,8 +1,43 @@
+// Line 336:   Expected a default case              default-case
+// Line 340:  Expected '!==' and instead saw '!='  eqeqeq
+// Line 346:  Expected '!==' and instead saw '!='  eqeqeq
+// Line 352:  Expected '!==' and instead saw '!='  eqeqeq
+// Line 354:  Expected '!==' and instead saw '!='  eqeqeq
+// Line 446:  Expected '===' and instead saw '=='  eqeqeq
+// Line 449:  Expected '===' and instead saw '=='  eqeqeq
+// Line 452:  Expected '===' and instead saw '=='  eqeqeq
+// Line 455:  Expected '===' and instead saw '=='  eqeqeq
+// Line 458:  Expected '===' and instead saw '=='  eqeqeq
+// Line 503:  'index' is already defined           no-redeclare
+// Line 507:  'index' is already defined           no-redeclare
+// Line 513:  'index' is already defined           no-redeclare
+// Line 517:  'index' is already defined           no-redeclare
+// Line 543:  Expected '===' and instead saw '=='  eqeqeq
+// Line 545:  Expected '===' and instead saw '=='  eqeqeq
+// Line 547:  Expected '===' and instead saw '=='  eqeqeq
+// Line 551:  Expected '===' and instead saw '=='  eqeqeq
+// Line 553:  Expected '===' and instead saw '=='  eqeqeq
+// Line 558:  Expected '===' and instead saw '=='  eqeqeq
+// Line 562:  Expected '===' and instead saw '=='  eqeqeq
+// Line 563:  'index' is already defined           no-redeclare
+// Line 566:  Expected '===' and instead saw '=='  eqeqeq
+// Line 567:  'index' is already defined           no-redeclare
+// Line 572:  Expected '===' and instead saw '=='  eqeqeq
+// Line 573:  'index' is already defined           no-redeclare
+// Line 576:  Expected '===' and instead saw '=='  eqeqeq
+// Line 577:  'index' is already defined           no-redeclare
+// Line 584:  Expected '===' and instead saw '=='  eqeqeq
+// Line 585:  Expected '===' and instead saw '=='  eqeqeq
+// Line 586:  Expected '===' and instead saw '=='  eqeqeq
+// Line 587:  Expected '===' and instead saw '=='  eqeqeq
+// Line 588:  Expected '===' and instead saw '=='  eqeqeq
+
+
 import React from 'react';
-import { Form, OverlayTrigger, Popover } from "react-bootstrap";
-import { Icon, Dropdown } from "semantic-ui-react";
+// import { Form, OverlayTrigger, Popover } from "react-bootstrap";
+// import { Icon, Dropdown } from "semantic-ui-react";
 import "./reservationstyles/Reservation.css";
-import styled from "styled-components";
+// import styled from "styled-components";
 import axios from "axios";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
@@ -47,6 +82,7 @@ class Reservation extends React.Component {
     };
 
     componentDidMount() {
+
         if (localStorage.startDateString) {
             this.setState({
                 startDateString: localStorage.getItem('startDateString'),
@@ -74,8 +110,8 @@ class Reservation extends React.Component {
                 if (!localStorage.getItem(`room${room}_roomNumber`)) nextRoom = false;
             }
         } else if (!this.state.reload && this.props.history.location.state &&
-            this.props.history.location.state.startDate != dayjs() &&
-            this.props.history.location.state.endDate != dayjs(dayjs().add('1', 'day'))) {
+            this.props.history.location.state.startDate !== dayjs() &&
+            this.props.history.location.state.endDate !== dayjs(dayjs().add('1', 'day'))) {
             // redirecting from another page
             let passedState = this.props.history.location.state;
             this.setState({ 
@@ -328,21 +364,21 @@ class Reservation extends React.Component {
             case "A":
                 room = this.state.aRooms[0];
                 familyCabins = familyCabins.filter( familyCabin => 
-                    familyCabin.cabin_number != room.cabin_number );
+                    familyCabin.cabin_number !== room.cabin_number );
                 index = 0;
                 break;
             case "B":
                 room = this.state.bRooms[0];
                 familyCabins = familyCabins.filter( familyCabin => 
-                    familyCabin.cabin_number != room.cabin_number );
+                    familyCabin.cabin_number !== room.cabin_number );
                 index = 1;
                 break;
             case "F":
                 room = this.state.familyCabins[0];
                 aRooms = aRooms.filter( aRoom => 
-                    aRoom.cabin_number != room.cabin_number );
+                    aRoom.cabin_number !== room.cabin_number );
                 bRooms = bRooms.filter( bRoom => 
-                    bRoom.cabin_number != room.cabin_number );
+                    bRoom.cabin_number !== room.cabin_number );
                 index = 2;
                 break;
             case "V1":
@@ -353,6 +389,8 @@ class Reservation extends React.Component {
                 room = this.state.vip2;
                 index = 4;
                 break;
+            default:
+              break;
         }
         if (priceType === "REGULAR")
             roomPrice = this.state.prices[index].regular;
@@ -434,19 +472,19 @@ class Reservation extends React.Component {
 
     renderRoomName = (roomLetter) => (
         <>
-        { roomLetter == "A" &&
+        { roomLetter === "A" &&
             <>LAKE VIEW CABIN</>
         }
-        { roomLetter == "B" &&
+        { roomLetter === "B" &&
             <>MOUNTAIN VIEW CABIN</>
         }
-        { roomLetter == "F" &&
+        { roomLetter === "F" &&
             <>FAMILY CABIN</>
         }
-        { roomLetter == "V1" &&
+        { roomLetter === "V1" &&
             <>VIP ROOM 1</>
         }
-        { roomLetter == "V2" &&
+        { roomLetter === "V2" &&
             <>VIP ROOM 2</>
         }
         </>
@@ -485,27 +523,27 @@ class Reservation extends React.Component {
     };
 
     setExtendedRoomPrices = (prices, aRooms, bRooms, familyCabins, vip1, vip2) => {
-    
+        var index; 
         if (aRooms.length > 0) {
-            for (var index in this.state.aRooms[0].cabinPricing.price_hash)
+            for ( index in this.state.aRooms[0].cabinPricing.price_hash)
                 if (index.includes("Plus"))
                     prices[0].extended = Math.round(this.state.aRooms[0].cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
         } if (bRooms.length > 0) {
-            for (var index in this.state.bRooms[0].cabinPricing.price_hash)
+            for ( index in this.state.bRooms[0].cabinPricing.price_hash)
                 if (index.includes("Plus"))
                     prices[1].extended = Math.round(this.state.bRooms[0].cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
         } if (familyCabins.length > 0) {
-            for (var index in this.state.familyCabins[0].cabinPricing.price_hash.ahash)
+            for ( index in this.state.familyCabins[0].cabinPricing.price_hash.ahash)
                 if (index.includes("Plus"))
                     prices[2].extended = Math.round(
                         (this.state.familyCabins[0].cabinPricing.price_hash.ahash[index] +
                         this.state.familyCabins[0].cabinPricing.price_hash.bhash[index])/parseInt(this.state.nrNights, 10) * 100) / 100;
         } if (vip1) {
-            for (var index in this.state.vip1.cabinPricing.price_hash)
+            for ( index in this.state.vip1.cabinPricing.price_hash)
                 if (index.includes("Plus"))
                     prices[3].extended = Math.round(this.state.vip1.cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
         } if (vip2) {
-            for (var index in this.state.vip2.cabinPricing.price_hash)
+            for ( index in this.state.vip2.cabinPricing.price_hash)
                 if (index.includes("Plus"))
                     prices[4].extended = Math.round(this.state.vip2.cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
         };
@@ -531,52 +569,53 @@ class Reservation extends React.Component {
     // };
 
     getNonrefundableRoomPrice = (roomLetter) => {
-        if (roomLetter == "A")
+        if (roomLetter === "A")
             return Math.round(this.state.aRooms[0].cabinPricing.price_hash.Nonrefundable/parseInt(this.state.nrNights, 10) * 100) / 100;
-        else if (roomLetter == "B")
+        else if (roomLetter === "B")
             return Math.round(this.state.bRooms[0].cabinPricing.price_hash.Nonrefundable/parseInt(this.state.nrNights, 10) * 100) / 100;
-        else if (roomLetter == "F")
+        else if (roomLetter === "F")
             return Math.round(
                 (this.state.familyCabins[0].cabinPricing.price_hash.ahash.Nonrefundable +
                 this.state.familyCabins[0].cabinPricing.price_hash.bhash.Nonrefundable)/parseInt(this.state.nrNights, 10) * 100) / 100;
-        else if (roomLetter == "V1")
+        else if (roomLetter === "V1")
             return Math.round(this.state.vip1.cabinPricing.price_hash.Nonrefundable/parseInt(this.state.nrNights, 10) * 100) / 100;
-        else if (roomLetter == "V2")
+        else if (roomLetter === "V2")
             return Math.round(this.state.vip2.cabinPricing.price_hash.Nonrefundable/parseInt(this.state.nrNights, 10) * 100) / 100;
     };
 
     getExtendedRoomPrice = (roomLetter) => {
-        if (roomLetter == "A") {
-            for (var index in this.state.aRooms[0].cabinPricing.price_hash)
+        var index;
+        if (roomLetter === "A") {
+            for ( index in this.state.aRooms[0].cabinPricing.price_hash)
                 if (index.includes("Plus"))
                     return Math.round(this.state.aRooms[0].cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
-        } else if (roomLetter == "B") {
-            for (var index in this.state.bRooms[0].cabinPricing.price_hash)
+        } else if (roomLetter === "B") {
+            for ( index in this.state.bRooms[0].cabinPricing.price_hash)
                 if (index.includes("Plus"))
                     return Math.round(this.state.bRooms[0].cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
-        } else if (roomLetter == "F") {
-            for (var index in this.state.familyCabins[0].cabinPricing.price_hash.ahash)
+        } else if (roomLetter === "F") {
+            for ( index in this.state.familyCabins[0].cabinPricing.price_hash.ahash)
                 if (index.includes("Plus"))
                     return Math.round(
                         (this.state.familyCabins[0].cabinPricing.price_hash.ahash[index] +
                         this.state.familyCabins[0].cabinPricing.price_hash.bhash[index])/parseInt(this.state.nrNights, 10) * 100) / 100;
-        } else if (roomLetter == "V1") {
-            for (var index in this.state.vip1.cabinPricing.price_hash)
+        } else if (roomLetter === "V1") {
+            for ( index in this.state.vip1.cabinPricing.price_hash)
                 if (index.includes("Plus"))
                     return Math.round(this.state.vip1.cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
-        } else if (roomLetter == "V2") {
-            for (var index in this.state.vip2.cabinPricing.price_hash)
+        } else if (roomLetter === "V2") {
+            for ( index in this.state.vip2.cabinPricing.price_hash)
                 if (index.includes("Plus"))
                     return Math.round(this.state.vip2.cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
         };
     };
 
     renderTotalRoomPrice = (roomLetter) => {
-        if (roomLetter == "A") return Math.round(this.state.aRooms[0].cabinPricing.price_total);
-        else if (roomLetter == "B") return Math.round(this.state.bRooms[0].cabinPricing.price_total);
-        else if (roomLetter == "F") return Math.round(this.state.familyCabins[0].cabinPricing.price_total);
-        else if (roomLetter == "V1") return Math.round(this.state.vip1.cabinPricing.price_total);
-        else if (roomLetter == "V2") return Math.round(this.state.vip2.cabinPricing.price_total);
+        if (roomLetter === "A") return Math.round(this.state.aRooms[0].cabinPricing.price_total);
+        else if (roomLetter === "B") return Math.round(this.state.bRooms[0].cabinPricing.price_total);
+        else if (roomLetter === "F") return Math.round(this.state.familyCabins[0].cabinPricing.price_total);
+        else if (roomLetter === "V1") return Math.round(this.state.vip1.cabinPricing.price_total);
+        else if (roomLetter === "V2") return Math.round(this.state.vip2.cabinPricing.price_total);
     };
 
     setGrandTotal = (grandTotal) => this.setState({ grandTotal });

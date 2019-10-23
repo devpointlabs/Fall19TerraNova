@@ -1,6 +1,6 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel'
-import TerraNovaCircle from '../../images/TerraNovaCircle.png';
+// import TerraNovaCircle from '../../images/TerraNovaCircle.png';
 import styled from 'styled-components'
 import './homestyles/Quotes.css'
 

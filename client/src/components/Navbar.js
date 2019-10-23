@@ -182,11 +182,8 @@ class Navbar extends React.Component {
             </div>
             <NavbarBS className="navbar-background" expand="lg" sticky="top">
               <div className="navbar-left">
-                <NavbarBS.Brand
-                    onClick={this.cleanLocalStorage}
-                    href="/"
-                >
-                  <img src={logo} height="80px" width="50px" />
+                <NavbarBS.Brand href="/" onClick={this.cleanLocalStorage}>
+                  <img alt="logo" src={logo} height="80px" width="50px" />
                 </NavbarBS.Brand>
               </div>
               <div className="navbar-right">

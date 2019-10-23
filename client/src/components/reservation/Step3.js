@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Col, Row, InputGroup, Button } from "react-bootstrap";
+import { Form, Col, Row } from "react-bootstrap";
 import styled from "styled-components";
 import RenderCountries from "./RenderCountries";
 import RenderStates from "./RenderStates";
@@ -61,10 +61,7 @@ class Step3 extends React.Component {
 
     setTotalNrRooms = (nrRoomsArray) => {
         let totalNrRooms = 0;
-        nrRoomsArray.map(room => {
-            if (room.roomLetter)
-                totalNrRooms += 1
-        });
+        this.props.nrRoomsArray.map(room => totalNrRooms = room.roomLetter && (totalNrRooms + 1));
         this.setState({ totalNrRooms });
     };
 
@@ -86,10 +83,7 @@ class Step3 extends React.Component {
 
     calculateTaxes = (nrRoomsArray) => {
         let taxes = this.state.taxes;
-        nrRoomsArray.map((room, index) => {
-            taxes.push("");
-            taxes[index] = room.roomPrice * 0.075;
-        });
+        this.props.nrRoomsArray.map((room, index) => taxes.push(room.roomPrice * 0.075));
         this.setState({ taxes });
         return taxes;
     };
@@ -198,7 +192,7 @@ class Step3 extends React.Component {
                                             </span>
                                         </div>
                                     </div>
-                                    { index != this.state.nrRoomsArray.length-1 &&
+                                    { index !== this.props.nrRoomsArray.length-1 &&
                                         <div className="reservation-hr-container"><div className="reservation-line" /></div>
                                     }
                                 </>
@@ -368,7 +362,7 @@ class Step3 extends React.Component {
                                     <>
                                         <span style={{width: "15%", marginTop: "0.8%"}}>Coupon code:</span>
                                         <Form.Control placeholder="Coupon code" />
-                                        <span className="reservation-custom-button-submit">Submit</span>
+                                        <span className="reservation-custo-submit">Submit</span>
                                     </>
                                 }
                             </div>
