@@ -85,27 +85,6 @@ class Navbar extends React.Component {
     //     this.setState({ modalShow: false });
     // };
 
-    cleanLocalStorage = () => {
-        if (localStorage.startDateString) {
-            localStorage.removeItem('startDateString');
-            localStorage.removeItem('endDateString');
-            localStorage.removeItem('nrNights');
-            localStorage.removeItem('totalPrice');
-            let nextRoom = true;
-            let room = 1;
-            while (nextRoom) {
-                localStorage.removeItem(`room${room}_roomNumber`);
-                localStorage.removeItem(`room${room}_roomLetter`);
-                localStorage.removeItem(`room${room}_roomPrice`);
-                localStorage.removeItem(`room${room}_roomPriceType`);
-                localStorage.removeItem(`room${room}_nrAdults`);
-                localStorage.removeItem(`room${room}_nrChildren`);
-                room += 1;
-                if (!localStorage.getItem(`room${room}_roomNumber`)) nextRoom = false;
-            };
-        };
-    };
-
     render() {
     const { auth: { user, handleLogout } } = this.props;
     return (
@@ -131,7 +110,6 @@ class Navbar extends React.Component {
                       {this.adminVer()}
                       { user ? 
                         <MenuButton
-                          onClick={this.cleanLocalStorage}
                           exact
                           to="/mytrips"
                           activeStyle={menuButtonActive}
@@ -145,7 +123,6 @@ class Navbar extends React.Component {
                       {user ?
                         <div onClick={() => handleLogout(this.props.history)}>
                           <MenuButton
-                            onClick={this.cleanLocalStorage}
                             to='/login'
                             style={{ marginRight: "10px" }}
                           >
@@ -155,7 +132,6 @@ class Navbar extends React.Component {
                         </div>
                         :
                         <MenuButton
-                          onClick={this.cleanLocalStorage}
                           exact
                           to="/login"
                           style={{ marginRight: "10px" }}
@@ -183,7 +159,6 @@ class Navbar extends React.Component {
             <NavbarBS className="navbar-background" expand="lg" sticky="top">
               <div className="navbar-left">
                 <NavbarBS.Brand
-                    onClick={this.cleanLocalStorage}
                     href="/"
                 >
                   <img src={logo} height="80px" width="50px" />
@@ -194,7 +169,6 @@ class Navbar extends React.Component {
                 <NavbarBS.Collapse id="basic-navbar-nav">
                   <Nav className="mr-auto">
                                         <NavButton
-                                            onClick={this.cleanLocalStorage}
                                             exact
                                             to="/"
                                             activeStyle={navButtonActive}
@@ -202,7 +176,6 @@ class Navbar extends React.Component {
                                             HOME
                                         </NavButton>
                                         <NavButton
-                                            onClick={this.cleanLocalStorage}
                                             exact
                                             to="/roomsrates"
                                             activeStyle={navButtonActive}
@@ -210,7 +183,6 @@ class Navbar extends React.Component {
                                             ROOMS
                                         </NavButton>
                                         <NavButton
-                                            onClick={this.cleanLocalStorage}
                                             exact
                                             to="/reservation"
                                             activeStyle={navButtonActive}
@@ -218,7 +190,6 @@ class Navbar extends React.Component {
                                             RESERVATION
                                         </NavButton>
                                         <NavButton
-                                            onClick={this.cleanLocalStorage}
                                             exact
                                             to="/gallery"
                                             activeStyle={navButtonActive}
@@ -226,7 +197,6 @@ class Navbar extends React.Component {
                                             GALLERY
                                         </NavButton>
                                         <NavButton
-                                            onClick={this.cleanLocalStorage}
                                             exact
                                             to="/about"
                                             activeStyle={navButtonActive}
@@ -234,7 +204,6 @@ class Navbar extends React.Component {
                                             ABOUT
                                         </NavButton>
                                         <NavButton
-                                            onClick={this.cleanLocalStorage}
                                             exact
                                             to="/contact"
                                             activeStyle={navButtonActive}

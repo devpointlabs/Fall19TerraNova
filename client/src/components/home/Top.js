@@ -94,8 +94,6 @@ class Top extends React.Component {
         this.getYearFromDate(date, "end");
         console.log(this.state.startDate)
         console.log(date.diff(this.state.startDate, 'day'));
-        let startDate = this.state.startDate;
-        debugger
     };
 
     setNrNights = (nrNights) => {
@@ -108,24 +106,54 @@ class Top extends React.Component {
         });
     };
 
-    Button = withRouter(({ history }) => (
+    // Button = withRouter(({ history }) => (
+    //     <span
+    //         className="check-availability-button"
+    //         onClick={ this.state.endDate != "" ? () => {
+    //             history.push({
+    //             pathname: '/reservation',
+    //             state: this.state,
+    //             startDateParse: this.state.startDate.format("YYYY-MM-DD"),
+    //             endDateParse: this.state.endDate.format("YYYY-MM-DD"),
+    //             cleanLocalStorage: true
+    //         }) }
+    //         :
+    //             this.state._isMounted &&
+    //                 (() => this.setState({ modalShowNoEndDate: true }))
+    //         }
+    //     >
+    //         CHECK AVAILABILITY
+    //     </span>
+    // ));
+
+    CheckAvailabilityButton = withRouter(({ history }) => (
         <span
             className="check-availability-button"
-            onClick={ this.state.endDate != "" ? () => { 
-                history.push({
-                pathname: '/reservation',
-                state: this.state,
-                startDateParse: this.state.startDate.format("YYYY-MM-DD"),
-                endDateParse: this.state.endDate.format("YYYY-MM-DD")
-            }) }
-            :
-                this.state._isMounted &&
-                    (() => this.setState({ modalShowNoEndDate: true }))
-            }
+            onClick={() => this.prepareForRedirection(history)}
         >
             CHECK AVAILABILITY
         </span>
     ));
+
+    prepareForRedirection = async (history) => {
+        if (this.state.endDate !== "") {
+            await this.addToLocalStorage();
+            history.push({pathname: '/reservation'})
+        } else {
+            this.setState({ modalShowNoEndDate: true })
+        };
+    };
+
+    addToLocalStorage = () => {
+        localStorage.setItem('startDateString', this.state.startDateString);
+        localStorage.setItem('endDateString', this.state.endDateString);
+        localStorage.setItem('startDateDB', this.state.startDateDB);
+        localStorage.setItem('endDateDB', this.state.endDateDB);
+        localStorage.setItem('startDateParse', this.state.startDate.format("YYYY-MM-DD"));
+        localStorage.setItem('endDateParse', this.state.endDate.format("YYYY-MM-DD"));
+        localStorage.setItem('nrNights', this.state.nrNights);
+        localStorage.setItem('step', 2);
+    };
 
     getDayFromDate = (date, startOrEnd) => {
         if (startOrEnd === "start")
@@ -188,6 +216,28 @@ class Top extends React.Component {
             this.setState({ endYear: date.$y.toString() });
     };
 
+    cleanLocalStorage = () => {
+        debugger
+        if (localStorage.startDateString) {
+            localStorage.removeItem('startDateString');
+            localStorage.removeItem('endDateString');
+            localStorage.removeItem('nrNights');
+            localStorage.removeItem('totalPrice');
+            let nextRoom = true;
+            let room = 1;
+            while (nextRoom) {
+                localStorage.removeItem(`room${room}_roomNumber`);
+                localStorage.removeItem(`room${room}_roomLetter`);
+                localStorage.removeItem(`room${room}_roomPrice`);
+                localStorage.removeItem(`room${room}_roomPriceType`);
+                localStorage.removeItem(`room${room}_nrAdults`);
+                localStorage.removeItem(`room${room}_nrChildren`);
+                room += 1;
+                if (!localStorage.getItem(`room${room}_roomNumber`)) nextRoom = false;
+            };
+        };
+    };
+
     render() {
         return (
             <div className="top">
@@ -222,9 +272,12 @@ class Top extends React.Component {
                             <img src={calendar} width="50%" />
                         </span>
                     </div>
-                    <this.Button />
+                    {/* <this.Button /> */}
+                    <this.CheckAvailabilityButton />
+                    {/* <div className="check-availability-button">
+                        CHECK AVAILABILITY
+                    </div> */}
                 </div>
-                
                 <Carousel nextIcon="" prevIcon="" >
                     <Carousel.Item>
                         <img
