@@ -61,7 +61,7 @@ class Reservation extends React.Component {
         chooseEndDate: false,
         nrNights: "1",
         nrRooms: "1",
-        nrRoomsArray: [{roomNumber: "1", roomLetter: null, roomPrice: null, roomPriceType: null, people: ["0", "0"], active: true}],
+        nrRoomsArray: [{roomNumber: "1", roomLetter: null, cabinId: null, cabinNumber: null, roomPrice: null, roomPriceType: null, people: ["0", "0"], active: true}],
         rooms: [["0", "0"]], //room: (adults: ?, children: ?)
         aRooms: [],
         bRooms: [],
@@ -109,6 +109,8 @@ class Reservation extends React.Component {
                 tempPeople = ["0", "0"];
                 tempRoom.roomNumber = localStorage.getItem(`room${room}_roomNumber`);
                 tempRoom.roomLetter = localStorage.getItem(`room${room}_roomLetter`);
+                tempRoom.cabinId = localStorage.getItem(`room${room}_cabinId`);
+                tempRoom.cabinNumber = localStorage.getItem(`room${room}_cabinNumber`);
                 tempRoom.roomPrice = parseFloat(localStorage.getItem(`room${room}_roomPrice`));
                 tempRoom.roomPriceType = localStorage.getItem(`room${room}_roomPriceType`);
                 tempPeople[0] = localStorage.getItem(`room${room}_nrAdults`);
@@ -269,19 +271,19 @@ class Reservation extends React.Component {
                             case "A":
                                 room = res.data.aRooms[0];
                                 familyCabins = familyCabins.filter( familyCabin => 
-                                    familyCabin.cabin_number != room.cabin_number );
+                                    familyCabin.cabin_number !== room.cabin_number );
                                 break;
                             case "B":
                                 room = res.data.bRooms[0];
                                 familyCabins = familyCabins.filter( familyCabin => 
-                                    familyCabin.cabin_number != room.cabin_number );
+                                    familyCabin.cabin_number !== room.cabin_number );
                                 break;
                             case "F":
                                 room = res.data.familyCabins[0];
                                 aRooms = aRooms.filter( aRoom => 
-                                    aRoom.cabin_number != room.cabin_number );
+                                    aRoom.cabin_number !== room.cabin_number );
                                 bRooms = bRooms.filter( bRoom => 
-                                    bRoom.cabin_number != room.cabin_number );
+                                    bRoom.cabin_number !== room.cabin_number );
                                 break;
                             case "V1":
                                 room = vip1;
@@ -290,6 +292,11 @@ class Reservation extends React.Component {
                             case "V2":
                                 room = vip2;
                                 vip2 = null;
+                                break;
+                            default:
+                                room = res.data.aRooms[0];
+                                familyCabins = familyCabins.filter( familyCabin => 
+                                    familyCabin.cabin_number !== room.cabin_number );
                                 break;
                         };
                         bookedRooms.push(room);
@@ -459,9 +466,11 @@ class Reservation extends React.Component {
             rooms.push(["0", "0"]);
             nrRoomsArray[nrRoomsArray.length-1].active = false;
             nrRoomsArray[nrRoomsArray.length-1].roomLetter = roomLetter;
+            nrRoomsArray[nrRoomsArray.length-1].cabinId = room.cabin_id;
+            nrRoomsArray[nrRoomsArray.length-1].cabinNumber = room.cabin_number;
             nrRoomsArray[nrRoomsArray.length-1].roomPrice = roomPrice;
             nrRoomsArray[nrRoomsArray.length-1].roomPriceType = priceType;
-            nrRoomsArray.push( {roomNumber: (nrRoomsArray.length+1).toString(), roomLetter: null, roomPrice: null, roomPriceType: null, people: ["0", "0"], active: true} );
+            nrRoomsArray.push( {roomNumber: (nrRoomsArray.length+1).toString(), roomLetter: null, cabinId: null, cabinNumber: null, roomPrice: null, roomPriceType: null, people: ["0", "0"], active: true} );
         } else {
             // changing a room
             bookedRooms = bookedRooms.map( (bookedRoom, index) => {
@@ -472,6 +481,8 @@ class Reservation extends React.Component {
             });
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].active = false;
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomLetter = roomLetter;
+            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].cabinId = room.cabin_id;
+            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].cabinId = room.cabin_number;
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomPrice = roomPrice;
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomPriceType = priceType;
             if (!nrRoomsArray[nrRoomsArray.length-1].roomLetter) nrRoomsArray[nrRoomsArray.length-1].active = true;
@@ -500,11 +511,15 @@ class Reservation extends React.Component {
             if (room.roomLetter) {
                 localStorage.setItem(`room${index+1}_roomNumber`, nrRoomsArray[index].roomNumber);
                 localStorage.setItem(`room${index+1}_roomLetter`, nrRoomsArray[index].roomLetter);
+                localStorage.setItem(`room${index+1}_cabinId`, nrRoomsArray[index].cabinId);
+                localStorage.setItem(`room${index+1}_cabinNumber`, nrRoomsArray[index].cabinNumber);
                 localStorage.setItem(`room${index+1}_roomPrice`, nrRoomsArray[index].roomPrice);
                 localStorage.setItem(`room${index+1}_roomPriceType`, nrRoomsArray[index].roomPriceType);
                 localStorage.setItem(`room${index+1}_nrAdults`, nrRoomsArray[index].people[0]);
                 localStorage.setItem(`room${index+1}_nrChildren`, nrRoomsArray[index].people[1]);
-            }});
+            };
+            return room;
+        });
     };
 
     addToLocalStorageStep1 = () => {
@@ -745,6 +760,8 @@ class Reservation extends React.Component {
         while (nextRoom) {
             localStorage.removeItem(`room${room}_roomNumber`);
             localStorage.removeItem(`room${room}_roomLetter`);
+            localStorage.removeItem(`room${room}_cabinId`);
+            localStorage.removeItem(`room${room}_cabinNumber`);
             localStorage.removeItem(`room${room}_roomPrice`);
             localStorage.removeItem(`room${room}_roomPriceType`);
             localStorage.removeItem(`room${room}_nrAdults`);
@@ -767,6 +784,8 @@ class Reservation extends React.Component {
         while (nextRoom) {
             localStorage.removeItem(`room${room}_roomNumber`);
             localStorage.removeItem(`room${room}_roomLetter`);
+            localStorage.removeItem(`room${room}_cabinId`);
+            localStorage.removeItem(`room${room}_cabinNumber`);
             localStorage.removeItem(`room${room}_roomPrice`);
             localStorage.removeItem(`room${room}_roomPriceType`);
             localStorage.removeItem(`room${room}_nrAdults`);
