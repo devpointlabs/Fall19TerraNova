@@ -31,7 +31,7 @@ const RoomsRates = () => (
                     alt="mountainview"
                     width="100%"
                 />
-                <p style={{marginTop: "1em"}}>A modern duplex cabin with beautiful mountain view.</p>
+                <p className="roomrates-description">A modern duplex cabin with beautiful mountain view.</p>
                 <div className="roomsrates-list-container">
                     <div className="roomsrates-ul-column">
                         <ul>
@@ -61,7 +61,7 @@ const RoomsRates = () => (
                     alt="lakeview"
                     width="100%"
                 />
-                <p style={{marginTop: "1em"}}>A modern duplex cabin with partial view of Hebgen Lake.</p>
+                <p className="roomrates-description">A modern duplex cabin with partial view of Hebgen Lake.</p>
                 <div className="roomsrates-list-container">
                     <div className="roomsrates-ul-column">
                         <ul>
@@ -91,7 +91,7 @@ const RoomsRates = () => (
                     alt="familyroom"
                     width="100%"
                 />
-                <p style={{marginTop: "1em"}}>A whole unit with both a mountain view room and lake view room.</p>
+                <p className="roomrates-description">A whole unit with both a mountain view room and lake view room.</p>
                 <div className="roomsrates-list-container">
                     <div className="roomsrates-ul-column">
                         <ul>
@@ -122,7 +122,7 @@ const RoomsRates = () => (
                     width="100%"
                     height="376px"
                 />
-                <p style={{marginTop: "1em"}}>A deluxe room for deluxe people.</p>
+                <p className="roomrates-description">A deluxe room for deluxe people.</p>
                 <div className="roomsrates-list-container">
                     <div className="roomsrates-ul-column">
                         <ul>
@@ -153,7 +153,7 @@ const RoomsRates = () => (
                     width="100%"
                     height="376px"
                 />
-                <p style={{marginTop: "1em"}}>A deluxe room for deluxe people.</p>
+                <p className="roomrates-description">A deluxe room for deluxe people.</p>
                 <div className="roomsrates-list-container">
                     <div className="roomsrates-ul-column">
                         <ul>

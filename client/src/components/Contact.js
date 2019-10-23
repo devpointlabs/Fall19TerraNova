@@ -54,22 +54,22 @@ const Contact = () => {
           </div>
           <div className="textbody">
             <p> Have questions? Concerns? Send us an email and we will be glad to answer them. How much wood could a woodchuck chuck? 
-              We want to know too. Ask our experts and find out. The variations of quantum space and time are on our mind too. No 
+              We want to know too. Ask our experts and find out. The variations of quantum space and time are on our minds as well. No 
               question is too far fetched. It's these things that help us to enhance your experience at Terra Nova. 
             </p>
           </div>
           <div className="contactdetails">
             <div className="address">
               <img src={Location} alt="locationicon" width="06%"/>
-                <span> 35 Kirkwood Creek Road, West Yellowstone, MT. </span>
+                <span> 88 Cedarwood River Lane, West Yellowstone, MT. </span>
             </div>
             <div className="phone">
               <img src={Phone} alt="phoneicon" width="07%"/>
-                <span> 1-709-543-2260</span>
+                <span> 1-888-867-5309</span>
             </div>
             <div className="email">
               <img src={Mail} alt="mailicon" width="08%"/>
-                <span> info@terranovacabins.com</span>
+                <span> info@devlife.com</span>
             </div>
           </div>
         </div>

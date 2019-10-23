@@ -152,7 +152,7 @@ const HotelStatistics = () => (
             <StatColumnContainer>
                 <Column>  
                     <H2>768 </H2>  
-                    <H3>GUEST STAY</H3>
+                    <H3>GUEST STAYS</H3>
                 </Column>
                 <Column>
                     <H2>632</H2>  
@@ -160,7 +160,7 @@ const HotelStatistics = () => (
                 </Column>
                 <Column>
                     <H2>1024</H2>  
-                    <H3>MEMBER STAY</H3>
+                    <H3>MEMBER STAYS</H3>
                 </Column>
                 <ColumnRight>
                     <H2>256</H2>  
@@ -170,7 +170,7 @@ const HotelStatistics = () => (
         </StatContainer>
         <TeamContainer>
             <TeamContainer2>
-                 <H4>TEAM MEMBER</H4>
+                 <H4>TEAM MEMBERS</H4>
                  <H5>These are the people who make magic happen.</H5>
             </TeamContainer2>   
             <ColumnContainer>
@@ -209,7 +209,7 @@ const HotelStatistics = () => (
                 </ColumnTeam>
                 <ColumnTeam>
                     <span class="dot"></span>
-                    <div className="names">ADAM VK</div>
+                    <div className="names">ADAM von Kramer</div>
                     <div className="position">FRONTEND NINJA</div>
                     <div className="text">
                             Mea omnium explicari te, eu sit vidit

@@ -16,12 +16,14 @@
     text-align: center;
     text-shadow: 4px 4px #373737;
     margin-bottom: 3em;
+    margin-top: -2em;
 }
 
 .bottomoverlay { 
     width: 100%;
     text-align: center;
     text-shadow: 4px 4px #373737;
+
 }
 
 .calendaroverlay {

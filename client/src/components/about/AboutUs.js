@@ -43,7 +43,7 @@ const AboutUs = () => (
           <h1 className="aboutheader"> About Us </h1>
             <p className="abouttext"> Devination Cabins represent the greatest western hospitality has to offer, elegance and luxury
               wrapped in the arms of comfort. Lose your senses as you dirft away from the world, and into our blissful oasis.
-              Not only do we offer luxury, but we pride ourselves on the experience we offer. Imagine waking up to an early 
+              Not only do we offer luxury, but we pride ourselves on the experience. Imagine waking up to an early 
               morning yoga class surrounded by the sounds of nature, spending your afternoon on a scenic hike as friendly buffalo roam nearby, 
               then coming home to a gathering around the fire with s'mores aplenty, Devination Cabins is your heart for adventure.  
               Explore everything the area has to offer, or spend the day being pampered at the spa, whatever your definition of a vacation, 

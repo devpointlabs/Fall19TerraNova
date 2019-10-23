@@ -792,7 +792,7 @@ class Reservation extends React.Component {
                 { this.state.step !== 4 ?
                 <>
                 <div className="reservation-header-container">
-                    <div className="reservation-header">Reservation</div>
+                    <div className="reservation-header">RESERVATION</div>
                 </div>
                 { this.state._isMounted &&
                     <>
