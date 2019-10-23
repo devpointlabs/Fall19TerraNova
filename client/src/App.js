@@ -11,6 +11,7 @@ import RoomDetails from './components/RoomDetails';
 import About from './components/about/About';
 import Contact from './components/Contact';
 import FetchUser from './components/FetchUser';
+import GalleryView from './components/GalleryView';
 import Reservation from './components/reservation/Reservation';
 import { Switch, Route, } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
@@ -50,6 +51,7 @@ const App = () => {
             <Route exact path="/reservation" component={Reservation} />
             <Route exact path="/gallery" component={NoMatch} />
             <Route exact path="/about" component={About} />
+            <Route exact path="/gallery" component={GalleryView} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/findmybooking" component={FindBooking} />
             <Route exact path="/underconstruction" component={UnderConstruction} />

@@ -8042,6 +8042,11 @@ react-full-screen@^0.2.2:
     "@types/react" "*"
     fscreen "^1.0.1"
 
+react-image-file-resizer@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/react-image-file-resizer/-/react-image-file-resizer-0.2.0.tgz#c58c0d89eddafed0c522e441ebcca5d645eb1f28"
+  integrity sha512-hm7zmDCHkgmvNp0Lmmf32lTE30Vsd+f36O1vQbNFVljK+aholA1ehV4L2QH1xBsHHq+gESNFSbzZRTmirBddsg==
+
 react-image-lightbox@5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/react-image-lightbox/-/react-image-lightbox-5.1.0.tgz#b47b904b027c918acdd9efa94dc0a0ddd8125c86"

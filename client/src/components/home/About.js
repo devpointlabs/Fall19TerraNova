@@ -20,8 +20,8 @@ const About = () => (
                 <div className="about-header">About Us</div>
                 <div className="about-hr-div"><hr className="about-line" /></div>
                 <div className="about-text">
-                    <p>Terra Nova Cabins represent the best in western hospitality and comfort, wrapped in a contemporary expression that will inspire your own unique adventures. Both a haven from the world and a basecamp for adventure, Terra Nova Cabins is your new Southwestern Montana destination rental.</p>
-                    <p>From early morning walks near the lake, to late night gatherings around a fire, Terra Nova provides the perfect location for your Montana retreat. Explore Yellowstone's natural beauty, or simply stay snuggled up in our cozy cabins and enjoy the views from the inside out.</p>
+                    <p>Devination Cabins represent the greatest western hospitality has to offer, elegance and luxury wrapped in the arms of comfort. Lose your senses as you dirft away from the world, and into our blissful oasis. Not only do we offer luxury, but we pride ourselves on the experience. </p>
+                    <p>Imagine waking up to an early morning yoga class surrounded by the sounds of nature, spending your afternoon on a scenic hike as friendly buffalo roam nearby, then coming home to a gathering around the fire with s'mores aplenty, Devination Cabins is your heart for adventure. Explore everything the area has to offer, or spend the day being pampered at the spa, whatever your definition of a vacation, Devination delivers.</p>
                     <br />
                     <CustomButton as={NavLink} to="/about">READ MORE</CustomButton>
                 </div>
@@ -79,6 +79,7 @@ const CustomButton = styled(Button)`
     padding-right: 17px !important;
     padding-top: 10px;
     padding-bottom: 10px;
+    font-family: 'Catamaran';
 
     &:hover {
         background-color: #8E7037 !important;
@@ -86,3 +87,6 @@ const CustomButton = styled(Button)`
 `;
 
 export default About;
+
+
+              

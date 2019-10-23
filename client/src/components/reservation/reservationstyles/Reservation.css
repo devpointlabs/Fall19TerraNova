@@ -32,8 +32,9 @@
 .reservation-header {
     margin-top: 20px;
     margin-bottom: 25px;
-    font-size: 40px;
-    font-family: 'EB Garamond';
+    font-size: 35px;
+    font-family: 'Catamaran', sans-serif;
+    font-weight: bold
 }
 
 .reservation-hr-container {

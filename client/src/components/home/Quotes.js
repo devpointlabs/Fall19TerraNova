@@ -1,6 +1,5 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel'
-// import TerraNovaCircle from '../../images/TerraNovaCircle.png';
 import styled from 'styled-components'
 import './homestyles/Quotes.css'
 
@@ -66,14 +65,14 @@ const RatingContainer = styled.div`
 const Quote = styled.h2`
   color: white;
   margin-bottom: 40px !important;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Catamaran', sans-serif;
   font-size: 17px;
 
  `;
 
 const Author = styled.h1`
   color: white;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Catamaran', sans-serif;
   font-size: 20px;
 
  `;
@@ -81,7 +80,7 @@ const Author = styled.h1`
 const Location = styled.h3`
 color: white;
 margin-bottom: 100px !important;
-font-family: 'Raleway', sans-serif;
+font-family: 'Catamaran', sans-serif;
 font-size: 14px;
 
 `;
