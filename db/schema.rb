@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2019_10_18_205952) do
 
   create_table "images", force: :cascade do |t|
     t.string "group"
-    t.string "img"
+    t.string "fileimg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
