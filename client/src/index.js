@@ -8,15 +8,17 @@ import { initMiddleware, } from 'devise-axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
-
+import {StateProvider,} from './providers/StateProvider';
 
 initMiddleware();
 
 ReactDOM.render(
   <AuthProvider>
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
+    <StateProvider>
+      <BrowserRouter>
+          <App />
+      </BrowserRouter>
+    </StateProvider>
   </AuthProvider>,
   document.getElementById('root')
 );

@@ -156,7 +156,7 @@ const HotelStatistics = () => (
                 </Column>
                 <Column>
                     <H2>632</H2>  
-                    <H3>BOOK ROOM</H3>
+                    <H3>ROOMS BOOKED</H3>
                 </Column>
                 <Column>
                     <H2>1024</H2>  
@@ -171,13 +171,13 @@ const HotelStatistics = () => (
         <TeamContainer>
             <TeamContainer2>
                  <H4>TEAM MEMBER</H4>
-                 <H5>Lorem Ipsum is simply dummy text of the printing</H5>
+                 <H5>These are the people who make magic happen.</H5>
             </TeamContainer2>   
             <ColumnContainer>
                 <ColumnTeam>
                     <span class="dot"></span>
-                    <div className="names">SUAN CHOW</div>
-                    <div className="position">GENERAL MANAGER</div>
+                    <div className="names">NOAH ANDERSON</div>
+                    <div className="position">BACKEND WIZZARD</div>
                     <div className="text">
                             Mea omnium explicari te, eu sit vidit
                             haram fabellas, his no legere
@@ -187,8 +187,8 @@ const HotelStatistics = () => (
                 </ColumnTeam>
                 <ColumnTeam>
                     <span class="dot"></span>
-                    <div className="names">JIN LIANG</div>
-                    <div className="position">FOUNDER HOTEL</div>
+                    <div className="names">MIKELLE BROWN</div>
+                    <div className="position">DESIGN GURU</div>
                     <div className="text">
                             Mea omnium explicari te, eu sit vidit
                             haram fabellas, his no legere
@@ -198,8 +198,8 @@ const HotelStatistics = () => (
                 </ColumnTeam>
                 <ColumnTeam>
                     <span class="dot"></span>
-                    <div className="names">ADAM</div>
-                    <div className="position">LOREM IPSUM</div>
+                    <div className="names">SHANNON JONES</div>
+                    <div className="position">STYLING SORCERESS</div>
                     <div className="text">
                             Mea omnium explicari te, eu sit vidit
                             haram fabellas, his no legere
@@ -209,8 +209,8 @@ const HotelStatistics = () => (
                 </ColumnTeam>
                 <ColumnTeam>
                     <span class="dot"></span>
-                    <div className="names">DAVID GARI</div>
-                    <div className="position">LOREM IPSUM</div>
+                    <div className="names">ADAM VK</div>
+                    <div className="position">FRONTEND NINJA</div>
                     <div className="text">
                             Mea omnium explicari te, eu sit vidit
                             haram fabellas, his no legere
