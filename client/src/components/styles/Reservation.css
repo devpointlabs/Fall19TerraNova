@@ -230,7 +230,19 @@
 .reservation-inner-room-container {
     background: white;
     display: flex;
+    flex-direction: row;
     padding-top: 15px;
+}
+
+.reservation-inner-room-price-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.reservation-inner-room-price {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid black;
 }
 
 .reservation-room-content {
@@ -268,6 +280,12 @@
 
 .reservation-custom-button:hover {
     background-color: rgb(223, 193, 141) !important;
+}
+
+.reservation-small-custom-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .reservation-small-custom-button {
@@ -396,6 +414,11 @@ div.text {
 
 ul {
     padding-left: 4%;
+}
+
+li {
+    margin-bottom: -5px !important;
+    padding-bottom: -5px !important;
 }
 
 row {

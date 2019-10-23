@@ -1,4 +1,3 @@
-"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,5 +5,5 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = isNotBetween;
 
 function isNotBetween(minDate, maxDate, selectedDay) {
-  return minDate != null && selectedDay.isBefore(minDate, 'day') || maxDate != null && selectedDay.isAfter(maxDate, 'day');
+  return (minDate != null && selectedDay.isBefore(minDate, 'day')) || (maxDate != null && selectedDay.isAfter(maxDate, 'day'));
 }

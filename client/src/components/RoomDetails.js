@@ -1,17 +1,17 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
-import { Form, Modal, Carousel } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
 import "./styles/RoomDetails.css";
 import RoomImage from '../images/room_image.png';
 import Hotel3 from '../images/Hotel3.jpg';
-import A_1 from '../images/Hotel3.jpg';
-import A_2 from '../images/Hotel4.jpg';
-import A_3 from '../images/Hotel5.jpg';
-import A_4 from '../images/Hotel6.jpg';
-import A_5 from '../images/Hotel7.jpg';
-import A_6 from '../images/Hotel8.jpg';
-import A_7 from '../images/Hotel9.jpg';
+// import A_1 from '../images/Hotel3.jpg';
+// import A_2 from '../images/Hotel4.jpg';
+// import A_3 from '../images/Hotel5.jpg';
+// import A_4 from '../images/Hotel6.jpg';
+// import A_5 from '../images/Hotel7.jpg';
+// import A_6 from '../images/Hotel8.jpg';
+// import A_7 from '../images/Hotel9.jpg';
 import person from '../images/small-person-image.png';
 import bed from '../images/small-bed-image.png';
 import eye from '../images/small-eye-image.png';
@@ -51,7 +51,6 @@ class RoomDetails extends React.Component {
             endDateString: endDate.format("MM/DD/YYYY"),
             endDateDB: startDate.format("DD/MM/YYYY"),
             nrNights: 1,
-            _isMounted: true
         });
         if (this.props.location.room)
             this.setState({ currentRoom: this.props.location.room });
@@ -106,7 +105,7 @@ class RoomDetails extends React.Component {
 
     moveLeft = () => {
         let currentImage = this.state.currentImage;
-        if (currentImage != this.state.roomImages[0]) {
+        if (currentImage !== this.state.roomImages[0]) {
             currentImage = (parseInt(currentImage, 10) - 1).toString();
             this.setState({ currentImage })
         };
@@ -114,7 +113,7 @@ class RoomDetails extends React.Component {
 
     moveRight = () => {
         let currentImage = this.state.currentImage;
-        if (currentImage != this.state.roomImages[this.state.roomImages.length-1]) {
+        if (currentImage !== this.state.roomImages[this.state.roomImages.length-1]) {
             currentImage = (parseInt(currentImage, 10) + 1).toString();
             this.setState({ currentImage })
         };
@@ -123,10 +122,12 @@ class RoomDetails extends React.Component {
     Button = withRouter(({ history }) => (
         <span
             className="roomdetails-custom-button"
-            onClick={ this.state.endDate != "" ? () => { 
+            onClick={ this.state.endDate !== "" ? () => { 
                 history.push({
                 pathname: '/reservation',
-                state: this.state
+                state: this.state,
+                startDateParse: this.state.startDate.format("YYYY-MM-DD"),
+                endDateParse: this.state.endDate.format("YYYY-MM-DD")
             }) }
             :
                 this.state._isMounted &&
@@ -161,13 +162,13 @@ class RoomDetails extends React.Component {
         <>
             { roomLetter === "A" &&
                 <>
-                    <img src={Hotel3} width="100%" />
+                    <img alt="Terra Nova" src={Hotel3} width="100%" />
                     <span className="roomdetails-text-header">LAKE VIEW</span>
                     <div className="roomdetails-content">
                         <div className="roomdetails-small-images-column">
-                            <img style={{marginBottom: "0.75em"}} src={person} width="15em" />
-                            <img style={{marginBottom: "1.08em"}} src={bed} width="18em" />
-                            <img src={eye} width="17em" />
+                            <img alt="Terra Nova" style={{marginBottom: "0.75em"}} src={person} width="15em" />
+                            <img alt="Terra Nova" style={{marginBottom: "1.08em"}} src={bed} width="18em" />
+                            <img alt="Terra Nova" src={eye} width="17em" />
                         </div>
                         <div className="roomdetails-text-column">
                             <span style={{marginBottom: "0.5em"}}>Max: 4 persons</span>
@@ -182,13 +183,13 @@ class RoomDetails extends React.Component {
             }
             { roomLetter === "B" &&
                 <>
-                    <img src={Hotel3} width="100%" />
+                    <img alt="Terra Nova" src={Hotel3} width="100%" />
                     <span className="roomdetails-text-header">MOUNTAIN VIEW</span>
                     <div className="roomdetails-content">
                         <div className="roomdetails-small-images-column">
-                            <img style={{marginBottom: "0.75em"}} src={person} width="15em" />
-                            <img style={{marginBottom: "1.08em"}} src={bed} width="18em" />
-                            <img src={eye} width="17em" />
+                            <img alt="Terra Nova" style={{marginBottom: "0.75em"}} src={person} width="15em" />
+                            <img alt="Terra Nova" style={{marginBottom: "1.08em"}} src={bed} width="18em" />
+                            <img alt="Terra Nova" src={eye} width="17em" />
                         </div>
                         <div className="roomdetails-text-column">
                             <span style={{marginBottom: "0.5em"}}>Max: 4 persons</span>
@@ -203,13 +204,13 @@ class RoomDetails extends React.Component {
             }
             { roomLetter === "F" &&
                 <>
-                    <img src={Hotel3} width="100%" />
+                    <img alt="Terra Nova" src={Hotel3} width="100%" />
                     <span className="roomdetails-text-header">FAMILY ROOM</span>
                     <div className="roomdetails-content">
                         <div className="roomdetails-small-images-column">
-                            <img style={{marginBottom: "0.75em"}} src={person} width="15em" />
-                            <img style={{marginBottom: "1.08em"}} src={bed} width="18em" />
-                            <img src={eye} width="17em" />
+                            <img alt="Terra Nova" style={{marginBottom: "0.75em"}} src={person} width="15em" />
+                            <img alt="Terra Nova" style={{marginBottom: "1.08em"}} src={bed} width="18em" />
+                            <img alt="Terra Nova" src={eye} width="17em" />
                         </div>
                         <div className="roomdetails-text-column">
                             <span style={{marginBottom: "0.5em"}}>Max: 8 persons</span>
@@ -224,13 +225,13 @@ class RoomDetails extends React.Component {
             }
             { roomLetter === "V1" &&
                 <>
-                    <img src={Hotel3} width="100%" />
+                    <img alt="Terra Nova" src={Hotel3} width="100%" />
                     <span className="roomdetails-text-header">VIP ROOM #1</span>
                     <div className="roomdetails-content">
                         <div className="roomdetails-small-images-column">
-                            <img style={{marginBottom: "0.75em"}} src={person} width="15em" />
-                            <img style={{marginBottom: "1.08em"}} src={bed} width="18em" />
-                            <img src={eye} width="17em" />
+                            <img alt="Terra Nova" style={{marginBottom: "0.75em"}} src={person} width="15em" />
+                            <img alt="Terra Nova" style={{marginBottom: "1.08em"}} src={bed} width="18em" />
+                            <img alt="Terra Nova" src={eye} width="17em" />
                         </div>
                         <div className="roomdetails-text-column">
                             <span style={{marginBottom: "0.5em"}}>Max: 4 persons</span>
@@ -245,13 +246,13 @@ class RoomDetails extends React.Component {
             }
             { roomLetter === "V2" &&
                 <>
-                    <img src={Hotel3} width="100%" />
+                    <img alt="Terra Nova" src={Hotel3} width="100%" />
                     <span className="roomdetails-text-header">VIP ROOM #2</span>
                     <div className="roomdetails-content">
                         <div className="roomdetails-small-images-column">
-                            <img style={{marginBottom: "0.75em"}} src={person} width="15em" />
-                            <img style={{marginBottom: "1.08em"}} src={bed} width="18em" />
-                            <img src={eye} width="17em" />
+                            <img alt="Terra Nova" style={{marginBottom: "0.75em"}} src={person} width="15em" />
+                            <img alt="Terra Nova" style={{marginBottom: "1.08em"}} src={bed} width="18em" />
+                            <img alt="Terra Nova" src={eye} width="17em" />
                         </div>
                         <div className="roomdetails-text-column">
                             <span style={{marginBottom: "0.5em"}}>Max: 4 persons</span>
@@ -278,7 +279,7 @@ class RoomDetails extends React.Component {
                     <div className="roomdetails-upper-container">
                         <div className="roomdetails-left-container">
                             <div className="roomdetails-upper-container-image">
-                                <img 
+                                <img alt="Terra Nova" 
                                     src={require(`../images/cabins/${this.state.currentRoom}_${this.state.currentImage}.jpg`)} 
                                     width="100%" 
                                     height="580px"
@@ -294,7 +295,7 @@ class RoomDetails extends React.Component {
                                 { this.state.roomImages.map( (image, index) => (
                                     image === this.state.currentImage ?
                                         <div className="roomdetails-left-lower-container-image-active" key={index}>
-                                            <img 
+                                            <img alt="Terra Nova" 
                                                 src={require(`../images/cabins/${this.state.currentRoom}_${index+1}.jpg`)}
                                                 width="100%"
                                                 height="72px"
@@ -303,7 +304,7 @@ class RoomDetails extends React.Component {
                                         </div>
                                     :
                                         <div className="roomdetails-left-lower-container-image" key={index}>
-                                            <img 
+                                            <img alt="Terra Nova" 
                                                 src={require(`../images/cabins/${this.state.currentRoom}_${index+1}.jpg`)}
                                                 width="100%"
                                                 height="72px"
@@ -314,7 +315,7 @@ class RoomDetails extends React.Component {
                             </div>
                         </div>
                         <div className="roomdetails-right-container">
-                            <img src={RoomImage} width="16%" />
+                            <img alt="Terra Nova" src={RoomImage} width="16%" />
                             <span style={{marginTop: "12px", marginBottom: "6px", fontSize: "13px"}}>{ this.renderRoomName(this.state.currentRoom) }</span>
                             <span>
                                 <span style={{fontSize: "32px", marginRight: "6px"}}>$25</span>
@@ -323,9 +324,9 @@ class RoomDetails extends React.Component {
                             <div className="roomdetails-hr-container"><div className="roomdetails-line" /></div>
                             <div className="roomdetails-right-lower-container">
                                 <span>ARRIVAL</span>
-                                <div className="roomdetails-form-container">
+                                <div className="roomdetails-form-container" onClick={this.handleShowStart}>
                                     <Form.Control className="roomdetails-dateform" value={this.state.startDate.format("MM/DD/YYYY")} readOnly />
-                                    <Icon name="calendar alternate outline" style={{marginTop: "8px", marginRight: "8px"}} onClick={this.handleShowStart} />
+                                    <Icon name="calendar alternate outline" style={{marginTop: "8px", marginRight: "8px"}} />
                                 </div>
                                 <span>NIGHT(S)</span>
                                 <div className="roomdetails-dropdown-container">
@@ -345,13 +346,13 @@ class RoomDetails extends React.Component {
                                     </Dropdown>
                                 </div>
                                 <span>DEPARTURE</span>
-                                <div className="roomdetails-form-container">
+                                <div className="roomdetails-form-container" onClick={this.handleShowEnd}>
                                     <Form.Control 
                                         className="roomdetails-dateform" 
-                                        value={this.state.endDate != "" ? this.state.endDate.format("MM/DD/YYYY") : this.state.endDate} 
+                                        value={this.state.endDate !== "" ? this.state.endDate.format("MM/DD/YYYY") : this.state.endDate} 
                                         readOnly 
                                     />
-                                    <Icon name="calendar alternate outline" style={{marginTop: "8px", marginRight: "8px"}} onClick={this.handleShowEnd} />
+                                    <Icon name="calendar alternate outline" style={{marginTop: "8px", marginRight: "8px"}} />
                                 </div>
                                 <div className="roomdetails-button-container">
                                     <this.Button />
@@ -362,7 +363,7 @@ class RoomDetails extends React.Component {
                     <div className="roomdetails-hr-container"><div className="roomdetails-line" /></div>
                     <div className="roomdetails-lower-container">
                         { this.state.roomReferences.map( (room, index) => (
-                            room != this.state.currentRoom &&
+                            room !== this.state.currentRoom &&
                                 <div className="roomdetails-small-room-container" key={index}>
                                     { this.renderSmallRoom(room) }
                                 </div>
@@ -370,17 +371,17 @@ class RoomDetails extends React.Component {
                     </div>
                 </div>
                 <Modal show={this.state.modalShowStart} onHide={this.handleClose} centered>
-                    { this.props.endDate != "" ?
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    { this.props.endDate !== "" ?
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={this.state.endDate !== "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
                 <Modal show={this.state.modalShowEnd} onHide={this.handleClose} centered>
-                    { this.props.endDate != "" ?
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    { this.props.endDate !== "" ?
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={this.state.endDate !== "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
                 <Modal show={this.state.modalShowNoEndDate} onHide={this.handleClose} centered>

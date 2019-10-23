@@ -1,13 +1,14 @@
-import React, {useState} from "react";
+import React, {useState, useEffect, useContext, } from "react";
 import styled from "styled-components";
 import { Form, } from "semantic-ui-react";
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import axios from "axios";
 import './styles/Contact.css'
 import Location from '../images/contact/LocationIcon.png'
 import Mail from '../images/contact/MailIcon.png'
 import Phone from '../images/contact/PhoneIcon.png'
 import Buffalo from '../images/contact/BuffaloImg.jpg'
+import {StateContext} from '../providers/StateProvider';
 
 
 const Contact = () => {
@@ -16,6 +17,11 @@ const Contact = () => {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const {newemail, saveemail} = useContext(StateContext)
+
+  useEffect(() => {
+    setEmail(newemail)
+  }, [])
 
   const handleSubmit = (e) => {
     axios.get(`/api/contact?name=${name}&email=${email}&subject=${subject}&message=${message}`)
@@ -26,6 +32,7 @@ const Contact = () => {
         setEmail("");
         setSubject("");
         setMessage("");
+        saveemail("");
         console.log("Email Sent!")
       })
   }
@@ -37,7 +44,7 @@ const Contact = () => {
   return (
     <>
       <div className="contacthead">
-        <p className="headtext"> Contact Us </p>
+        <p className="headtext"> CONTACT US </p>
       </div>
 
       <div className="contactbody">

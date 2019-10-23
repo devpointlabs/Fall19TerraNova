@@ -33,7 +33,7 @@ class Top extends React.Component {
     };
 
     componentDidMount() {
-        let startDate = dayjs();
+        let startDate = dayjs(dayjs().format("YYYY-MM-DD"));
         let endDate = dayjs(startDate.add('1', 'day'));
         this.setState({ 
             _isMounted: true,
@@ -44,7 +44,6 @@ class Top extends React.Component {
             endDateString: endDate.format("MM/DD/YYYY"),
             endDateDB: startDate.format("DD/MM/YYYY"),
             nrNights: 1,
-            _isMounted: true
         });
         this.getDayFromDate(startDate, "start");
         this.getDayFromDate(endDate, "end");
@@ -92,6 +91,8 @@ class Top extends React.Component {
         this.getDayFromDate(date, "end");
         this.getMonthFromDate(date, "end");
         this.getYearFromDate(date, "end");
+        console.log(this.state.startDate)
+        console.log(date.diff(this.state.startDate, 'day'));
     };
 
     setNrNights = (nrNights) => {
@@ -107,10 +108,12 @@ class Top extends React.Component {
     Button = withRouter(({ history }) => (
         <span
             className="check-availability-button"
-            onClick={ this.state.endDate != "" ? () => { 
+            onClick={ this.state.endDate !== "" ? () => { 
                 history.push({
                 pathname: '/reservation',
-                state: this.state
+                state: this.state,
+                startDateParse: this.state.startDate.format("YYYY-MM-DD"),
+                endDateParse: this.state.endDate.format("YYYY-MM-DD")
             }) }
             :
                 this.state._isMounted &&
@@ -168,6 +171,8 @@ class Top extends React.Component {
             case 12:
                 month = "DEC";
                 break;
+            default: 
+                break;
         };
         if (startOrEnd === "start")
             this.setState({ startMonth: month });
@@ -202,7 +207,7 @@ class Top extends React.Component {
                             <span className="date-box-year">{ this.state.startYear }</span>
                         </span>
                         <span className="date-box-icon-holder">
-                            <img src={calendar} width="50%" />
+                            <img alt="calendar" src={calendar} width="50%" />
                         </span>
                     </div> 
                     <div className="date-box" onClick={this.handleShowEnd}>
@@ -213,7 +218,7 @@ class Top extends React.Component {
                             <span className="date-box-year">{ this.state.endYear }</span>
                         </span>
                         <span className="date-box-icon-holder">
-                            <img src={calendar} width="50%" />
+                            <img alt="calendar" src={calendar} width="50%" />
                         </span>
                     </div>
                     <this.Button />
@@ -243,17 +248,17 @@ class Top extends React.Component {
                     </Carousel.Item>
                 </Carousel>
                 <Modal show={this.state.modalShowStart} onHide={this.handleClose} centered>
-                    { this.props.endDate != "" ?
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    { this.props.endDate !== "" ?
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={this.state.endDate !== "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
                 <Modal show={this.state.modalShowEnd} onHide={this.handleClose} centered>
-                    { this.props.endDate != "" ?
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    { this.props.endDate !== "" ?
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={this.state.endDate !== "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
                 <Modal show={this.state.modalShowNoEndDate} onHide={this.handleClose} centered>
@@ -272,6 +277,7 @@ const ContentTop = styled.h1`
     color: white;
     font-size: 85px;
     font-family: 'Playfair Display', serif;
+    text-shadow: none;
 `;
 
 const ContentBottom = styled.h3`
@@ -280,6 +286,7 @@ const ContentBottom = styled.h3`
     color: white;
     font-size: 25px;
     font-family: 'Playfair Display', serif;
+    text-shadow: none;
 `;
 
 export default Top;

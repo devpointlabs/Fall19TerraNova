@@ -1,70 +1,108 @@
 import React from "react";
-import { Form, Col, Row, InputGroup, Button } from "react-bootstrap";
-import RenderCountries from "./RenderCountries";
+import { Form, Col, Row } from "react-bootstrap";
 import styled from "styled-components";
+import RenderCountries from "./RenderCountries";
+import RenderStates from "./RenderStates";
+import CheckoutForm from "./CheckoutForm";
+import { Elements } from 'react-stripe-elements';
 
 class Step3 extends React.Component {
     state = { 
         _isMounted: false,
+        startDateString: "",
+        endDateString: "",
+        nrNights: "",
+        totalPrice: 0,
+        nrRoomsArray: [],
         toggleCouponCode: false,
         totalNrRooms: 0,
         totalNrAdults: 0,
         totalNrChildren: 0,
         taxes: [],
-        grandTotal: 0
+        grandTotal: 0,
+        showBankTransfer: false,
+        showCreditCard: false,
+        country: "United States of America",
+        firstName: "",
+        lastName: "",
+        companyName: "",
+        address1: "",
+        address2: "",
+        city: "",
+        state: "",
+        zip: "",
+        email: "",
+        phone: "",
+        orderNotes: "",
+        coupon: "",
+        createAccount: false
     };
 
     componentDidMount() {
-        this.setTotalNrRooms();
-        this.setTotalNrAdults();
-        this.setTotalNrChildren();
-        let taxes = this.calculateTaxes();
-        this.calculateGrandTotal(taxes);
+        this.setState({
+            startDateString: this.props.startDateString,
+            endDateString: this.props.endDateString,
+            nrRoomsArray: this.props.nrRoomsArray,
+            nrNights: this.props.nrNights,
+            totalPrice: this.props.totalPrice
+        });
+        this.setTotalNrRooms(this.props.nrRoomsArray);
+        this.setTotalNrAdults(this.props.nrRoomsArray);
+        this.setTotalNrChildren(this.props.nrRoomsArray);
+        let taxes = this.calculateTaxes(this.props.nrRoomsArray);
+        this.calculateGrandTotal(taxes, this.props.totalPrice);
         this.setState({ _isMounted: true });
     };
 
-    setTotalNrRooms = () => {
+    handleChange = (e) => {
+        const { name, value, } = e.target;
+        this.setState({ [name]: value, });
+    };
+
+    setTotalNrRooms = (nrRoomsArray) => {
         let totalNrRooms = 0;
-        this.props.nrRoomsArray.map(room => {
-            if (room.roomLetter)
-                totalNrRooms += 1
-        });
+        this.props.nrRoomsArray.map(room => totalNrRooms = room.roomLetter && (totalNrRooms + 1));
         this.setState({ totalNrRooms });
     };
 
-    setTotalNrAdults = () => {
+    setTotalNrAdults = (nrRoomsArray) => {
         let totalNrAdults = 0;
-        this.props.nrRoomsArray.map( room => (
+        nrRoomsArray.map( room => (
             totalNrAdults += parseInt(room.people[0], 10)
         ));
         this.setState({ totalNrAdults });
     };
 
-    setTotalNrChildren = () => {
+    setTotalNrChildren = (nrRoomsArray) => {
         let totalNrChildren = 0;
-        this.props.nrRoomsArray.map( room => (
-            totalNrChildren += parseInt(room.people[0], 10)
+        nrRoomsArray.map( room => (
+            totalNrChildren += parseInt(room.people[1], 10)
         ));
         this.setState({ totalNrChildren });
     };
 
-    calculateTaxes = () => {
+    calculateTaxes = (nrRoomsArray) => {
         let taxes = this.state.taxes;
-        this.props.bookedRooms.map((room, index) => {
-            taxes.push("");
-            taxes[index] = room.cabinPricing.price_total * 0.075;
-        });
+        this.props.nrRoomsArray.map((room, index) => taxes.push(room.roomPrice * 0.075));
         this.setState({ taxes });
         return taxes;
     };
 
-    calculateGrandTotal = (taxes) => {
+    calculateGrandTotal = (taxes, totalPrice) => {
         let totalTaxes = 0;
-        this.state.taxes.map( tax => (totalTaxes += tax));
-        let grandTotal = this.props.totalPrice + totalTaxes;
+        taxes.map( tax => (totalTaxes += tax));
+        let grandTotal = totalPrice + totalTaxes;
         this.setState({ grandTotal });
         this.props.setGrandTotal(grandTotal);
-    }
+    };
+
+    toggleCreditCard = () => {
+        this.setState({ showCreditCard: true, showBankTransfer: false })
+    };
+
+    toggleBankTransfer = () => {
+        this.setState({ showBankTransfer: true, showCreditCard: false })
+    };
 
     handleSubmit = () => {
 
@@ -74,6 +112,7 @@ class Step3 extends React.Component {
         return(
             this.state._isMounted &&
             <>
+            
                 <div className="reservation-menu">
                     <div className="reservation-number">1.</div>
                     <div className="reservation-text">Choose Date</div>
@@ -95,15 +134,15 @@ class Step3 extends React.Component {
                             <br />
                             <div className="reservation-row">
                                 <span>Check-In</span>
-                                <span style={{fontWeight: "bold"}}>{ this.props.startDate }</span>
+                                <span style={{fontWeight: "bold"}}>{ this.state.startDateString }</span>
                             </div>
                             <div className="reservation-row">
                                 <span>Check-Out</span>
-                                <span style={{fontWeight: "bold"}}>{ this.props.endDate }</span>
+                                <span style={{fontWeight: "bold"}}>{ this.state.endDateString }</span>
                             </div>
                             <div className="reservation-row">
                                 <span>Night(s)</span>
-                                <span style={{fontWeight: "bold"}}>{ this.props.nrNights }</span>
+                                <span style={{fontWeight: "bold"}}>{ this.state.nrNights }</span>
                             </div>
                             <div className="reservation-row">
                                 <span>Room(s)</span>
@@ -119,7 +158,7 @@ class Step3 extends React.Component {
                         <div className="reservation-left-box-lower">
                             <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>ROOMS</p>
                             <div className="reservation-hr-container"><div className="reservation-line" /></div>
-                            { this.props.nrRoomsArray.map( (room, index) => (
+                            { this.state.nrRoomsArray.map( (room, index) => (
                                 room.roomLetter != null &&
                                 <>
                                     <div className="reservation-room-information-container" key={index+1}>
@@ -130,10 +169,13 @@ class Step3 extends React.Component {
                                         <p style={{fontWeight: "bold", fontSize: "14px", color: "#8E7037"}}>{ this.props.renderRoomName(room.roomLetter) }</p>
                                         <div className="reservation-hr-container"><div className="reservation-line" style={{marginBottom: "5%"}} /></div>
                                         <p style={{fontWeight: "bold", fontSize: "13px"}}>ROOM PRICE</p>
-                                        <div className="reservation-row-nosidemargin">
-                                            <span>{ this.props.startDate } - { this.props.endDate }</span>
-                                            <span style={{fontWeight: "bold"}}>${ this.props.renderTotalRoomPrice(room.roomLetter) }</span>
-                                        </div>
+                                        <span className="reservation-row-nosideandbottommargin">
+                                            <span>{ this.state.startDateString } - { this.state.endDateString }</span>
+                                            <span style={{fontWeight: "bold"}}>${ room.roomPrice }</span>
+                                        </span>
+                                        <row style={{fontSize: "x-small", marginTop: "3px", marginBottom: "6px"}}>
+                                            { room.roomPriceType }
+                                        </row>
                                         <div className="reservation-hr-container"><div className="reservation-line" style={{marginBottom: "5%"}} /></div>
                                         <div className="reservation-row-nosidemargin">
                                             <span>Service</span>
@@ -146,11 +188,11 @@ class Step3 extends React.Component {
                                         <div className="reservation-row-nosidemargin">
                                             <p style={{fontWeight: "bold", fontSize: "13px"}}>TOTAL ROOM {index+1}</p>
                                             <span style={{fontWeight: "bold"}}>
-                                                ${ Math.round((this.props.renderTotalRoomPrice(room.roomLetter) + this.state.taxes[index]) * 100) / 100 }
+                                                ${ Math.round((room.roomPrice + this.state.taxes[index]) * 100) / 100 }
                                             </span>
                                         </div>
                                     </div>
-                                    { index != this.props.nrRoomsArray.length-1 &&
+                                    { index !== this.props.nrRoomsArray.length-1 &&
                                         <div className="reservation-hr-container"><div className="reservation-line" /></div>
                                     }
                                 </>
@@ -166,7 +208,13 @@ class Step3 extends React.Component {
                             <CustomRow>
                                 <Col>
                                     <Form.Label required style={{fontSize: "smaller"}}>COUNTRY <span style={{color: "red"}}>*</span></Form.Label>
-                                    <Form.Control as="select" placeholder="United States">
+                                    <Form.Control
+                                        name="country"
+                                        value={this.state.country}
+                                        as="select"
+                                        required
+                                        onChange={this.handleChange}
+                                    >
                                         <RenderCountries />
                                     </Form.Control>
                                 </Col>
@@ -174,58 +222,127 @@ class Step3 extends React.Component {
                             <CustomRow>
                                 <Col>
                                     <Form.Label required style={{fontSize: "smaller"}}>FIRST NAME <span style={{color: "red"}}>*</span></Form.Label>
-                                    <Form.Control placeholder="First name" />
+                                    <Form.Control
+                                        name="firstName"
+                                        value={this.state.firstName}
+                                        placeholder="First name"
+                                        required
+                                        onChange={this.handleChange}
+                                    />
                                 </Col>
                                 <Col>
                                     <Form.Label required style={{fontSize: "smaller"}}>LAST NAME <span style={{color: "red"}}>*</span></Form.Label>
-                                    <Form.Control placeholder="Last name" />
+                                    <Form.Control
+                                        name="lastName"
+                                        value={this.state.lastName}
+                                        placeholder="Last name"
+                                        required
+                                        onChange={this.handleChange}
+                                    />
                                 </Col>
                             </CustomRow>
                             <CustomRow>
                                 <Col>
                                     <Form.Label style={{fontSize: "smaller"}}>COMPANY NAME</Form.Label>
-                                    <Form.Control placeholder="Company name" />
+                                    <Form.Control
+                                        name="companyName"
+                                        value={this.state.companyName}
+                                        placeholder="Company name"
+                                        onChange={this.handleChange}
+                                    />
                                 </Col>
                             </CustomRow>
                             <CustomRow>
                                 <Col>
                                     <Form.Label required style={{fontSize: "smaller"}}>ADDRESS <span style={{color: "red"}}>*</span></Form.Label>
-                                    <Form.Control placeholder="Street address" />
+                                    <Form.Control
+                                        name="address1"
+                                        value={this.state.address1}
+                                        placeholder="Street address"
+                                        required
+                                        onChange={this.handleChange}
+                                    />
                                 </Col>
                             </CustomRow>
                             <CustomRow>
                                 <Col>
-                                    <Form.Control placeholder="Apartment, suite, unit, etc. (optional)" />
+                                    <Form.Control
+                                        name="address2"
+                                        value={this.state.address2}
+                                        placeholder="Apartment, suite, unit, etc. (optional)"
+                                        onChange={this.handleChange}
+                                    />
                                 </Col>
                             </CustomRow>
                             <CustomRow>
                                 <Col>
                                     <Form.Label required style={{fontSize: "smaller"}}>TOWN / CITY <span style={{color: "red"}}>*</span></Form.Label>
-                                    <Form.Control placeholder="Town / City" />
+                                    <Form.Control
+                                        name="city"
+                                        value={this.state.city}
+                                        placeholder="Town / City"
+                                        required
+                                        onChange={this.handleChange}
+                                    />
                                 </Col>
-                                <Col>
-                                    <Form.Label required style={{fontSize: "smaller"}}>STATE <span style={{color: "red"}}>*</span></Form.Label>
-                                    <Form.Control placeholder="State" />
-                                </Col>
+                                { this.state.country === "United States of America" &&
+                                    <Col>
+                                        <Form.Label required style={{fontSize: "smaller"}}>STATE <span style={{color: "red"}}>*</span></Form.Label>
+                                        <Form.Control
+                                            name="state"
+                                            value={this.state.state}
+                                            as="select"
+                                            placeholder="State"
+                                            required
+                                            onChange={this.handleChange}
+                                        >
+                                            <RenderStates />
+                                        </Form.Control>
+                                    </Col>
+                                }
                                 <Col>
                                     <Form.Label required style={{fontSize: "smaller"}}>ZIP CODE <span style={{color: "red"}}>*</span></Form.Label>
-                                    <Form.Control placeholder="Zip code" />
+                                    <Form.Control
+                                        name="zip"
+                                        value={this.state.zip}
+                                        placeholder="Zip code"
+                                        required
+                                        onChange={this.handleChange}
+                                    />
                                 </Col>
                             </CustomRow>
                             <CustomRow>
                                 <Col>
                                     <Form.Label required style={{fontSize: "smaller"}}>EMAIL ADDRESS <span style={{color: "red"}}>*</span></Form.Label>
-                                    <Form.Control placeholder="Email address" />
+                                    <Form.Control
+                                        name="email"
+                                        value={this.state.email}
+                                        placeholder="Email address"
+                                        required
+                                        onChange={this.handleChange}
+                                    />
                                 </Col>
                                 <Col>
                                     <Form.Label required style={{fontSize: "smaller"}}>PHONE NUMBER <span style={{color: "red"}}>*</span></Form.Label>
-                                    <Form.Control placeholder="Phone number" />
+                                    <Form.Control
+                                        name="phone"
+                                        value={this.state.phone}
+                                        placeholder="Phone number"
+                                        required
+                                        onChange={this.handleChange}
+                                    />
                                 </Col>
                             </CustomRow>
                             <CustomRow>
                                 <Col>
                                     <Form.Label required style={{fontSize: "smaller"}}>BOOKING NOTES</Form.Label>
-                                    <Form.Control as="textarea" placeholder="Notes about your booking, e.g. special requests" />
+                                    <Form.Control
+                                        as="textarea"
+                                        name="address1"
+                                        value={this.state.address1}
+                                        placeholder="Notes about your booking, e.g. special requests"
+                                        onChange={this.handleChange}
+                                    />
                                 </Col>
                             </CustomRow>
                             <CustomRow>
@@ -245,28 +362,30 @@ class Step3 extends React.Component {
                                     <>
                                         <span style={{width: "15%", marginTop: "0.8%"}}>Coupon code:</span>
                                         <Form.Control placeholder="Coupon code" />
-                                        <span className="reservation-custom-button-submit">Submit</span>
+                                        <span className="reservation-custo-submit">Submit</span>
                                     </>
                                 }
                             </div>
                             <div className="reservation-radio">
                             <label>
-                                    <input type="radio" name="payment-choice" value="bank" style={{marginRight: "10px", marginBottom: "20px"}} />
+                                    <input type="radio" name="payment-choice" value="bank" style={{marginRight: "10px", marginBottom: "20px"}} onClick={this.toggleBankTransfer} />
                                     DIRECT BANK TRANSFER
                                     </label>
                                     <label>
-                                    <input type="radio" name="payment-choice" value="check" style={{marginRight: "10px", marginBottom: "20px"}} />
-                                    CHECK PAYMENT
-                                    </label>
-                                    <label>
-                                    <input type="radio" name="payment-choice" value="card" style={{marginRight: "10px", marginBottom: "20px"}} />
+                                    <input type="radio" name="payment-choice" value="card" style={{marginRight: "10px", marginBottom: "20px"}} onClick={this.toggleCreditCard} />
                                     CREDIT CARD
                                     </label>
+                                    { this.state.showCreditCard &&
+                                        <Elements>
+                                            <CheckoutForm />
+                                        </Elements>
+                                    }
                             </div>
-                            <span className="reservation-custom-button-placeorder">PLACE ORDER</span>
+                            {/* <span className="reservation-custom-button-placeorder">PLACE ORDER</span> */}
                         </Form>
                     </div>
                 </div>
+                
             </>
         );
     };

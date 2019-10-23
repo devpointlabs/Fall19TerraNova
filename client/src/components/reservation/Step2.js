@@ -1,51 +1,118 @@
 import React from "react";
-import { Form, NavDropdown, Button, Popover, OverlayTrigger, Modal } from "react-bootstrap";
+import { withRouter } from 'react-router-dom';
+import { Form, Modal } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
 import Hotel3 from '../../images/Hotel3.jpg';
 import Hotel4 from '../../images/Hotel4.jpg';
 import Hotel5 from '../../images/Hotel5.jpg';
 import Hotel6 from '../../images/Hotel6.jpg';
 import Hotel7 from '../../images/Hotel7.jpg';
+import { Calendar } from '../rb-datepicker/dist';
+import 'bootstrap-daterangepicker/daterangepicker.css';
+import "../styles/daterangepicker.css";
 import * as dayjs from "dayjs";
 
 class Step2 extends React.Component {
-    state = { 
+    state = {
+        _isMounted: false,
         modalShow: false,
+        modalShowStart: false,
+        modalShowEnd: false,
+        modalShowNoEndDate: false,
         availableRooms: [],
         userHasChosenNrOfPeople: [false],
-        tempRoom: null,
+        tempRoomLetter: null,
+        tempPriceType: null,
         occupancyAB: 4,
-        validNrOfPeople: false
+        validNrOfPeople: false,
+        startDate: "",
+        startDateString: "",
+        startDateDB: "",
+        endDate: "",
+        endDateString: "",
+        endDateDB: "",
+        nrNights: ""
     };
 
     componentDidMount() {
-        debugger
         let availableRooms = this.state.availableRooms;
         if (this.props.aRooms.length > 0) {
             availableRooms.push("A");
             this.setState({ availableRooms });
-        }
+        };
         if (this.props.bRooms.length > 0) {
             availableRooms.push("B");
             this.setState({ availableRooms });
-        }
+        };
         if (this.props.familyCabins.length > 0) {
             availableRooms.push("F");
             this.setState({ availableRooms });
-        }
+        };
         if (this.props.vip1) {
             availableRooms.push("V1");
             this.setState({ availableRooms });
-        }
+        };
         if (this.props.vip2) {
             availableRooms.push("V2");
             this.setState({ availableRooms });
-        }
+        };
+        this.setState({ 
+            _isMounted: true,
+            startDate: this.props.startDate,
+            startDateString: this.props.startDateString,
+            startDateDB: this.props.startDateDB,
+            endDate: this.props.endDate,
+            endDateString: this.props.endDateString,
+            endDateDB: this.props.endDateDB,
+            nrNights: this.props.nrNights
+        });
+        
     };
 
-    renderRoomDescription = (room) => (
+    handleShowStart = () => this.setState({ modalShowStart: true });
+
+    handleShowEnd = () => this.setState({ modalShowEnd: true });
+
+    handleShowNoEndDate = () => this.setState({ modalShowNoEndDate: true });
+
+    handleClose = () => this.setState({ modalShow: false, modalShowStart: false, modalShowEnd: false, modalShowNoEndDate: false });
+
+    onDayClickStart = (date) => {
+        this.setState({ 
+            startDate: date,
+            startDateString: date.format("MM/DD/YYYY"),
+            startDateDB: date.format("DD/MM/YYYY"),
+            endDate: "",
+            endDateString: "",
+            endDateDB: "",
+            nrNights: "",
+            modalShowStart: false
+        });
+    };
+
+    onDayClickEnd = (date) => {
+        this.setState({ 
+            endDate: date,
+            endDateString: date.format("MM/DD/YYYY"),
+            endDateDB: date.subtract('1', 'day').format("DD/MM/YYYY"),
+            nrNights: date.diff(this.state.startDate, 'day'),
+            modalShowEnd: false
+        });
+    };
+
+    setNrNights = (nrNights) => {
+        let endDate = this.state.startDate.add(`${nrNights}`, 'day');
+        this.setState({ 
+            nrNights,
+            endDate,
+            endDateString: endDate.format("MM/DD/YYYY"),
+            endDateDB: endDate.subtract('1', 'day').format("DD/MM/YYYY")
+        });
+    };
+
+    renderRoomDescription = (roomLetter) => (
         <>
-            { room == "A" &&
+            { roomLetter === "A" &&
                 <>
                     A modern duplex cabin with partial view of Hebgen Lake.
                     <br />
@@ -60,7 +127,7 @@ class Step2 extends React.Component {
                     </ul>
                 </>
             }
-            { room == "B" &&
+            { roomLetter === "B" &&
                 <>
                     A modern duplex cabin with beautiful mountain view.
                     <br />
@@ -75,7 +142,7 @@ class Step2 extends React.Component {
                     </ul>
                 </>
             }
-            { room == "F" &&
+            { roomLetter === "F" &&
                 <>
                     A whole unit with both a mountain view room and lake view room.
                     <br />
@@ -90,7 +157,7 @@ class Step2 extends React.Component {
                     </ul>
                 </>
             }
-            { room == "V1" &&
+            { roomLetter === "V1" &&
                 <>
                     A deluxe room for deluxe people.
                     <br />
@@ -105,7 +172,7 @@ class Step2 extends React.Component {
                     </ul>
                 </>
             }
-            { room == "V2" &&
+            { roomLetter === "V2" &&
                 <>
                     A deluxe room for deluxe people.
                     <br />
@@ -123,74 +190,65 @@ class Step2 extends React.Component {
         </>
     );
 
-    renderRoomPicture = (room) => (
+    renderRoomPicture = (roomLetter) => (
         <>
-            { room == "A" &&
-                <img src={Hotel3} width="100%" />
+            { roomLetter === "A" &&
+                <img alt="hotel" src={Hotel3} width="100%" />
             }
-            { room == "B" &&
-                <img src={Hotel4} width="100%" />
+            { roomLetter === "B" &&
+                <img alt="hotel" src={Hotel4} width="100%" />
             }
-            { room == "F" &&
-                <img src={Hotel5} width="100%" />
+            { roomLetter === "F" &&
+                <img alt="hotel" src={Hotel5} width="100%" />
             }
-            { room == "V1" &&
-                <img src={Hotel6} width="100%" />
+            { roomLetter === "V1" &&
+                <img alt="hotel" src={Hotel6} width="100%" />
             }
-            { room == "V2" &&
-                <img src={Hotel7} width="100%" />
+            { roomLetter === "V2" &&
+                <img alt="hotel" src={Hotel7} width="100%" />
             }
         </>
     );
 
     isNrOfPeopleValid = () => {
         let validNrOfPeople = true;
-        this.props.nrRoomsArray.map ( room => {
-            if (parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB &&
-                room.roomLetter != "F")
-                    validNrOfPeople = false;
-        });
+        this.props.nrRoomsArray.map ( room => (validNrOfPeople = (parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F") && false));
         this.setState({ validNrOfPeople });
         return validNrOfPeople;
     };
 
     isNrOfPeopleValidExludingUnfinished = () => {
         let validNrOfPeople = true;
-        debugger;
-        this.props.nrRoomsArray.map ( room => {
-            if (parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB &&
-                room.roomLetter != "F" &&
-                room.roomLetter != null)
-                    validNrOfPeople = false;
-        });
+        this.props.nrRoomsArray.map ( room => validNrOfPeople = (parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F" && room.roomLetter !== null) && false);
         this.setState({ validNrOfPeople });
         return validNrOfPeople;
     };
 
-    handleClose = () => this.setState({ modalShow: false });
+    handleClose = () => this.setState({ modalShow: false, modalShowStart: false, modalShowEnd: false, modalShowNoEndDate: false });
 
-    handleShow = (tempRoom) => {
+    handleShow = (roomLetter, priceType) => {
         let roomNumber = this.props.nrRoomsArray.filter( room => room.active )[0].roomNumber;
         this.userHasChosenNrOfPeople(roomNumber);
         this.isNrOfPeopleValid();
-        this.setState({ tempRoom });
+        this.setState({ tempRoomLetter: roomLetter, tempPriceType: priceType });
         if (parseInt(roomNumber, 10) >= this.props.nrRoomsArray.length)
             this.setState({ modalShow: true });
         else
-            this.props.addRoom(tempRoom);
+            this.props.addRoom(roomLetter, priceType);
     };
 
     handleClick = (option) => {
-        this.props.addRoom(this.state.tempRoom);
+        this.props.addRoom(this.state.tempRoomLetter, this.state.tempPriceType);
         this.setState({ modalShow: false });
-        if (option === "nextStep")
-            this.props.goToBilling();
+        if (option === "nextStep") {
+            this.goToBilling2();
+        }
     };
 
     userHasChosenNrOfPeople = (roomNumber) => {
         let room = this.props.nrRoomsArray[parseInt(roomNumber, 10)-1];
         let userHasChosenNrOfPeople = this.state.userHasChosenNrOfPeople;
-        if (room.people[0] == "0" && room.people[1] == "0")
+        if (room.people[0] === "0" && room.people[1] === "0")
             userHasChosenNrOfPeople[parseInt(roomNumber, 10)-1] = false;
         else
             userHasChosenNrOfPeople[parseInt(roomNumber, 10)-1] = true;
@@ -206,13 +264,106 @@ class Step2 extends React.Component {
 
     goToBilling = () => {
         if (this.isNrOfPeopleValidExludingUnfinished())
-            this.props.goToBilling();
+            this.goToBilling2();
         else
             this.setState({ modalShow: true });
     };
 
+    goToBilling2 = () => {
+        localStorage.setItem('startDateString', this.props.startDateString);
+        localStorage.setItem('endDateString', this.props.endDateString);
+        localStorage.setItem('nrRoomsArray', this.props.nrRoomsArray);
+        localStorage.setItem('nrNights', this.props.nrNights);
+        localStorage.setItem('totalPrice', this.props.totalPrice);
+        this.props.nrRoomsArray.map( (room, index) => {
+            if (room.roomLetter) {
+                localStorage.setItem(`room${index+1}_roomNumber`, this.props.nrRoomsArray[index].roomNumber);
+                localStorage.setItem(`room${index+1}_roomLetter`, this.props.nrRoomsArray[index].roomLetter);
+                localStorage.setItem(`room${index+1}_roomPrice`, this.props.nrRoomsArray[index].roomPrice);
+                localStorage.setItem(`room${index+1}_roomPriceType`, this.props.nrRoomsArray[index].roomPriceType);
+                localStorage.setItem(`room${index+1}_nrAdults`, this.props.nrRoomsArray[index].people[0]);
+                localStorage.setItem(`room${index+1}_nrChildren`, this.props.nrRoomsArray[index].people[1]);
+            }});
+        this.props.goToBilling();
+    };
+
+    renderRoomPrice = (roomLetter, priceType) => {
+        let price = "";
+        let index = null;
+        if (roomLetter === "A") index = 0;
+        else if (roomLetter === "B") index = 1;
+        else if (roomLetter === "F") index = 2;
+        else if (roomLetter === "V1") index = 3;
+        else if (roomLetter === "V2") index = 4;
+        if (priceType === "REGULAR")
+            price = this.props.prices[index].regular.toString();
+        else if (priceType === "NONREFUNDABLE")
+            price = this.props.prices[index].nonrefundable.toString();
+        else if (priceType === "EXTENDED STAY")
+            price = this.props.prices[index].extended.toString();
+        if (price.includes(".")) {
+            let index = price.indexOf(".");
+            let priceInteger = price.substring(0, index);
+            let priceDecimal = price.substring(index+1, price.length);
+            if (priceDecimal.length === 1)
+                priceDecimal = `${priceDecimal}0`;
+            return (
+                <>
+                    <div style={{fontSize: "26px", marginRight: "4px"}}>
+                        ${ priceInteger }
+                    </div>
+                    <div style={{fontSize: "13px", marginRight: "6px", marginTop: "5px"}}>
+                        { priceDecimal }
+                    </div>
+                </>
+            );
+        } else {
+            return (
+                <div style={{fontSize: "26px", marginRight: "6px"}}>
+                    ${ price }
+                </div>
+            );
+        };
+    };
+
+    checkAvailability = (history) => {
+        this.setState({ _isMounted: false });
+        this.props.setStep(1);
+        this.props.setNrNights(this.state.nrNights);
+        this.props.setStartDate(this.state.startDate);
+        this.props.setStartDateString(this.state.startDateString);
+        this.props.setStartDateDB(this.state.startDateDB);
+        this.props.setEndDate(this.state.endDate);
+        this.props.setEndDateString(this.state.endDateString);
+        this.props.setEndDateDB(this.state.endDateDB);
+        this.props.checkAvailability(this.state.startDateDB, this.state.endDateDB, "override");
+        history.push({
+            pathname: '/reservation',
+            state: this.state,
+            startDateParse: this.state.startDate.format("YYYY-MM-DD"),
+            endDateParse: this.state.endDate.format("YYYY-MM-DD"),
+            step: 2
+        })
+    };
+
+    Button = withRouter(({ history }) => (
+        <span
+            className="reservation-custom-button"
+            onClick={
+                this.state.endDate !== "" ?
+                    (() => this.checkAvailability(history))
+                : 
+                this.state._isMounted &&
+                    (() => this.setState({ modalShowNoEndDate: true }))
+            }
+        >
+            CHECK AVAILABILITY
+        </span>
+    ));
+
     render() {
         return(
+            this.state._isMounted &&
             <>
                 <div className="reservation-menu">
                     <div className="reservation-number">1.</div>
@@ -285,9 +436,9 @@ class Step2 extends React.Component {
                                                     </span>
                                                     <span style={{fontSize: "11px", marginTop: "1px"}}>
                                                         { room.people[0] }
-                                                        { room.people[0] == 1 ? " Adult, " : " Adults, " }
+                                                        { room.people[0] === 1 ? " Adult, " : " Adults, " }
                                                         { room.people[1] }
-                                                        { room.people[1] == 1 ? " Child " : " Children " }
+                                                        { room.people[1] === 1 ? " Child " : " Children " }
                                                     </span>
                                                 </row>
                                                 <row style={{marginTop: "15px"}}>
@@ -295,8 +446,11 @@ class Step2 extends React.Component {
                                                         { this.props.renderRoomName(this.props.bookedRoomLetters[parseInt(room.roomNumber, 10)-1]) }
                                                     </span>
                                                     <span style={{fontWeight: "bold", fontSize: "13px", color: "#8E7037"}}>
-                                                        ${ this.props.renderTotalRoomPrice(this.props.bookedRoomLetters[parseInt(room.roomNumber, 10)-1]) }
+                                                        ${ this.props.nrRoomsArray[parseInt(room.roomNumber, 10)-1].roomPrice }
                                                     </span>
+                                                </row>
+                                                <row style={{fontSize: "x-small"}}>
+                                                    { this.props.nrRoomsArray[parseInt(room.roomNumber, 10)-1].roomPriceType }
                                                 </row>
                                                 <row style={{marginTop: "12px", color: "#8E7037", fontSize: "12px"}}>
                                                     <u style={{cursor: "pointer"}} onClick={() => this.changeRoom(room.roomNumber)}>Change room</u>
@@ -340,60 +494,89 @@ class Step2 extends React.Component {
                             <div className="reservation-hr-container"><div className="reservation-line" /></div>
                             <p style={{marginLeft: "20px", marginTop: "25px", fontWeight: "bold", fontSize: "14px", color: "#8E7037"}}>YOUR STAY DATES</p>
                             <span style={{marginLeft: "20px", marginTop: "5px", marginRight: "0px", fontWeight: "bold", fontSize: "12px"}}>ARRIVAL</span>
-                            <div className="reservation-form-container">
-                                <Form.Control className="reservation-dateform" value={this.props.startDateString} readOnly />
+                            <div className="reservation-form-container" onClick={this.handleShowStart} >
+                                <Form.Control className="reservation-dateform" value={this.state.startDateString} readOnly />
                                 <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
                             </div>
                             <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>NIGHT(S)</span>
                             <div className="reservation-dropdown-container">
-                                <Dropdown className="reservation-custom-dropdown" text={this.props.nrNights} drop='down'>
+                                <Dropdown className="reservation-custom-dropdown" text={this.state.nrNights} drop='down'>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item text='1' onClick={() => this.props.setNrNights('1')} />
-                                        <Dropdown.Item text='2' onClick={() => this.props.setNrNights('2')} />
-                                        <Dropdown.Item text='3' onClick={() => this.props.setNrNights('3')} />
-                                        <Dropdown.Item text='4' onClick={() => this.props.setNrNights('4')} />
-                                        <Dropdown.Item text='5' onClick={() => this.props.setNrNights('5')} />
-                                        <Dropdown.Item text='6' onClick={() => this.props.setNrNights('6')} />
-                                        <Dropdown.Item text='7' onClick={() => this.props.setNrNights('7')} />
-                                        <Dropdown.Item text='8' onClick={() => this.props.setNrNights('8')} />
-                                        <Dropdown.Item text='9' onClick={() => this.props.setNrNights('9')} />
-                                        <Dropdown.Item text='10' onClick={() => this.props.setNrNights('10')} />
-                                        <Dropdown.Item text='10+' onClick={() => this.props.setNrNights('10+')} />
+                                        <Dropdown.Item text='1' onClick={() => this.setNrNights('1')} />
+                                        <Dropdown.Item text='2' onClick={() => this.setNrNights('2')} />
+                                        <Dropdown.Item text='3' onClick={() => this.setNrNights('3')} />
+                                        <Dropdown.Item text='4' onClick={() => this.setNrNights('4')} />
+                                        <Dropdown.Item text='5' onClick={() => this.setNrNights('5')} />
+                                        <Dropdown.Item text='6' onClick={() => this.setNrNights('6')} />
+                                        <Dropdown.Item text='7' onClick={() => this.setNrNights('7')} />
+                                        <Dropdown.Item text='8' onClick={() => this.setNrNights('8')} />
+                                        <Dropdown.Item text='9' onClick={() => this.setNrNights('9')} />
+                                        <Dropdown.Item text='10' onClick={() => this.setNrNights('10')} />
+                                        <Dropdown.Item text='10+' onClick={() => this.setNrNights('10+')} />
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </div>
                             <span style={{marginLeft: "20px", marginTop: "5px", fontWeight: "bold", fontSize: "12px"}}>DEPARTURE</span>
-                            <div className="reservation-form-container">
-                                <Form.Control className="reservation-dateform" value={this.props.endDateString} readOnly />
+                            <div className="reservation-form-container" onClick={this.handleShowEnd}>
+                                <Form.Control className="reservation-dateform" value={this.state.endDateString} readOnly />
                                 <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
                             </div>
                             <div className="reservation-button-container">
-                                <span className="reservation-custom-button" onClick={this.props.checkAvailability}>
+                                {/* <span className="reservation-custom-button" onClick={this.checkAvailability}>
                                     CHECK AVAILABILITY
-                                </span>
+                                </span> */}
+                                <this.Button />
                             </div>
                         </div>
                     </div>
                     <div className="reservation-right-box-white">
                         { this.props.anyAvailableCabins ?
                             <>
-                                { this.state.availableRooms.map( room =>
+                                { this.state.availableRooms.map( roomLetter=>
                                     <>
                                         <div className="reservation-room-container">
-                                            <div style={{fontSize: "24px"}}>{ this.props.renderRoomName(room) }</div>
+                                            <div style={{fontSize: "24px"}}>{ this.props.renderRoomName(roomLetter) }</div>
                                             <div className="reservation-inner-room-container">
                                                 <div className="reservation-image-container">
-                                                    { this.renderRoomPicture(room) }
+                                                    { this.renderRoomPicture(roomLetter) }
                                                     </div>
                                                 <div className="reservation-room-content">
-                                                    { this.renderRoomDescription(room) }
+                                                    { this.renderRoomDescription(roomLetter) }
                                                     <span style={{fontSize: "smaller"}}><u>View more information</u></span>
                                                     <br />
                                                     <span className="reservation-inner-room-container">
-                                                        <span style={{fontSize: "28px", marginRight: "8px"}}>${ this.props.renderRoomPrice(room) } </span><span style={{paddingTop: "13px"}}>/night</span>
-                                                        <span className="reservation-small-custom-button" onClick={() => this.handleShow(room)}>
-                                                            BOOK ROOM
-                                                        </span>
+                                                        <div className="reservation-inner-room-price-left">
+                                                            <div style={{fontSize: "smaller", fontWeight: "bold"}}>NONREFUNDABLE</div>
+                                                            <div className="reservation-room-price">
+                                                                { this.renderRoomPrice(roomLetter, "NONREFUNDABLE") }
+                                                                <div style={{fontSize: "small", paddingTop: "14px"}}>/night</div>
+                                                            </div>
+                                                            <div className="reservation-small-custom-button" onClick={() => this.handleShow(roomLetter, "NONREFUNDABLE")}>
+                                                                BOOK ROOM
+                                                            </div>
+                                                        </div>
+                                                        <div className="reservation-inner-room-price">
+                                                            <div style={{fontSize: "smaller", fontWeight: "bold"}}>REGULAR</div>
+                                                            <div className="reservation-room-price">
+                                                                { this.renderRoomPrice(roomLetter, "REGULAR") }
+                                                                <div style={{fontSize: "small", paddingTop: "14px"}}>/night</div>
+                                                            </div>
+                                                            <div className="reservation-small-custom-button" onClick={() => this.handleShow(roomLetter, "REGULAR")}>
+                                                                BOOK ROOM
+                                                            </div>
+                                                        </div>
+                                                        { parseInt(this.props.nrNights, 10) > 7 &&
+                                                            <div className="reservation-inner-room-price">
+                                                                <div style={{fontSize: "smaller", fontWeight: "bold"}}>EXTENDED STAY</div>
+                                                                <div className="reservation-room-price">
+                                                                    { this.renderRoomPrice(roomLetter, "EXTENDED STAY") }
+                                                                    <div style={{fontSize: "small", paddingTop: "14px"}}>/night</div>
+                                                                </div>
+                                                                <div className="reservation-small-custom-button" onClick={() => this.handleShow(roomLetter, "EXTENDED STAY")}>
+                                                                    BOOK ROOM
+                                                                </div>
+                                                            </div>
+                                                        }
                                                     </span>
                                                 </div>
                                             </div>
@@ -433,6 +616,25 @@ class Step2 extends React.Component {
                             You have to specify the number of adults and children!
                         </Modal.Body>
                     }
+                </Modal>
+                <Modal show={this.state.modalShowStart} onHide={this.handleClose} centered>
+                    { this.state.endDate !== "" ?
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={this.state.endDate !== "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    :
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    }
+                </Modal>
+                <Modal show={this.state.modalShowEnd} onHide={this.handleClose} centered>
+                    { this.state.endDate !== "" ?
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={this.state.endDate !== "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    :
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    }
+                </Modal>
+                <Modal show={this.state.modalShowNoEndDate} onHide={this.handleClose} centered>
+                    <Modal.Body>
+                        You have to choose a departure date!
+                    </Modal.Body>
                 </Modal>
             </>
         );

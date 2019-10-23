@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import './styles/RoomsRates.css';
 import mountainview from '../images/rooms/mountainview.jpg';
 import lakeview from '../images/rooms/lakeview.jpg';
 import cabin3 from '../images/rooms/cabin3.jpg';
 import cabin1 from '../images/rooms/cabin1.jpg';
-import person from '../images/small-person-image.png';
-import bed from '../images/small-bed-image.png';
-import eye from '../images/small-eye-image.png';
 
 const Button = withRouter(({ history, room }) => (
     <span
