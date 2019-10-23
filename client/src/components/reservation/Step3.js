@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Col, Row, InputGroup, Button } from "react-bootstrap";
+import { Form, Col, Row } from "react-bootstrap";
 import styled from "styled-components";
 import RenderCountries from "./RenderCountries";
 import RenderStates from "./RenderStates";
@@ -196,7 +196,7 @@ class Step3 extends React.Component {
                                             </span>
                                         </div>
                                     </div>
-                                    { index != this.state.nrRoomsArray.length-1 &&
+                                    { index !== this.props.nrRoomsArray.length-1 &&
                                         <div className="reservation-hr-container"><div className="reservation-line" /></div>
                                     }
                                 </>
@@ -366,7 +366,7 @@ class Step3 extends React.Component {
                                     <>
                                         <span style={{width: "15%", marginTop: "0.8%"}}>Coupon code:</span>
                                         <Form.Control placeholder="Coupon code" />
-                                        <span className="reservation-custom-button-submit">Submit</span>
+                                        <span className="reservation-custo-submit">Submit</span>
                                     </>
                                 }
                             </div>

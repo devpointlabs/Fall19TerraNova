@@ -10,7 +10,6 @@ const AdminCabins = () => {
     Axios.get("/api/cabins")
     .then(res => {
       setcabins(res.data)
-      debugger
     })
   }, [])
 
