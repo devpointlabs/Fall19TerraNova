@@ -44,7 +44,6 @@ class Top extends React.Component {
             endDateString: endDate.format("MM/DD/YYYY"),
             endDateDB: startDate.format("DD/MM/YYYY"),
             nrNights: 1,
-            _isMounted: true
         });
         this.getDayFromDate(startDate, "start");
         this.getDayFromDate(endDate, "end");
@@ -94,8 +93,6 @@ class Top extends React.Component {
         this.getYearFromDate(date, "end");
         console.log(this.state.startDate)
         console.log(date.diff(this.state.startDate, 'day'));
-        let startDate = this.state.startDate;
-        debugger
     };
 
     setNrNights = (nrNights) => {
@@ -108,24 +105,54 @@ class Top extends React.Component {
         });
     };
 
-    Button = withRouter(({ history }) => (
+    // Button = withRouter(({ history }) => (
+    //     <span
+    //         className="check-availability-button"
+    //         onClick={ this.state.endDate != "" ? () => {
+    //             history.push({
+    //             pathname: '/reservation',
+    //             state: this.state,
+    //             startDateParse: this.state.startDate.format("YYYY-MM-DD"),
+    //             endDateParse: this.state.endDate.format("YYYY-MM-DD"),
+    //             cleanLocalStorage: true
+    //         }) }
+    //         :
+    //             this.state._isMounted &&
+    //                 (() => this.setState({ modalShowNoEndDate: true }))
+    //         }
+    //     >
+    //         CHECK AVAILABILITY
+    //     </span>
+    // ));
+
+    CheckAvailabilityButton = withRouter(({ history }) => (
         <span
             className="check-availability-button"
-            onClick={ this.state.endDate != "" ? () => { 
-                history.push({
-                pathname: '/reservation',
-                state: this.state,
-                startDateParse: this.state.startDate.format("YYYY-MM-DD"),
-                endDateParse: this.state.endDate.format("YYYY-MM-DD")
-            }) }
-            :
-                this.state._isMounted &&
-                    (() => this.setState({ modalShowNoEndDate: true }))
-            }
+            onClick={() => this.prepareForRedirection(history)}
         >
             CHECK AVAILABILITY
         </span>
     ));
+
+    prepareForRedirection = async (history) => {
+        if (this.state.endDate !== "") {
+            await this.addToLocalStorage();
+            history.push({pathname: '/reservation'})
+        } else {
+            this.setState({ modalShowNoEndDate: true })
+        };
+    };
+
+    addToLocalStorage = () => {
+        localStorage.setItem('startDateString', this.state.startDateString);
+        localStorage.setItem('endDateString', this.state.endDateString);
+        localStorage.setItem('startDateDB', this.state.startDateDB);
+        localStorage.setItem('endDateDB', this.state.endDateDB);
+        localStorage.setItem('startDateParse', this.state.startDate.format("YYYY-MM-DD"));
+        localStorage.setItem('endDateParse', this.state.endDate.format("YYYY-MM-DD"));
+        localStorage.setItem('nrNights', this.state.nrNights);
+        localStorage.setItem('step', 2);
+    };
 
     getDayFromDate = (date, startOrEnd) => {
         if (startOrEnd === "start")
@@ -174,6 +201,8 @@ class Top extends React.Component {
             case 12:
                 month = "DEC";
                 break;
+            default: 
+                break;
         };
         if (startOrEnd === "start")
             this.setState({ startMonth: month });
@@ -186,6 +215,28 @@ class Top extends React.Component {
             this.setState({ startYear: date.$y.toString() });
         else
             this.setState({ endYear: date.$y.toString() });
+    };
+
+    cleanLocalStorage = () => {
+        debugger
+        if (localStorage.startDateString) {
+            localStorage.removeItem('startDateString');
+            localStorage.removeItem('endDateString');
+            localStorage.removeItem('nrNights');
+            localStorage.removeItem('totalPrice');
+            let nextRoom = true;
+            let room = 1;
+            while (nextRoom) {
+                localStorage.removeItem(`room${room}_roomNumber`);
+                localStorage.removeItem(`room${room}_roomLetter`);
+                localStorage.removeItem(`room${room}_roomPrice`);
+                localStorage.removeItem(`room${room}_roomPriceType`);
+                localStorage.removeItem(`room${room}_nrAdults`);
+                localStorage.removeItem(`room${room}_nrChildren`);
+                room += 1;
+                if (!localStorage.getItem(`room${room}_roomNumber`)) nextRoom = false;
+            };
+        };
     };
 
     render() {
@@ -208,7 +259,7 @@ class Top extends React.Component {
                             <span className="date-box-year">{ this.state.startYear }</span>
                         </span>
                         <span className="date-box-icon-holder">
-                            <img src={calendar} width="50%" />
+                            <img alt="calendar" src={calendar} width="50%" />
                         </span>
                     </div> 
                     <div className="date-box" onClick={this.handleShowEnd}>
@@ -219,12 +270,15 @@ class Top extends React.Component {
                             <span className="date-box-year">{ this.state.endYear }</span>
                         </span>
                         <span className="date-box-icon-holder">
-                            <img src={calendar} width="50%" />
+                            <img alt="calendar" src={calendar} width="50%" />
                         </span>
                     </div>
-                    <this.Button />
+                    {/* <this.Button /> */}
+                    <this.CheckAvailabilityButton />
+                    {/* <div className="check-availability-button">
+                        CHECK AVAILABILITY
+                    </div> */}
                 </div>
-                
                 <Carousel nextIcon="" prevIcon="" >
                     <Carousel.Item>
                         <img
@@ -249,17 +303,17 @@ class Top extends React.Component {
                     </Carousel.Item>
                 </Carousel>
                 <Modal show={this.state.modalShowStart} onHide={this.handleClose} centered>
-                    { this.props.endDate != "" ?
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    { this.props.endDate !== "" ?
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={this.state.endDate !== "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
                 <Modal show={this.state.modalShowEnd} onHide={this.handleClose} centered>
-                    { this.props.endDate != "" ?
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    { this.props.endDate !== "" ?
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={this.state.endDate !== "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
                 <Modal show={this.state.modalShowNoEndDate} onHide={this.handleClose} centered>

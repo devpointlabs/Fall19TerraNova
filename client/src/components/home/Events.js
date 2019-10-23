@@ -2,7 +2,9 @@ import React from 'react';
 import line from '../../images/events/line.png'
 import './homestyles/Events.css'
 import styled from 'styled-components';
-import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBRow, } from "mdbreact";
+// import Card from 'react-bootstrap/Card';
+import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBRow} from "mdbreact";
+
 
 
 //make indicators visible
@@ -24,7 +26,7 @@ const Events = () => {
                                 <SlideContainer>
                                     <div className="event-card">
                                         <div className="event-img">
-                                            <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" />
+                                            <img alt= "nature" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" />
                                         </div>
                                         <div className="event-overlay">
                                             <div className="event-text">Events</div>
@@ -33,7 +35,7 @@ const Events = () => {
                                     </div>
                                     <div className="space-between" />
                                     <div className="event-card">
-                                        <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" />
+                                        <img alt= "nature" className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" />
                                         <div className="event-overlay">
                                             <div className="event-text">Events</div>
                                             <div className="event-title">Surf Lessons</div>
@@ -41,7 +43,7 @@ const Events = () => {
                                     </div>
                                     <div className="space-between" />
                                     <div className="event-card">
-                                        <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(48).jpg" />
+                                        <img alt= "nature" className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(48).jpg" />
                                         <div className="event-overlay">
                                             <div className="event-text">Events</div>
                                             <div className="event-title">Excursion</div>
@@ -52,7 +54,7 @@ const Events = () => {
                             <MDBCarouselItem itemId="2">
                                 <SlideContainer>
                                     <div className="event-card">
-                                        <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(53).jpg" />
+                                        <img alt= "nature" className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(53).jpg" />
                                         <div className="event-overlay">
                                             <div className="event-text">Events</div>
                                             <div className="event-title">Yodeling</div>
@@ -60,7 +62,7 @@ const Events = () => {
                                     </div>
                                     <div className="space-between" />
                                     <div className="event-card">
-                                        <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg" />
+                                        <img alt= "nature" className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg" />
                                         <div className="event-overlay">
                                             <div className="event-text">Events</div>
                                             <div className="event-title">Fill Your Cup</div>
@@ -68,7 +70,7 @@ const Events = () => {
                                     </div>
                                     <div className="space-between" />
                                     <div className="event-card">
-                                        <img className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(41).jpg" />
+                                        <img alt= "nature" className="event-img" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(41).jpg" />
                                         <div className="event-overlay">
                                             <div className="event-text">Events</div>
                                             <div className="event-title">Bee Keeping</div>
@@ -93,23 +95,23 @@ const Header = styled.h1`
     font-family: 'Playfair Display', serif;
 `;
 
-const Title = styled.h3`
-    color: white;
-    font-size: 40px;  
-    font-family: 'Playfair Display', serif;
-    margin-top: 50px;
-    margin-bottom: 40px !important;
-    padding-left: 0px;
-`;
+// const Title = styled.h3`
+//     color: white;
+//     font-size: 40px;  
+//     font-family: 'Playfair Display', serif;
+//     margin-top: 50px;
+//     margin-bottom: 40px !important;
+//     padding-left: 0px;
+// `;
 
-const Text = styled.p`
-    position: absolute;
-    color: white;
-    font-size: 20px;  
-    font-weight: bold;
-    font-family: 'Raleway', sans-serif;
-    margin-left: 100px;
-`;
+// const Text = styled.p`
+//     position: absolute;
+//     color: white;
+//     font-size: 20px;  
+//     font-weight: bold;
+//     font-family: 'Raleway', sans-serif;
+//     margin-left: 100px;
+// `;
 
 const EventContainer = styled.div`
     margin-left: 130px;
@@ -123,15 +125,15 @@ const SlideContainer = styled.div`
     margin-left: 0px;
 `;
 
-const CardContainer = styled.div`
-    display: flex;
-    width: 30%;
-    justify-content: space-evenly;
-    align-content: space-around;
-    margin-right: 10px;
-    margin-left: 10px;
-    padding-right: 20px;
-`;
+// const CardContainer = styled.div`
+//     display: flex;
+//     width: 30%;
+//     justify-content: space-evenly;
+//     align-content: space-around;
+//     margin-right: 10px;
+//     margin-left: 10px;
+//     padding-right: 20px;
+// `;
 
 
 export default Events;

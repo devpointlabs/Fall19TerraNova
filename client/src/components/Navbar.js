@@ -1,8 +1,8 @@
 import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Navbar as NavbarBS, Nav, NavDropdown } from 'react-bootstrap';
-import { NavLink, withRouter } from 'react-router-dom';
+import { Navbar as NavbarBS, Nav, NavDropdown, Modal } from 'react-bootstrap';
+import { NavLink, withRouter, Redirect } from 'react-router-dom';
 import styled from "styled-components";
 import "./styles/Navbar.css";
 import logo from "../images/logo.png";
@@ -11,15 +11,18 @@ import axios from 'axios';
 
 class Navbar extends React.Component {
     state = {
+        _isMounted: false,
+        location: null,
         weather: null,
-        temperature: null, 
-        _isMounted: false
+        temperature: null,
+        modalShow: false,
+        choice: null
     };
 
     componentDidMount() {
         axios.get("http://api.openweathermap.org/data/2.5/weather?id=5685767&appid=af9da42f618060b239282c8960fa9955")
             .then( response => {
-                switch (response.data.weather.main) {
+                switch (response.data.weather[0].main) {
                     case "Thunderstorm":
                         this.setState({ weather: "⚡️" });
                         break;
@@ -44,7 +47,7 @@ class Navbar extends React.Component {
                 };
                 this.setState({ temperature: response.data.main.temp * 9/5 - 459.67 });
             })
-        this.setState({ _isMounted: true })
+        this.setState({ location: this.props.history.location.pathname, _isMounted: true })
     };
 
     adminVer = () => {
@@ -65,16 +68,33 @@ class Navbar extends React.Component {
         };
     };
 
-  render() {
-    const { auth: { user, handleLogout, } } = this.props;
+    // changePagePrompt = () => {
+    //     if (this.props.history.location.pathname === "/reservation")
+    //         this.setState({ modalShow: true });
+    // };
+
+    // handleModalClose = () => {
+    //     this.setState({ modalShow: false });
+    // };
+
+    // handleModalClick = (choice) => {
+    //     if (choice === "yes") {
+    //         this.setState({ choice });
+    //         this.cleanLocalStorage();
+    //     };
+    //     this.setState({ modalShow: false });
+    // };
+
+    render() {
+    const { auth: { user, handleLogout } } = this.props;
     return (
       <>
         {this.props.location.pathname !== "/comingsoon" &&
           <>
             <div className="navbar-upper-background">
               <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                <span style={{fontSize: "16px"}}> 
-                  {this.state.weather}
+                <span style={{fontSize: "16px", marginTop: "3px"}}> 
+                  { this.state.weather }
                 </span>
                 {Math.round(this.state.temperature)}°F
                 <Icon style={{ marginLeft: "25px", marginRight: "3px", marginBottom: "4px" }} name="map marker alternate" />
@@ -122,14 +142,14 @@ class Navbar extends React.Component {
                         </MenuButton>
                       }
                       <NavDropdown className="navbar-navdropdown" alignRight title={<Icon name="dollar sign" />} id="collapsible-nav-dropdown" style={{ marginTop: "3px" }}>
-                        <NavDropdown.Item href="#action/3.1"><Icon name="dollar sign" /> (USD)</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2"><Icon name="euro sign" /> (EUR)</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3"><Icon name="pound sign" /> (GBP)</NavDropdown.Item>
+                        <NavDropdown.Item><Icon name="dollar sign" /> (USD)</NavDropdown.Item>
+                        <NavDropdown.Item disabled><Icon name="euro sign" disabled /> (EUR)</NavDropdown.Item>
+                        <NavDropdown.Item disabled><Icon name="pound sign" disabled /> (GBP)</NavDropdown.Item>
                       </NavDropdown>
                       <NavDropdown alignRight title="ENG" id="collapsible-nav-dropdown" style={{ marginTop: "3px" }}>
-                        <NavDropdown.Item href="#action/3.1">ENG</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">GER</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">SWE</NavDropdown.Item>
+                        <NavDropdown.Item style={{color: "black !important"}}>ENG</NavDropdown.Item>
+                        <NavDropdown.Item disabled>GER</NavDropdown.Item>
+                        <NavDropdown.Item disabled>SWE</NavDropdown.Item>
                       </NavDropdown>
                     </Nav>
                   </NavbarBS.Collapse>
@@ -138,7 +158,9 @@ class Navbar extends React.Component {
             </div>
             <NavbarBS className="navbar-background" expand="lg" sticky="top">
               <div className="navbar-left">
-                <NavbarBS.Brand href="/">
+                <NavbarBS.Brand
+                    href="/"
+                >
                   <img src={logo} height="80px" width="50px" />
                 </NavbarBS.Brand>
               </div>
@@ -194,6 +216,19 @@ class Navbar extends React.Component {
                         </NavbarBS>
                     </>
                 }
+                <Modal show={this.state.modalShow} onHide={this.handleModalClose} centered>
+                    <Modal.Body>
+                        Are you sure you want to clear your booking?
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <span className="modal-small-custom-button" onClick={() => this.handleModalClick("yes")}>
+                            Yes
+                        </span>
+                        <span className="modal-small-custom-button" onClick={() => this.handleModalClick("no")}>
+                            No
+                        </span>
+                    </Modal.Footer>
+                </Modal>
             </>
         );
     };

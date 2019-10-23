@@ -1,17 +1,18 @@
 import React, {useState, useEffect} from 'react'
 import Axios from 'axios';
-import {Form, Container, Header} from 'semantic-ui-react'
+import { Container, Header} from 'semantic-ui-react'
 
 import TodayTable from './TodayTable'
 
 const AdminBookings = () => {
-  const [date, setDate] = useState(new Date)
+  const [date, setDate] = useState(new Date())
   const [already_here, setalready_here] = useState([])
   const [arriving_today, setarriving_today] = useState([])
   const [checking_out_today, setchecking_out_today] = useState([])
   const [last_night, setlast_night] = useState([])
 
   useEffect(() => {
+    setDate(new Date())
     Axios.get("/api/single_day_bookings", {params: {date}})
       .then(({data})=>{
         setalready_here(data.already_here)

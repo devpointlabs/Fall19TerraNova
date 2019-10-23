@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
-import { Form, NavDropdown, Button, Popover, OverlayTrigger, Modal } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
 import Hotel3 from '../../images/Hotel3.jpg';
 import Hotel4 from '../../images/Hotel4.jpg';
@@ -112,7 +112,7 @@ class Step2 extends React.Component {
 
     renderRoomDescription = (roomLetter) => (
         <>
-            { roomLetter == "A" &&
+            { roomLetter === "A" &&
                 <>
                     A modern duplex cabin with partial view of Hebgen Lake.
                     <br />
@@ -127,7 +127,7 @@ class Step2 extends React.Component {
                     </ul>
                 </>
             }
-            { roomLetter == "B" &&
+            { roomLetter === "B" &&
                 <>
                     A modern duplex cabin with beautiful mountain view.
                     <br />
@@ -142,7 +142,7 @@ class Step2 extends React.Component {
                     </ul>
                 </>
             }
-            { roomLetter == "F" &&
+            { roomLetter === "F" &&
                 <>
                     A whole unit with both a mountain view room and lake view room.
                     <br />
@@ -157,7 +157,7 @@ class Step2 extends React.Component {
                     </ul>
                 </>
             }
-            { roomLetter == "V1" &&
+            { roomLetter === "V1" &&
                 <>
                     A deluxe room for deluxe people.
                     <br />
@@ -172,7 +172,7 @@ class Step2 extends React.Component {
                     </ul>
                 </>
             }
-            { roomLetter == "V2" &&
+            { roomLetter === "V2" &&
                 <>
                     A deluxe room for deluxe people.
                     <br />
@@ -192,44 +192,34 @@ class Step2 extends React.Component {
 
     renderRoomPicture = (roomLetter) => (
         <>
-            { roomLetter == "A" &&
-                <img src={Hotel3} width="100%" />
+            { roomLetter === "A" &&
+                <img alt="hotel" src={Hotel3} width="100%" />
             }
-            { roomLetter == "B" &&
-                <img src={Hotel4} width="100%" />
+            { roomLetter === "B" &&
+                <img alt="hotel" src={Hotel4} width="100%" />
             }
-            { roomLetter == "F" &&
-                <img src={Hotel5} width="100%" />
+            { roomLetter === "F" &&
+                <img alt="hotel" src={Hotel5} width="100%" />
             }
-            { roomLetter == "V1" &&
-                <img src={Hotel6} width="100%" />
+            { roomLetter === "V1" &&
+                <img alt="hotel" src={Hotel6} width="100%" />
             }
-            { roomLetter == "V2" &&
-                <img src={Hotel7} width="100%" />
+            { roomLetter === "V2" &&
+                <img alt="hotel" src={Hotel7} width="100%" />
             }
         </>
     );
 
     isNrOfPeopleValid = () => {
         let validNrOfPeople = true;
-        this.props.nrRoomsArray.map ( room => {
-            if (parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB &&
-                room.roomLetter != "F")
-                    validNrOfPeople = false;
-        });
+        this.props.nrRoomsArray.map ( room => validNrOfPeople = !(parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F"));
         this.setState({ validNrOfPeople });
         return validNrOfPeople;
     };
 
     isNrOfPeopleValidExludingUnfinished = () => {
         let validNrOfPeople = true;
-        debugger;
-        this.props.nrRoomsArray.map ( room => {
-            if (parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB &&
-                room.roomLetter != "F" &&
-                room.roomLetter != null)
-                    validNrOfPeople = false;
-        });
+        this.props.nrRoomsArray.map ( room => validNrOfPeople = !(parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F" && room.roomLetter !== null));
         this.setState({ validNrOfPeople });
         return validNrOfPeople;
     };
@@ -250,14 +240,15 @@ class Step2 extends React.Component {
     handleClick = (option) => {
         this.props.addRoom(this.state.tempRoomLetter, this.state.tempPriceType);
         this.setState({ modalShow: false });
-        if (option === "nextStep")
-            this.props.goToBilling();
+        if (option === "nextStep") {
+            this.goToBilling();
+        }
     };
 
     userHasChosenNrOfPeople = (roomNumber) => {
         let room = this.props.nrRoomsArray[parseInt(roomNumber, 10)-1];
         let userHasChosenNrOfPeople = this.state.userHasChosenNrOfPeople;
-        if (room.people[0] == "0" && room.people[1] == "0")
+        if (room.people[0] === "0" && room.people[1] === "0")
             userHasChosenNrOfPeople[parseInt(roomNumber, 10)-1] = false;
         else
             userHasChosenNrOfPeople[parseInt(roomNumber, 10)-1] = true;
@@ -272,11 +263,44 @@ class Step2 extends React.Component {
     }
 
     goToBilling = () => {
-        if (this.isNrOfPeopleValidExludingUnfinished())
+        if (this.isNrOfPeopleValidExludingUnfinished()) {
+            // this.addToLocalStorage();
+            localStorage.setItem('step', 3);
             this.props.goToBilling();
-        else
+        } else
             this.setState({ modalShow: true });
     };
+
+    // addToLocalStorage = () => {
+    //     localStorage.setItem('startDateString', this.state.startDateString);
+    //     localStorage.setItem('endDateString', this.state.endDateString);
+    //     localStorage.setItem('startDateDB', this.state.startDateDB);
+    //     localStorage.setItem('endDateDB', this.state.endDateDB);
+    //     localStorage.setItem('startDateParse', this.state.startDate.format("YYYY-MM-DD"));
+    //     localStorage.setItem('endDateParse', this.state.endDate.format("YYYY-MM-DD"));
+    //     localStorage.setItem('nrNights', this.state.nrNights);
+    //     localStorage.setItem('step', 3);
+    // };
+
+    // addToLocalStorage = () => {
+    //     const {startDateString, endDateString, nrRoomsArray, nrNights, totalPrice} = this.props;
+    //     localStorage.setItem('startDateString', startDateString);
+    //     localStorage.setItem('endDateString', endDateString);
+    //     localStorage.setItem('nrRoomsArray', nrRoomsArray);
+    //     localStorage.setItem('nrNights', nrNights);
+    //     localStorage.setItem('totalPrice', totalPrice);
+    //     localStorage.setItem('step', 3);
+    //     for (let i = 0; i < nrRoomsArray.length; i++) {
+    //         if (nrRoomsArray[i].roomLetter) {
+    //             localStorage.setItem(`room${i+1}_roomNumber`, nrRoomsArray[i].roomNumber);
+    //             localStorage.setItem(`room${i+1}_roomLetter`, nrRoomsArray[i].roomLetter);
+    //             localStorage.setItem(`room${i+1}_roomPrice`, nrRoomsArray[i].roomPrice);
+    //             localStorage.setItem(`room${i+1}_roomPriceType`, nrRoomsArray[i].roomPriceType);
+    //             localStorage.setItem(`room${i+1}_nrAdults`, nrRoomsArray[i].people[0]);
+    //             localStorage.setItem(`room${i+1}_nrChildren`, nrRoomsArray[i].people[1]);
+    //         };
+    //     };
+    // };
 
     renderRoomPrice = (roomLetter, priceType) => {
         let price = "";
@@ -319,9 +343,6 @@ class Step2 extends React.Component {
 
     checkAvailability = (history) => {
         this.setState({ _isMounted: false });
-        // this.props.getRegRoomPrice("A");
-        // this.props.getNonrefundableRoomPrice("A");
-        // this.props.getExtendedRoomPrice("A");
         this.props.setStep(1);
         this.props.setNrNights(this.state.nrNights);
         this.props.setStartDate(this.state.startDate);
@@ -331,20 +352,13 @@ class Step2 extends React.Component {
         this.props.setEndDateString(this.state.endDateString);
         this.props.setEndDateDB(this.state.endDateDB);
         this.props.checkAvailability(this.state.startDateDB, this.state.endDateDB, "override");
-        history.push({
-            pathname: '/reservation',
-            state: this.state,
-            startDateParse: this.state.startDate.format("YYYY-MM-DD"),
-            endDateParse: this.state.endDate.format("YYYY-MM-DD"),
-            step: 2
-        })
     };
 
     Button = withRouter(({ history }) => (
         <span
             className="reservation-custom-button"
             onClick={
-                this.state.endDate != "" ?
+                this.state.endDate !== "" ?
                     (() => this.checkAvailability(history))
                 : 
                 this.state._isMounted &&
@@ -355,13 +369,30 @@ class Step2 extends React.Component {
         </span>
     ));
 
+    GoToBillingButton = withRouter(({ history }) => (
+        <span
+            className="reservation-custom-button"
+            onClick={() => this.prepareForRedirection(history)}
+        >
+            GO TO BILLING
+        </span>
+    ));
+
+    // prepareForRedirection = async (history) => {
+    //         await this.addToLocalStorage();
+    //         history.push({pathname: '/reservation'})
+    //     } else {
+    //         this.setState({ modalShowNoEndDate: true })
+    //     };
+    // };
+
     render() {
         return(
             this.state._isMounted &&
             <>
                 <div className="reservation-menu">
-                    <div className="reservation-number">1.</div>
-                    <div className="reservation-text">Choose Date</div>
+                    <div className="reservation-number" style={{cursor: "pointer"}} onClick={this.props.goBackToStep1}>1.</div>
+                    <div className="reservation-text" style={{cursor: "pointer"}} onClick={this.props.goBackToStep1}>Choose Date</div>
                     <div className="reservation-space" />
                     <div className="reservation-active">
                         <div className="reservation-number">2.</div>
@@ -369,7 +400,7 @@ class Step2 extends React.Component {
                     </div>
                     <div className="reservation-space" />
                     <div className="reservation-number">3.</div>
-                    <div className="reservation-text">Billing & Confirmation</div>
+                    <div className="reservation-text">Billing</div>
                 </div>
                 <div className="reservation-hr-container"><hr style={{marginTop: "-1px", width: "83%"}} /></div>
                 <div className="reservation-container">
@@ -430,14 +461,14 @@ class Step2 extends React.Component {
                                                     </span>
                                                     <span style={{fontSize: "11px", marginTop: "1px"}}>
                                                         { room.people[0] }
-                                                        { room.people[0] == 1 ? " Adult, " : " Adults, " }
+                                                        { room.people[0] === 1 ? " Adult, " : " Adults, " }
                                                         { room.people[1] }
-                                                        { room.people[1] == 1 ? " Child " : " Children " }
+                                                        { room.people[1] === 1 ? " Child " : " Children " }
                                                     </span>
                                                 </row>
                                                 <row style={{marginTop: "15px"}}>
                                                     <span style={{fontWeight: "bold", fontSize: "13px"}}>
-                                                        { this.props.renderRoomName(this.props.bookedRoomLetters[parseInt(room.roomNumber, 10)-1]) }
+                                                        { this.props.renderRoomName(room.roomLetter) }
                                                     </span>
                                                     <span style={{fontWeight: "bold", fontSize: "13px", color: "#8E7037"}}>
                                                         ${ this.props.nrRoomsArray[parseInt(room.roomNumber, 10)-1].roomPrice }
@@ -479,6 +510,7 @@ class Step2 extends React.Component {
                                     <span className="reservation-custom-button" onClick={this.goToBilling}>
                                         GO TO BILLING
                                     </span>
+                                    {/* <this.GoToBillingButton /> */}
                                 </div>
                                 </>
                             }
@@ -612,17 +644,17 @@ class Step2 extends React.Component {
                     }
                 </Modal>
                 <Modal show={this.state.modalShowStart} onHide={this.handleClose} centered>
-                    { this.state.endDate != "" ?
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    { this.state.endDate !== "" ?
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={this.state.endDate !== "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickStart} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
                 <Modal show={this.state.modalShowEnd} onHide={this.handleClose} centered>
-                    { this.state.endDate != "" ?
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={this.state.endDate != "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                    { this.state.endDate !== "" ?
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={this.state.endDate !== "" && this.state.endDate} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     :
-                        <Calendar startDate={this.state.startDate != "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
+                        <Calendar startDate={this.state.startDate !== "" && this.state.startDate} endDate={null} singleDatePicker={true} onDayClick={this.onDayClickEnd} showDropdowns={false} showWeekNumbers={false} autoApply={true} today={dayjs()} />
                     }
                 </Modal>
                 <Modal show={this.state.modalShowNoEndDate} onHide={this.handleClose} centered>

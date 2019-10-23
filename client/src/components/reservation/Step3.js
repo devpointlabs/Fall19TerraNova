@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Col, Row, InputGroup, Button } from "react-bootstrap";
+import { Form, Col, Row } from "react-bootstrap";
 import styled from "styled-components";
 import RenderCountries from "./RenderCountries";
 import RenderStates from "./RenderStates";
@@ -9,6 +9,11 @@ import { Elements } from 'react-stripe-elements';
 class Step3 extends React.Component {
     state = { 
         _isMounted: false,
+        startDateString: "",
+        endDateString: "",
+        nrNights: "",
+        totalPrice: 0,
+        nrRoomsArray: [],
         toggleCouponCode: false,
         totalNrRooms: 0,
         totalNrAdults: 0,
@@ -34,13 +39,19 @@ class Step3 extends React.Component {
     };
 
     componentDidMount() {
-        this.setTotalNrRooms();
-        this.setTotalNrAdults();
-        this.setTotalNrChildren();
-        let taxes = this.calculateTaxes();
-        this.calculateGrandTotal(taxes);
+        this.setState({
+            startDateString: this.props.startDateString,
+            endDateString: this.props.endDateString,
+            nrRoomsArray: this.props.nrRoomsArray,
+            nrNights: this.props.nrNights,
+            totalPrice: this.props.totalPrice
+        });
+        this.setTotalNrRooms(this.props.nrRoomsArray);
+        this.setTotalNrAdults(this.props.nrRoomsArray);
+        this.setTotalNrChildren(this.props.nrRoomsArray);
+        let taxes = this.calculateTaxes(this.props.nrRoomsArray);
+        this.calculateGrandTotal(taxes, this.props.totalPrice);
         this.setState({ _isMounted: true });
-        let state = this.state;
     };
 
     handleChange = (e) => {
@@ -48,51 +59,45 @@ class Step3 extends React.Component {
         this.setState({ [name]: value, });
     };
 
-    setTotalNrRooms = () => {
-        let totalNrRooms = 0;
-        this.props.nrRoomsArray.map(room => {
+    setTotalNrRooms = (nrRoomsArray) => {
+        var totalNrRooms = 0;
+        nrRoomsArray.map(room => {
             if (room.roomLetter)
-                totalNrRooms += 1
+                totalNrRooms += 1;
+            return totalNrRooms;
         });
         this.setState({ totalNrRooms });
     };
 
-    setTotalNrAdults = () => {
+    setTotalNrAdults = (nrRoomsArray) => {
         let totalNrAdults = 0;
-        this.props.nrRoomsArray.map( room => (
+        nrRoomsArray.map( room => (
             totalNrAdults += parseInt(room.people[0], 10)
         ));
         this.setState({ totalNrAdults });
     };
 
-    setTotalNrChildren = () => {
+    setTotalNrChildren = (nrRoomsArray) => {
         let totalNrChildren = 0;
-        this.props.nrRoomsArray.map( room => (
+        nrRoomsArray.map( room => (
             totalNrChildren += parseInt(room.people[1], 10)
         ));
         this.setState({ totalNrChildren });
     };
 
-    calculateTaxes = () => {
+    calculateTaxes = (nrRoomsArray) => {
         let taxes = this.state.taxes;
-        this.props.nrRoomsArray.map((room, index) => {
-            taxes.push("");
-            taxes[index] = room.roomPrice * 0.075;
-        });
+        nrRoomsArray.map(room => taxes.push(room.roomPrice * 0.075));
         this.setState({ taxes });
         return taxes;
     };
 
-    calculateGrandTotal = (taxes) => {
+    calculateGrandTotal = (taxes, totalPrice) => {
         let totalTaxes = 0;
         taxes.map( tax => (totalTaxes += tax));
-        let grandTotal = this.props.totalPrice + totalTaxes;
+        let grandTotal = totalPrice + totalTaxes;
         this.setState({ grandTotal });
         this.props.setGrandTotal(grandTotal);
-    };
-
-    toggleBankTransfer = () => {
-        this.setState({ showBankTransfer: !this.state.showBankTransfer })
     };
 
     toggleCreditCard = () => {
@@ -100,7 +105,7 @@ class Step3 extends React.Component {
     };
 
     toggleBankTransfer = () => {
-        this.setState({ showBankTransfer: true, showBankTransfer: false })
+        this.setState({ showBankTransfer: true, showCreditCard: false })
     };
 
     handleSubmit = () => {
@@ -111,17 +116,16 @@ class Step3 extends React.Component {
         return(
             this.state._isMounted &&
             <>
-            
                 <div className="reservation-menu">
-                    <div className="reservation-number">1.</div>
-                    <div className="reservation-text">Choose Date</div>
+                    <div className="reservation-number" style={{cursor: "pointer"}} onClick={this.props.goBackToStep1}>1.</div>
+                    <div className="reservation-text" style={{cursor: "pointer"}} onClick={this.props.goBackToStep1}>Choose Date</div>
                     <div className="reservation-space" />
-                    <div className="reservation-number">2.</div>
-                    <div className="reservation-text">Choose Room</div>
+                    <div className="reservation-number" style={{cursor: "pointer"}} onClick={this.props.goBackToStep2}>2.</div>
+                    <div className="reservation-text" style={{cursor: "pointer"}} onClick={this.props.goBackToStep2}>Choose Room</div>
                     <div className="reservation-space" />
                     <div className="reservation-active">
                         <div className="reservation-number">3.</div>
-                        <div className="reservation-text">Billing & Confirmation</div>
+                        <div className="reservation-text">Billing</div>
                     </div>
                 </div>
                 <div className="reservation-hr-container"><hr style={{marginTop: "-1px", width: "83%"}} /></div>
@@ -133,15 +137,15 @@ class Step3 extends React.Component {
                             <br />
                             <div className="reservation-row">
                                 <span>Check-In</span>
-                                <span style={{fontWeight: "bold"}}>{ this.props.startDateString }</span>
+                                <span style={{fontWeight: "bold"}}>{ this.state.startDateString }</span>
                             </div>
                             <div className="reservation-row">
                                 <span>Check-Out</span>
-                                <span style={{fontWeight: "bold"}}>{ this.props.endDateString }</span>
+                                <span style={{fontWeight: "bold"}}>{ this.state.endDateString }</span>
                             </div>
                             <div className="reservation-row">
                                 <span>Night(s)</span>
-                                <span style={{fontWeight: "bold"}}>{ this.props.nrNights }</span>
+                                <span style={{fontWeight: "bold"}}>{ this.state.nrNights }</span>
                             </div>
                             <div className="reservation-row">
                                 <span>Room(s)</span>
@@ -157,7 +161,7 @@ class Step3 extends React.Component {
                         <div className="reservation-left-box-lower">
                             <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>ROOMS</p>
                             <div className="reservation-hr-container"><div className="reservation-line" /></div>
-                            { this.props.nrRoomsArray.map( (room, index) => (
+                            { this.state.nrRoomsArray.map( (room, index) => (
                                 room.roomLetter != null &&
                                 <>
                                     <div className="reservation-room-information-container" key={index+1}>
@@ -169,11 +173,11 @@ class Step3 extends React.Component {
                                         <div className="reservation-hr-container"><div className="reservation-line" style={{marginBottom: "5%"}} /></div>
                                         <p style={{fontWeight: "bold", fontSize: "13px"}}>ROOM PRICE</p>
                                         <span className="reservation-row-nosideandbottommargin">
-                                            <span>{ this.props.startDateString } - { this.props.endDateString }</span>
-                                            <span style={{fontWeight: "bold"}}>${ this.props.nrRoomsArray[index].roomPrice }</span>
+                                            <span>{ this.state.startDateString } - { this.state.endDateString }</span>
+                                            <span style={{fontWeight: "bold"}}>${ room.roomPrice }</span>
                                         </span>
                                         <row style={{fontSize: "x-small", marginTop: "3px", marginBottom: "6px"}}>
-                                            { this.props.nrRoomsArray[parseInt(room.roomNumber, 10)-1].roomPriceType }
+                                            { room.roomPriceType }
                                         </row>
                                         <div className="reservation-hr-container"><div className="reservation-line" style={{marginBottom: "5%"}} /></div>
                                         <div className="reservation-row-nosidemargin">
@@ -191,7 +195,7 @@ class Step3 extends React.Component {
                                             </span>
                                         </div>
                                     </div>
-                                    { index != this.props.nrRoomsArray.length-1 &&
+                                    { index !== this.props.nrRoomsArray.length-1 &&
                                         <div className="reservation-hr-container"><div className="reservation-line" /></div>
                                     }
                                 </>
@@ -361,7 +365,7 @@ class Step3 extends React.Component {
                                     <>
                                         <span style={{width: "15%", marginTop: "0.8%"}}>Coupon code:</span>
                                         <Form.Control placeholder="Coupon code" />
-                                        <span className="reservation-custom-button-submit">Submit</span>
+                                        <span className="reservation-custo-submit">Submit</span>
                                     </>
                                 }
                             </div>
@@ -380,7 +384,7 @@ class Step3 extends React.Component {
                                         </Elements>
                                     }
                             </div>
-                            <span className="reservation-custom-button-placeorder">PLACE ORDER</span>
+                            {/* <span className="reservation-custom-button-placeorder">PLACE ORDER</span> */}
                         </Form>
                     </div>
                 </div>

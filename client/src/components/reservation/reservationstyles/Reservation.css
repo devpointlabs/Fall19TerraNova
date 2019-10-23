@@ -408,6 +408,30 @@
     font-size: 14px;
 }
 
+.reservation-confirmation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #efefef;
+    flex-direction: column;
+}
+
+.reservation-confirmation-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.reservation-confirmation-row-column1 {
+    width: 20%;
+    margin-right: 2em;
+}
+
+.reservation-confirmation-row-column2 {
+    width: 40%;
+}
+
 div[role="listbox"] {
     display: flex !important;
     justify-content: space-between !important;
