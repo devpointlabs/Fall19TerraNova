@@ -11,6 +11,7 @@ import RoomDetails from './components/RoomDetails';
 import About from './components/about/About';
 import Contact from './components/Contact';
 import FetchUser from './components/FetchUser';
+import GalleryView from './components/GalleryView';
 import Reservation from './components/reservation/Reservation';
 import { Switch, Route, } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
