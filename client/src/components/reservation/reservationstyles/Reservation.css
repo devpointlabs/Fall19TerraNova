@@ -233,6 +233,29 @@
     padding-top: 15px;
 }
 
+.reservation-inner-room-price-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1em;
+    padding: 0.3em 0 0.3em 0;
+}
+
+.reservation-inner-room-price {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid rgb(225, 225, 225);
+    padding: 0.4em 0.8em 0.4em 0.8em;
+}
+
+.reservation-room-price {
+    display: flex;
+    flex-direction: row;
+}
+
 .reservation-room-content {
     width: 55%;
 }
@@ -279,9 +302,8 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    padding-left: 30px;
-    padding-right: 30px;
-    margin-left: 12%;
+    padding-left: 10px;
+    padding-right: 10px;
     margin-top: 1%;
 }
 
@@ -359,6 +381,14 @@
     margin-bottom: 10px;
 }
 
+.reservation-row-nosideandbottommargin {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: smaller;
+    margin-bottom: 0px;
+}
+
 .reservation-room-information-container {
     display: flex;
     flex-direction: column;
@@ -391,6 +421,10 @@ div.text {
 .dropdown.icon {
     margin-right: 10px !important;
     margin-top: 10px !important;
+}
+
+.menu.transition.visible {
+    z-index: 999 !important;
 }
 
 ul {

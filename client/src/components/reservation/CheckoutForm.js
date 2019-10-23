@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 
 const CheckoutForm = (props) => {
@@ -8,7 +8,7 @@ const CheckoutForm = (props) => {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [cabin_type, setCabin_type] = useState("Family")
-
+  
   useEffect(() => {
     axios.get('/api/getclientsecret')
       .then(res => { setClient_secret(res.data.client_secret) })
@@ -23,8 +23,8 @@ const CheckoutForm = (props) => {
     if (error) {
       console.log(error)
       console.log("YOU HAVE A CARD ERROR")
-    } else if (setupIntent.status == "succeeded") { // Its a go! create the booking. add the customerpaymenttoken, go go go
-      await axios.post(`/api/createres?body=${result.paymentMethod.id}`)//${token.id}
+    } else if (setupIntent.status == "succeeded") { 
+      await axios.post(`/api/createres?body=${result.paymentMethod.id}`)
         .then(res => {
           
           // CREATE A USER FIRST, THEN YOU CAN add that to the boooking
@@ -45,29 +45,20 @@ const CheckoutForm = (props) => {
             guests: 3, 
             special_needs: "Wants the cabin in far north", 
             booking_number: 123456789, 
-            user_id: 1,  // if user is logged in or has created an account, put user_id here.
+            user_id: 1,  
             cabin_id: 10, 
-            expected_arrival: "2:00PM"}) // put all the customer information in this hash. 
+            expected_arrival: "2:00PM"}) 
             .then(res=> {
               debugger
               setComplete(true)
             })
             .catch(err => { console.log(err) })
-
-
         })
         .catch(err => { console.log(err) })
 
       // The setup has succeeded. Display a success message.
     }
-
-
-
   }
-
-
-
-
 
   return (
     <div className="checkout">
@@ -105,4 +96,4 @@ const CheckoutForm = (props) => {
   )
 }
 
-export default injectStripe(CheckoutForm) // can i put export default in front of const CheckoutForm.
+export default injectStripe(CheckoutForm)
