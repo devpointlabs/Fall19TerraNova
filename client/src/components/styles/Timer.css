@@ -501,14 +501,14 @@
   }
 
   .countnumber {
-    margin-left: .3em;
-    margin-right: .3em;
+    margin-left: .4em;
+    margin-right: .4em;
     margin-top: .1em;
     font-size: 3em;
   }
 
   .countword {
-    margin-top: -1em;
+    margin-top: -.5em;
     font-size: 1.1em;
   }
 
@@ -552,14 +552,14 @@
   }
 
   .countnumber {
-    margin-left: .3em;
-    margin-right: .3em;
+    margin-left: .4em;
+    margin-right: .4em;
     margin-top: .1em;
     font-size: 3em;
   }
 
   .countword {
-    margin-top: -1em;
+    margin-top: -.5em;
     font-size: 1.1em;
   }
 
@@ -587,7 +587,7 @@
     border-style: solid;
     border-width: .1em;
     border-color: white;
-    width: 30em;
+    width: 32em;
   }
 
   .countdown {
@@ -611,7 +611,7 @@
   }
 
   .countword {
-    margin-top: -.8em;
+    margin-top: -.5em;
     font-size: 1.1em;
   }
 
@@ -627,7 +627,106 @@
   }
 }
 
-
 /* web 1680 by 1050 */
+@media screen and (max-width: 1700px) and (min-width: 1501px) {
+
+  .timer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    font-size: 1.5em;
+    justify-content: center;
+    border-style: solid;
+    border-width: .1em;
+    border-color: white;
+    width: 32em;
+  }
+
+  .countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .timecontainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .countnumber {
+    margin-left: .4em;
+    margin-right: .4em;
+    margin-top: .1em;
+    font-size: 3em;
+  }
+
+  .countword {
+    margin-top: -.5em;
+    font-size: 1.1em;
+  }
+
+  .colon {
+    font-size: 3em;
+  }
+
+  .expired {
+    font-size: 1.5em;
+    color: rgb(126, 49, 49);
+    border: .1em solid rgb(126, 49, 49);
+    padding: .5em;
+  }
+}
 
 /* web 1920 by 1200 */
+@media screen and (max-width: 1950px) and (min-width: 1701px) {
+
+  .timer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    font-size: 1.5em;
+    justify-content: center;
+    border-style: solid;
+    border-width: .1em;
+    border-color: white;
+    width: 32em;
+  }
+
+  .countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .timecontainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .countnumber {
+    margin-left: .4em;
+    margin-right: .4em;
+    margin-top: .1em;
+    font-size: 3em;
+  }
+
+  .countword {
+    margin-top: -.5em;
+    font-size: 1.1em;
+  }
+
+  .colon {
+    font-size: 3em;
+  }
+
+  .expired {
+    font-size: 1.5em;
+    color: rgb(126, 49, 49);
+    border: .1em solid rgb(126, 49, 49);
+    padding: .5em;
+  }
+}
