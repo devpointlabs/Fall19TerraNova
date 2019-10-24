@@ -248,6 +248,7 @@ class Reservation extends React.Component {
         };
         axios.get("/api/avail_cabins", {params: {dates: [startDateDB, endDateDB]}} )  //!!!!!!!!!!!!!!!!!!!, discountcode: 23456789
             .then(res => {
+                debugger
                 this.setState({
                     _isMounted: true,
                     aRooms: res.data.aRooms,
@@ -427,18 +428,21 @@ class Reservation extends React.Component {
         let rooms = this.state.rooms;
         let roomPrice = null;
         let index = null;
+        let cabinId = null;
         switch(roomLetter) {
             case "A":
                 room = this.state.aRooms[0];
                 familyCabins = familyCabins.filter( familyCabin => 
                     familyCabin.cabin_number !== room.cabin_number );
                 index = 0;
+                cabinId = room.id.toString();
                 break;
             case "B":
                 room = this.state.bRooms[0];
                 familyCabins = familyCabins.filter( familyCabin => 
                     familyCabin.cabin_number !== room.cabin_number );
                 index = 1;
+                cabinId = room.id.toString();
                 break;
             case "F":
                 room = this.state.familyCabins[0];
@@ -447,14 +451,17 @@ class Reservation extends React.Component {
                 bRooms = bRooms.filter( bRoom => 
                     bRoom.cabin_number !== room.cabin_number );
                 index = 2;
+                cabinId = `${room.pair[0].id}, ${room.pair[1].id}`;
                 break;
             case "V1":
                 room = this.state.vip1;
                 index = 3;
+                cabinId = room.id.toString();
                 break;
             case "V2":
                 room = this.state.vip2;
                 index = 4;
+                cabinId = room.id.toString();
                 break;
             default:
               break;
@@ -473,7 +480,7 @@ class Reservation extends React.Component {
             rooms.push(["0", "0"]);
             nrRoomsArray[nrRoomsArray.length-1].active = false;
             nrRoomsArray[nrRoomsArray.length-1].roomLetter = roomLetter;
-            nrRoomsArray[nrRoomsArray.length-1].cabinId = room.id;
+            nrRoomsArray[nrRoomsArray.length-1].cabinId = cabinId;
             nrRoomsArray[nrRoomsArray.length-1].cabinNumber = room.cabin_number;
             nrRoomsArray[nrRoomsArray.length-1].roomPrice = roomPrice;
             nrRoomsArray[nrRoomsArray.length-1].roomPriceType = priceType;
@@ -488,7 +495,7 @@ class Reservation extends React.Component {
             });
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].active = false;
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomLetter = roomLetter;
-            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].cabinId = room.id;
+            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].cabinId = cabinId;
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].cabinNumber = room.cabin_number;
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomPrice = roomPrice;
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomPriceType = priceType;
@@ -563,6 +570,19 @@ class Reservation extends React.Component {
                 room.roomNumber = (parseInt(room.roomNumber)-1).toString();
             return room;
         });
+        // nrRoomsArray.map( (room, index) => {
+        //     if (room.roomLetter) {
+        //         localStorage.setItem(`room${index+1}_roomNumber`, nrRoomsArray[index].roomNumber);
+        //         localStorage.setItem(`room${index+1}_roomLetter`, nrRoomsArray[index].roomLetter);
+        //         localStorage.setItem(`room${index+1}_cabinId`, nrRoomsArray[index].cabinId);
+        //         localStorage.setItem(`room${index+1}_cabinNumber`, nrRoomsArray[index].cabinNumber);
+        //         localStorage.setItem(`room${index+1}_roomPrice`, nrRoomsArray[index].roomPrice);
+        //         localStorage.setItem(`room${index+1}_roomPriceType`, nrRoomsArray[index].roomPriceType);
+        //         localStorage.setItem(`room${index+1}_nrAdults`, nrRoomsArray[index].people[0]);
+        //         localStorage.setItem(`room${index+1}_nrChildren`, nrRoomsArray[index].people[1]);
+        //     };
+        //     return room;
+        // });
         this.setState({ nrRoomsArray, bookedRooms });
         this.calculateTotalPrice(nrRoomsArray);
     };
