@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
 
-const AuthContext = React.createContext();
+export const AuthContext = React.createContext();
+
 export const AuthConsumer = AuthContext.Consumer;
 
 export class AuthProvider extends React.Component {
@@ -17,6 +18,7 @@ export class AuthProvider extends React.Component {
       .catch( res => {
         console.log(res);
       })
+  
   }
 
   handleLogin = (user, history) => {
@@ -44,6 +46,7 @@ export class AuthProvider extends React.Component {
   render() {
     return (
       <AuthContext.Provider value={{
+        user: this.state.user,
         ...this.state,
         authenticated: this.state.user !== null,
         handleRegister: this.handleRegister,
