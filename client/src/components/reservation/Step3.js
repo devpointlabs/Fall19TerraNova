@@ -20,7 +20,6 @@ class Step3 extends React.Component {
         totalNrGuests: 0,
         taxes: [],
         grandTotal: 0,
-        // bookedRooms: [],
         showBankTransfer: false,
         showCreditCard: false,
         country: "United States of America",
@@ -58,7 +57,6 @@ class Step3 extends React.Component {
         this.setState({ totalNrGuests: (totalNrAdults + totalNrChildren) });
         let taxes = this.calculateTaxes(this.props.nrRoomsArray);
         this.calculateGrandTotal(taxes, this.props.totalPrice);
-        // this.setBookedRooms(this.props.nrRoomsArray);
         this.setState({ _isMounted: true });
     };
 
@@ -110,14 +108,6 @@ class Step3 extends React.Component {
         this.setState({ grandTotal });
         this.props.setGrandTotal(grandTotal);
     };
-
-    // setBookedRooms = (nrRoomsArray) => {
-    //     let bookedRooms = [];
-    //     for (var i; i < nrRoomsArray.length; i++)
-    //         if (nrRoomsArray[i].roomLetter)
-    //             bookedRooms.push(nrRoomsArray[i]);
-    //     this.setState({ bookedRooms });
-    // };
 
     enterCouponCode = () => {
         if (this.state.coupon !== "")
@@ -475,7 +465,6 @@ class Step3 extends React.Component {
                                         </Elements>
                                     }
                             </div>
-                            {/* <span className="reservation-custom-button-placeorder">PLACE ORDER</span> */}
                         </Form>
                     </div>
                 </div>
@@ -486,6 +475,6 @@ class Step3 extends React.Component {
 
 const CustomRow = styled(Row)`
     margin-bottom: 20px;
-`
+`;
 
 export default Step3;

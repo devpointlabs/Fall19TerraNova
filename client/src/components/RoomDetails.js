@@ -119,25 +119,6 @@ class RoomDetails extends React.Component {
         };
     };
 
-    // Button = withRouter(({ history }) => (
-    //     <span
-    //         className="roomdetails-custom-button"
-    //         onClick={ this.state.endDate != "" ? () => { 
-    //             history.push({
-    //             pathname: '/reservation',
-    //             state: this.state,
-    //             startDateParse: this.state.startDate.format("YYYY-MM-DD"),
-    //             endDateParse: this.state.endDate.format("YYYY-MM-DD")
-    //         }) }
-    //         :
-    //             this.state._isMounted &&
-    //                 (() => this.setState({ modalShowNoEndDate: true }))
-    //         }
-    //     >
-    //         CHECK AVAILABILITY
-    //     </span>
-    // ));
-
     CheckAvailabilityButton = withRouter(({ history }) => (
         <span
             className="roomdetails-custom-button"

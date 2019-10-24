@@ -43,11 +43,11 @@ const GalLargeImage = ({ image }) => {
     let $imageUploadButton = null;
     let $fileInput = null;
     if (image) {
-        $imagePreview = (<img src={image.img} style={{maxWidth: "100%", maxHeight: "100%"}} />);
+        $imagePreview = (<img src={image.img} style={{maxWidth: "100%", maxHeight: "100%"}} alt="cabin" />);
         $imageUploadButton = uploadButton();
     } else if 
     (imagePreviewURL) {
-        $imagePreview = (<img src={imagePreviewURL} style={{maxWidth: "100%", maxHeight: "100%"}} />);
+        $imagePreview = (<img src={imagePreviewURL} style={{maxWidth: "100%", maxHeight: "100%"}} alt="cabin" />);
         $imageUploadButton = uploadButton();
                        
     } else {

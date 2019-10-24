@@ -455,8 +455,14 @@ div[role="listbox"] {
 }
 
 div.text {
-    margin-top: 5px;
+    margin-top: 8px;
     margin-left: 2px;
+    font-family: "Nanum Gothic";
+}
+
+span.text {
+    font-family: "Nanum Gothic";
+    font-size: small;
 }
 
 .dropdown.icon {

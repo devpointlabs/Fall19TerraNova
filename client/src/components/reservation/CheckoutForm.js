@@ -208,7 +208,7 @@ const createOptions = () => {
           color: '#c23d4b',
         },
       }
-    }
-  };
+    };
+};
 
 export default injectStripe(CheckoutForm);

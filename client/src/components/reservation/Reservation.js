@@ -1,43 +1,5 @@
-// Line 336:   Expected a default case              default-case
-// Line 340:  Expected '!==' and instead saw '!='  eqeqeq
-// Line 346:  Expected '!==' and instead saw '!='  eqeqeq
-// Line 352:  Expected '!==' and instead saw '!='  eqeqeq
-// Line 354:  Expected '!==' and instead saw '!='  eqeqeq
-// Line 446:  Expected '===' and instead saw '=='  eqeqeq
-// Line 449:  Expected '===' and instead saw '=='  eqeqeq
-// Line 452:  Expected '===' and instead saw '=='  eqeqeq
-// Line 455:  Expected '===' and instead saw '=='  eqeqeq
-// Line 458:  Expected '===' and instead saw '=='  eqeqeq
-// Line 503:  'index' is already defined           no-redeclare
-// Line 507:  'index' is already defined           no-redeclare
-// Line 513:  'index' is already defined           no-redeclare
-// Line 517:  'index' is already defined           no-redeclare
-// Line 543:  Expected '===' and instead saw '=='  eqeqeq
-// Line 545:  Expected '===' and instead saw '=='  eqeqeq
-// Line 547:  Expected '===' and instead saw '=='  eqeqeq
-// Line 551:  Expected '===' and instead saw '=='  eqeqeq
-// Line 553:  Expected '===' and instead saw '=='  eqeqeq
-// Line 558:  Expected '===' and instead saw '=='  eqeqeq
-// Line 562:  Expected '===' and instead saw '=='  eqeqeq
-// Line 563:  'index' is already defined           no-redeclare
-// Line 566:  Expected '===' and instead saw '=='  eqeqeq
-// Line 567:  'index' is already defined           no-redeclare
-// Line 572:  Expected '===' and instead saw '=='  eqeqeq
-// Line 573:  'index' is already defined           no-redeclare
-// Line 576:  Expected '===' and instead saw '=='  eqeqeq
-// Line 577:  'index' is already defined           no-redeclare
-// Line 584:  Expected '===' and instead saw '=='  eqeqeq
-// Line 585:  Expected '===' and instead saw '=='  eqeqeq
-// Line 586:  Expected '===' and instead saw '=='  eqeqeq
-// Line 587:  Expected '===' and instead saw '=='  eqeqeq
-// Line 588:  Expected '===' and instead saw '=='  eqeqeq
-
-
 import React from 'react';
-// import { Form, OverlayTrigger, Popover } from "react-bootstrap";
-// import { Icon, Dropdown } from "semantic-ui-react";
 import "./reservationstyles/Reservation.css";
-// import styled from "styled-components";
 import axios from "axios";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
@@ -49,7 +11,6 @@ class Reservation extends React.Component {
     state = {
         _isMounted: false,
         _redirection: false,
-        _reload: false,
         step: 1,
         startDate: "",
         startDateString: "",
@@ -63,8 +24,16 @@ class Reservation extends React.Component {
         chooseEndDate: false,
         nrNights: "1",
         nrRooms: "",
-        nrRoomsArray: [{roomNumber: "1", roomLetter: null, cabinId: null, cabinNumber: null, roomPrice: null, roomPriceType: null, people: ["0", "0"], active: true}],
-        rooms: [["0", "0"]], //room: (adults: ?, children: ?)
+        nrRoomsArray: [{
+            roomNumber: "1",
+            roomLetter: null,
+            cabinId: null,
+            cabinNumber: null,
+            roomPrice: null,
+            roomPriceType: null,
+            people: ["0", "0"],
+            active: true
+        }],
         aRooms: [],
         bRooms: [],
         familyCabins: [],
@@ -72,7 +41,6 @@ class Reservation extends React.Component {
         vip2: null,
         anyAvailableCabins: true,
         bookedRooms: [],
-        bookedRoomLetters: [],
         prices: [
             {room: "A", regular: 0, nonrefundable: 0, extended: 0, company: 0},
             {room: "B", regular: 0, nonrefundable: 0, extended: 0, company: 0},
@@ -89,7 +57,6 @@ class Reservation extends React.Component {
     };
 
     loadData = () => {
-        // if (localStorage.step && localStorage.getItem('step') === "4") this.setState({ step: 4, _isMounted: true });
         if (localStorage.startDateString) {
             // load state from local storage
             this.setState({
@@ -141,29 +108,8 @@ class Reservation extends React.Component {
                 this.setState({ grandTotal: localStorage.getItem('grandTotal'), step: 4, _isMounted: true });
             }
             else this.setState({ step: 3, _isMounted: true });
-        // } else if (!this.state.reload && this.props.history.location.state &&
-        //     this.props.history.location.state.startDate != dayjs() &&
-        //     this.props.history.location.state.endDate != dayjs(dayjs().add('1', 'day')) &&
-        //     !startOver) {
-        //     // redirecting from home page or room details page
-        //     this.cleanLocalStorage();
-        //     let passedState = this.props.history.location.state;
-        //     this.setState({ 
-        //         step: 1,
-        //         startDate: dayjs(this.props.history.location.startDateParse),
-        //         startDateString: passedState.startDateString,
-        //         startDateDB: passedState.startDateDB,
-        //         endDate: dayjs(this.props.history.location.endDateParse),
-        //         endDateString: passedState.endDateString,
-        //         endDateDB: passedState.endDateDB,
-        //         nrNights: passedState.nrNights,
-        //         _isMounted: true,
-        //         _redirection: true,
-        //         _reload: false
-        //     });
-        //     this.checkAvailability(passedState.startDateDB, passedState.endDateDB);
         } else {
-            // no redirecting
+            // begin a new reservation processr
             let startDate = dayjs();
             let endDate = dayjs(startDate.add('1', 'day'));
             this.setState({ 
@@ -233,9 +179,6 @@ class Reservation extends React.Component {
     checkAvailability = (startDate, endDate, override, nrRoomsArray) => {
         let startDateDB = "";
         let endDateDB = "";
-        // let startDateDB = this.state.startDateDB ? this.state.startDateDB : startDate;
-        // let endDateDB = this.state.endDateDB ? this.state.endDateDB : endDate;
-        // let startDateDB = override ? startDate : this.state.startDateDB;
         if (override && override === "override") {
             startDateDB = startDate;
             endDateDB = endDate;
@@ -246,9 +189,8 @@ class Reservation extends React.Component {
             startDateDB = startDate;
             endDateDB = endDate;
         };
-        axios.get("/api/avail_cabins", {params: {dates: [startDateDB, endDateDB]}} )  //!!!!!!!!!!!!!!!!!!!, discountcode: 23456789
+        axios.get("/api/avail_cabins", {params: {dates: [startDateDB, endDateDB]}} )  // discountcode: 23456789
             .then(res => {
-                debugger
                 this.setState({
                     _isMounted: true,
                     aRooms: res.data.aRooms,
@@ -315,54 +257,6 @@ class Reservation extends React.Component {
             .catch(err => {
                 console.log(err)
         });
-        // let startDateDay = startDateDB.substring(0, 2);
-        // let startDateMonth = startDateDB.substring(3, 5);
-        // let startDateYear = startDateDB.substring(6, 10);
-        // let startDateParse = `${startDateYear}-${startDateMonth}-${startDateDay}`;
-        // let endDateDBDay = endDateDB.substring(0, 2);
-        // let endDateDBMonth = endDateDB.substring(3, 5);
-        // let endDateDBYear = endDateDB.substring(6, 10);
-        // let endDateDBParse = `${endDateDBYear}-${endDateDBMonth}-${endDateDBDay}`;
-        // this.props.history.location.state.startDate = dayjs(startDateParse);
-        // this.props.history.location.state.startDateDB = dayjs(startDateParse).format("DD/MM/YYYY");
-        // this.props.history.location.state.startDateString = dayjs(startDateParse).format("MM/DD/YYYY");
-        // this.props.history.location.startDateParse = startDateParse;
-        // this.props.history.location.state.endDate = dayjs(endDateDBParse).add('1', 'day');
-        // this.props.history.location.state.endDateDB = dayjs(endDateDBParse).format("DD/MM/YYYY");
-        // this.props.history.location.state.endDateString = dayjs(endDateDBParse).add('1', 'day').format("MM/DD/YYYY");
-        // this.props.history.location.endDateParse = dayjs(endDateDBParse).add('1', 'day').format("YYYY-MM-DD");
-        // this.props.history.location.nrNights = dayjs(endDateDBParse).add('1', 'day').diff(dayjs(startDateParse), 'day');
-        // this.props.history.location.state.test = "test";
-        // this.props.history.location.test = "test";
-        // this.props.location.test = "test";
-        // this.props.history.push({ test: "test" });
-    };
-
-    onDatesChange = ({startDate, endDate}) => {
-        let startMonth = startDate.$M + 1
-        if (startMonth < 10)
-            startMonth = `0${startMonth}`
-        let startDay = startDate.$D
-        if (startDay < 10)
-            startDay = `0${startDay}`
-        let endMonth = endDate.$M + 1
-        if (endMonth < 10)
-            endMonth = `0${endMonth}`
-        let endDay = endDate.$D
-        let endDayDB = endDate.$D - 1
-        if (endDay < 10)
-            endDay = `0${endDay}`
-        if (endDayDB < 10)
-            endDayDB = `0${endDayDB}`
-        let startDateString = `${startDate.$y}-${startMonth}-${startDay}`
-        let endDateString = `${endDate.$y}-${endMonth}-${endDay}`
-        let endDateDBString = `${endDate.$y}-${endMonth}-${endDayDB}`
-        let startDateFormatted = this.formatDate(startDateString);
-        let endDateFormatted = this.formatDate(endDateString);
-        let endDateDBFormatted = this.formatDate(endDateDBString);
-        this.setState({startDate: startDateFormatted});
-        this.setState({endDate: endDateFormatted});
-        this.setState({endDateDB: endDateDBFormatted});
     };
 
     setStartDate = (startDate) => this.setState({ startDate });
@@ -370,13 +264,6 @@ class Reservation extends React.Component {
     setStartDateString = (startDateString) => this.setState({ startDateString });
 
     setStartDateDB = (startDateDB) => this.setState({ startDateDB });
-
-    // setEndDate = (endDate) => {
-    //     let endDateDB = (parseInt(endDate.substring(0,2), 10)-1).toString();
-    //     endDateDB = endDateDB.concat(endDate.substring(2,));
-    //     let nrNights = 3;
-    //     this.setState({ endDate: dayjs(endDate), endDateDB, nrNights });
-    // };
 
     setEndDate = (endDate) => this.setState({ endDate });
 
@@ -419,13 +306,11 @@ class Reservation extends React.Component {
     
     addRoom = (roomLetter, priceType) => {
         let bookedRooms = this.state.bookedRooms;
-        let bookedRoomLetters = this.state.bookedRoomLetters;
         let room = null;
         let aRooms = this.state.aRooms;
         let bRooms = this.state.bRooms;
         let familyCabins = this.state.familyCabins;
         let nrRoomsArray = this.state.nrRoomsArray;
-        let rooms = this.state.rooms;
         let roomPrice = null;
         let index = null;
         let cabinId = null;
@@ -476,8 +361,6 @@ class Reservation extends React.Component {
         if (parseInt(activeRoom.roomNumber, 10) === nrRoomsArray.length && !nrRoomsArray[nrRoomsArray.length-1].roomLetter) {
             // adding new room
             bookedRooms.push(room);
-            bookedRoomLetters.push(roomLetter);
-            rooms.push(["0", "0"]);
             nrRoomsArray[nrRoomsArray.length-1].active = false;
             nrRoomsArray[nrRoomsArray.length-1].roomLetter = roomLetter;
             nrRoomsArray[nrRoomsArray.length-1].cabinId = cabinId;
@@ -499,15 +382,8 @@ class Reservation extends React.Component {
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].cabinNumber = room.cabin_number;
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomPrice = roomPrice;
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomPriceType = priceType;
-            if (!nrRoomsArray[nrRoomsArray.length-1].roomLetter) nrRoomsArray[nrRoomsArray.length-1].active = true;
-            bookedRoomLetters = bookedRoomLetters.map( (roomLetter, index) => {
-                if (parseInt(activeRoom.roomNumber, 10)-1 === index)
-                    return nrRoomsArray[0].roomLetter;
-                else
-                    return roomLetter;
-            });
         };
-        this.setState({ aRooms, bRooms, familyCabins, rooms, nrRoomsArray, bookedRooms, bookedRoomLetters });
+        this.setState({ aRooms, bRooms, familyCabins, nrRoomsArray, bookedRooms });
         let totalPrice = this.calculateTotalPrice(nrRoomsArray);
         this.addToLocalStorage(nrRoomsArray, totalPrice);
     };
@@ -572,24 +448,24 @@ class Reservation extends React.Component {
         });
         let index = this.state.nrRoomsArray.length;
         if (localStorage.getItem(`room${index}_roomLetter`)) {
-            localStorage.deleteItem(`room${index}_roomNumber`);
-            localStorage.deleteItem(`room${index}_roomLetter`);
-            localStorage.deleteItem(`room${index}_cabinId`);
-            localStorage.deleteItem(`room${index}_cabinNumber`);
-            localStorage.deleteItem(`room${index}_roomPrice`);
-            localStorage.deleteItem(`room${index}_roomPriceType`);
-            localStorage.deleteItem(`room${index}_nrAdults`);
-            localStorage.deleteItem(`room${index}_nrChildren`);
+            localStorage.removeItem(`room${index}_roomNumber`);
+            localStorage.removeItem(`room${index}_roomLetter`);
+            localStorage.removeItem(`room${index}_cabinId`);
+            localStorage.removeItem(`room${index}_cabinNumber`);
+            localStorage.removeItem(`room${index}_roomPrice`);
+            localStorage.removeItem(`room${index}_roomPriceType`);
+            localStorage.removeItem(`room${index}_nrAdults`);
+            localStorage.removeItem(`room${index}_nrChildren`);
         }
         if (localStorage.getItem(`room${index-1}_roomLetter`)) {
-            localStorage.deleteItem(`room${index-1}_roomNumber`);
-            localStorage.deleteItem(`room${index-1}_roomLetter`);
-            localStorage.deleteItem(`room${index-1}_cabinId`);
-            localStorage.deleteItem(`room${index-1}_cabinNumber`);
-            localStorage.deleteItem(`room${index-1}_roomPrice`);
-            localStorage.deleteItem(`room${index-1}_roomPriceType`);
-            localStorage.deleteItem(`room${index-1}_nrAdults`);
-            localStorage.deleteItem(`room${index-1}_nrChildren`);
+            localStorage.removeItem(`room${index-1}_roomNumber`);
+            localStorage.removeItem(`room${index-1}_roomLetter`);
+            localStorage.removeItem(`room${index-1}_cabinId`);
+            localStorage.removeItem(`room${index-1}_cabinNumber`);
+            localStorage.removeItem(`room${index-1}_roomPrice`);
+            localStorage.removeItem(`room${index-1}_roomPriceType`);
+            localStorage.removeItem(`room${index-1}_nrAdults`);
+            localStorage.removeItem(`room${index-1}_nrChildren`);
         }
         nrRoomsArray.map( (room, index) => {
             if (room.roomLetter) {
@@ -674,89 +550,29 @@ class Reservation extends React.Component {
     setExtendedRoomPrices = (prices, aRooms, bRooms, familyCabins, vip1, vip2) => {
         var index; 
         if (aRooms.length > 0) {
-            for ( index in this.state.aRooms[0].cabinPricing.price_hash)
+            for (index in this.state.aRooms[0].cabinPricing.price_hash)
                 if (index.includes("Plus"))
                     prices[0].extended = Math.round(this.state.aRooms[0].cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
         } if (bRooms.length > 0) {
-            for ( index in this.state.bRooms[0].cabinPricing.price_hash)
+            for (index in this.state.bRooms[0].cabinPricing.price_hash)
                 if (index.includes("Plus"))
                     prices[1].extended = Math.round(this.state.bRooms[0].cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
         } if (familyCabins.length > 0) {
-            for ( index in this.state.familyCabins[0].cabinPricing.price_hash.ahash)
+            for (index in this.state.familyCabins[0].cabinPricing.price_hash.ahash)
                 if (index.includes("Plus"))
                     prices[2].extended = Math.round(
                         (this.state.familyCabins[0].cabinPricing.price_hash.ahash[index] +
                         this.state.familyCabins[0].cabinPricing.price_hash.bhash[index])/parseInt(this.state.nrNights, 10) * 100) / 100;
         } if (vip1) {
-            for ( index in this.state.vip1.cabinPricing.price_hash)
+            for (index in this.state.vip1.cabinPricing.price_hash)
                 if (index.includes("Plus"))
                     prices[3].extended = Math.round(this.state.vip1.cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
         } if (vip2) {
-            for ( index in this.state.vip2.cabinPricing.price_hash)
+            for (index in this.state.vip2.cabinPricing.price_hash)
                 if (index.includes("Plus"))
                     prices[4].extended = Math.round(this.state.vip2.cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
         };
         return prices;
-    };
-
-    // setRegRoomPrice = (roomLetter) => {
-    //     let prices = this.state.prices;
-    //     if (roomLetter == "A") {
-    //         prices[0] = Math.round(this.state.aRooms[0].cabinPricing.price_hash.reg/parseInt(this.state.nrNights, 10) * 100) / 100 }
-    //     }
-    //         this.setState({ prices[0]: Math.round(this.state.aRooms[0].cabinPricing.price_hash.reg/parseInt(this.state.nrNights, 10) * 100) / 100 });
-    //     else if (roomLetter == "B")
-    //         return Math.round(this.state.bRooms[0].cabinPricing.price_hash.reg/parseInt(this.state.nrNights, 10) * 100) / 100;
-    //     else if (roomLetter == "F")
-    //         return Math.round(
-    //             (this.state.familyCabins[0].cabinPricing.price_hash.ahash.reg +
-    //             this.state.familyCabins[0].cabinPricing.price_hash.bhash.reg)/parseInt(this.state.nrNights, 10) * 100) / 100;
-    //     else if (roomLetter == "V1")
-    //         return Math.round(this.state.vip1.cabinPricing.price_hash.reg/parseInt(this.state.nrNights, 10) * 100) / 100;
-    //     else if (roomLetter == "V2")
-    //         return Math.round(this.state.vip2.cabinPricing.price_hash.reg/parseInt(this.state.nrNights, 10) * 100) / 100;
-    // };
-
-    getNonrefundableRoomPrice = (roomLetter) => {
-        if (roomLetter === "A")
-            return Math.round(this.state.aRooms[0].cabinPricing.price_hash.Nonrefundable/parseInt(this.state.nrNights, 10) * 100) / 100;
-        else if (roomLetter === "B")
-            return Math.round(this.state.bRooms[0].cabinPricing.price_hash.Nonrefundable/parseInt(this.state.nrNights, 10) * 100) / 100;
-        else if (roomLetter === "F")
-            return Math.round(
-                (this.state.familyCabins[0].cabinPricing.price_hash.ahash.Nonrefundable +
-                this.state.familyCabins[0].cabinPricing.price_hash.bhash.Nonrefundable)/parseInt(this.state.nrNights, 10) * 100) / 100;
-        else if (roomLetter === "V1")
-            return Math.round(this.state.vip1.cabinPricing.price_hash.Nonrefundable/parseInt(this.state.nrNights, 10) * 100) / 100;
-        else if (roomLetter === "V2")
-            return Math.round(this.state.vip2.cabinPricing.price_hash.Nonrefundable/parseInt(this.state.nrNights, 10) * 100) / 100;
-    };
-
-    getExtendedRoomPrice = (roomLetter) => {
-        var index;
-        if (roomLetter === "A") {
-            for ( index in this.state.aRooms[0].cabinPricing.price_hash)
-                if (index.includes("Plus"))
-                    return Math.round(this.state.aRooms[0].cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
-        } else if (roomLetter === "B") {
-            for ( index in this.state.bRooms[0].cabinPricing.price_hash)
-                if (index.includes("Plus"))
-                    return Math.round(this.state.bRooms[0].cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
-        } else if (roomLetter === "F") {
-            for ( index in this.state.familyCabins[0].cabinPricing.price_hash.ahash)
-                if (index.includes("Plus"))
-                    return Math.round(
-                        (this.state.familyCabins[0].cabinPricing.price_hash.ahash[index] +
-                        this.state.familyCabins[0].cabinPricing.price_hash.bhash[index])/parseInt(this.state.nrNights, 10) * 100) / 100;
-        } else if (roomLetter === "V1") {
-            for ( index in this.state.vip1.cabinPricing.price_hash)
-                if (index.includes("Plus"))
-                    return Math.round(this.state.vip1.cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
-        } else if (roomLetter === "V2") {
-            for ( index in this.state.vip2.cabinPricing.price_hash)
-                if (index.includes("Plus"))
-                    return Math.round(this.state.vip2.cabinPricing.price_hash[index]/parseInt(this.state.nrNights, 10) * 100) / 100;
-        };
     };
 
     renderTotalRoomPrice = (roomLetter) => {
@@ -778,22 +594,15 @@ class Reservation extends React.Component {
 
     goBackToStep1 = () => {
         this.cleanLocalStorage();
-        // this.setState({ step: 1, _isMounted: false });
-        // this.loadData(true);
-        //window.location.reload();
     };
 
     goBackToStep2 = () => {
-        // this.cleanLocalStorageRooms();
         localStorage.setItem('step', 2);
         this.setState({
             step: 2,
             _isMounted: false
         });
         this.loadData();
-        // await this.cleanLocalStorageRooms();
-        // await this.loadData();
-        //window.location.reload();
     };
 
     cleanLocalStorage = () => {
@@ -957,7 +766,6 @@ class Reservation extends React.Component {
                                         nrNights={this.state.nrNights}
                                         nrRooms={this.state.nrRooms}
                                         nrRoomsArray={this.state.nrRoomsArray}
-                                        rooms={this.state.rooms}
                                         onDayClick={this.onDayClick}
                                         onDayClickStart={this.onDayClickStart}
                                         onDayClickEnd={this.onDayClickEnd}
@@ -989,7 +797,6 @@ class Reservation extends React.Component {
                                 nrNights={this.state.nrNights}
                                 nrRooms={this.state.nrRooms}
                                 nrRoomsArray={this.state.nrRoomsArray}
-                                rooms={this.state.rooms}
                                 onDayClickStart={this.onDayClickStart}
                                 onDayClickEnd={this.onDayClickEnd}
                                 aRooms={this.state.aRooms}
@@ -1002,14 +809,10 @@ class Reservation extends React.Component {
                                 changeRoom={this.changeRoom}
                                 goToBilling={this.goToBilling}
                                 bookedRooms={this.state.bookedRooms}
-                                bookedRoomLetters={this.state.bookedRoomLetters}
                                 prices={this.state.prices}
                                 calculateTotalPrice={this.calculateTotalPrice}
                                 totalPrice={this.state.totalPrice}
                                 renderRoomName={this.renderRoomName}
-                                getRegRoomPrice={this.getRegRoomPrice}
-                                getNonrefundableRoomPrice={this.getNonrefundableRoomPrice}
-                                getExtendedRoomPrice={this.getExtendedRoomPrice}
                                 renderTotalRoomPrice={this.renderTotalRoomPrice}
                                 deleteRoom={this.deleteRoom}
                                 setStep={this.setStep}
