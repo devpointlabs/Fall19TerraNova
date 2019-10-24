@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { Form, Col, Row } from "react-bootstrap";
 import styled from "styled-components";
 import RenderStates from "./RenderStates";
+import {AuthContext} from '../../providers/AuthProvider'
 
 const CheckoutForm = (props) => {
   const [client_secret, setClient_secret] = useState("");
@@ -17,6 +18,7 @@ const CheckoutForm = (props) => {
   const [cabin_types, setCabin_types] = useState([]);
   const [bookings, setbookings] = useState([])
 
+  const context = useContext(AuthContext)
 
 
   useEffect(() => {
@@ -32,6 +34,9 @@ const CheckoutForm = (props) => {
   const fooUser = async () => {
     const { email, password, firstName, lastName, address1, city, state, zip, country, createAccount } = props
     let usersid
+    if (context.user.id) {
+      usersid = context.user.id
+    }
     if (createAccount && props.password === props.passwordConfirmation) {
       await axios.post("/api/auth", { email, password, passwordConfirmation: password, first_name: firstName, last_name: lastName, address: address1, city, state, zip, country }).then(res => { usersid = res.data.data.id }).catch(res => { console.log(res) })
     }

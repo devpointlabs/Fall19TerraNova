@@ -5,6 +5,7 @@ import RenderCountries from "./RenderCountries";
 import RenderStates from "./RenderStates";
 import CheckoutForm from "./CheckoutForm";
 import { Elements } from 'react-stripe-elements';
+import { AuthConsumer } from "../../providers/AuthProvider";
 
 class Step3 extends React.Component {
     state = { 
@@ -370,15 +371,19 @@ class Step3 extends React.Component {
                             </CustomRow>
                             <CustomRow>
                                 <Col>
+                                { this.props.auth.user ? 
+                                ""
+                                : 
                                     <Form.Check
-                                        custom
-                                        type="checkbox"
-                                        id="create-account"
-                                        label="CREATE AN ACCOUNT?"
-                                        onClick={this.toggleCreateAccount}
-                                        checked={this.state.createAccount}
-                                        style={{fontSize: "smaller"}}
+                                    custom
+                                    type="checkbox"
+                                    id="create-account"
+                                    label="CREATE AN ACCOUNT?"
+                                    onClick={this.toggleCreateAccount}
+                                    checked={this.state.createAccount}
+                                    style={{fontSize: "smaller"}}
                                     />
+                                  }
                                 </Col>
                             </CustomRow>
                             { this.state.createAccount &&
@@ -484,8 +489,21 @@ class Step3 extends React.Component {
     };
 };
 
+
+export class ConnectedStep3 extends React.Component {
+  render() {
+      return (
+          <AuthConsumer>
+              { auth =>
+                  <Step3 {...this.props} auth={auth} />
+              }
+          </AuthConsumer>
+      );
+  };
+};
+
 const CustomRow = styled(Row)`
     margin-bottom: 20px;
 `
 
-export default Step3;
+export default ConnectedStep3;
