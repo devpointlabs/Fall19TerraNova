@@ -119,7 +119,7 @@ end
 #     Booking.select(:start_date, :end_date).where(cabin_id: c.id).each {|date_pair| (date_pair.start_date..date_pair.end_date).each {|d| grandTakenArray << d} }
 #     #queries for all start and end dates for that cabin_id, then for each pair of start and end dates a range array of dates between the two
 #     #(including the start and end dates) is iterated through and stored in a grand array of dates that have already been booked.
-#     binding.pry
+#    
 #     grandTakenArray.each do |tdate|
 #       if grandWantedDates.include?(tdate.to_s)
 #         # take tdate.to_s and compare it to the list of dates with price hikes. 

@@ -7,7 +7,7 @@ import { Dropdown, Form } from "semantic-ui-react";
 import styled from 'styled-components';
 import './styles/Foot.css';
 import {StateContext} from '../providers/StateProvider';
-import { NavLink, Link, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
 
 

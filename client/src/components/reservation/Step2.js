@@ -1,12 +1,11 @@
 import React from "react";
-import { withRouter } from 'react-router-dom';
 import { Form, Modal } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
-import Hotel3 from '../../images/Hotel3.jpg';
-import Hotel4 from '../../images/Hotel4.jpg';
-import Hotel5 from '../../images/Hotel5.jpg';
-import Hotel6 from '../../images/Hotel6.jpg';
-import Hotel7 from '../../images/Hotel7.jpg';
+import lake from '../../images/rooms/lakeview.jpg';
+import mountain from '../../images/rooms/mountainview.jpg';
+import family from '../../images/rooms/family.jpg';
+import vip1 from '../../images/rooms/VIP1.jpg';
+import vip2 from '../../images/rooms/VIP2.jpg';
 import { Calendar } from '../rb-datepicker/dist';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import "../styles/daterangepicker.css";
@@ -193,19 +192,19 @@ class Step2 extends React.Component {
     renderRoomPicture = (roomLetter) => (
         <>
             { roomLetter === "A" &&
-                <img alt="hotel" src={Hotel3} width="100%" />
+                <img alt="hotel" src={lake} width="100%" />
             }
             { roomLetter === "B" &&
-                <img alt="hotel" src={Hotel4} width="100%" />
+                <img alt="hotel" src={mountain} width="100%" />
             }
             { roomLetter === "F" &&
-                <img alt="hotel" src={Hotel5} width="100%" />
+                <img alt="hotel" src={family} width="100%" />
             }
             { roomLetter === "V1" &&
-                <img alt="hotel" src={Hotel6} width="100%" />
+                <img alt="hotel" src={vip1} width="100%" />
             }
             { roomLetter === "V2" &&
-                <img alt="hotel" src={Hotel7} width="100%" />
+                <img alt="hotel" src={vip2} width="100%" />
             }
         </>
     );
@@ -222,7 +221,9 @@ class Step2 extends React.Component {
         this.props.nrRoomsArray.map ( room => validNrOfPeople = !(parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F" && room.roomLetter !== null));
         this.setState({ validNrOfPeople });
         return validNrOfPeople;
-    };
+    }; 
+
+   
 
     handleClose = () => this.setState({ modalShow: false, modalShowStart: false, modalShowEnd: false, modalShowNoEndDate: false });
 
@@ -264,43 +265,11 @@ class Step2 extends React.Component {
 
     goToBilling = () => {
         if (this.isNrOfPeopleValidExludingUnfinished()) {
-            // this.addToLocalStorage();
             localStorage.setItem('step', 3);
             this.props.goToBilling();
         } else
             this.setState({ modalShow: true });
     };
-
-    // addToLocalStorage = () => {
-    //     localStorage.setItem('startDateString', this.state.startDateString);
-    //     localStorage.setItem('endDateString', this.state.endDateString);
-    //     localStorage.setItem('startDateDB', this.state.startDateDB);
-    //     localStorage.setItem('endDateDB', this.state.endDateDB);
-    //     localStorage.setItem('startDateParse', this.state.startDate.format("YYYY-MM-DD"));
-    //     localStorage.setItem('endDateParse', this.state.endDate.format("YYYY-MM-DD"));
-    //     localStorage.setItem('nrNights', this.state.nrNights);
-    //     localStorage.setItem('step', 3);
-    // };
-
-    // addToLocalStorage = () => {
-    //     const {startDateString, endDateString, nrRoomsArray, nrNights, totalPrice} = this.props;
-    //     localStorage.setItem('startDateString', startDateString);
-    //     localStorage.setItem('endDateString', endDateString);
-    //     localStorage.setItem('nrRoomsArray', nrRoomsArray);
-    //     localStorage.setItem('nrNights', nrNights);
-    //     localStorage.setItem('totalPrice', totalPrice);
-    //     localStorage.setItem('step', 3);
-    //     for (let i = 0; i < nrRoomsArray.length; i++) {
-    //         if (nrRoomsArray[i].roomLetter) {
-    //             localStorage.setItem(`room${i+1}_roomNumber`, nrRoomsArray[i].roomNumber);
-    //             localStorage.setItem(`room${i+1}_roomLetter`, nrRoomsArray[i].roomLetter);
-    //             localStorage.setItem(`room${i+1}_roomPrice`, nrRoomsArray[i].roomPrice);
-    //             localStorage.setItem(`room${i+1}_roomPriceType`, nrRoomsArray[i].roomPriceType);
-    //             localStorage.setItem(`room${i+1}_nrAdults`, nrRoomsArray[i].people[0]);
-    //             localStorage.setItem(`room${i+1}_nrChildren`, nrRoomsArray[i].people[1]);
-    //         };
-    //     };
-    // };
 
     renderRoomPrice = (roomLetter, priceType) => {
         let price = "";
@@ -341,7 +310,7 @@ class Step2 extends React.Component {
         };
     };
 
-    checkAvailability = (history) => {
+    checkAvailability = () => {
         this.setState({ _isMounted: false });
         this.props.setStep(1);
         this.props.setNrNights(this.state.nrNights);
@@ -354,37 +323,22 @@ class Step2 extends React.Component {
         this.props.checkAvailability(this.state.startDateDB, this.state.endDateDB, "override");
     };
 
-    Button = withRouter(({ history }) => (
-        <span
-            className="reservation-custom-button"
-            onClick={
-                this.state.endDate !== "" ?
-                    (() => this.checkAvailability(history))
-                : 
-                this.state._isMounted &&
-                    (() => this.setState({ modalShowNoEndDate: true }))
-            }
-        >
-            CHECK AVAILABILITY
-        </span>
-    ));
-
-    GoToBillingButton = withRouter(({ history }) => (
-        <span
-            className="reservation-custom-button"
-            onClick={() => this.prepareForRedirection(history)}
-        >
-            GO TO BILLING
-        </span>
-    ));
-
-    // prepareForRedirection = async (history) => {
-    //         await this.addToLocalStorage();
-    //         history.push({pathname: '/reservation'})
-    //     } else {
-    //         this.setState({ modalShowNoEndDate: true })
-    //     };
-    // };
+    getIndexFromRoomLetter = (roomLetter) => {
+        switch(roomLetter) {
+            case "A":
+                return 1;
+            case "B":
+                return 2;
+            case "F":
+                return 3;
+            case "V1":
+                return 4;
+            case "V2":
+                return 5;
+            default:
+                return 1;
+        };
+    };
 
     render() {
         return(
@@ -409,95 +363,93 @@ class Step2 extends React.Component {
                             <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>SELECT ROOMS</p>
                             <div className="reservation-hr-container"><div className="reservation-line" /></div>
                             { this.props.nrRoomsArray.map( room => (
-                                <>
-                                    <div className="reservation-room-container-nopadding" key={parseInt(room.roomNumber, 10)}>
-                                        { room.active ?
-                                            <div className="reservation-booking-room-active">
-                                                <span style={{fontWeight: "bold", fontSize: "13px"}}>ROOM { parseInt(room.roomNumber, 10) }</span>
-                                                <div className="reservation-small-choose-rooms-container-left">
-                                                    <span style={{fontWeight: "bold", fontSize: "12px"}}>ADULT(S)</span>
-                                                    <div className="reservation-dropdown-container2">
-                                                        <Dropdown className="reservation-custom-dropdown" text={room.people[0]} drop='down'>
-                                                            <Dropdown.Menu>
-                                                                <Dropdown.Item text='0' onClick={() => this.props.setNrAdults(room.roomNumber, '0')} />
-                                                                <Dropdown.Item text='1' onClick={() => this.props.setNrAdults(room.roomNumber, '1')} />
-                                                                <Dropdown.Item text='2' onClick={() => this.props.setNrAdults(room.roomNumber, '2')} />
-                                                                <Dropdown.Item text='3' onClick={() => this.props.setNrAdults(room.roomNumber, '3')} />
-                                                                <Dropdown.Item text='4' onClick={() => this.props.setNrAdults(room.roomNumber, '4')} />
-                                                                <Dropdown.Item text='5' onClick={() => this.props.setNrAdults(room.roomNumber, '5')} />
-                                                                <Dropdown.Item text='6' onClick={() => this.props.setNrAdults(room.roomNumber, '6')} />
-                                                                <Dropdown.Item text='7' onClick={() => this.props.setNrAdults(room.roomNumber, '7')} />
-                                                                <Dropdown.Item text='8' onClick={() => this.props.setNrAdults(room.roomNumber, '8')} />
-                                                            </Dropdown.Menu>
-                                                        </Dropdown>
-                                                    </div>
-                                                </div>
-                                                <div className="reservation-small-choose-rooms-container">
-                                                    <span style={{fontWeight: "bold", fontSize: "12px"}}>CHILD(REN)</span>
-                                                    <div className="reservation-dropdown-container2">
-                                                        <Dropdown className="reservation-custom-dropdown" text={room.people[1]} drop='down'>
-                                                            <Dropdown.Menu>
-                                                                <Dropdown.Item text='0' onClick={() => this.props.setNrChildren(room.roomNumber, '0')} />
-                                                                <Dropdown.Item text='1' onClick={() => this.props.setNrChildren(room.roomNumber, '1')} />
-                                                                <Dropdown.Item text='2' onClick={() => this.props.setNrChildren(room.roomNumber, '2')} />
-                                                                <Dropdown.Item text='3' onClick={() => this.props.setNrChildren(room.roomNumber, '3')} />
-                                                                <Dropdown.Item text='4' onClick={() => this.props.setNrChildren(room.roomNumber, '4')} />
-                                                                <Dropdown.Item text='5' onClick={() => this.props.setNrChildren(room.roomNumber, '5')} />
-                                                                <Dropdown.Item text='6' onClick={() => this.props.setNrChildren(room.roomNumber, '6')} />
-                                                                <Dropdown.Item text='7' onClick={() => this.props.setNrChildren(room.roomNumber, '7')} />
-                                                                <Dropdown.Item text='8' onClick={() => this.props.setNrChildren(room.roomNumber, '8')} />
-                                                            </Dropdown.Menu>
-                                                        </Dropdown>
-                                                    </div>
+                                <div className="reservation-room-container-nopadding" key={parseInt(room.roomNumber, 10)}>
+                                    { room.active ?
+                                        <div className="reservation-booking-room-active">
+                                            <span style={{fontWeight: "bold", fontSize: "13px"}}>ROOM { parseInt(room.roomNumber, 10) }</span>
+                                            <div className="reservation-small-choose-rooms-container-left">
+                                                <span style={{fontWeight: "bold", fontSize: "12px"}}>ADULT(S)</span>
+                                                <div className="reservation-dropdown-container2">
+                                                    <Dropdown className="reservation-custom-dropdown" text={room.people[0]} drop='down'>
+                                                        <Dropdown.Menu>
+                                                            <Dropdown.Item text='0' onClick={() => this.props.setNrAdults(room.roomNumber, '0')} />
+                                                            <Dropdown.Item text='1' onClick={() => this.props.setNrAdults(room.roomNumber, '1')} />
+                                                            <Dropdown.Item text='2' onClick={() => this.props.setNrAdults(room.roomNumber, '2')} />
+                                                            <Dropdown.Item text='3' onClick={() => this.props.setNrAdults(room.roomNumber, '3')} />
+                                                            <Dropdown.Item text='4' onClick={() => this.props.setNrAdults(room.roomNumber, '4')} />
+                                                            <Dropdown.Item text='5' onClick={() => this.props.setNrAdults(room.roomNumber, '5')} />
+                                                            <Dropdown.Item text='6' onClick={() => this.props.setNrAdults(room.roomNumber, '6')} />
+                                                            <Dropdown.Item text='7' onClick={() => this.props.setNrAdults(room.roomNumber, '7')} />
+                                                            <Dropdown.Item text='8' onClick={() => this.props.setNrAdults(room.roomNumber, '8')} />
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
                                                 </div>
                                             </div>
-                                        :
-                                            <div className="reservation-booking-room-inactive">
-                                                { room.roomLetter ?
-                                                    <>
-                                                <row>
-                                                    <span style={{fontWeight: "bold", fontSize: "13px"}}>
-                                                        ROOM {parseInt(room.roomNumber, 10)}
-                                                    </span>
-                                                    <span style={{fontSize: "11px", marginTop: "1px"}}>
-                                                        { room.people[0] }
-                                                        { room.people[0] === 1 ? " Adult, " : " Adults, " }
-                                                        { room.people[1] }
-                                                        { room.people[1] === 1 ? " Child " : " Children " }
-                                                    </span>
-                                                </row>
-                                                <row style={{marginTop: "15px"}}>
-                                                    <span style={{fontWeight: "bold", fontSize: "13px"}}>
-                                                        { this.props.renderRoomName(room.roomLetter) }
-                                                    </span>
-                                                    <span style={{fontWeight: "bold", fontSize: "13px", color: "#8E7037"}}>
-                                                        ${ this.props.nrRoomsArray[parseInt(room.roomNumber, 10)-1].roomPrice }
-                                                    </span>
-                                                </row>
-                                                <row style={{fontSize: "x-small"}}>
-                                                    { this.props.nrRoomsArray[parseInt(room.roomNumber, 10)-1].roomPriceType }
-                                                </row>
-                                                <row style={{marginTop: "12px", color: "#8E7037", fontSize: "12px"}}>
-                                                    <u style={{cursor: "pointer"}} onClick={() => this.changeRoom(room.roomNumber)}>Change room</u>
-                                                    <Icon style={{color: "black"}} name="trash alternate" onClick={() => this.props.deleteRoom(room)} />
-                                                </row>
-                                                    </>
-                                                :
-                                                    <>
-                                                        <row>
-                                                            <span style={{fontSize: "13px", color: "gray"}}>
-                                                                ROOM {parseInt(room.roomNumber, 10)}
-                                                            </span>
-                                                        </row>
-                                                        <row style={{marginTop: "12px", color: "#8E7037", fontSize: "12px"}}>
-                                                            <u style={{cursor: "pointer"}} onClick={() => this.props.changeRoom(room.roomNumber)}>Choose room</u>
-                                                        </row>
-                                                    </>
-                                                }
+                                            <div className="reservation-small-choose-rooms-container">
+                                                <span style={{fontWeight: "bold", fontSize: "12px"}}>CHILD(REN)</span>
+                                                <div className="reservation-dropdown-container2">
+                                                    <Dropdown className="reservation-custom-dropdown" text={room.people[1]} drop='down'>
+                                                        <Dropdown.Menu>
+                                                            <Dropdown.Item text='0' onClick={() => this.props.setNrChildren(room.roomNumber, '0')} />
+                                                            <Dropdown.Item text='1' onClick={() => this.props.setNrChildren(room.roomNumber, '1')} />
+                                                            <Dropdown.Item text='2' onClick={() => this.props.setNrChildren(room.roomNumber, '2')} />
+                                                            <Dropdown.Item text='3' onClick={() => this.props.setNrChildren(room.roomNumber, '3')} />
+                                                            <Dropdown.Item text='4' onClick={() => this.props.setNrChildren(room.roomNumber, '4')} />
+                                                            <Dropdown.Item text='5' onClick={() => this.props.setNrChildren(room.roomNumber, '5')} />
+                                                            <Dropdown.Item text='6' onClick={() => this.props.setNrChildren(room.roomNumber, '6')} />
+                                                            <Dropdown.Item text='7' onClick={() => this.props.setNrChildren(room.roomNumber, '7')} />
+                                                            <Dropdown.Item text='8' onClick={() => this.props.setNrChildren(room.roomNumber, '8')} />
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
+                                                </div>
                                             </div>
-                                        }
-                                    </div>
-                                </>
+                                        </div>
+                                    :
+                                        <div className="reservation-booking-room-inactive">
+                                            { room.roomLetter ?
+                                                <>
+                                            <row>
+                                                <span style={{fontWeight: "bold", fontSize: "13px"}}>
+                                                    ROOM {parseInt(room.roomNumber, 10)}
+                                                </span>
+                                                <span style={{fontSize: "11px", marginTop: "1px"}}>
+                                                    { room.people[0] }
+                                                    { room.people[0] === 1 ? " Adult, " : " Adults, " }
+                                                    { room.people[1] }
+                                                    { room.people[1] === 1 ? " Child " : " Children " }
+                                                </span>
+                                            </row>
+                                            <row style={{marginTop: "15px"}}>
+                                                <span style={{fontWeight: "bold", fontSize: "13px"}}>
+                                                    { this.props.renderRoomName(room.roomLetter) }
+                                                </span>
+                                                <span style={{fontWeight: "bold", fontSize: "13px", color: "#8E7037"}}>
+                                                    ${ this.props.nrRoomsArray[parseInt(room.roomNumber, 10)-1].roomPrice }
+                                                </span>
+                                            </row>
+                                            <row style={{fontSize: "x-small"}}>
+                                                { this.props.nrRoomsArray[parseInt(room.roomNumber, 10)-1].roomPriceType }
+                                            </row>
+                                            <row style={{marginTop: "12px", color: "#8E7037", fontSize: "12px"}}>
+                                                <u style={{cursor: "pointer"}} onClick={() => this.changeRoom(room.roomNumber)}>Change room</u>
+                                                <Icon style={{color: "black"}} name="trash alternate" onClick={() => this.props.deleteRoom(room)} />
+                                            </row>
+                                                </>
+                                            :
+                                                <>
+                                                    <row>
+                                                        <span style={{fontSize: "13px", color: "gray"}}>
+                                                            ROOM {parseInt(room.roomNumber, 10)}
+                                                        </span>
+                                                    </row>
+                                                    <row style={{marginTop: "12px", color: "#8E7037", fontSize: "12px"}}>
+                                                        <u style={{cursor: "pointer"}} onClick={() => this.props.changeRoom(room.roomNumber)}>Choose room</u>
+                                                    </row>
+                                                </>
+                                            }
+                                        </div>
+                                    }
+                                </div>
                             )) 
                             }
                             { this.props.nrRoomsArray.length > 1 &&
@@ -510,7 +462,6 @@ class Step2 extends React.Component {
                                     <span className="reservation-custom-button" onClick={this.goToBilling}>
                                         GO TO BILLING
                                     </span>
-                                    {/* <this.GoToBillingButton /> */}
                                 </div>
                                 </>
                             }
@@ -548,66 +499,63 @@ class Step2 extends React.Component {
                                 <Icon name="calendar alternate outline" style={{marginTop: "6px", marginRight: "8px"}} />
                             </div>
                             <div className="reservation-button-container">
-                                {/* <span className="reservation-custom-button" onClick={this.checkAvailability}>
+                                <div className="reservation-custom-button" onClick={this.checkAvailability}>
                                     CHECK AVAILABILITY
-                                </span> */}
-                                <this.Button />
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="reservation-right-box-white">
                         { this.props.anyAvailableCabins ?
                             <>
-                                { this.state.availableRooms.map( roomLetter=>
-                                    <>
-                                        <div className="reservation-room-container">
-                                            <div style={{fontSize: "24px"}}>{ this.props.renderRoomName(roomLetter) }</div>
-                                            <div className="reservation-inner-room-container">
-                                                <div className="reservation-image-container">
-                                                    { this.renderRoomPicture(roomLetter) }
+                                { this.state.availableRooms.map( roomLetter =>
+                                    <div className="reservation-room-container" key={this.getIndexFromRoomLetter(roomLetter)}>
+                                        <div style={{fontSize: "24px"}}>{ this.props.renderRoomName(roomLetter) }</div>
+                                        <div className="reservation-inner-room-container">
+                                            <div className="reservation-image-container">
+                                                { this.renderRoomPicture(roomLetter) }
+                                            </div>
+                                            <div className="reservation-room-content">
+                                                { this.renderRoomDescription(roomLetter) }
+                                                <span style={{fontSize: "smaller"}}><u>View more information</u></span>
+                                                <br />
+                                                <span className="reservation-inner-room-container">
+                                                    <div className="reservation-inner-room-price-left">
+                                                        <div style={{fontSize: "smaller", fontWeight: "bold"}}>NONREFUNDABLE</div>
+                                                        <div className="reservation-room-price">
+                                                            { this.renderRoomPrice(roomLetter, "NONREFUNDABLE") }
+                                                            <div style={{fontSize: "small", paddingTop: "14px"}}>/night</div>
+                                                        </div>
+                                                        <div className="reservation-small-custom-button" onClick={() => this.handleShow(roomLetter, "NONREFUNDABLE")}>
+                                                            BOOK ROOM
+                                                        </div>
                                                     </div>
-                                                <div className="reservation-room-content">
-                                                    { this.renderRoomDescription(roomLetter) }
-                                                    <span style={{fontSize: "smaller"}}><u>View more information</u></span>
-                                                    <br />
-                                                    <span className="reservation-inner-room-container">
-                                                        <div className="reservation-inner-room-price-left">
-                                                            <div style={{fontSize: "smaller", fontWeight: "bold"}}>NONREFUNDABLE</div>
-                                                            <div className="reservation-room-price">
-                                                                { this.renderRoomPrice(roomLetter, "NONREFUNDABLE") }
-                                                                <div style={{fontSize: "small", paddingTop: "14px"}}>/night</div>
-                                                            </div>
-                                                            <div className="reservation-small-custom-button" onClick={() => this.handleShow(roomLetter, "NONREFUNDABLE")}>
-                                                                BOOK ROOM
-                                                            </div>
+                                                    <div className="reservation-inner-room-price">
+                                                        <div style={{fontSize: "smaller", fontWeight: "bold"}}>REGULAR</div>
+                                                        <div className="reservation-room-price">
+                                                            { this.renderRoomPrice(roomLetter, "REGULAR") }
+                                                            <div style={{fontSize: "small", paddingTop: "14px"}}>/night</div>
                                                         </div>
+                                                        <div className="reservation-small-custom-button" onClick={() => this.handleShow(roomLetter, "REGULAR")}>
+                                                            BOOK ROOM
+                                                        </div>
+                                                    </div>
+                                                    { parseInt(this.props.nrNights, 10) > 7 &&
                                                         <div className="reservation-inner-room-price">
-                                                            <div style={{fontSize: "smaller", fontWeight: "bold"}}>REGULAR</div>
+                                                            <div style={{fontSize: "smaller", fontWeight: "bold"}}>EXTENDED STAY</div>
                                                             <div className="reservation-room-price">
-                                                                { this.renderRoomPrice(roomLetter, "REGULAR") }
+                                                                { this.renderRoomPrice(roomLetter, "EXTENDED STAY") }
                                                                 <div style={{fontSize: "small", paddingTop: "14px"}}>/night</div>
                                                             </div>
-                                                            <div className="reservation-small-custom-button" onClick={() => this.handleShow(roomLetter, "REGULAR")}>
+                                                            <div className="reservation-small-custom-button" onClick={() => this.handleShow(roomLetter, "EXTENDED STAY")}>
                                                                 BOOK ROOM
                                                             </div>
                                                         </div>
-                                                        { parseInt(this.props.nrNights, 10) > 7 &&
-                                                            <div className="reservation-inner-room-price">
-                                                                <div style={{fontSize: "smaller", fontWeight: "bold"}}>EXTENDED STAY</div>
-                                                                <div className="reservation-room-price">
-                                                                    { this.renderRoomPrice(roomLetter, "EXTENDED STAY") }
-                                                                    <div style={{fontSize: "small", paddingTop: "14px"}}>/night</div>
-                                                                </div>
-                                                                <div className="reservation-small-custom-button" onClick={() => this.handleShow(roomLetter, "EXTENDED STAY")}>
-                                                                    BOOK ROOM
-                                                                </div>
-                                                            </div>
-                                                        }
-                                                    </span>
-                                                </div>
+                                                    }
+                                                </span>
                                             </div>
                                         </div>
-                                    </>
+                                    </div>
                                 )}
                             </>
                         :

@@ -32,8 +32,9 @@
 .reservation-header {
     margin-top: 20px;
     margin-bottom: 25px;
-    font-size: 40px;
-    font-family: 'EB Garamond';
+    font-size: 35px;
+    font-family: 'Catamaran', sans-serif;
+    font-weight: bold
 }
 
 .reservation-hr-container {
@@ -337,7 +338,7 @@
     align-items: center;
     cursor: pointer;
     padding: 1.5% 2% 1.5% 2%;
-    margin-top: 2%;
+    margin-top: 4%;
 }
 
 .reservation-custom-button-placeorder:hover {
@@ -409,26 +410,42 @@
 
 .reservation-confirmation-container {
     display: flex;
+    width: 70%;
     justify-content: center;
     align-items: center;
     background-color: #efefef;
     flex-direction: column;
+    padding: 8%;
 }
 
 .reservation-confirmation-row {
-    width: 100%;
+    width: 80%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: row;
+    font-size: small;
+    margin-bottom: 2.5%;
 }
 
 .reservation-confirmation-row-column1 {
-    width: 20%;
-    margin-right: 2em;
+    width: 30%;
 }
 
 .reservation-confirmation-row-column2 {
-    width: 40%;
+    width: 70%;
+}
+
+.reservation-new-booking-button {
+    background-color: #efefef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1% 3% 1% 3%;
+    font-size: x-small;
+    margin-top: 12%;
+    margin-bottom: -2%;
+    border: 2px solid #373737;
+    cursor: pointer;
 }
 
 div[role="listbox"] {
@@ -438,8 +455,14 @@ div[role="listbox"] {
 }
 
 div.text {
-    margin-top: 5px;
+    margin-top: 8px;
     margin-left: 2px;
+    font-family: "Nanum Gothic";
+}
+
+span.text {
+    font-family: "Nanum Gothic";
+    font-size: small;
 }
 
 .dropdown.icon {

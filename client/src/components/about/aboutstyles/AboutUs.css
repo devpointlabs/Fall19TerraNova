@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  padding-bottom: 05.3%;
+  padding-bottom: 3.5%;
 }
 
 .header {
@@ -13,7 +13,7 @@
   margin-bottom: 200%;
   font-size: 240%;
   color: white;
-  font-family: 'Muli', sans-serif;
+  font-family: 'Catamaran', sans-serif;
 }
 
 .aboutcarousel {
@@ -33,14 +33,14 @@
   display: flex;
   font-size: 250%;
   color: black;
-  font-family: 'Muli', sans-serif;
+  font-family: 'Catamaran', sans-serif;
 }
 
 .abouttext {
   display: flex;
   font-size: 130%;
   color: black;
-  font-family: 'Muli', sans-serif;
+  font-family: 'Catamaran', sans-serif;
 }
 
 .whyus {
@@ -63,7 +63,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    padding-bottom: 3%;
+    padding-bottom: 1%;
   }
 
   .header {
@@ -72,8 +72,8 @@
     padding-top: 3%;
     font-size: 2.5em;
     color: white;
-    font-family: 'Muli', sans-serif;
-  }
+    font-family: 'Catamaran', sans-serif;
+    }
 
   .lakeimg {
     width: 40%;
@@ -86,7 +86,7 @@
     display: flex;
     font-size: 210%;
     color: black;
-    font-family: 'Muli', sans-serif;
+    font-family: 'Catamaran', sans-serif;
   }
 
 }

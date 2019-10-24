@@ -41,19 +41,19 @@ const AboutUs = () => (
 
         <div className="aboutus">
           <h1 className="aboutheader"> About Us </h1>
-            <p className="abouttext"> Devination Cabins represent the greatest western hospitality has to offer, elegance and luxury
+            <p className="abouttext"> New Earth Cabins represent the greatest western hospitality has to offer, elegance and luxury
               wrapped in the arms of comfort. Lose your senses as you dirft away from the world, and into our blissful oasis.
-              Not only do we offer luxury, but we pride ourselves on the experience we offer. Imagine waking up to an early 
+              Not only do we offer luxury, but we pride ourselves on the experience. Imagine waking up to an early 
               morning yoga class surrounded by the sounds of nature, spending your afternoon on a scenic hike as friendly buffalo roam nearby, 
-              then coming home to a gathering around the fire with s'mores aplenty, Devination Cabins is your heart for adventure.  
+              then coming home to a gathering around the fire with s'mores aplenty, New Earth is your heart for adventure.  
               Explore everything the area has to offer, or spend the day being pampered at the spa, whatever your definition of a vacation, 
-              Devination delivers.
+              New Earth delivers.
             </p>
         </div>
 
         <div className="whyus">
-          <h1 className="aboutheader"> Why Guests Choose Devination Cabins? </h1> 
-            <p className="abouttext"> Devination Cabins is the place to be. For generations, Devination has been a retreat for everyone. 
+          <h1 className="aboutheader"> Why Guests Choose New Earth Cabins? </h1> 
+            <p className="abouttext"> New Earth Cabins is the place to be. For generations, New Earth has been a retreat for everyone. 
               When our founding fathers stumbled upon this land after a long trek on the Oregon Trail, they knew this was someplace special. 
               You can hear song birds chirping and butterfiles sing. Some may call it heaven on earth, if fact some have: "This place is Heaven on 
               Earth" -Mary Margeret Morrision. Don't take it from Mary though, come experience the magic for yourself. </p>
