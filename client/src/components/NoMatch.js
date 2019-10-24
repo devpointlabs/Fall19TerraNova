@@ -8,7 +8,7 @@ const NoMatch = () => (
             <p>404 - Page not found!</p>
         </Header>
         <div style={{display: "flex", justifyContent: "center", fontSize: "large", marginBottom: "20px"}}>
-            <p><Link to="/">Take me Home</Link></p>
+            <p><Link to="/">Take Me Home</Link></p>
         </div>
     </>
 );

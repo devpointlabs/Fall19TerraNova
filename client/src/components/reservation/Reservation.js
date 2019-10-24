@@ -56,7 +56,9 @@ class Reservation extends React.Component {
         this.loadData();
     };
 
+
     loadData = () => {
+
         if (localStorage.startDateString) {
             // load state from local storage
             this.setState({
