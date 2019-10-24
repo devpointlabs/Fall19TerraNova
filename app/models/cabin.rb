@@ -44,7 +44,9 @@ class Cabin < ApplicationRecord
 
 
 
-    Priceevent.select(:start_date, :end_date, :id, :multiplier, :adder).where("cabin_id IS null AND start_date IS NOT null").each {|date_pair| grandPriceArray << {id: date_pair.id, adder: date_pair.adder, multiplier: date_pair.multiplier, dates: (date_pair.start_date..date_pair.end_date).to_a }}
+    Priceevent.select(:start_date, :end_date, :id, :multiplier, :adder).where("cabin_id IS null AND start_date IS NOT null AND recurring IS NOT true").each do |date_pair| 
+      grandPriceArray << {id: date_pair.id, adder: date_pair.adder, multiplier: date_pair.multiplier, dates: (date_pair.start_date..date_pair.end_date).to_a }
+    end
 
     grandPriceArray.each do |i|
         i[:dates].each do |date|
@@ -66,44 +68,46 @@ class Cabin < ApplicationRecord
           end
         end
       end
-      
-
-    Priceevent.select(:id, :start_date, :end_date, :adder, :multiplier).where("recurring IS true AND start_date IS NOT null").each do |i| 
+            
+      Priceevent.select(:id, :start_date, :end_date, :adder, :multiplier).where("recurring IS true AND start_date IS NOT null").each do |i| 
         
-      (i[:start_date]..i[:end_date]).to_a.each do |date| 
-        d = date.strftime("%m/%d")
-        grandWantedDates.each do |f|
-          if f.strftime("%m/%d") == d
-            if dateAndPriceEventHash.include?(f.to_s)              
-              if i[:adder]
-                dateAndPriceEventHash[f.to_s][:adders] << i[:adder]
-              elsif i[:multiplier]
-                dateAndPriceEventHash[f.to_s][:multipliers] << i[:multiplier]
-              end
-            else
-              if i[:adder]
-                dateAndPriceEventHash[f.to_s] = {adders: [i[:adder]], multipliers: [] }
-              elsif i[:multiplier]
-                dateAndPriceEventHash[f.to_s] = {adders: [], multipliers: [i[:multiplier]] }
-              end
-            end 
+        (i[:start_date]..i[:end_date]).to_a.each do |date| 
+          d = date.strftime("%m/%d")
+          grandWantedDates.each do |f|
+            if f.strftime("%m/%d") == d
+              if dateAndPriceEventHash.include?(f.to_s)              
+                if i[:adder]
+                  dateAndPriceEventHash[f.to_s][:adders] << i[:adder]
+                elsif i[:multiplier]
+                  dateAndPriceEventHash[f.to_s][:multipliers] << i[:multiplier]
+                end
+              else
+                if i[:adder]
+                  dateAndPriceEventHash[f.to_s] = {adders: [i[:adder]], multipliers: [] }
+                elsif i[:multiplier]
+                  dateAndPriceEventHash[f.to_s] = {adders: [], multipliers: [i[:multiplier]] }
+                end
+              end 
+            end
           end
         end
       end
-    end
+      
+      
 
     weekendPE = Priceevent.select(:id, :adder, :multiplier).where("start_date IS null")
     
     Cabin.all.each do |c|  
-      price_total = c.price 
+      price_total = 0
       grandTakenArray = [] 
       availableDates = [] 
       takenArray = [] 
       cabinSpecificDates = []
       cabinDandPeventhash = Marshal.load(Marshal.dump(dateAndPriceEventHash))
       
-      
-      Booking.select(:start_date, :end_date).where(cabin_id: c.id).each {|date_pair| (date_pair.start_date..date_pair.end_date).each {|d| grandTakenArray << d} }
+      Booking.select(:start_date, :end_date).where(cabin_id: c.id).each do |date_pair| 
+        (date_pair.start_date..date_pair.end_date).each {|d| grandTakenArray << d} 
+      end
 
         grandTakenArray.each do |tdate|
           if grandWantedDates.include?(tdate.to_s)
@@ -117,7 +121,9 @@ class Cabin < ApplicationRecord
         end
 
         
-      Priceevent.select(:start_date, :end_date, :id, :adder, :multiplier).where(cabin_id: c.id).each {|date_pair| cabinSpecificDates << {id: date_pair.id, adder: date_pair.adder, multiplier: date_pair.multiplier, dates: (date_pair.start_date..date_pair.end_date).to_a }}
+      Priceevent.select(:start_date, :end_date, :id, :adder, :multiplier).where(cabin_id: c.id).each do |date_pair| 
+        cabinSpecificDates << {id: date_pair.id, adder: date_pair.adder, multiplier: date_pair.multiplier, dates: (date_pair.start_date..date_pair.end_date).to_a }
+      end
       
         cabinSpecificDates.each do |i|
           i[:dates].each do |date|
@@ -140,7 +146,10 @@ class Cabin < ApplicationRecord
           end
         end
 
+        
         cabinDandPeventhash.each do |date, value|
+          datePrice = c.price
+
           w = date.to_date.wday 
           if w == 5 || w == 6 || w == 0
             if weekendPE.first.multiplier
@@ -149,8 +158,11 @@ class Cabin < ApplicationRecord
               value[:adders].unshift(weekendPE.first.adder) 
             end
           end
-          value[:adders].each {|n| price_total += n.to_f }
-          value[:multipliers].each {|m| price_total *= m.to_f}
+
+          value[:multipliers].each {|m| value[:adders] << (datePrice * m.to_f)}
+          value[:adders].each {|n| datePrice += n.to_f }
+
+          price_total += datePrice
         end
         
         if takenArray.length == 0
@@ -321,82 +333,3 @@ end
   #               description: Cabin.find(params[:id]).description
   #             }}
   # end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Priceevent.select(:id, :start_date, :end_date).where("recurring IS true AND start_date IS NOT null").each do |i| # is each recurring PE
-#   # foo = [] # altered gwd array to be dates, not strings
-#   # grandWantedDates.each { |w| foo << w.to_date.strftime("%m/%d") }
-
-#   (i[:start_date]..i[:end_date]).to_a.each do |date| # date is a single in a PE array
-#     d = date.strftime("%m/%d")
-
-#     grandWantedDates.each do |w|
-#       if w.to_date.strftime("%m/%d") == d 
-#         dateAndPriceEventHash.each do |key, value|
-#           if key.to_date.strftime("%m/%d") == d
-#             if value.include?(i[:id])
-#             else
-#               value << i[:id]
-#             end
-#           else
-#           end
-#         end
-#       else
-#       end
-#     end
-#     # if foo.first > foo.last
-#     #   [(grandWantedDates.first.."12/31").to_a + ("01/01"..grandWantedDates.last).to_a ]
-#     #   # then we know that it will cover the new year turn
-#     # else
-          
-#   end
-# end
-
-
-
-# dateAndPriceEventHash[f.to_s] = [i[:id]]
-
-# create a key value pair in the datepriceeventhash
-
-# dateAndPriceEventHash.each do |key, value| # if they key doenst exist.
-#   if key.to_date.strftime("%m/%d") == d
-#     if value.include?(i[:id])
-#     else
-#       value << i[:id]
-#     end
-
-#   else
-#   end
-# end

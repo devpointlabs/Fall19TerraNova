@@ -21,7 +21,9 @@ class User < ActiveRecord::Base
         :cellphone, 
         :birthday, 
         :anniversary, 
-        :admin 
+        :admin,
+        :password,
+        :passwordConfirmation
       ])
     end
     

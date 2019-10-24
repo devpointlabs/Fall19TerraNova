@@ -222,7 +222,9 @@ class Step2 extends React.Component {
         this.props.nrRoomsArray.map ( room => validNrOfPeople = !(parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F" && room.roomLetter !== null));
         this.setState({ validNrOfPeople });
         return validNrOfPeople;
-    };
+    }; 
+
+   
 
     handleClose = () => this.setState({ modalShow: false, modalShowStart: false, modalShowEnd: false, modalShowNoEndDate: false });
 

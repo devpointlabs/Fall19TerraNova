@@ -248,7 +248,6 @@ class Reservation extends React.Component {
         };
         axios.get("/api/avail_cabins", {params: {dates: [startDateDB, endDateDB]}} )  //!!!!!!!!!!!!!!!!!!!, discountcode: 23456789
             .then(res => {
-                debugger
                 this.setState({
                     _isMounted: true,
                     aRooms: res.data.aRooms,
