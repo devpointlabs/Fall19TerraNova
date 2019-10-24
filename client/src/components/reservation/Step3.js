@@ -21,6 +21,7 @@ class Step3 extends React.Component {
         totalNrGuests: 0,
         taxes: [],
         grandTotal: 0,
+        bookedRooms: [],
         showBankTransfer: false,
         showCreditCard: false,
         country: "United States of America",
@@ -53,6 +54,7 @@ class Step3 extends React.Component {
         this.setState({ totalNrGuests: (totalNrAdults + totalNrChildren) });
         let taxes = this.calculateTaxes(this.props.nrRoomsArray);
         this.calculateGrandTotal(taxes, this.props.totalPrice);
+        this.setBookedRooms(this.props.nrRoomsArray);
         this.setState({ _isMounted: true });
     };
 
@@ -103,6 +105,14 @@ class Step3 extends React.Component {
         let grandTotal = totalPrice + totalTaxes;
         this.setState({ grandTotal });
         this.props.setGrandTotal(grandTotal);
+    };
+
+    setBookedRooms = (nrRoomsArray) => {
+        let bookedRooms = [];
+        for (var i; i < nrRoomsArray.length; i++)
+            if (nrRoomsArray[i].roomLetter)
+                bookedRooms.push(nrRoomsArray[i]);
+        this.setState({ bookedRooms });
     };
 
     toggleCreditCard = () => {
@@ -383,7 +393,7 @@ class Step3 extends React.Component {
                                         <Elements>
                                             <CheckoutForm
                                                 {...this.state}
-                                                bookedRooms = {this.props.nrRoomsArray}
+                                                bookedRooms = {this.state.bookedRooms}
                                                 start_date = {localStorage.getItem('startDateParse')}
                                                 end_date = {localStorage.getItem('endDateParse')}
                                                 guests = {this.state.totalNrGuests}
