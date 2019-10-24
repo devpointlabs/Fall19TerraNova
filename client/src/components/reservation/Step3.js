@@ -68,7 +68,8 @@ class Step3 extends React.Component {
                 totalNrRooms += 1;
             return totalNrRooms;
         });
-        this.setState({ totalNrRooms });
+        this.setState({ totalNrRooms: totalNrRooms.toString() });
+        this.props.setNrRooms(totalNrRooms.toString());
     };
 
     setTotalNrAdults = (nrRoomsArray) => {
@@ -110,10 +111,6 @@ class Step3 extends React.Component {
 
     toggleBankTransfer = () => {
         this.setState({ showBankTransfer: true, showCreditCard: false })
-    };
-
-    handleSubmit = () => {
-
     };
 
     render() {
@@ -390,6 +387,7 @@ class Step3 extends React.Component {
                                                 start_date = {localStorage.getItem('startDateParse')}
                                                 end_date = {localStorage.getItem('endDateParse')}
                                                 guests = {this.state.totalNrGuests}
+                                                goToConfirmation = {this.props.goToConfirmation}
                                             />
                                         </Elements>
                                     }

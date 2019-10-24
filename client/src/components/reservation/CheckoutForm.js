@@ -171,7 +171,7 @@ const CheckoutForm = (props) => {
                                 />
                             </div>
       
-      <span className="reservation-custom-button-placeorder" onClick={submit}>PLACE ORDER</span>
+      <span className="reservation-custom-button-placeorder" onClick={props.goToConfirmation}>PLACE ORDER</span>
       { complete ? (
         <div>
           Payment went through

@@ -54,12 +54,15 @@ class Reservation extends React.Component {
         startDate: "",
         startDateString: "",
         startDateDB: "",
+        startDateDisplay: "",
         endDate: "",
         endDateString: "",
         endDateDB: "",
+        endDateDisplay: "",
         chooseStartDate: true,
         chooseEndDate: false,
         nrNights: "1",
+        nrRooms: "",
         nrRooms: "1",
         nrRoomsArray: [{roomNumber: "1", roomLetter: null, cabinId: null, cabinNumber: null, roomPrice: null, roomPriceType: null, people: ["0", "0"], active: true}],
         rooms: [["0", "0"]], //room: (adults: ?, children: ?)
@@ -86,7 +89,8 @@ class Reservation extends React.Component {
         this.loadData();
     };
 
-    loadData = (startOver) => {
+    loadData = () => {
+        // if (localStorage.step && localStorage.getItem('step') === "4") this.setState({ step: 4, _isMounted: true });
         if (localStorage.startDateString) {
             // load state from local storage
             this.setState({
@@ -98,6 +102,7 @@ class Reservation extends React.Component {
                 endDate: dayjs(localStorage.getItem('endDateParse')),
                 nrNights: localStorage.getItem('nrNights')
             });
+            this.setDateDisplays();
             if (localStorage.totalPrice) this.setState({ totalPrice: parseFloat(localStorage.getItem('totalPrice'))});
             var nrRoomsArray = [];
             var nextRoom = localStorage.getItem(`room1_roomNumber`) ? true : false;
@@ -133,7 +138,10 @@ class Reservation extends React.Component {
             if (localStorage.step && localStorage.step === "2") {
                 this.setState({ step: parseInt(localStorage.getItem('step'))});
                 this.checkAvailability(localStorage.getItem('startDateDB'), localStorage.getItem('endDateDB'), false, nrRoomsArray);
-            } else this.setState({ step: 3, _isMounted: true });
+            } else if (localStorage.step && localStorage.step === "4") {
+                this.setState({ grandTotal: localStorage.getItem('grandTotal'), step: 4, _isMounted: true });
+            }
+            else this.setState({ step: 3, _isMounted: true });
         // } else if (!this.state.reload && this.props.history.location.state &&
         //     this.props.history.location.state.startDate != dayjs() &&
         //     this.props.history.location.state.endDate != dayjs(dayjs().add('1', 'day')) &&
@@ -719,7 +727,10 @@ class Reservation extends React.Component {
         else if (roomLetter === "V2") return Math.round(this.state.vip2.cabinPricing.price_total);
     };
 
-    setGrandTotal = (grandTotal) => this.setState({ grandTotal });
+    setGrandTotal = (grandTotal) => {
+        localStorage.setItem('grandTotal', grandTotal);
+        this.setState({ grandTotal });
+    }
 
     setStep = (step) => {
         this.setState({ step, _isMounted: false });
@@ -754,6 +765,7 @@ class Reservation extends React.Component {
         localStorage.removeItem('endDateParse');
         localStorage.removeItem('nrNights');
         if (localStorage.getItem('totalPrice')) localStorage.removeItem('totalPrice');
+        if (localStorage.getItem('grandTotal')) localStorage.removeItem('grandTotal');
         localStorage.removeItem('step');
         let nextRoom = true;
         let room = 1;
@@ -803,7 +815,76 @@ class Reservation extends React.Component {
         this.loadData();
     };
 
-    goToConfirmation = () => this.setState({ step: 4 });
+    goToConfirmation = () => {
+        localStorage.setItem('step', 4);
+        this.setState({ step: 4, _isMounted: false });
+    };
+
+    setNrRooms = (nrRooms) => this.setState({ nrRooms });
+
+    setDateDisplays = () => {
+        let startDate = dayjs(localStorage.getItem('startDateParse'));
+        let endDate = dayjs(localStorage.getItem('endDateParse'));
+        let startDay = this.getFullDayName(startDate.$d.toString().substring(0, 3));
+        let endDay = this.getFullDayName(endDate.$d.toString().substring(0, 3));
+        let startMonth = this.getFullMonthName(startDate.$d.toString().substring(4, 7));
+        let endMonth = this.getFullMonthName(endDate.$d.toString().substring(4, 7));
+        let startDateDisplay = `${startDay}, ${startMonth} ${startDate.$D}, ${startDate.$y}`;
+        let endDateDisplay = `${endDay}, ${endMonth} ${endDate.$D}, ${endDate.$y}`;
+        this.setState({ startDateDisplay, endDateDisplay });
+        localStorage.setItem('startDateDisplay', startDateDisplay);
+        localStorage.setItem('endDateDisplay', endDateDisplay);
+    };
+
+    getFullDayName = (day) => {
+        switch(day) {
+            case "Sun":
+                return "SUNDAY";
+            case "Mon":
+                return "MONDAY";
+            case "Tue":
+                return "TUESDAY";
+            case "Wed":
+                return "WEDNESDAY";
+            case "Thu":
+                return "THURSDAY";
+            case "Fri":
+                return "FRIDAY";
+            case "Sat":
+                return "SATURDAY";
+        };
+    };
+
+    getFullMonthName = (month) => {
+        switch(month) {
+            case "Jan":
+                return "JANUARY";
+            case "Feb":
+                return "FEBRUARY";
+            case "Mar":
+                return "MARCH";
+            case "Apr":
+                return "APRIL";
+            case "May":
+                return "MAY";
+            case "Jun":
+                return "JUNE";
+            case "Jul":
+                return "JULY";
+            case "Aug":
+                return "AUGUST";
+            case "Sep":
+                return "SEPTEMBER";
+            case "Oct":
+                return "OCTOBER";
+            case "Nov":
+                return "NOVEMBER";
+            case "Dec":
+                return "DECEMBER";
+            default:
+                return "";
+        };
+    };
 
     render() {
         return (
@@ -911,6 +992,8 @@ class Reservation extends React.Component {
                                 setStep={this.setStep}
                                 goBackToStep1={this.goBackToStep1}
                                 goBackToStep2={this.goBackToStep2}
+                                goToConfirmation={this.goToConfirmation}
+                                setNrRooms={this.setNrRooms}
                             />
                         }
                     </>
@@ -919,10 +1002,15 @@ class Reservation extends React.Component {
             :
                 <>
                     <div className="reservation-header-container">
-                        <div className="reservation-header">Confirmation</div>
+                        <div className="reservation-header">CONFIRMATION</div>
                     </div>
                     <Confirmation
-
+                        startDateDisplay={this.state.startDateDisplay}
+                        endDateDisplay={this.state.endDateDisplay}
+                        nrNights={this.state.nrNights}
+                        nrRooms={this.state.nrRooms}
+                        grandTotal={this.state.grandTotal}
+                        cleanLocalStorage={this.cleanLocalStorage}
                     />
                 </>
             }
