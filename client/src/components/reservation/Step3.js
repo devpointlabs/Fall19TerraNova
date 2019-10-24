@@ -21,7 +21,7 @@ class Step3 extends React.Component {
         totalNrGuests: 0,
         taxes: [],
         grandTotal: 0,
-        bookedRooms: [],
+        // bookedRooms: [],
         showBankTransfer: false,
         showCreditCard: false,
         country: "United States of America",
@@ -54,7 +54,7 @@ class Step3 extends React.Component {
         this.setState({ totalNrGuests: (totalNrAdults + totalNrChildren) });
         let taxes = this.calculateTaxes(this.props.nrRoomsArray);
         this.calculateGrandTotal(taxes, this.props.totalPrice);
-        this.setBookedRooms(this.props.nrRoomsArray);
+        // this.setBookedRooms(this.props.nrRoomsArray);
         this.setState({ _isMounted: true });
     };
 
@@ -107,13 +107,13 @@ class Step3 extends React.Component {
         this.props.setGrandTotal(grandTotal);
     };
 
-    setBookedRooms = (nrRoomsArray) => {
-        let bookedRooms = [];
-        for (var i; i < nrRoomsArray.length; i++)
-            if (nrRoomsArray[i].roomLetter)
-                bookedRooms.push(nrRoomsArray[i]);
-        this.setState({ bookedRooms });
-    };
+    // setBookedRooms = (nrRoomsArray) => {
+    //     let bookedRooms = [];
+    //     for (var i; i < nrRoomsArray.length; i++)
+    //         if (nrRoomsArray[i].roomLetter)
+    //             bookedRooms.push(nrRoomsArray[i]);
+    //     this.setState({ bookedRooms });
+    // };
 
     toggleCreditCard = () => {
         this.setState({ showCreditCard: true, showBankTransfer: false })
@@ -393,7 +393,7 @@ class Step3 extends React.Component {
                                         <Elements>
                                             <CheckoutForm
                                                 {...this.state}
-                                                bookedRooms = {this.state.bookedRooms}
+                                                bookedRooms = {this.props.nrRoomsArray}
                                                 start_date = {localStorage.getItem('startDateParse')}
                                                 end_date = {localStorage.getItem('endDateParse')}
                                                 guests = {this.state.totalNrGuests}
