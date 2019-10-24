@@ -39,46 +39,51 @@ const CheckoutForm = (props) => {
   }, []);
 
   const submit = async (ev) => {
-    ev.preventDefault();
-    let result = await props.stripe.createPaymentMethod('card')
-    const { setupIntent, error } = await props.stripe.handleCardSetup(client_secret, {}); //  payment_method_data: { billing_details: { name: `${firstName} ${lastName}` } } 
-    if (error) {
-      console.log(error)
-      console.log("YOU HAVE A CARD ERROR")
-    } else if (setupIntent.status === "succeeded") { 
-      await axios.post(`/api/createres?body=${result.paymentMethod.id}`)
-        .then(res => {
+    if (props.password !== props.passwordConfirmation)
+      props.setPasswordsMatch(false);
+    else {
+      ev.preventDefault();
+      let result = await props.stripe.createPaymentMethod('card')
+      const { setupIntent, error } = await props.stripe.handleCardSetup(client_secret, {}); //  payment_method_data: { billing_details: { name: `${firstName} ${lastName}` } } 
+      if (error) {
+        console.log(error)
+        console.log("YOU HAVE A CARD ERROR")
+      } else if (setupIntent.status === "succeeded") { 
+        await axios.post(`/api/createres?body=${result.paymentMethod.id}`)
+          .then(res => {
           
-          // CREATE A USER FIRST, THEN YOU CAN add that to the boooking
-          // ? REGARDING CABIN_ID, DO I CREATE TWO BOOKINGS? IF SO, CAN I CHARGE THE CARD TWICE?? OR SOMEHOW WORK AROUND THAT. 
+            // CREATE A USER FIRST, THEN YOU CAN add that to the boooking
+            // ? REGARDING CABIN_ID, DO I CREATE TWO BOOKINGS? IF SO, CAN I CHARGE THE CARD TWICE?? OR SOMEHOW WORK AROUND THAT. 
 
-          // if (cabin_type === "Family"){
+            // if (cabin_type === "Family"){
 
-          // } else {  
+            // } else {  
 
-          // }
-           axios.post('/api/bookings', {
-            customer_payment_token: res.data.c.id, 
-            pm: res.data.pm,
-            // cabin_type, // import the cabin type
-            price: 1200, // import the price
-            start_date: props.start_date, 
-            end_date: props.end_date, 
-            guests: props.guests, 
-            special_needs: props.orderNotes, 
-            // booking_number: 123456789, 
-            user_id: user,  
-            cabin_id: 10, 
-            expected_arrival: "2:00PM"}) 
-            .then(res=> {
-              debugger
-              setComplete(true)
-            })
-            .catch(err => { console.log(err) })
-        })
-        .catch(err => { console.log(err) })
+            // }
+            axios.post('/api/bookings', {
+              customer_payment_token: res.data.c.id, 
+              pm: res.data.pm,
+              // cabin_type, // import the cabin type
+              price: 1200, // import the price
+              start_date: props.start_date, 
+              end_date: props.end_date, 
+              guests: props.guests, 
+              special_needs: props.orderNotes, 
+              // booking_number: 123456789, 
+              user_id: user,  
+              cabin_id: 10, 
+              expected_arrival: "2:00PM"}) 
+              .then(res=> {
+                debugger
+                setComplete(true)
+              })
+              .catch(err => { console.log(err) })
+          })
+          .catch(err => { console.log(err) })
 
-      // The setup has succeeded. Display a success message.
+        // The setup has succeeded. Display a success message.
+        props.goToConfirmation();
+      };
     };
   };
 
@@ -171,7 +176,7 @@ const CheckoutForm = (props) => {
                                 />
                             </div>
       
-      <span className="reservation-custom-button-placeorder" onClick={props.goToConfirmation}>PLACE ORDER</span>
+      <span className="reservation-custom-button-placeorder" onClick={submit}>PLACE ORDER</span>
       { complete ? (
         <div>
           Payment went through

@@ -39,6 +39,8 @@ class Step3 extends React.Component {
         coupon: "",
         couponValid: false,
         password: "",
+        passwordConfirmation: "",
+        passwordsMatch: true,
         createAccount: false
     };
 
@@ -127,6 +129,8 @@ class Step3 extends React.Component {
     toggleBankTransfer = () => this.setState({ showBankTransfer: true, showCreditCard: false });
 
     toggleCreateAccount = () => this.setState({ createAccount: !this.state.createAccount });
+
+    setPasswordsMatch = (passwordsMatch) => this.setState({ passwordsMatch });
 
     render() {
         return(
@@ -378,29 +382,45 @@ class Step3 extends React.Component {
                                 </Col>
                             </CustomRow>
                             { this.state.createAccount &&
-                                <CustomRow style={{marginTop: "-10px", marginBottom: "30px"}}>
-                                    <Col>
-                                        <Form.Label required style={{fontSize: "smaller"}}>EMAIL ADDRESS <span style={{color: "red"}}>*</span></Form.Label>
-                                        <Form.Control
-                                            name="email"
-                                            value={this.state.email}
-                                            placeholder="Email address"
-                                            required
-                                            onChange={this.handleChange}
-                                        />
-                                    </Col>
-                                    <Col>
-                                        <Form.Label required style={{fontSize: "smaller"}}>PASSWORD <span style={{color: "red"}}>*</span></Form.Label>
-                                        <Form.Control
-                                            name="password"
-                                            type="password"
-                                            value={this.state.password}
-                                            placeholder="Password"
-                                            required
-                                            onChange={this.handleChange}
-                                        />
-                                    </Col>
-                                </CustomRow>
+                                <>
+                                    <CustomRow style={{marginTop: "-10px", }}>
+                                        <Col>
+                                            <Form.Label required style={{fontSize: "smaller"}}>EMAIL ADDRESS <span style={{color: "red"}}>*</span></Form.Label>
+                                            <Form.Control
+                                                name="email"
+                                                value={this.state.email}
+                                                placeholder="Email address"
+                                                required
+                                                onChange={this.handleChange}
+                                            />
+                                        </Col>
+                                        <Col>
+                                            <Form.Label required style={{fontSize: "smaller"}}>PASSWORD <span style={{color: "red"}}>*</span></Form.Label>
+                                            <Form.Control
+                                                name="password"
+                                                type="password"
+                                                value={this.state.password}
+                                                placeholder="Password"
+                                                required
+                                                onChange={this.handleChange}
+                                            />
+                                        </Col>
+                                        <Col>
+                                            <Form.Label required style={{fontSize: "smaller"}}>PASSWORD CONFIRMATION <span style={{color: "red"}}>*</span></Form.Label>
+                                            <Form.Control
+                                                name="passwordConfirmation"
+                                                type="password"
+                                                value={this.state.passwordConfirmation}
+                                                placeholder="Password Confirmation"
+                                                required
+                                                onChange={this.handleChange}
+                                            />
+                                        </Col>
+                                    </CustomRow>
+                                    { !this.state.passwordsMatch &&
+                                        <div style={{color: "red", marginTop: "-10px", marginBottom: "25px"}}>The passwords do not match!</div>
+                                    }
+                                </>
                             }
                             <div className="reservation-coupon-box">
                                 { !this.state.couponValid ?
@@ -450,8 +470,7 @@ class Step3 extends React.Component {
                                                 end_date = {localStorage.getItem('endDateParse')}
                                                 guests = {this.state.totalNrGuests}
                                                 goToConfirmation = {this.props.goToConfirmation}
-                                                createAccount = {this.state.createAccount}
-                                                password = {this.state.password}
+                                                setPasswordsMatch = {this.setPasswordsMatch}
                                             />
                                         </Elements>
                                     }
