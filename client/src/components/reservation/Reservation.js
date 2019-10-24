@@ -570,19 +570,40 @@ class Reservation extends React.Component {
                 room.roomNumber = (parseInt(room.roomNumber)-1).toString();
             return room;
         });
-        // nrRoomsArray.map( (room, index) => {
-        //     if (room.roomLetter) {
-        //         localStorage.setItem(`room${index+1}_roomNumber`, nrRoomsArray[index].roomNumber);
-        //         localStorage.setItem(`room${index+1}_roomLetter`, nrRoomsArray[index].roomLetter);
-        //         localStorage.setItem(`room${index+1}_cabinId`, nrRoomsArray[index].cabinId);
-        //         localStorage.setItem(`room${index+1}_cabinNumber`, nrRoomsArray[index].cabinNumber);
-        //         localStorage.setItem(`room${index+1}_roomPrice`, nrRoomsArray[index].roomPrice);
-        //         localStorage.setItem(`room${index+1}_roomPriceType`, nrRoomsArray[index].roomPriceType);
-        //         localStorage.setItem(`room${index+1}_nrAdults`, nrRoomsArray[index].people[0]);
-        //         localStorage.setItem(`room${index+1}_nrChildren`, nrRoomsArray[index].people[1]);
-        //     };
-        //     return room;
-        // });
+        let index = this.state.nrRoomsArray.length;
+        if (localStorage.getItem(`room${index}_roomLetter`)) {
+            localStorage.deleteItem(`room${index}_roomNumber`);
+            localStorage.deleteItem(`room${index}_roomLetter`);
+            localStorage.deleteItem(`room${index}_cabinId`);
+            localStorage.deleteItem(`room${index}_cabinNumber`);
+            localStorage.deleteItem(`room${index}_roomPrice`);
+            localStorage.deleteItem(`room${index}_roomPriceType`);
+            localStorage.deleteItem(`room${index}_nrAdults`);
+            localStorage.deleteItem(`room${index}_nrChildren`);
+        }
+        if (localStorage.getItem(`room${index-1}_roomLetter`)) {
+            localStorage.deleteItem(`room${index-1}_roomNumber`);
+            localStorage.deleteItem(`room${index-1}_roomLetter`);
+            localStorage.deleteItem(`room${index-1}_cabinId`);
+            localStorage.deleteItem(`room${index-1}_cabinNumber`);
+            localStorage.deleteItem(`room${index-1}_roomPrice`);
+            localStorage.deleteItem(`room${index-1}_roomPriceType`);
+            localStorage.deleteItem(`room${index-1}_nrAdults`);
+            localStorage.deleteItem(`room${index-1}_nrChildren`);
+        }
+        nrRoomsArray.map( (room, index) => {
+            if (room.roomLetter) {
+                localStorage.setItem(`room${index+1}_roomNumber`, nrRoomsArray[index].roomNumber);
+                localStorage.setItem(`room${index+1}_roomLetter`, nrRoomsArray[index].roomLetter);
+                localStorage.setItem(`room${index+1}_cabinId`, nrRoomsArray[index].cabinId);
+                localStorage.setItem(`room${index+1}_cabinNumber`, nrRoomsArray[index].cabinNumber);
+                localStorage.setItem(`room${index+1}_roomPrice`, nrRoomsArray[index].roomPrice);
+                localStorage.setItem(`room${index+1}_roomPriceType`, nrRoomsArray[index].roomPriceType);
+                localStorage.setItem(`room${index+1}_nrAdults`, nrRoomsArray[index].people[0]);
+                localStorage.setItem(`room${index+1}_nrChildren`, nrRoomsArray[index].people[1]);
+            };
+            return room;
+        });
         this.setState({ nrRoomsArray, bookedRooms });
         this.calculateTotalPrice(nrRoomsArray);
     };
