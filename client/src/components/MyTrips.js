@@ -1,21 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from 'react'
+import axios from "axios";
 
-class MyTrips extends React.Component {
-    state = {
-        booking: null
-    };
+const MyTrips = () => {
+    const [bookings, setBookings] = useState([]);
 
-    componentDidMount() {
-        
-    };
+    useEffect(() => {
+        axios.get("api/my_bookings")
+            .then(res => {
+                debugger
+                this.setBookings(res.data);
+            });
+    }, [])
 
-    render() {
-        return(
-            <>
-
-            </>
-        );
-    };
-};
+    return (
+        <div>
+            
+        </div>
+    )
+}
 
 export default MyTrips;

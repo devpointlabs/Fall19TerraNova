@@ -17,6 +17,8 @@ import { Switch, Route, } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
 import { StripeProvider } from 'react-stripe-elements';
 import FindBooking from './components/FindBooking'
+import MyTrips from './components/MyTrips'
+import ProtectedRoute from './components/ProtectedRoute'
 import AdminProtRoute from './components/AdminProtRoute'
 import AdminHome from './components/AdminHome'
 import AdminBookings from './components/admin/AdminBookings'
@@ -54,6 +56,7 @@ const App = () => {
             <Route exact path="/gallery" component={GalleryView} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/findmybooking" component={FindBooking} />
+            <ProtectedRoute exact path="/mytrips" component={MyTrips} />
             <Route exact path="/underconstruction" component={UnderConstruction} />
             <Route component={NoMatch} />
           </Switch>
