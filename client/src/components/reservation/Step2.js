@@ -2,11 +2,11 @@ import React from "react";
 import { withRouter } from 'react-router-dom';
 import { Form, Modal } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
-import Hotel3 from '../../images/Hotel3.jpg';
-import Hotel4 from '../../images/Hotel4.jpg';
-import Hotel5 from '../../images/Hotel5.jpg';
-import Hotel6 from '../../images/Hotel6.jpg';
-import Hotel7 from '../../images/Hotel7.jpg';
+import lake from '../../images/rooms/lakeview.jpg';
+import mountain from '../../images/rooms/mountainview.jpg';
+import family from '../../images/rooms/family.jpg';
+import vip1 from '../../images/rooms/VIP1.jpg';
+import vip2 from '../../images/rooms/VIP2.jpg';
 import { Calendar } from '../rb-datepicker/dist';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import "../styles/daterangepicker.css";
@@ -193,19 +193,19 @@ class Step2 extends React.Component {
     renderRoomPicture = (roomLetter) => (
         <>
             { roomLetter === "A" &&
-                <img alt="hotel" src={Hotel3} width="100%" />
+                <img alt="hotel" src={lake} width="100%" />
             }
             { roomLetter === "B" &&
-                <img alt="hotel" src={Hotel4} width="100%" />
+                <img alt="hotel" src={mountain} width="100%" />
             }
             { roomLetter === "F" &&
-                <img alt="hotel" src={Hotel5} width="100%" />
+                <img alt="hotel" src={family} width="100%" />
             }
             { roomLetter === "V1" &&
-                <img alt="hotel" src={Hotel6} width="100%" />
+                <img alt="hotel" src={vip1} width="100%" />
             }
             { roomLetter === "V2" &&
-                <img alt="hotel" src={Hotel7} width="100%" />
+                <img alt="hotel" src={vip2} width="100%" />
             }
         </>
     );

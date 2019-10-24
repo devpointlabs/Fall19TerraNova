@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import './styles/RoomsRates.css';
 import mountainview from '../images/rooms/mountainview.jpg';
 import lakeview from '../images/rooms/lakeview.jpg';
-import cabin3 from '../images/rooms/cabin3.jpg';
-import cabin1 from '../images/rooms/cabin1.jpg';
+import VIP1 from '../images/rooms/VIP1.jpg';
+import VIP2 from '../images/rooms/VIP2.jpg';
+import family from '../images/rooms/family.jpg';
 
 const Button = withRouter(({ history, room }) => (
     <span
@@ -85,39 +86,9 @@ const RoomsRates = () => (
             </div>
 
             <div className="roomsrates-room">
-                <div className="roomsrates-room-header">FAMILY ROOM</div>
-                <img
-                    src={cabin3}
-                    alt="familyroom"
-                    width="100%"
-                />
-                <p className="roomrates-description">A whole unit with both a mountain view room and lake view room.</p>
-                <div className="roomsrates-list-container">
-                    <div className="roomsrates-ul-column">
-                        <ul>
-                            <li>Max: 8 Persons</li>
-                            <li>Size: 752 ft<sup>2</sup> / 70 m<sup>2</sup></li>
-                        </ul>
-                    </div>
-                    <div className="roomsrates-ul-column">
-                        <ul>
-                            <li>View: Lake & Mountain</li>
-                            <li>Bed: Two King-Size or twin beds</li>
-                        </ul>
-                    </div>
-                </div>
-                <hr width="100%" style={{margin: "0.5em 0 0.7em 0"}} />
-                <div className="roomsrates-details-container">
-                    Starting at $500 /night
-                    <Button room="F" />
-                </div>
-                <hr width="100%" style={{marginTop: "0.7em"}} />
-            </div>
-
-            <div className="roomsrates-room">
                 <div className="roomsrates-room-header">VIP ROOM #1</div>
                 <img
-                    src={cabin1}
+                    src={VIP1}
                     alt="viproom1"
                     width="100%"
                     height="376px"
@@ -148,7 +119,7 @@ const RoomsRates = () => (
             <div className="roomsrates-room">
                 <div className="roomsrates-room-header">VIP ROOM #2</div>
                 <img
-                    src={cabin1}
+                    src={VIP2}
                     alt="viproom2"
                     width="100%"
                     height="376px"
@@ -175,6 +146,37 @@ const RoomsRates = () => (
                 </div>
                 <hr width="100%" style={{marginTop: "0.7em"}} />
             </div>
+
+            <div className="roomsrates-room">
+                <div className="roomsrates-room-header">FAMILY ROOM</div>
+                <img
+                    src={family}
+                    alt="familyroom"
+                    width="100%"
+                />
+                <p className="roomrates-description">A whole unit with both a mountain view room and lake view room.</p>
+                <div className="roomsrates-list-container">
+                    <div className="roomsrates-ul-column">
+                        <ul>
+                            <li>Max: 8 Persons</li>
+                            <li>Size: 752 ft<sup>2</sup> / 70 m<sup>2</sup></li>
+                        </ul>
+                    </div>
+                    <div className="roomsrates-ul-column">
+                        <ul>
+                            <li>View: Lake & Mountain</li>
+                            <li>Bed: Two King-Size or twin beds</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr width="100%" style={{margin: "0.5em 0 0.7em 0"}} />
+                <div className="roomsrates-details-container">
+                    Starting at $500 /night
+                    <Button room="F" />
+                </div>
+                <hr width="100%" style={{marginTop: "0.7em"}} />
+            </div>
+            
         </div>
     </>
 );

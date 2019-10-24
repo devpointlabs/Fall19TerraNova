@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from "react-bootstrap";
 import { NavLink } from 'react-router-dom';
 import "./homestyles/About.css";
-import collage from "../../images/about/collage.png";
+import collage from "../../images/about/aboutcollage.png";
 import master_bedrooms from "../../images/about/master_bedrooms.png";
 import lake_view from "../../images/about/lake_view.png";
 import pool_and_spa from "../../images/about/pool_and_spa.png";
@@ -20,8 +20,8 @@ const About = () => (
                 <div className="about-header">About Us</div>
                 <div className="about-hr-div"><hr className="about-line" /></div>
                 <div className="about-text">
-                    <p>Devination Cabins represent the greatest western hospitality has to offer, elegance and luxury wrapped in the arms of comfort. Lose your senses as you dirft away from the world, and into our blissful oasis. Not only do we offer luxury, but we pride ourselves on the experience. </p>
-                    <p>Imagine waking up to an early morning yoga class surrounded by the sounds of nature, spending your afternoon on a scenic hike as friendly buffalo roam nearby, then coming home to a gathering around the fire with s'mores aplenty, Devination Cabins is your heart for adventure. Explore everything the area has to offer, or spend the day being pampered at the spa, whatever your definition of a vacation, Devination delivers.</p>
+                    <p>New Earth Cabins represent the greatest western hospitality has to offer, elegance and luxury wrapped in the arms of comfort. Lose your senses as you dirft away from the world, and into our blissful oasis. Not only do we offer luxury, but we pride ourselves on the experience. </p>
+                    <p>Imagine waking up to an early morning yoga class surrounded by the sounds of nature, spending your afternoon on a scenic hike as friendly buffalo roam nearby, then coming home to a gathering around the fire with s'mores aplenty, New Earth is your heart for adventure. Explore everything the area has to offer, or spend the day being pampered at the spa, whatever your definition of a vacation, New Earth delivers.</p>
                     <br />
                     <CustomButton as={NavLink} to="/about">READ MORE</CustomButton>
                 </div>

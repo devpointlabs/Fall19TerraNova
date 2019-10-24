@@ -244,7 +244,7 @@ class Top extends React.Component {
             <div className="top">
                 <div className="text-overlay">
                     <div className="topoverlay">
-                        <ContentTop>Welcome To Devination Cabins</ContentTop>
+                        <ContentTop>Welcome To New Earth Cabins</ContentTop>
                     </div>
                     <div className="bottomoverlay">
                         <ContentBottom>AT WEST YELLOWSTONE</ContentBottom>
