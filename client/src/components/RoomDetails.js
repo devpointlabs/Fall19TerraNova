@@ -119,24 +119,53 @@ class RoomDetails extends React.Component {
         };
     };
 
-    Button = withRouter(({ history }) => (
+    // Button = withRouter(({ history }) => (
+    //     <span
+    //         className="roomdetails-custom-button"
+    //         onClick={ this.state.endDate != "" ? () => { 
+    //             history.push({
+    //             pathname: '/reservation',
+    //             state: this.state,
+    //             startDateParse: this.state.startDate.format("YYYY-MM-DD"),
+    //             endDateParse: this.state.endDate.format("YYYY-MM-DD")
+    //         }) }
+    //         :
+    //             this.state._isMounted &&
+    //                 (() => this.setState({ modalShowNoEndDate: true }))
+    //         }
+    //     >
+    //         CHECK AVAILABILITY
+    //     </span>
+    // ));
+
+    CheckAvailabilityButton = withRouter(({ history }) => (
         <span
             className="roomdetails-custom-button"
-            onClick={ this.state.endDate !== "" ? () => { 
-                history.push({
-                pathname: '/reservation',
-                state: this.state,
-                startDateParse: this.state.startDate.format("YYYY-MM-DD"),
-                endDateParse: this.state.endDate.format("YYYY-MM-DD")
-            }) }
-            :
-                this.state._isMounted &&
-                    (() => this.setState({ modalShowNoEndDate: true }))
-            }
+            onClick={() => this.prepareForRedirection(history)}
         >
             CHECK AVAILABILITY
         </span>
     ));
+
+    prepareForRedirection = async (history) => {
+        if (this.state.endDate !== "") {
+            await this.addToLocalStorage();
+            history.push({pathname: '/reservation'})
+        } else {
+            this.setState({ modalShowNoEndDate: true })
+        };
+    };
+
+    addToLocalStorage = () => {
+        localStorage.setItem('startDateString', this.state.startDateString);
+        localStorage.setItem('endDateString', this.state.endDateString);
+        localStorage.setItem('startDateDB', this.state.startDateDB);
+        localStorage.setItem('endDateDB', this.state.endDateDB);
+        localStorage.setItem('startDateParse', this.state.startDate.format("YYYY-MM-DD"));
+        localStorage.setItem('endDateParse', this.state.endDate.format("YYYY-MM-DD"));
+        localStorage.setItem('nrNights', this.state.nrNights);
+        localStorage.setItem('step', 2);
+    };
 
     renderRoomName = (roomLetter) => (
         <>
@@ -355,7 +384,7 @@ class RoomDetails extends React.Component {
                                     <Icon name="calendar alternate outline" style={{marginTop: "8px", marginRight: "8px"}} />
                                 </div>
                                 <div className="roomdetails-button-container">
-                                    <this.Button />
+                                    <this.CheckAvailabilityButton />
                                 </div>
                             </div>
                         </div>

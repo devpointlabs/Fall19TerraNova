@@ -60,8 +60,12 @@ class Step3 extends React.Component {
     };
 
     setTotalNrRooms = (nrRoomsArray) => {
-        let totalNrRooms = 0;
-        this.props.nrRoomsArray.map(room => totalNrRooms = room.roomLetter && (totalNrRooms + 1));
+        var totalNrRooms = 0;
+        nrRoomsArray.map(room => {
+            if (room.roomLetter)
+                totalNrRooms += 1;
+            return totalNrRooms;
+        });
         this.setState({ totalNrRooms });
     };
 
@@ -83,7 +87,7 @@ class Step3 extends React.Component {
 
     calculateTaxes = (nrRoomsArray) => {
         let taxes = this.state.taxes;
-        this.props.nrRoomsArray.map((room, index) => taxes.push(room.roomPrice * 0.075));
+        nrRoomsArray.map(room => taxes.push(room.roomPrice * 0.075));
         this.setState({ taxes });
         return taxes;
     };
@@ -112,17 +116,16 @@ class Step3 extends React.Component {
         return(
             this.state._isMounted &&
             <>
-            
                 <div className="reservation-menu">
-                    <div className="reservation-number">1.</div>
-                    <div className="reservation-text">Choose Date</div>
+                    <div className="reservation-number" style={{cursor: "pointer"}} onClick={this.props.goBackToStep1}>1.</div>
+                    <div className="reservation-text" style={{cursor: "pointer"}} onClick={this.props.goBackToStep1}>Choose Date</div>
                     <div className="reservation-space" />
-                    <div className="reservation-number">2.</div>
-                    <div className="reservation-text">Choose Room</div>
+                    <div className="reservation-number" style={{cursor: "pointer"}} onClick={this.props.goBackToStep2}>2.</div>
+                    <div className="reservation-text" style={{cursor: "pointer"}} onClick={this.props.goBackToStep2}>Choose Room</div>
                     <div className="reservation-space" />
                     <div className="reservation-active">
                         <div className="reservation-number">3.</div>
-                        <div className="reservation-text">Billing & Confirmation</div>
+                        <div className="reservation-text">Billing</div>
                     </div>
                 </div>
                 <div className="reservation-hr-container"><hr style={{marginTop: "-1px", width: "83%"}} /></div>

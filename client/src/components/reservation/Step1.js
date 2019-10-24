@@ -50,6 +50,7 @@ class Step1 extends React.Component {
     checkAvailability = () => {
         if (this.props.endDate !== "") {
             this.setState({ _isMounted: false });
+            this.props.addToLocalStorageStep1();
             this.props.checkAvailability();
         } else {
             this.setState({ modalShowNoEndDate: true });
@@ -71,6 +72,17 @@ class Step1 extends React.Component {
         </span>
     ));
 
+    addToLocalStorage = () => {
+        localStorage.setItem('startDateString', this.props.startDateString);
+        localStorage.setItem('endDateString', this.props.endDateString);
+        localStorage.setItem('startDateDB', this.props.startDateDB);
+        localStorage.setItem('endDateDB', this.props.endDateDB);
+        localStorage.setItem('startDateParse', this.props.startDate.format("YYYY-MM-DD"));
+        localStorage.setItem('endDateParse', this.props.endDate.format("YYYY-MM-DD"));
+        localStorage.setItem('nrNights', this.props.nrNights);
+        localStorage.setItem('step', 2);
+    };
+
     render() {
         return(
             this.state._isMounted &&
@@ -85,7 +97,7 @@ class Step1 extends React.Component {
                     <div className="reservation-text">Choose Room</div>
                     <div className="reservation-space" />
                     <div className="reservation-number">3.</div>
-                    <div className="reservation-text">Billing & Confirmation</div>
+                    <div className="reservation-text">Billing</div>
                 </div>
                 <div className="reservation-hr-container"><hr style={{marginTop: "-1px", width: "83%"}} /></div>
                 <div className="reservation-container">

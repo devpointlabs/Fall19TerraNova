@@ -62,18 +62,6 @@ const CheckoutForm = (props) => {
 
   return (
     <div className="checkout">
-      <input
-        name="firstName"
-        value={firstName}
-        placeholder="First Name"
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <input
-        name="lastName"
-        value={lastName}
-        placeholder="Last Name"
-        onChange={(e) => setLastName(e.target.value)}
-      />
       <CardElement />
       <span className="reservation-custom-button-placeorder" onClick={submit}>PLACE ORDER</span>
       { complete ? (

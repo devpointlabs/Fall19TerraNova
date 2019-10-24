@@ -212,10 +212,8 @@ class Step2 extends React.Component {
 
     isNrOfPeopleValid = () => {
         let validNrOfPeople = true;
-        debugger
         this.props.nrRoomsArray.map ( room => validNrOfPeople = !(parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F"));
         this.setState({ validNrOfPeople });
-        debugger
         return validNrOfPeople;
     };
 
@@ -245,7 +243,7 @@ class Step2 extends React.Component {
         this.props.addRoom(this.state.tempRoomLetter, this.state.tempPriceType);
         this.setState({ modalShow: false });
         if (option === "nextStep") {
-            this.goToBilling2();
+            this.goToBilling();
         }
     };
 
@@ -267,45 +265,44 @@ class Step2 extends React.Component {
     }
 
     goToBilling = () => {
-        if (this.isNrOfPeopleValidExludingUnfinished())
-            this.goToBilling2();
-        else
+        if (this.isNrOfPeopleValidExludingUnfinished()) {
+            // this.addToLocalStorage();
+            localStorage.setItem('step', 3);
+            this.props.goToBilling();
+        } else
             this.setState({ modalShow: true });
     };
 
-    goToBilling2 = () => {
-        const {startDateString, endDateString, nrRoomsArray, nrNights, totalPrice, goToBilling} = this.props
-        const {setItem} = localStorage
+    // addToLocalStorage = () => {
+    //     localStorage.setItem('startDateString', this.state.startDateString);
+    //     localStorage.setItem('endDateString', this.state.endDateString);
+    //     localStorage.setItem('startDateDB', this.state.startDateDB);
+    //     localStorage.setItem('endDateDB', this.state.endDateDB);
+    //     localStorage.setItem('startDateParse', this.state.startDate.format("YYYY-MM-DD"));
+    //     localStorage.setItem('endDateParse', this.state.endDate.format("YYYY-MM-DD"));
+    //     localStorage.setItem('nrNights', this.state.nrNights);
+    //     localStorage.setItem('step', 3);
+    // };
 
-        setItem('startDateString', startDateString);
-        setItem('endDateString', endDateString);
-        setItem('nrRoomsArray', nrRoomsArray);
-        setItem('nrNights', nrNights);
-        setItem('totalPrice', totalPrice);
-
-        for (let i = 0; i < nrRoomsArray.length; i++) {
-          if (nrRoomsArray[i].roomLetter) {
-            setItem(`room${i+1}_roomNumber`, nrRoomsArray[i].roomNumber);
-            setItem(`room${i+1}_roomLetter`, nrRoomsArray[i].roomLetter);
-            setItem(`room${i+1}_roomPrice`, nrRoomsArray[i].roomPrice);
-            setItem(`room${i+1}_roomPriceType`, nrRoomsArray[i].roomPriceType);
-            setItem(`room${i+1}_nrAdults`, nrRoomsArray[i].people[0]);
-            setItem(`room${i+1}_nrChildren`, nrRoomsArray[i].people[1]);
-          }
-        }
-
-        // nrRoomsArray.map( (room, i) => {
-        //     if (room.roomLetter) {
-        //         setItem(`room${i+1}_roomNumber`, room.roomNumber);
-        //         setItem(`room${i+1}_roomLetter`, room.roomLetter);
-        //         setItem(`room${i+1}_roomPrice`, room.roomPrice);
-        //         setItem(`room${i+1}_roomPriceType`, room.roomPriceType);
-        //         setItem(`room${i+1}_nrAdults`, room.people[0]);
-        //         setItem(`room${i+1}_nrChildren`, room.people[1]);
-        //     }});
-
-        goToBilling();
-    };
+    // addToLocalStorage = () => {
+    //     const {startDateString, endDateString, nrRoomsArray, nrNights, totalPrice} = this.props;
+    //     localStorage.setItem('startDateString', startDateString);
+    //     localStorage.setItem('endDateString', endDateString);
+    //     localStorage.setItem('nrRoomsArray', nrRoomsArray);
+    //     localStorage.setItem('nrNights', nrNights);
+    //     localStorage.setItem('totalPrice', totalPrice);
+    //     localStorage.setItem('step', 3);
+    //     for (let i = 0; i < nrRoomsArray.length; i++) {
+    //         if (nrRoomsArray[i].roomLetter) {
+    //             localStorage.setItem(`room${i+1}_roomNumber`, nrRoomsArray[i].roomNumber);
+    //             localStorage.setItem(`room${i+1}_roomLetter`, nrRoomsArray[i].roomLetter);
+    //             localStorage.setItem(`room${i+1}_roomPrice`, nrRoomsArray[i].roomPrice);
+    //             localStorage.setItem(`room${i+1}_roomPriceType`, nrRoomsArray[i].roomPriceType);
+    //             localStorage.setItem(`room${i+1}_nrAdults`, nrRoomsArray[i].people[0]);
+    //             localStorage.setItem(`room${i+1}_nrChildren`, nrRoomsArray[i].people[1]);
+    //         };
+    //     };
+    // };
 
     renderRoomPrice = (roomLetter, priceType) => {
         let price = "";
@@ -357,13 +354,6 @@ class Step2 extends React.Component {
         this.props.setEndDateString(this.state.endDateString);
         this.props.setEndDateDB(this.state.endDateDB);
         this.props.checkAvailability(this.state.startDateDB, this.state.endDateDB, "override");
-        history.push({
-            pathname: '/reservation',
-            state: this.state,
-            startDateParse: this.state.startDate.format("YYYY-MM-DD"),
-            endDateParse: this.state.endDate.format("YYYY-MM-DD"),
-            step: 2
-        })
     };
 
     Button = withRouter(({ history }) => (
@@ -381,13 +371,30 @@ class Step2 extends React.Component {
         </span>
     ));
 
+    GoToBillingButton = withRouter(({ history }) => (
+        <span
+            className="reservation-custom-button"
+            onClick={() => this.prepareForRedirection(history)}
+        >
+            GO TO BILLING
+        </span>
+    ));
+
+    // prepareForRedirection = async (history) => {
+    //         await this.addToLocalStorage();
+    //         history.push({pathname: '/reservation'})
+    //     } else {
+    //         this.setState({ modalShowNoEndDate: true })
+    //     };
+    // };
+
     render() {
         return(
             this.state._isMounted &&
             <>
                 <div className="reservation-menu">
-                    <div className="reservation-number">1.</div>
-                    <div className="reservation-text">Choose Date</div>
+                    <div className="reservation-number" style={{cursor: "pointer"}} onClick={this.props.goBackToStep1}>1.</div>
+                    <div className="reservation-text" style={{cursor: "pointer"}} onClick={this.props.goBackToStep1}>Choose Date</div>
                     <div className="reservation-space" />
                     <div className="reservation-active">
                         <div className="reservation-number">2.</div>
@@ -395,7 +402,7 @@ class Step2 extends React.Component {
                     </div>
                     <div className="reservation-space" />
                     <div className="reservation-number">3.</div>
-                    <div className="reservation-text">Billing & Confirmation</div>
+                    <div className="reservation-text">Billing</div>
                 </div>
                 <div className="reservation-hr-container"><hr style={{marginTop: "-1px", width: "83%"}} /></div>
                 <div className="reservation-container">
@@ -463,7 +470,7 @@ class Step2 extends React.Component {
                                                 </row>
                                                 <row style={{marginTop: "15px"}}>
                                                     <span style={{fontWeight: "bold", fontSize: "13px"}}>
-                                                        { this.props.renderRoomName(this.props.bookedRoomLetters[parseInt(room.roomNumber, 10)-1]) }
+                                                        { this.props.renderRoomName(room.roomLetter) }
                                                     </span>
                                                     <span style={{fontWeight: "bold", fontSize: "13px", color: "#8E7037"}}>
                                                         ${ this.props.nrRoomsArray[parseInt(room.roomNumber, 10)-1].roomPrice }
@@ -505,6 +512,7 @@ class Step2 extends React.Component {
                                     <span className="reservation-custom-button" onClick={this.goToBilling}>
                                         GO TO BILLING
                                     </span>
+                                    {/* <this.GoToBillingButton /> */}
                                 </div>
                                 </>
                             }
