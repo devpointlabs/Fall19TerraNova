@@ -63,7 +63,6 @@ class Reservation extends React.Component {
         chooseEndDate: false,
         nrNights: "1",
         nrRooms: "",
-        nrRooms: "1",
         nrRoomsArray: [{roomNumber: "1", roomLetter: null, cabinId: null, cabinNumber: null, roomPrice: null, roomPriceType: null, people: ["0", "0"], active: true}],
         rooms: [["0", "0"]], //room: (adults: ?, children: ?)
         aRooms: [],
@@ -474,7 +473,7 @@ class Reservation extends React.Component {
             rooms.push(["0", "0"]);
             nrRoomsArray[nrRoomsArray.length-1].active = false;
             nrRoomsArray[nrRoomsArray.length-1].roomLetter = roomLetter;
-            nrRoomsArray[nrRoomsArray.length-1].cabinId = room.cabin_id;
+            nrRoomsArray[nrRoomsArray.length-1].cabinId = room.id;
             nrRoomsArray[nrRoomsArray.length-1].cabinNumber = room.cabin_number;
             nrRoomsArray[nrRoomsArray.length-1].roomPrice = roomPrice;
             nrRoomsArray[nrRoomsArray.length-1].roomPriceType = priceType;
@@ -489,8 +488,8 @@ class Reservation extends React.Component {
             });
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].active = false;
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomLetter = roomLetter;
-            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].cabinId = room.cabin_id;
-            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].cabinId = room.cabin_number;
+            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].cabinId = room.id;
+            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].cabinNumber = room.cabin_number;
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomPrice = roomPrice;
             nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomPriceType = priceType;
             if (!nrRoomsArray[nrRoomsArray.length-1].roomLetter) nrRoomsArray[nrRoomsArray.length-1].active = true;
@@ -852,6 +851,8 @@ class Reservation extends React.Component {
                 return "FRIDAY";
             case "Sat":
                 return "SATURDAY";
+            default:
+                return "";
         };
     };
 
