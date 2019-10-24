@@ -22,7 +22,7 @@ import AdminHome from './components/AdminHome'
 import AdminBookings from './components/admin/AdminBookings'
 import AdminUsers from './components/admin/AdminUsers'
 import AdminCabins from './components/admin/AdminCabins'
-import AdminImages from './components/admin/AdminImages'
+import AdminGalleryView from './components/AdminGalleryView';
 import AdminPE from './components/admin/AdminPE'
 import AdminDiscounts from './components/admin/AdminDiscounts'
 import UnderConstruction from './components/UnderConstruction'
@@ -40,7 +40,7 @@ const App = () => {
             <AdminProtRoute exact path="/admincabins" component={AdminCabins} />
             <AdminProtRoute exact path="/adminpe" component={AdminPE} />
             <AdminProtRoute exact path="/admindiscounts" component={AdminDiscounts} />
-            <AdminProtRoute exact path="/adminimages" component={AdminImages} />
+            <AdminProtRoute exact path="/adminimages" component={AdminGalleryView} />
             <Route exact path="/comingsoon" component={ComingSoon} />
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
@@ -49,7 +49,6 @@ const App = () => {
             <Route exact path="/roomsrates" component={RoomsRates} />
             <Route exact path="/roomdetails" component={RoomDetails} />
             <Route exact path="/reservation" component={Reservation} />
-            <Route exact path="/gallery" component={NoMatch} />
             <Route exact path="/about" component={About} />
             <Route exact path="/gallery" component={GalleryView} />
             <Route exact path="/contact" component={Contact} />
