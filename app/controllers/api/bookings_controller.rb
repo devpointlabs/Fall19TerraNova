@@ -21,6 +21,7 @@ class Api::BookingsController < ApplicationController
 
   def create # ☑️ on submit button, a transaction will be created and a booking will be created
     booking = Booking.new(booking_params)
+    booking[:booking_number] = rand(123654987...999999999)
     if booking.save
       render json: booking.booking_number
     else

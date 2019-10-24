@@ -18,20 +18,20 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  def create
+  # def create
 
 
-  end
+  # end
 
   def show_self # ☑️
     render json: current_user
   end
 
-  private 
+  # private 
 
-    def user_params
-      params.require(user).permit(:email, :first_name, :last_name, :address, :city, :state, :zip, :country)
-    end
+  #   def user_params
+  #     params.require(user).permit(:email, :first_name, :last_name, :address, :city, :state, :zip, :country)
+  #   end
 
 end
 

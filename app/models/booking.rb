@@ -1,5 +1,4 @@
 class Booking < ApplicationRecord
-  belongs_to :user
   belongs_to :cabin
 
   Stripe.api_key = Rails.configuration.stripe[:secret_key] 
