@@ -21,4 +21,31 @@ a:link {
 .gallery-image {
     border: 5px solid rgb(35, 35, 35);
     width: 30%;
+    height: 100%;
+}
+
+.gallery-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 20em;
+}
+
+a {
+    color: black;
+    font-weight: bold;
+    font-size: 125%;
+    font-family: Open Sans;
+    margin-bottom: 1%;
+  }
+
+a:hover {
+    background-color: #8e6f37 !important;
+    color: white;
+    text-decoration: none;
+}
+
+a:active {
+    color: #8e6f37 !important;
+    text-decoration: none;
 }

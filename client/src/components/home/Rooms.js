@@ -29,7 +29,7 @@ const Rooms = () => {
       <Header> Our Rooms </Header>
       <br/>
       <img className= "room-icon-img" src={logo2}/>
-      <Description> Terra Nova provides the perfect location for your Montana retreat. </Description>
+      <Description> New Earth provides the perfect location for your Montana retreat. </Description>
       <br/>
       <Carousel interval={false} activeIndex={index} direction={direction} onSelect={handleSelect}>
         <Carousel.Item>

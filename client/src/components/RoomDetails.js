@@ -4,14 +4,11 @@ import { Form, Modal } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
 import "./styles/RoomDetails.css";
 import RoomImage from '../images/room_image.png';
-import Hotel3 from '../images/Hotel3.jpg';
-// import A_1 from '../images/Hotel3.jpg';
-// import A_2 from '../images/Hotel4.jpg';
-// import A_3 from '../images/Hotel5.jpg';
-// import A_4 from '../images/Hotel6.jpg';
-// import A_5 from '../images/Hotel7.jpg';
-// import A_6 from '../images/Hotel8.jpg';
-// import A_7 from '../images/Hotel9.jpg';
+import lake from '../images/rooms/lakeview.jpg';
+import mountain from '../images/rooms/mountainview.jpg';
+import family from '../images/rooms/family.jpg';
+import vip1 from '../images/rooms/VIP1.jpg';
+import vip2 from '../images/rooms/VIP2.jpg';
 import person from '../images/small-person-image.png';
 import bed from '../images/small-bed-image.png';
 import eye from '../images/small-eye-image.png';
@@ -194,7 +191,7 @@ class RoomDetails extends React.Component {
         <>
             { roomLetter === "A" &&
                 <>
-                    <img alt="Terra Nova" src={Hotel3} width="100%" />
+                    <img alt="Terra Nova" src={lake} width="100%" />
                     <span className="roomdetails-text-header">LAKE VIEW</span>
                     <div className="roomdetails-content">
                         <div className="roomdetails-small-images-column">
@@ -215,7 +212,7 @@ class RoomDetails extends React.Component {
             }
             { roomLetter === "B" &&
                 <>
-                    <img alt="Terra Nova" src={Hotel3} width="100%" />
+                    <img alt="Terra Nova" src={mountain} width="100%" />
                     <span className="roomdetails-text-header">MOUNTAIN VIEW</span>
                     <div className="roomdetails-content">
                         <div className="roomdetails-small-images-column">
@@ -236,7 +233,7 @@ class RoomDetails extends React.Component {
             }
             { roomLetter === "F" &&
                 <>
-                    <img alt="Terra Nova" src={Hotel3} width="100%" />
+                    <img alt="Terra Nova" src={family} width="100%" />
                     <span className="roomdetails-text-header">FAMILY ROOM</span>
                     <div className="roomdetails-content">
                         <div className="roomdetails-small-images-column">
@@ -257,7 +254,7 @@ class RoomDetails extends React.Component {
             }
             { roomLetter === "V1" &&
                 <>
-                    <img alt="Terra Nova" src={Hotel3} width="100%" />
+                    <img alt="Terra Nova" src={vip1} width="100%" />
                     <span className="roomdetails-text-header">VIP ROOM #1</span>
                     <div className="roomdetails-content">
                         <div className="roomdetails-small-images-column">
@@ -278,7 +275,7 @@ class RoomDetails extends React.Component {
             }
             { roomLetter === "V2" &&
                 <>
-                    <img alt="Terra Nova" src={Hotel3} width="100%" />
+                    <img alt="Terra Nova" src={vip2} width="100%" />
                     <span className="roomdetails-text-header">VIP ROOM #2</span>
                     <div className="roomdetails-content">
                         <div className="roomdetails-small-images-column">
