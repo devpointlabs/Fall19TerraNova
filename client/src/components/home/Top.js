@@ -136,10 +136,32 @@ class Top extends React.Component {
 
     prepareForRedirection = async (history) => {
         if (this.state.endDate !== "") {
+            await this.cleanLocalStorage();
             await this.addToLocalStorage();
             history.push({pathname: '/reservation'})
         } else {
             this.setState({ modalShowNoEndDate: true })
+        };
+    };
+
+    cleanLocalStorage = () => {
+        if (localStorage.startDateString) {
+            localStorage.removeItem('startDateString');
+            localStorage.removeItem('endDateString');
+            localStorage.removeItem('nrNights');
+            localStorage.removeItem('totalPrice');
+            let nextRoom = true;
+            let room = 1;
+            while (nextRoom) {
+                localStorage.removeItem(`room${room}_roomNumber`);
+                localStorage.removeItem(`room${room}_roomLetter`);
+                localStorage.removeItem(`room${room}_roomPrice`);
+                localStorage.removeItem(`room${room}_roomPriceType`);
+                localStorage.removeItem(`room${room}_nrAdults`);
+                localStorage.removeItem(`room${room}_nrChildren`);
+                room += 1;
+                if (!localStorage.getItem(`room${room}_roomNumber`)) nextRoom = false;
+            };
         };
     };
 
@@ -215,28 +237,6 @@ class Top extends React.Component {
             this.setState({ startYear: date.$y.toString() });
         else
             this.setState({ endYear: date.$y.toString() });
-    };
-
-    cleanLocalStorage = () => {
-        debugger
-        if (localStorage.startDateString) {
-            localStorage.removeItem('startDateString');
-            localStorage.removeItem('endDateString');
-            localStorage.removeItem('nrNights');
-            localStorage.removeItem('totalPrice');
-            let nextRoom = true;
-            let room = 1;
-            while (nextRoom) {
-                localStorage.removeItem(`room${room}_roomNumber`);
-                localStorage.removeItem(`room${room}_roomLetter`);
-                localStorage.removeItem(`room${room}_roomPrice`);
-                localStorage.removeItem(`room${room}_roomPriceType`);
-                localStorage.removeItem(`room${room}_nrAdults`);
-                localStorage.removeItem(`room${room}_nrChildren`);
-                room += 1;
-                if (!localStorage.getItem(`room${room}_roomNumber`)) nextRoom = false;
-            };
-        };
     };
 
     render() {

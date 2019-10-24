@@ -21,7 +21,7 @@ const AdminBookings = () => {
         setlast_night(data.last_night)
       })
       .catch(err=>console.log(err))
-  }, [date])
+  }, [])
 
   return (
     <Container>

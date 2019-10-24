@@ -2,7 +2,7 @@ import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { AuthConsumer } from "../providers/AuthProvider";
 import { Navbar as NavbarBS, Nav, NavDropdown, Modal } from 'react-bootstrap';
-import { NavLink, withRouter, Redirect } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import styled from "styled-components";
 import "./styles/Navbar.css";
 import logo from "../images/logo.png";
@@ -68,106 +68,87 @@ class Navbar extends React.Component {
         };
     };
 
-    // changePagePrompt = () => {
-    //     if (this.props.history.location.pathname === "/reservation")
-    //         this.setState({ modalShow: true });
-    // };
-
-    // handleModalClose = () => {
-    //     this.setState({ modalShow: false });
-    // };
-
-    // handleModalClick = (choice) => {
-    //     if (choice === "yes") {
-    //         this.setState({ choice });
-    //         this.cleanLocalStorage();
-    //     };
-    //     this.setState({ modalShow: false });
-    // };
-
     render() {
-    const { auth: { user, handleLogout } } = this.props;
-    return (
-      <>
-        {this.props.location.pathname !== "/comingsoon" &&
-          <>
-            <div className="navbar-upper-background">
-              <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                <span style={{fontSize: "16px", marginTop: "3px"}}> 
-                  { this.state.weather }
-                </span>
-                {Math.round(this.state.temperature)}°F
-                <Icon style={{ marginLeft: "25px", marginRight: "3px", marginBottom: "4px" }} name="map marker alternate" />
-                88 Cedarwood River Lane, West Yellowstone, MT
-                <Icon style={{ marginLeft: "30px", marginRight: "3px", marginBottom: "16px" }} name="phone" />
-                (+1)888-867-5309
-                </div>
-              <div style={{ alignItems: "right" }}>
-                <NavbarBS variant="dark" bg="#373737" expand="lg" collapseOnSelect style={{ boxShadow: "none !important" }}>
-                  <NavbarBS.Toggle aria-controls="basic-navbar-nav" />
-                  <NavbarBS.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto" style={{ boxShadow: "none !important" }}>
-                      {this.adminVer()}
-                      { user ? 
-                        <MenuButton
-                          exact
-                          to="/mytrips"
-                          activeStyle={menuButtonActive}
-                        >
-                          <Icon name="briefcase" style={{ marginBottom: "5px" }} />
-                          My trips
-                        </MenuButton>
-                        :
-                        ""
-                      }
-                      {user ?
-                        <div onClick={() => handleLogout(this.props.history)}>
-                          <MenuButton
-                            to='/login'
-                            style={{ marginRight: "10px" }}
-                          >
-                            <Icon name="user" style={{ marginBottom: "5px" }} />
-                            Logout
-                        </MenuButton>
+        const { auth: { user, handleLogout } } = this.props;
+            return (
+                <>
+                    { this.props.location.pathname !== "/comingsoon" &&
+                        <>
+                            <div className="navbar-upper-background">
+                                <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                    <span style={{fontSize: "16px", marginTop: "3px"}}> 
+                                        { this.state.weather }
+                                    </span>
+                                    { Math.round(this.state.temperature) }°F
+                                    <Icon style={{ marginLeft: "25px", marginRight: "3px", marginBottom: "4px" }} name="map marker alternate" />
+                                    88 Cedarwood River Lane, West Yellowstone, MT
+                                    <Icon style={{ marginLeft: "30px", marginRight: "3px", marginBottom: "16px" }} name="phone" />
+                                    (+1)888-867-5309
+                                </div>
+                                <div style={{ alignItems: "right" }}>
+                                    <NavbarBS variant="dark" bg="#373737" expand="lg" collapseOnSelect style={{ boxShadow: "none !important" }}>
+                                        <NavbarBS.Toggle aria-controls="basic-navbar-nav" />
+                                        <NavbarBS.Collapse id="basic-navbar-nav">
+                                        <Nav className="mr-auto" style={{ boxShadow: "none !important" }}>
+                                            { this.adminVer() }
+                                            { user ? 
+                                                <MenuButton
+                                                    exact
+                                                    to="/mytrips"
+                                                    activeStyle={menuButtonActive}
+                                                >
+                                                    <Icon name="briefcase" style={{ marginBottom: "5px" }} />
+                                                    My trips
+                                                </MenuButton>
+                                            :
+                                                ""
+                                            }
+                                            { user ?
+                                                <div onClick={() => handleLogout(this.props.history)}>
+                                                    <MenuButton
+                                                        to='/login'
+                                                        style={{ marginRight: "10px" }}
+                                                    >
+                                                        <Icon name="user" style={{ marginBottom: "5px" }} />
+                                                        Logout
+                                                    </MenuButton>
+                                                </div>
+                                            :
+                                                <MenuButton
+                                                    exact
+                                                    to="/login"
+                                                    style={{ marginRight: "10px" }}
+                                                    activeStyle={menuButtonActive}
+                                                >
+                                                    <Icon name="user" style={{ marginBottom: "5px" }} />
+                                                    Sign In or Join
+                                                </MenuButton>
+                                            }
+                                            <NavDropdown className="navbar-navdropdown" alignRight title={<Icon name="dollar sign" />} id="collapsible-nav-dropdown" style={{ marginTop: "3px" }}>
+                                                <NavDropdown.Item><Icon name="dollar sign" /> (USD)</NavDropdown.Item>
+                                                <NavDropdown.Item disabled><Icon name="euro sign" disabled /> (EUR)</NavDropdown.Item>
+                                                <NavDropdown.Item disabled><Icon name="pound sign" disabled /> (GBP)</NavDropdown.Item>
+                                            </NavDropdown>
+                                            <NavDropdown alignRight title="ENG" id="collapsible-nav-dropdown" style={{ marginTop: "3px" }}>
+                                                <NavDropdown.Item style={{color: "black !important"}}>ENG</NavDropdown.Item>
+                                                <NavDropdown.Item disabled>GER</NavDropdown.Item>
+                                                <NavDropdown.Item disabled>SWE</NavDropdown.Item>
+                                            </NavDropdown>
+                                        </Nav>
+                                    </NavbarBS.Collapse>
+                                </NavbarBS>
+                            </div>
                         </div>
-                        :
-                        <MenuButton
-                          exact
-                          to="/login"
-                          style={{ marginRight: "10px" }}
-                          activeStyle={menuButtonActive}
-                        >
-                          <Icon name="user" style={{ marginBottom: "5px" }} />
-                          Sign In or Join
-                        </MenuButton>
-                      }
-                      <NavDropdown className="navbar-navdropdown" alignRight title={<Icon name="dollar sign" />} id="collapsible-nav-dropdown" style={{ marginTop: "3px" }}>
-                        <NavDropdown.Item><Icon name="dollar sign" /> (USD)</NavDropdown.Item>
-                        <NavDropdown.Item disabled><Icon name="euro sign" disabled /> (EUR)</NavDropdown.Item>
-                        <NavDropdown.Item disabled><Icon name="pound sign" disabled /> (GBP)</NavDropdown.Item>
-                      </NavDropdown>
-                      <NavDropdown alignRight title="ENG" id="collapsible-nav-dropdown" style={{ marginTop: "3px" }}>
-                        <NavDropdown.Item style={{color: "black !important"}}>ENG</NavDropdown.Item>
-                        <NavDropdown.Item disabled>GER</NavDropdown.Item>
-                        <NavDropdown.Item disabled>SWE</NavDropdown.Item>
-                      </NavDropdown>
-                    </Nav>
-                  </NavbarBS.Collapse>
-                </NavbarBS>
-              </div>
-            </div>
-            <NavbarBS className="navbar-background" expand="lg" sticky="top">
-              <div className="navbar-left">
-                <NavbarBS.Brand
-                    href="/"
-                >
-                  <img src={logo} height="80px" width="50px" />
-                </NavbarBS.Brand>
-              </div>
-              <div className="navbar-right">
-                <NavbarBS.Toggle aria-controls="basic-navbar-nav" />
-                <NavbarBS.Collapse id="basic-navbar-nav">
-                  <Nav className="mr-auto">
+                        <NavbarBS className="navbar-background" expand="lg" sticky="top">
+                            <div className="navbar-left">
+                                <NavbarBS.Brand href="/">
+                                    <img src={logo} height="80px" width="50px" alt="Logo" />
+                                </NavbarBS.Brand>
+                            </div>
+                            <div className="navbar-right">
+                                <NavbarBS.Toggle aria-controls="basic-navbar-nav" />
+                                <NavbarBS.Collapse id="basic-navbar-nav">
+                                    <Nav className="mr-auto">
                                         <NavButton
                                             exact
                                             to="/"
@@ -268,7 +249,7 @@ const NavButton = styled(NavLink)`
 const navButtonActive = {
     color: "#8E7037",
     borderBottom: "2px solid #8E7037",
-}
+};
 
 const MenuButton = styled(NavLink)`
     display: flex;
@@ -290,6 +271,6 @@ const MenuButton = styled(NavLink)`
 
 const menuButtonActive = {
     borderBottom: "2px solid white",
-}
+};
 
 export default withRouter(ConnectedNavbar);

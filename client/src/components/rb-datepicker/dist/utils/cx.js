@@ -31,7 +31,7 @@ function cx(props) {
   var off = calendar.month() !== day.month() || dates.isNotBetween(minDate, maxDate, day);
   var disabled = dates.isNotBetween(minDate, maxDate, day);
   var available = !disabled;
-  var historical = (day.isBefore(today) && day.format("DD") !== props.calendar.$D);
+  var historical = (day.isBefore(today) && day.format("DD") !== props.calendar.format("DD"));
   return (0, _classnames["default"])({
     weekend: weekend,
     "in-range": inRange,

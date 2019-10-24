@@ -116,25 +116,6 @@ class RoomDetails extends React.Component {
         };
     };
 
-    // Button = withRouter(({ history }) => (
-    //     <span
-    //         className="roomdetails-custom-button"
-    //         onClick={ this.state.endDate != "" ? () => { 
-    //             history.push({
-    //             pathname: '/reservation',
-    //             state: this.state,
-    //             startDateParse: this.state.startDate.format("YYYY-MM-DD"),
-    //             endDateParse: this.state.endDate.format("YYYY-MM-DD")
-    //         }) }
-    //         :
-    //             this.state._isMounted &&
-    //                 (() => this.setState({ modalShowNoEndDate: true }))
-    //         }
-    //     >
-    //         CHECK AVAILABILITY
-    //     </span>
-    // ));
-
     CheckAvailabilityButton = withRouter(({ history }) => (
         <span
             className="roomdetails-custom-button"
@@ -146,10 +127,32 @@ class RoomDetails extends React.Component {
 
     prepareForRedirection = async (history) => {
         if (this.state.endDate !== "") {
+            await this.cleanLocalStorage();
             await this.addToLocalStorage();
             history.push({pathname: '/reservation'})
         } else {
             this.setState({ modalShowNoEndDate: true })
+        };
+    };
+
+    cleanLocalStorage = () => {
+        if (localStorage.startDateString) {
+            localStorage.removeItem('startDateString');
+            localStorage.removeItem('endDateString');
+            localStorage.removeItem('nrNights');
+            localStorage.removeItem('totalPrice');
+            let nextRoom = true;
+            let room = 1;
+            while (nextRoom) {
+                localStorage.removeItem(`room${room}_roomNumber`);
+                localStorage.removeItem(`room${room}_roomLetter`);
+                localStorage.removeItem(`room${room}_roomPrice`);
+                localStorage.removeItem(`room${room}_roomPriceType`);
+                localStorage.removeItem(`room${room}_nrAdults`);
+                localStorage.removeItem(`room${room}_nrChildren`);
+                room += 1;
+                if (!localStorage.getItem(`room${room}_roomNumber`)) nextRoom = false;
+            };
         };
     };
 

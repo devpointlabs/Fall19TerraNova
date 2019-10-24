@@ -87,6 +87,3 @@ const CustomButton = styled(Button)`
 `;
 
 export default About;
-
-
-              

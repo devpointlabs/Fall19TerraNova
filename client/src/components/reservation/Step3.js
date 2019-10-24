@@ -5,6 +5,7 @@ import RenderCountries from "./RenderCountries";
 import RenderStates from "./RenderStates";
 import CheckoutForm from "./CheckoutForm";
 import { Elements } from 'react-stripe-elements';
+import { AuthConsumer } from "../../providers/AuthProvider";
 
 class Step3 extends React.Component {
     state = { 
@@ -14,10 +15,10 @@ class Step3 extends React.Component {
         nrNights: "",
         totalPrice: 0,
         nrRoomsArray: [],
-        toggleCouponCode: false,
         totalNrRooms: 0,
         totalNrAdults: 0,
         totalNrChildren: 0,
+        totalNrGuests: 0,
         taxes: [],
         grandTotal: 0,
         showBankTransfer: false,
@@ -34,7 +35,12 @@ class Step3 extends React.Component {
         email: "",
         phone: "",
         orderNotes: "",
+        toggleCouponCode: false,
         coupon: "",
+        couponValid: false,
+        password: "",
+        passwordConfirmation: "",
+        passwordsMatch: true,
         createAccount: false
     };
 
@@ -47,8 +53,9 @@ class Step3 extends React.Component {
             totalPrice: this.props.totalPrice
         });
         this.setTotalNrRooms(this.props.nrRoomsArray);
-        this.setTotalNrAdults(this.props.nrRoomsArray);
-        this.setTotalNrChildren(this.props.nrRoomsArray);
+        let totalNrAdults = this.setTotalNrAdults(this.props.nrRoomsArray);
+        let totalNrChildren = this.setTotalNrChildren(this.props.nrRoomsArray);
+        this.setState({ totalNrGuests: (totalNrAdults + totalNrChildren) });
         let taxes = this.calculateTaxes(this.props.nrRoomsArray);
         this.calculateGrandTotal(taxes, this.props.totalPrice);
         this.setState({ _isMounted: true });
@@ -66,7 +73,8 @@ class Step3 extends React.Component {
                 totalNrRooms += 1;
             return totalNrRooms;
         });
-        this.setState({ totalNrRooms });
+        this.setState({ totalNrRooms: totalNrRooms.toString() });
+        this.props.setNrRooms(totalNrRooms.toString());
     };
 
     setTotalNrAdults = (nrRoomsArray) => {
@@ -75,6 +83,7 @@ class Step3 extends React.Component {
             totalNrAdults += parseInt(room.people[0], 10)
         ));
         this.setState({ totalNrAdults });
+        return totalNrAdults;
     };
 
     setTotalNrChildren = (nrRoomsArray) => {
@@ -83,6 +92,7 @@ class Step3 extends React.Component {
             totalNrChildren += parseInt(room.people[1], 10)
         ));
         this.setState({ totalNrChildren });
+        return totalNrChildren;
     };
 
     calculateTaxes = (nrRoomsArray) => {
@@ -100,17 +110,18 @@ class Step3 extends React.Component {
         this.props.setGrandTotal(grandTotal);
     };
 
-    toggleCreditCard = () => {
-        this.setState({ showCreditCard: true, showBankTransfer: false })
+    enterCouponCode = () => {
+        if (this.state.coupon !== "")
+            this.setState({ toggleCouponCode: false, couponValid: true });
     };
 
-    toggleBankTransfer = () => {
-        this.setState({ showBankTransfer: true, showCreditCard: false })
-    };
+    toggleCreditCard = () => this.setState({ showCreditCard: true, showBankTransfer: false });
 
-    handleSubmit = () => {
+    toggleBankTransfer = () => this.setState({ showBankTransfer: true, showCreditCard: false });
 
-    };
+    toggleCreateAccount = () => this.setState({ createAccount: !this.state.createAccount });
+
+    setPasswordsMatch = (passwordsMatch) => this.setState({ passwordsMatch });
 
     render() {
         return(
@@ -350,22 +361,89 @@ class Step3 extends React.Component {
                             </CustomRow>
                             <CustomRow>
                                 <Col>
-                                    <Form.Check custom type="checkbox" id="create-account" label="CREATE AN ACCOUNT?" style={{fontSize: "smaller"}} />
+                                { this.props.auth.user ? 
+                                ""
+                                : 
+                                    <Form.Check
+                                    custom
+                                    type="checkbox"
+                                    id="create-account"
+                                    label="CREATE AN ACCOUNT?"
+                                    onClick={this.toggleCreateAccount}
+                                    checked={this.state.createAccount}
+                                    style={{fontSize: "smaller"}}
+                                    />
+                                  }
                                 </Col>
                             </CustomRow>
+                            { this.state.createAccount &&
+                                <>
+                                    <CustomRow style={{marginTop: "-10px", }}>
+                                        <Col>
+                                            <Form.Label required style={{fontSize: "smaller"}}>EMAIL ADDRESS <span style={{color: "red"}}>*</span></Form.Label>
+                                            <Form.Control
+                                                name="email"
+                                                value={this.state.email}
+                                                placeholder="Email address"
+                                                required
+                                                onChange={this.handleChange}
+                                            />
+                                        </Col>
+                                        <Col>
+                                            <Form.Label required style={{fontSize: "smaller"}}>PASSWORD <span style={{color: "red"}}>*</span></Form.Label>
+                                            <Form.Control
+                                                name="password"
+                                                type="password"
+                                                value={this.state.password}
+                                                placeholder="Password"
+                                                required
+                                                onChange={this.handleChange}
+                                            />
+                                        </Col>
+                                        <Col>
+                                            <Form.Label required style={{fontSize: "smaller"}}>PASSWORD CONFIRMATION <span style={{color: "red"}}>*</span></Form.Label>
+                                            <Form.Control
+                                                name="passwordConfirmation"
+                                                type="password"
+                                                value={this.state.passwordConfirmation}
+                                                placeholder="Password Confirmation"
+                                                required
+                                                onChange={this.handleChange}
+                                            />
+                                        </Col>
+                                    </CustomRow>
+                                    { !this.state.passwordsMatch &&
+                                        <div style={{color: "red", marginTop: "-10px", marginBottom: "25px"}}>The passwords do not match!</div>
+                                    }
+                                </>
+                            }
                             <div className="reservation-coupon-box">
-                                { !this.state.toggleCouponCode ?
+                                { !this.state.couponValid ?
                                     <>
-                                        Have a coupon?
-                                        <span style={{fontWeight: "bold", marginLeft: "4px", cursor: "pointer"}} onClick={() => this.setState({ toggleCouponCode: !this.state.toggleCouponCode })}>
-                                            Click here to enter your code
-                                        </span>
+                                        { !this.state.toggleCouponCode ?
+                                            <>
+                                                Have a coupon?
+                                                <span style={{fontWeight: "bold", marginLeft: "4px", cursor: "pointer"}} onClick={() => this.setState({ toggleCouponCode: !this.state.toggleCouponCode })}>
+                                                    Click here to enter your code
+                                                </span>
+                                            </>
+                                        :
+                                            <>
+                                                <span style={{width: "15%", marginTop: "0.7%"}}>Coupon code:</span>
+                                                <Form.Control
+                                                    name="coupon"
+                                                    value={this.state.coupon}
+                                                    placeholder="Coupon code"
+                                                    onChange={this.handleChange}
+                                                />
+                                                <span className="reservation-custom-button-submit" onClick={this.enterCouponCode}>Submit</span>
+                                            </>
+                                        }
                                     </>
                                 :
                                     <>
-                                        <span style={{width: "15%", marginTop: "0.8%"}}>Coupon code:</span>
-                                        <Form.Control placeholder="Coupon code" />
-                                        <span className="reservation-custo-submit">Submit</span>
+                                        Coupon code entered:
+                                        <i style={{marginLeft: "5px"}}> {this.state.coupon}</i>
                                     </>
                                 }
                             </div>
@@ -380,22 +458,41 @@ class Step3 extends React.Component {
                                     </label>
                                     { this.state.showCreditCard &&
                                         <Elements>
-                                            <CheckoutForm />
+                                            <CheckoutForm
+                                                {...this.state}
+                                                bookedRooms = {this.props.nrRoomsArray}
+                                                start_date = {localStorage.getItem('startDateParse')}
+                                                end_date = {localStorage.getItem('endDateParse')}
+                                                guests = {this.state.totalNrGuests}
+                                                goToConfirmation = {this.props.goToConfirmation}
+                                                setPasswordsMatch = {this.setPasswordsMatch}
+                                            />
                                         </Elements>
                                     }
                             </div>
-                            {/* <span className="reservation-custom-button-placeorder">PLACE ORDER</span> */}
                         </Form>
                     </div>
                 </div>
-                
             </>
         );
     };
 };
 
+
+export class ConnectedStep3 extends React.Component {
+  render() {
+      return (
+          <AuthConsumer>
+              { auth =>
+                  <Step3 {...this.props} auth={auth} />
+              }
+          </AuthConsumer>
+      );
+  };
+};
+
 const CustomRow = styled(Row)`
     margin-bottom: 20px;
-`
+`;
 
-export default Step3;
+export default ConnectedStep3;

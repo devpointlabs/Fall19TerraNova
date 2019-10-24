@@ -18,11 +18,24 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  # def create
+
+
+  # end
+
   def show_self # ☑️
     render json: current_user
   end
 
+  # private 
+
+  #   def user_params
+  #     params.require(user).permit(:email, :first_name, :last_name, :address, :city, :state, :zip, :country)
+  #   end
+
 end
 
   #  When user pushes "Delete Account", (FE) log user out. (FE) send to home page. and (BE) CHANGE PASSWORD. never delete record.
-  # cant do... devise wont let us change the password.
+  # . devise wont let us change the password.
+
+    
