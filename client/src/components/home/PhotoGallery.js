@@ -48,7 +48,7 @@ const HeaderContainer = styled.div`
     width: 100%;
     -webkit-user-select: none;
     background-color: rgb(35, 35, 35);
-    padding-bottom: "30px";
+    padding-bottom: "40px";
 `;
 
 const Header = styled.span`
@@ -170,10 +170,10 @@ class PhotoGallery extends React.Component {
                     <Header>Our Gallery</Header>
                     <img alt="views" className="gallery-icon-img" src={Logo} />
                         <Nav>
-                            <a onClick={() => this.changeTab("hotel")} style={{cursor: "pointer", marginRight: "60px", fontSize: "16px", color: `${this.state.tab === "hotel" ? "#8e6f37" : "#ababab"}`}}>HOTEL & GROUND</a>
-                            <a onClick={() => this.changeTab("room")} style={{cursor: "pointer", marginRight: "60px", fontSize: "16px", color: `${this.state.tab === "room" ? "#8e6f37" : "#ababab"}`}}>ROOM/SUITE</a>  
-                            <a onClick={() => this.changeTab("bathroom")} style={{cursor: "pointer", marginRight: "60px", fontSize: "16px", color: `${this.state.tab === "bathroom" ? "#8e6f37" : "#ababab"}`}}>BATHROOM</a>  
-                            <a onClick={() => this.changeTab("dining")} style={{cursor: "pointer", marginRight: "60px", fontSize: "16px", color: `${this.state.tab === "dining" ? "#8e6f37" : "#ababab"}`}}>DINING</a>  
+                            <span className="gallery-tab" onClick={() => this.changeTab("hotel")} style={{color: `${this.state.tab === "hotel" ? "#8e6f37" : "#ababab"}`}}>HOTEL & GROUND</span>
+                            <span className="gallery-tab" onClick={() => this.changeTab("room")} style={{color: `${this.state.tab === "room" ? "#8e6f37" : "#ababab"}`}}>ROOM/SUITE</span>  
+                            <span className="gallery-tab" onClick={() => this.changeTab("bathroom")} style={{color: `${this.state.tab === "bathroom" ? "#8e6f37" : "#ababab"}`}}>BATHROOM</span>  
+                            <span className="gallery-tab" onClick={() => this.changeTab("dining")} style={{color: `${this.state.tab === "dining" ? "#8e6f37" : "#ababab"}`}}>DINING</span>  
                         </Nav>
                 </HeaderContainer>
                 { this.renderPictures() }

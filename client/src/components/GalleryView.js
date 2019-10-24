@@ -65,15 +65,14 @@ class GalleryView extends React.Component {
             this.state._isMounted &&
             <>
                 <div className="header-container">
-                <div className="gallery-header">Gallery</div>
-                <div className="gallery-header-text">Lorem Ipsum is simply dummy text of the printing</div>
+                    <div className="gallery-header">GALLERY</div>
                 </div>
                 <div className="gallery-nav-container">
-                    <a style={{cursor: "pointer"}} onClick={() => this.changeTab("all")} className="a">ALL</a>
-                    <a style={{cursor: "pointer"}} onClick={() => this.changeTab("hotel")}  className="a" >HOTEL & GROUND</a>
-                    <a style={{cursor: "pointer"}} onClick={() => this.changeTab("room")}  className="a">ROOM/SUITE</a>  
-                    <a style={{cursor: "pointer"}} onClick={() => this.changeTab("bathroom")}  className="a">BATHROOM</a>  
-                    <a style={{cursor: "pointer"}} onClick={() => this.changeTab("dining")}  className="a">DINING</a>  
+                    <span className="gallery-tab" onClick={() => this.changeTab("all")} style={{color: `${this.state.tab === "all" ? "#8e6f37" : "#373737"}`}}>ALL</span>
+                    <span className="gallery-tab" onClick={() => this.changeTab("hotel")} style={{color: `${this.state.tab === "hotel" ? "#8e6f37" : "#373737"}`}}>HOTEL & GROUND</span>
+                    <span className="gallery-tab" onClick={() => this.changeTab("room")} style={{color: `${this.state.tab === "room" ? "#8e6f37" : "#373737"}`}}>ROOM/SUITE</span>  
+                    <span className="gallery-tab" onClick={() => this.changeTab("bathroom")} style={{color: `${this.state.tab === "bathroom" ? "#8e6f37" : "#373737"}`}}>BATHROOM</span>  
+                    <span className="gallery-tab" onClick={() => this.changeTab("dining")} style={{color: `${this.state.tab === "dining" ? "#8e6f37" : "#373737"}`}}>DINING</span>  
                 </div>
                     { this.state.active !== this.state.all ?
                         <div className="content-container-small">
@@ -85,7 +84,7 @@ class GalleryView extends React.Component {
                                     <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[4]}.jpg`)} style={{maxWidth: "100%" }}/>
                                 </div>
                             </div>
-                            <div className="large-img-container">
+                            <div className="large-img-container1">
                                 <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[1]}.jpg`)} style={{width: "100%" }}/>
                             </div>
                             <div className="small-img-column">
@@ -96,11 +95,12 @@ class GalleryView extends React.Component {
                                     <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[5]}.jpg`)} style={{maxWidth: "100%" }}/>
                                 </div>
                             </div>
-                            <div className="large-img-container">
+                            <div className="large-img-container1">
                                 <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[3]}.jpg`)} style={{width: "100%" }}/>
                             </div> 
                         </div>
                         :
+                        <div className="big-content-container">
                         <div className="content-container-large">
                             <div className="small-img-container">
                                 <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[0]}.jpg`)} style={{maxWidth: "100%" }}/>
@@ -113,13 +113,15 @@ class GalleryView extends React.Component {
                             </div>
                             <div className="large-img-container">
                                 <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[3]}.jpg`)} style={{width: "100%" }}/>
-                            </div> 
+                            </div>
                             <div className="small-img-container">
                                 <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[16]}.jpg`)} style={{width: "100%" }}/>
                             </div> 
                             <div className="small-img-container">
                                 <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[17]}.jpg`)} style={{width: "100%" }}/>
                             </div> 
+                            </div>
+                        <div className="content-container-large">
                 <div className="large-img-container">
                     <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[8]}.jpg`)} style={{maxWidth: "100%" }}/>
                 </div>
@@ -138,6 +140,8 @@ class GalleryView extends React.Component {
                 <div className="small-img-container">
                                 <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[18]}.jpg`)} style={{width: "100%" }}/>
                             </div> 
+                        </div>
+                        <div className="content-container-large">
                             <div className="small-img-container">
                                 <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[19]}.jpg`)} style={{width: "100%" }}/>
                             </div> 
@@ -156,6 +160,8 @@ class GalleryView extends React.Component {
                 <div className="small-img-container">
                                 <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[20]}.jpg`)} style={{width: "100%" }}/>
                             </div> 
+                            </div>
+                        <div className="content-container-large">
                             <div className="small-img-container">
                                 <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[21]}.jpg`)} style={{width: "100%" }}/>
                             </div> 
@@ -174,10 +180,9 @@ class GalleryView extends React.Component {
                 <div className="small-img-container">
                                 <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[22]}.jpg`)} style={{width: "100%" }}/>
                             </div> 
-                            <div className="small-img-container">
-                                <img alt="views" src={require(`../images/galleryviewimages/${this.state.active[23]}.jpg`)} style={{width: "100%" }}/>
-                            </div> 
-                </div>
+
+                    </div>
+                    </div>
                 }
             </>
         );
