@@ -450,6 +450,8 @@ class Step3 extends React.Component {
                                                 end_date = {localStorage.getItem('endDateParse')}
                                                 guests = {this.state.totalNrGuests}
                                                 goToConfirmation = {this.props.goToConfirmation}
+                                                createAccount = {this.state.createAccount}
+                                                password = {this.state.password}
                                             />
                                         </Elements>
                                     }
