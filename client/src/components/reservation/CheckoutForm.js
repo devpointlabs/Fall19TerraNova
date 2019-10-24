@@ -17,6 +17,7 @@ const CheckoutForm = (props) => {
   const [zip, setZip] = useState(props.zip);
   const [user, setUser] = useState(null);
   const [cabin_types, setCabin_types] = useState([]);
+  const [bookings, setbookings] = useState([])
 
   
   useEffect(() => {
@@ -38,60 +39,139 @@ const CheckoutForm = (props) => {
       console.log("YOU HAVE A CARD ERROR")
     } else if (setupIntent.status === "succeeded") { 
       await axios.post(`/api/createres?body=${result.paymentMethod.id}`)
-        .then(res => {
-          // const { auth: { handleRegister, }, history, } = this.props
-          // handleRegister({ 
-          //   email, 
-          //   password, 
-          //   passwordConfirmation, 
-          //   first_name,
-          //   last_name,
-          //   address,
-          //   city,
-          //   state,
-          //   zip,
-          //   country
-          // }, history);
-          // if create user go
-          // CREATE A USER FIRST, THEN YOU CAN add that to the boooking
-         
-          // ? REGARDING CABIN_ID, DO I CREATE TWO BOOKINGS? IF SO, CAN I CHARGE THE CARD TWICE?? OR SOMEHOW WORK AROUND THAT. 
+        .then(({data}) => {
+          let books = props.nrRoomsArray.filter(i => i.cabinId)
+          const {start_date, end_date, guests, orderNotes, createAccount, password } = props
+          if (createAccount) {
+            // const { auth: { handleRegister, }, history, } = this.props
+            // await handleRegister({ 
+            //   email, 
+            //   password, 
+            //   passwordConfirmation: password, 
+            //   first_name,
+            //   last_name,
+            //   address,
+            //   city,
+            //   state,
+            //   zip,
+            //   country
+            // }, history);
+            // if create user go
+            // CREATE A USER FIRST, THEN YOU CAN add that to the boooking
+          }
+                   
           
-          debugger
-          if (cabin_types.includes("F") || cabin_types.length > 1){
-            // dealing with multiple cabin reservations
+          if (cabin_types.includes("F") || (cabin_types.length > 1)) {
+
+            for (let i = 0; i < books.length; i++) {
+              const {roomPrice, cabinId, roomLetter} = books[i];
+              if (i === 0) {
+                if (roomLetter === "F") {
+                  const ids = cabinId.split(',')
+                  for (let i = 0; i < ids.length; i++) {
+                    const cabin_id = ids[i];
+                    if (i === 0 ) {
+                      axios.post('/api/bookings', {
+                        cabin_type: roomLetter,
+                        price: roomPrice, 
+                        start_date, 
+                        end_date, 
+                        guests, 
+                        special_needs: orderNotes, 
+                        cabin_id, 
+                        expected_arrival: "2:00PM",
+                        customer_payment_token: data.c.id, 
+                        pm: data.pm,
+                        // booking_number: 123456789, 
+                        // user_id: user,  
+                      }).then(res=> {setbookings([...bookings, res.data])}).catch(err => {console.log(err)}) 
+                    } else {
+                      axios.post('/api/bookings', {
+                        cabin_type: roomLetter,
+                        price: roomPrice, 
+                        start_date, 
+                        end_date, 
+                        guests, 
+                        special_needs: orderNotes, 
+                        cabin_id, 
+                        expected_arrival: "2:00PM"
+                        // booking_number: 123456789, 
+                        // user_id: user,  
+                      }).then(res=> {setbookings([...bookings, res.data])}).catch(err => {console.log(err)})                   
+                    }
+                  }
+                } else {
+                  axios.post('/api/bookings', {
+                    cabin_type: roomLetter,
+                    price: roomPrice, 
+                    start_date, 
+                    end_date, 
+                    guests, 
+                    special_needs: orderNotes, 
+                    cabin_id: cabinId, 
+                    expected_arrival: "2:00PM",
+                    customer_payment_token: data.c.id, 
+                    pm: data.pm,
+                    // booking_number: 123456789, 
+                    // user_id: user,  
+                  }).then(res=> {setbookings([...bookings, res.data])}).catch(err => {console.log(err)})
+                }
+              } else if (roomLetter === "F") {
+                const ids = cabinId.split(',')
+                for (let i = 0; i < ids.length; i++) {
+                  const cabin_id = ids[i];
+                  axios.post('/api/bookings', {
+                    cabin_type: roomLetter,
+                    price: roomPrice, 
+                    start_date, 
+                    end_date, 
+                    guests, 
+                    special_needs: orderNotes, 
+                    cabin_id, 
+                    expected_arrival: "2:00PM"
+                    // booking_number: 123456789, 
+                    // user_id: user,  
+                  }).then(res=> {setbookings([...bookings, res.data])}).catch(err => {console.log(err)})                   
+                }
+              } else {
+                axios.post('/api/bookings', {
+                  cabin_type: roomLetter,
+                  price: roomPrice, 
+                  start_date, 
+                  end_date, 
+                  guests, 
+                  special_needs: orderNotes, 
+                  cabin_id: cabinId, 
+                  expected_arrival: "2:00PM"
+                  // booking_number: 123456789, 
+                  // user_id: user,  
+                }).then(res=> {setbookings([...bookings, res.data])}).catch(err => {console.log(err)})
+              }
+            }
+
           } else {  
+            const {roomPrice, cabinId, roomLetter} = books[0];
             axios.post('/api/bookings', {
-              customer_payment_token: res.data.c.id, 
-              pm: res.data.pm,
-              // cabin_type, // import the cabin type
-              price: 1200, // import the price
-              start_date: props.start_date, 
-              end_date: props.end_date, 
-              guests: props.guests, 
-              special_needs: props.orderNotes, 
+              cabin_type: roomLetter,
+              price: roomPrice, 
+              start_date, 
+              end_date, 
+              guests, 
+              special_needs: orderNotes, 
+              cabin_id: cabinId, 
+              expected_arrival: "2:00PM",
+              customer_payment_token: data.c.id, 
+              pm: data.pm,
               // booking_number: 123456789, 
               // user_id: user,  
-              cabin_id: 10, 
-              expected_arrival: "2:00PM"}) 
-              .then(res=> {
-                debugger
-                setComplete(true)
-              })
-              .catch(err => { console.log(err) }) 
-            }
-        })
-        .catch(err => { console.log(err) })
+            }).then(res=> {setbookings([...bookings, res.data])}).catch(err => {console.log(err)})
+          }
+
+        // bookings taken care of. 
+
+        }).catch(err => {console.log(err)})
     };
   };
-
-
-
-
-
-
-
-
 
 
 
@@ -221,3 +301,8 @@ const createOptions = () => {
   };
 
 export default injectStripe(CheckoutForm);
+
+            // const { auth: { handleRegister, }, history, } = this.props
+
+
+            // props.auth.handleRegister({ email, password: "password", passwordConfirmation: password, first_name ,last_name ,address ,city ,state ,zip ,country}, history);
