@@ -1,12 +1,10 @@
-class ImagesController < ApplicationController
-  before_action :authenticate_user!
+class Api::ImagesController < ApplicationController
+#   before_action :authenticate_user!
   before_action :set_image, only: [:show, :update, :destroy]
 
   # GET /images
   def index
-    @images = Image.all
-
-    render json: @images
+    render json: Image.all
   end
 
   # GET /images/1
@@ -17,8 +15,8 @@ class ImagesController < ApplicationController
   # POST /images
   def create
     @image = Image.new(image_params)
-
-    if @image.save
+    binding.pry
+    if @image.save   
       render json: @image, status: :created, location: @image
     else
       render json: @image.errors, status: :unprocessable_entity
@@ -42,11 +40,13 @@ class ImagesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_image
+        binding.pry
       @image = Image.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def image_params
-      params.require(:image).permit(:group, :img)
+        binding.pry
+      params.require(:image).permit(:group, :fileimg)
     end
 end

@@ -36,14 +36,14 @@
 }
 
 .event-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Catamaran', sans-serif;
     font-size: 40px;
 }
 
 .event-text {
     font-size: 20px; 
     font-weight: bold;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Catamaran', sans-serif;
 }
 
 .fa-chevron-left {

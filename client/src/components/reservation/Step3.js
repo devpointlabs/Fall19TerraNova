@@ -18,6 +18,7 @@ class Step3 extends React.Component {
         totalNrRooms: 0,
         totalNrAdults: 0,
         totalNrChildren: 0,
+        totalNrGuests: 0,
         taxes: [],
         grandTotal: 0,
         showBankTransfer: false,
@@ -47,8 +48,9 @@ class Step3 extends React.Component {
             totalPrice: this.props.totalPrice
         });
         this.setTotalNrRooms(this.props.nrRoomsArray);
-        this.setTotalNrAdults(this.props.nrRoomsArray);
-        this.setTotalNrChildren(this.props.nrRoomsArray);
+        let totalNrAdults = this.setTotalNrAdults(this.props.nrRoomsArray);
+        let totalNrChildren = this.setTotalNrChildren(this.props.nrRoomsArray);
+        this.setState({ totalNrGuests: (totalNrAdults + totalNrChildren) });
         let taxes = this.calculateTaxes(this.props.nrRoomsArray);
         this.calculateGrandTotal(taxes, this.props.totalPrice);
         this.setState({ _isMounted: true });
@@ -66,7 +68,8 @@ class Step3 extends React.Component {
                 totalNrRooms += 1;
             return totalNrRooms;
         });
-        this.setState({ totalNrRooms });
+        this.setState({ totalNrRooms: totalNrRooms.toString() });
+        this.props.setNrRooms(totalNrRooms.toString());
     };
 
     setTotalNrAdults = (nrRoomsArray) => {
@@ -75,6 +78,7 @@ class Step3 extends React.Component {
             totalNrAdults += parseInt(room.people[0], 10)
         ));
         this.setState({ totalNrAdults });
+        return totalNrAdults;
     };
 
     setTotalNrChildren = (nrRoomsArray) => {
@@ -83,6 +87,7 @@ class Step3 extends React.Component {
             totalNrChildren += parseInt(room.people[1], 10)
         ));
         this.setState({ totalNrChildren });
+        return totalNrChildren;
     };
 
     calculateTaxes = (nrRoomsArray) => {
@@ -106,10 +111,6 @@ class Step3 extends React.Component {
 
     toggleBankTransfer = () => {
         this.setState({ showBankTransfer: true, showCreditCard: false })
-    };
-
-    handleSubmit = () => {
-
     };
 
     render() {
@@ -380,7 +381,14 @@ class Step3 extends React.Component {
                                     </label>
                                     { this.state.showCreditCard &&
                                         <Elements>
-                                            <CheckoutForm />
+                                            <CheckoutForm
+                                                {...this.state}
+                                                bookedRooms = {this.props.nrRoomsArray}
+                                                start_date = {localStorage.getItem('startDateParse')}
+                                                end_date = {localStorage.getItem('endDateParse')}
+                                                guests = {this.state.totalNrGuests}
+                                                goToConfirmation = {this.props.goToConfirmation}
+                                            />
                                         </Elements>
                                     }
                             </div>
@@ -388,7 +396,6 @@ class Step3 extends React.Component {
                         </Form>
                     </div>
                 </div>
-                
             </>
         );
     };

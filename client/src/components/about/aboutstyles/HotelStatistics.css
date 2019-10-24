@@ -7,7 +7,7 @@
 
 .text {
     display: flex; 
-    font-family: 'Open Sans;' sans-serif;
+    font-family: 'Catamaran', sans-serif;
     font-size: 35px;
     color: white;
 }
@@ -23,7 +23,7 @@
   }
 
   .names {
-      font-family: 'Open Sans'; 
+      font-family: 'Catamaran', sans-serif; 
       font-size: 140%;
       color:  #2c2c2c;
       margin-top: 5%;
@@ -31,14 +31,14 @@
   }
 
   .position {
-      font-family: 'Open Sans';
+      font-family: 'Catamaran', sans-serif;
       font-size: 115%;
       color: #808080;
       margin-bottom: 5%;
   }
 
   .text {
-      font-family: 'Open Sans';
+      font-family: 'Catamaran', sans-serif;
       font-size: 110%;
       color:  #2c2c2c;;
       margin-top: 5%;
