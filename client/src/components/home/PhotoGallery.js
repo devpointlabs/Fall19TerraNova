@@ -167,7 +167,7 @@ class PhotoGallery extends React.Component {
         return (
             <>
                 <HeaderContainer>
-                    <Header>Our Gallery</Header>
+                    <Header className="galleryhead">Our Gallery</Header>
                     <img alt="views" className="gallery-icon-img" src={Logo} />
                         <Nav>
                             <span className="gallery-tab" onClick={() => this.changeTab("hotel")} style={{color: `${this.state.tab === "hotel" ? "#8e6f37" : "#ababab"}`}}>HOTEL & GROUND</span>

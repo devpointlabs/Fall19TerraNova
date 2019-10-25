@@ -15,7 +15,7 @@ import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBRow} from "mdbreact"
 const Events = () => {
     return(
         <>
-            <Header>Our Events</Header>
+            <Header className="eventshead">Our Events</Header>
             <img className="event-line-img" src={line} alt="line break" />
 
             <EventContainer>
@@ -95,24 +95,6 @@ const Header = styled.h1`
     font-family: 'Playfair Display', serif;
 `;
 
-// const Title = styled.h3`
-//     color: white;
-//     font-size: 40px;  
-//     font-family: 'Playfair Display', serif;
-//     margin-top: 50px;
-//     margin-bottom: 40px !important;
-//     padding-left: 0px;
-// `;
-
-// const Text = styled.p`
-//     position: absolute;
-//     color: white;
-//     font-size: 20px;  
-//     font-weight: bold;
-//     font-family: 'Raleway', sans-serif;
-//     margin-left: 100px;
-// `;
-
 const EventContainer = styled.div`
     margin-left: 130px;
     margin-right: 130px;
@@ -124,16 +106,6 @@ const SlideContainer = styled.div`
     margin-bottom: 20px;
     margin-left: 0px;
 `;
-
-// const CardContainer = styled.div`
-//     display: flex;
-//     width: 30%;
-//     justify-content: space-evenly;
-//     align-content: space-around;
-//     margin-right: 10px;
-//     margin-left: 10px;
-//     padding-right: 20px;
-// `;
 
 
 export default Events;

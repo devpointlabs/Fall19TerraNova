@@ -31,37 +31,37 @@ const About = () => (
         <div className="about-lower">
             <div className="about-card-row">
                 <div className="about-card">
-                    <img alt="views" src={master_bedrooms} width="24%" />
+                    <img className="aboutcardimg2" alt="views" src={master_bedrooms} width="24%" />
                     <div className="about-image-text">MASTER BEDROOMS</div>
                 </div>
                 <div className="about-card">
-                    <img alt="views" src={lake_view} width="22%" />
+                    <img className="aboutcardimg" alt="views" src={lake_view} width="22%" />
                     <div className="about-image-text">LAKE VIEW</div>
                 </div>
                 <div className="about-card">
-                    <img alt="views" src={pool_and_spa} width="22%" />
+                    <img className="aboutcardimg" alt="views" src={pool_and_spa} width="22%" />
                     <div className="about-image-text">POOL AND SPA</div>
                 </div>
                 <div className="about-card-right">
-                    <img alt="views" src={wifi_coverage} width="22%" />
+                    <img className="aboutcardimg" alt="views" src={wifi_coverage} width="22%" />
                     <div className="about-image-text">WIFI COVERAGE</div>
                 </div>
             </div>
             <div className="about-card-row">
                 <div className="about-card">
-                    <img alt="views" src={awesome_packages} width="22%" />
+                    <img className="aboutcardimg" alt="views" src={awesome_packages} width="22%" />
                     <div className="about-image-text">AWESOME PACKAGES</div>
                 </div>
                 <div className="about-card">
-                    <img alt="views" src={cleaning_everyday} width="23%" />
+                    <img className="aboutcardimg" alt="views" src={cleaning_everyday} width="23%" />
                     <div className="about-image-text">CLEANING EVERYDAY</div>
                 </div>
                 <div className="about-card">
-                    <img alt="views" src={buffet_breakfast} width="22%" />
+                    <img className="aboutcardimg" alt="views" src={buffet_breakfast} width="22%" />
                     <div className="about-image-text">BUFFET BREAKFAST</div>
                 </div>
                 <div className="about-card-right">
-                    <img alt="views" src={airport_taxi} width="26%" />
+                    <img className="aboutcardimg2" alt="views" src={airport_taxi} width="26%" />
                     <div className="about-image-text">AIRPORT TAXI</div>
                 </div>
             </div>

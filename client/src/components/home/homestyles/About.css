@@ -42,7 +42,7 @@
 }
 
 .about-text {
-    font-size: 16px;
+    font-size: 28px;
     font-family: 'Catamaran', sans-serif;
 }
 
@@ -69,19 +69,6 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-}
-
-
-.about-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 125px;
-    width: 100%;
-    margin-right: 30px;
-    /*box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 6px 10px 0 rgba(0, 0, 0, 0.1);*/
-    border: 0px;
-    stroke: 0px;
 }
 
 .about-card {
@@ -117,4 +104,43 @@
     font-weight: bold;
     margin-top: 14px;
     font-family: 'Catamaran';
+}
+
+/* web 2560 by 870 */
+@media screen and (max-width: 2561px) and (min-width: 1680px) { 
+    .about-header {
+        font-size: 60px;
+    }
+
+    .about-card{
+        width:17%;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        margin-right: 50px;
+
+    }
+
+    .about-card-right{
+        width:17%;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .about-card-row {
+        justify-content: center;
+    }
+
+    .about-image-text {
+        font-size: 18px;
+    }
+
+    .aboutcardimg {
+        width: 18%;
+    }
+
+    .aboutcardimg2 {
+        width: 21%;
+    }
+
+    
 }
