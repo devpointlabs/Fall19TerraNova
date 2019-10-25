@@ -196,3 +196,18 @@
 .gallery-tab:hover {
     color: #8e6f37 !important;
 }
+
+@media screen and (max-width: 2561px) and (min-width: 1680px) { 
+    .gallery-header {
+        font-size: 60px;
+        margin-top: 1%;
+    }
+
+    .gallery-tab {
+        font-size: 20px;
+    }
+
+    .big-content-container {
+        height: 255em;
+    }
+}
