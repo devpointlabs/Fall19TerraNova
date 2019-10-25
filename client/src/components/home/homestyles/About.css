@@ -42,7 +42,7 @@
 }
 
 .about-text {
-    font-size: 28px;
+    font-size: 18px;
     font-family: 'Catamaran', sans-serif;
 }
 
@@ -118,6 +118,11 @@
         margin-top: 20px;
         margin-right: 50px;
 
+    }
+
+    .about-text {
+        font-size: 28px;
+        font-family: 'Catamaran', sans-serif;
     }
 
     .about-card-right{

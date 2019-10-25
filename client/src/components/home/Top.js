@@ -225,10 +225,10 @@ class Top extends React.Component {
             <div className="top">
                 <div className="text-overlay">
                     <div className="topoverlay">
-                        <ContentTop>Welcome To New Earth Cabins</ContentTop>
+                        <ContentTop className="topoverlayfont">Welcome To New Earth Cabins</ContentTop>
                     </div>
                     <div className="bottomoverlay">
-                        <ContentBottom>AT WEST YELLOWSTONE</ContentBottom>
+                        <ContentBottom className="bottomoverlayfont">AT WEST YELLOWSTONE</ContentBottom>
                     </div>
                 </div>
                 <div className="calendaroverlay">
@@ -311,7 +311,7 @@ const ContentTop = styled.h1`
     position: relative;
     padding-top: 8px;
     color: white;
-    font-size: 100px;
+    font-size: 80px;
     font-family: 'Playfair Display', serif;
     text-shadow: none;
 `;
@@ -320,7 +320,7 @@ const ContentBottom = styled.h3`
     position: relative;
     letter-spacing: 8px;
     color: white;
-    font-size: 34px;
+    font-size: 24px;
     font-family: 'Playfair Display', serif;
     text-shadow: none;
 `;
