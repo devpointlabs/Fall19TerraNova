@@ -43,9 +43,8 @@ class RoomDetails extends React.Component {
     };
 
     componentDidMount() {
-        axios.get("api/single_cabin_availability", {params: {dates: ["2019-10-04", "2019-10-05"], id: 1}})
+        axios.get("api/avail_cabins", {params: {dates: ["2019-10-04", "2019-10-04"]}})
             .then(res => {
-                debugger
                 this.setState({
                     aRoomPrice: Math.round(res.data.aRooms[0].cabinPricing.price_hash.Nonrefundable * 100) / 100,
                     bRoomPrice: Math.round(res.data.bRooms[0].cabinPricing.price_hash.Nonrefundable * 100) / 100,
@@ -56,11 +55,15 @@ class RoomDetails extends React.Component {
                 });
             })
             .catch(error => {
-                debugger
                 console.log(error)
             });
+        window.scrollTo(0, 0);
         let startDate = dayjs();
         let endDate = dayjs(startDate.add('1', 'day'));
+        if (this.props.location.room)
+            this.setState({ currentRoom: this.props.location.room });
+        else
+            this.setState({ currentRoom: "A" });
         this.setState({ 
             _isMounted: true,
             startDate,
@@ -71,11 +74,6 @@ class RoomDetails extends React.Component {
             endDateDB: startDate.format("DD/MM/YYYY"),
             nrNights: 1,
         });
-        if (this.props.location.room)
-            this.setState({ currentRoom: this.props.location.room });
-        else
-            this.setState({ currentRoom: "A" });
-        window.scrollTo(0, 0);
     };
 
     handleShowStart = () => this.setState({ modalShowStart: true });
@@ -390,7 +388,7 @@ class RoomDetails extends React.Component {
                             <img alt="Terra Nova" src={RoomImage} width="16%" />
                             <span style={{marginTop: "12px", marginBottom: "6px", fontSize: "13px"}}>{ this.renderRoomName(this.state.currentRoom) }</span>
                             <span>
-                                <span style={{fontSize: "32px", marginRight: "6px"}}>{ this.renderRoomPrice(this.state.currentRoom) }</span>
+                                <span style={{fontSize: "32px", marginRight: "6px"}}>${ this.renderRoomPrice(this.state.currentRoom) }</span>
                                 <span style={{paddingTop: "12px"}}>/night</span>
                             </span> 
                             <div className="roomdetails-hr-container"><div className="roomdetails-line" /></div>
