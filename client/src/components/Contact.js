@@ -20,8 +20,9 @@ const Contact = () => {
   const {newemail, saveemail} = useContext(StateContext)
 
   useEffect(() => {
-    setEmail(newemail)
-  }, [])
+    setEmail(newemail);
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSubmit = (e) => {
     axios.get(`/api/contact?name=${name}&email=${email}&subject=${subject}&message=${message}`)
@@ -34,12 +35,12 @@ const Contact = () => {
         setMessage("");
         saveemail("");
         console.log("Email Sent!")
-      })
-  }
+      });
+  };
 
   const closeModal = () => {
     setShowModal(false);
-  }
+  };
 
   return (
     <>
@@ -126,8 +127,8 @@ const Contact = () => {
         </Modal.Header>
       </Modal>
     </>
-  )
-}
+  );
+};
 
 const StyledInput = styled(Form.Input)`
   
@@ -169,11 +170,4 @@ const StyledButton = styled.button`
   }
 `;
 
-
 export default Contact;
-
-
-
-
-
-

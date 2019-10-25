@@ -53,6 +53,7 @@ class RoomDetails extends React.Component {
             this.setState({ currentRoom: this.props.location.room });
         else
             this.setState({ currentRoom: "A" });
+        window.scrollTo(0, 0);
     };
 
     handleShowStart = () => this.setState({ modalShowStart: true });

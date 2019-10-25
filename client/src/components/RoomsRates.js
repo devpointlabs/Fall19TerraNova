@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import './styles/RoomsRates.css';
 import mountainview from '../images/rooms/mountainview.jpg';
@@ -19,7 +19,12 @@ const Button = withRouter(({ history, room }) => (
     </span>
 ));
 
-const RoomsRates = () => (
+const RoomsRates = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+    
+    return(
     <>
         <div className="roomsrates-header">
             ROOMS & RATES
@@ -179,6 +184,7 @@ const RoomsRates = () => (
             
         </div>
     </>
-);
+    );
+};
 
 export default RoomsRates;

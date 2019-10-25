@@ -51,6 +51,7 @@ class Top extends React.Component {
         this.getMonthFromDate(endDate, "end");
         this.getYearFromDate(startDate, "start");
         this.getYearFromDate(endDate, "end");
+        window.scrollTo(0, 0);
     };
 
     handleShowStart = () => this.setState({ modalShowStart: true });
@@ -104,26 +105,6 @@ class Top extends React.Component {
             endDateDB: endDate.subtract('1', 'day').format("DD/MM/YYYY")
         });
     };
-
-    // Button = withRouter(({ history }) => (
-    //     <span
-    //         className="check-availability-button"
-    //         onClick={ this.state.endDate != "" ? () => {
-    //             history.push({
-    //             pathname: '/reservation',
-    //             state: this.state,
-    //             startDateParse: this.state.startDate.format("YYYY-MM-DD"),
-    //             endDateParse: this.state.endDate.format("YYYY-MM-DD"),
-    //             cleanLocalStorage: true
-    //         }) }
-    //         :
-    //             this.state._isMounted &&
-    //                 (() => this.setState({ modalShowNoEndDate: true }))
-    //         }
-    //     >
-    //         CHECK AVAILABILITY
-    //     </span>
-    // ));
 
     CheckAvailabilityButton = withRouter(({ history }) => (
         <span
