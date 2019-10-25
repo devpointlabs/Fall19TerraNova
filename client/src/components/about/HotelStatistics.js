@@ -2,6 +2,7 @@ import React from 'react'
 import './aboutstyles/HotelStatistics.css';
 import styled from 'styled-components';
 import Adam from "../../images/aboutus/adam.png";
+import Noah from "../../images/aboutus/noah.png";
 
 const StatContainer = styled.div`
     display: flex;
@@ -176,7 +177,7 @@ const HotelStatistics = () => (
             </TeamContainer2>   
             <ColumnContainer>
                 <ColumnTeam>
-                    <span className="dot"></span>
+                    <img src={Noah} className="dot" />
                     <div className="names">NOAH ANDERSON</div>
                     <div className="position">BACKEND WIZARD</div>
                     <div className="text">
