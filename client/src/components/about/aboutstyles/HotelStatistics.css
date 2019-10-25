@@ -12,10 +12,10 @@
     color: white;
 }
 
-  .dot {
+.dot {
     margin-top: 10%;
-    height: 50vh;
-    width: 50vh;
+    height: 25vh;
+    width: 25vh;
     background-color: #2c2c2c;
     border-radius: 50%;
     display: inline-block;
@@ -44,3 +44,17 @@
       margin-top: 5%;
       margin-bottom: 5%;
   }
+
+@media screen and (max-width: 2561px) and (min-width: 1680px) { 
+  
+    .dot {
+        margin-top: 10%;
+        height: 50vh;
+        width: 50vh;
+        background-color: #2c2c2c;
+        border-radius: 50%;
+        display: inline-block;
+        margin-bottom: 10%;
+      }
+
+}
