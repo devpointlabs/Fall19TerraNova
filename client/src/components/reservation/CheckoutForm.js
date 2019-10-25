@@ -197,34 +197,3 @@ const createOptions = () => {
 };
 
 export default injectStripe(CheckoutForm);
-
-
-// if (cabin_types.includes("F") || (cabin_types.length > 1)) {
-//   for (let i = 0; i < books.length; i++) {
-//     const { roomPrice, cabinId, roomLetter } = books[i];
-//     if (i === 0) {
-//       if (roomLetter === "F") {
-//         const ids = cabinId.split(',')
-//         for (let i = 0; i < ids.length; i++) {
-//           const cabin_id = ids[i];
-//           if (i === 0) {
-//             axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id, expected_arrival: "2:00PM", customer_payment_token: data.c.id, pm: data.pm, }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
-//           } else {
-//             axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id, expected_arrival: "2:00PM" }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
-//           }
-//         }
-//       } else {
-//         axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id: cabinId, expected_arrival: "2:00PM", customer_payment_token: data.c.id, pm: data.pm, }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
-//       }
-//     } else if (roomLetter === "F") {
-//       const ids = cabinId.split(',')
-//       for (let i = 0; i < ids.length; i++) {
-//         const cabin_id = ids[i];
-//         axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id, expected_arrival: "2:00PM", customer_payment_token: data.c.id }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
-//       }
-//     } else {
-//       axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id: cabinId, expected_arrival: "2:00PM", customer_payment_token: data.c.id }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
-//     }
-//   }
-// } else {
-// }
