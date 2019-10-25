@@ -1,7 +1,6 @@
 import React from "react";
 
 class Confirmation extends React.Component {
-
     render() {
         return(
             <>
@@ -9,7 +8,7 @@ class Confirmation extends React.Component {
                 <div className="reservation-container">
                     <div className="reservation-confirmation-container">
                         <h4>TERRA NOVA</h4>
-                        <h4>BOOKING NUMBER #17654034</h4>
+                        <h4>BOOKING NUMBER #{localStorage.getItem("bookingNumber")}</h4>
                         <div style={{marginTop: "7%"}} className="reservation-confirmation-row">
                             <div className="reservation-confirmation-row-column1">
                                 CHECK IN:
@@ -31,7 +30,7 @@ class Confirmation extends React.Component {
                                 YOUR STAY:
                             </div>
                             <div className="reservation-confirmation-row-column2">
-                                {`${this.props.nrNights} NIGHT(S), ${this.props.nrRooms} ROOM(S)`}
+                                {`${this.props.nrNights} NIGHT(S), ${localStorage.getItem('nrRooms')} ROOM(S)`}
                             </div>
                         </div>
                         <div className="reservation-confirmation-row">
