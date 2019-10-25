@@ -182,7 +182,7 @@ const HotelStatistics = () => (
             </TeamContainer2>   
             <ColumnContainer>
                 <ColumnTeam>
-                    <img src={Noah} className="dot" />
+                    <img src={Noah} alt="Noah" className="dot" />
                     <div className="names">NOAH ANDERSON</div>
                     <div className="position">BACKEND WIZARD</div>
                     <div className="text">
@@ -205,7 +205,7 @@ const HotelStatistics = () => (
                 </ColumnTeam>
                 <ColumnTeam>
 
-                    <img src={Shannon} className="dot"></img>
+                    <img src={Shannon} alt="Shannon" className="dot"></img>
                     <div className="names">SHANNON JONES</div>
                     <div className="position">STYLING SORCERESS</div>
                     <div className="text">
@@ -213,7 +213,7 @@ const HotelStatistics = () => (
                     </div>
                 </ColumnTeam>
                 <ColumnTeam>
-                    <img src={Adam} className="dot" />
+                    <img src={Adam} alt="Adam" className="dot" />
                     <div className="names">ADAM VON KRAEMER</div>
                     <div className="position">FRONTEND NINJA</div>
                     <div className="text">

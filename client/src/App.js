@@ -17,7 +17,7 @@ import { Switch, Route, } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
 import { StripeProvider } from 'react-stripe-elements';
 import FindBooking from './components/FindBooking'
-import MyTrips from './components/MyTrips'
+// import MyTrips from './components/MyTrips'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminProtRoute from './components/AdminProtRoute'
 import AdminHome from './components/AdminHome'

@@ -5,10 +5,9 @@
 }
 
 .roomdetails-header {
-    margin-top: 20px;
-    margin-bottom: 25px;
-    font-size: 40px;
-    font-family: 'EB Garamond';
+    padding: 1em 0 1em 0;
+    font-size: 35px;
+    font-family: 'Catamaran', sans-serif;
     color: white;
     background-color: #898989;
 }
@@ -33,36 +32,6 @@
     position: relative;
     z-index: 1;
     background: white;
-    /* -webkit-animation: slideIn 1s forwards;
-    -moz-animation: slideIn 1s forwards;
-    animation: slideIn 1s forwards; */
-}
-
-@-webkit-keyframes slideIn {
-    0% {
-        transform: translateX(-900px);
-    }
-    100% {
-        transform: translateX(0);
-    }
-}
-
-@-moz-keyframes slideIn {
-    0% {
-        transform: translateX(-900px);
-    }
-    100% {
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideIn {
-    0% {
-        transform: translateX(-900px);
-    }
-    100% {
-        transform: translateX(0);
-    }
 }
 
 .roomdetails-left-arrow {
@@ -278,36 +247,8 @@ div.text {
     margin-top: 10px !important;
 }
 
-.carousel.slide {
-    width: 100%;
-}
-
-#slide1_container {
-    width:450px;
-    height:281px;
-    overflow:hidden; /* So the sliding bit doesn't stick out. */
-    margin:0 auto;
-}
-
-#slide1_images {
-    /* This is the bit that moves. It has 4 images, so 4 * 450 = 1800. You could use javascript
-    to work this out instead by counting images. */
-    width:1800px;
-  
-    -webkit-transition:all 1.0s ease-in-out;
-    -moz-transition:all 1.0s ease-in-out;
-    -o-transition:all 1.0s ease-in-out;
-    transition:all 1.0s ease-in-out;
-}
-
-#slide1_images img {
-    padding:0;
-    margin:0;
-    float:left; /* All the images are in a row next to each other. */
-  }
-
-  @media screen and (max-width: 2561px) and (min-width: 1680px) { 
+@media screen and (max-width: 2561px) and (min-width: 1680px) { 
     .roomdetails-header {
         font-size: 60px;
     }
-  }
+}

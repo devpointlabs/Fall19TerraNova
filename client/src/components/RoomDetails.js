@@ -211,6 +211,26 @@ class RoomDetails extends React.Component {
         </>
     );
 
+    renderShortRoomName = () => (
+        <>
+            { this.state.currentRoom === "A" &&
+                <>LAKE VIEW</>
+            }
+            { this.state.currentRoom === "B" &&
+                <>MOUNTAIN VIEW</>
+            }
+            { this.state.currentRoom === "F" &&
+                <>FAMILY CABIN</>
+            }
+            { this.state.currentRoom === "V1" &&
+                <>VIP #1</>
+            }
+            { this.state.currentRoom === "V2" &&
+                <>VIP #2</>
+            }
+        </>
+    );
+
     renderRoomPrice = (roomLetter) => {
         switch(roomLetter) {
             case "A":
@@ -343,7 +363,7 @@ class RoomDetails extends React.Component {
             this.state._isMounted &&
             <>
                 <div className="roomdetails-header-container">
-                    <div className="roomdetails-header">Lake View</div>
+                    <div className="roomdetails-header">{ this.renderShortRoomName() }</div>
                 </div>
                 <div className="roomdetails-container">
                     <div className="roomdetails-upper-container">

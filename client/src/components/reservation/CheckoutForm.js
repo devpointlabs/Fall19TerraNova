@@ -4,9 +4,8 @@ import { CardElement, injectStripe } from 'react-stripe-elements';
 import { Form, Col, Row } from "react-bootstrap";
 import styled from "styled-components";
 import RenderStates from "./RenderStates";
-import { AuthContext } from '../../providers/AuthProvider'
+import { AuthContext } from '../../providers/AuthProvider';
 import { Dimmer, Loader } from "semantic-ui-react";
-
 
 const CheckoutForm = (props) => {
   const [client_secret, setClient_secret] = useState("");
@@ -22,8 +21,7 @@ const CheckoutForm = (props) => {
 
   const [loading, setloading] = useState(false);
 
-  const context = useContext(AuthContext)
-
+  const context = useContext(AuthContext);
 
   useEffect(() => {
     var tempCabin_types = [];
@@ -37,7 +35,7 @@ const CheckoutForm = (props) => {
 
   const foo = async (obj) => {
     await axios.post('/api/bookings', obj).then(res => { props.goToConfirmation(res.data) }).catch(err => { console.log(err) })
-  }
+  };
 
   const fooUser = async () => {
     const { email, password, firstName, lastName, address1, city, state, zip, country, createAccount } = props
@@ -45,20 +43,18 @@ const CheckoutForm = (props) => {
     if (context.user) {
       if (context.user.id) {
         usersid = context.user.id
-      }
-    }
-
+      };
+    };
     if (createAccount && props.password === props.passwordConfirmation) {
       await axios.post("/api/auth", { email, password, passwordConfirmation: password, first_name: firstName, last_name: lastName, address: address1, city, state, zip, country }).then(res => { usersid = res.data.data.id }).catch(res => { console.log(res) })
-    }
+    };
     submit(usersid)
-
-  }
+  };
 
   const submit = async (user_id) => {
     if (props.password !== props.passwordConfirmation) {
       props.setPasswordsMatch(false);
-    }
+    };
 
     let result = await props.stripe.createPaymentMethod('card')
     const { setupIntent, error } = await props.stripe.handleCardSetup(client_secret, {}); //  payment_method_data: { billing_details: { name: `${firstName} ${lastName}` } } 
@@ -74,9 +70,7 @@ const CheckoutForm = (props) => {
           foo({ user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id: cabinId, expected_arrival: "2:00PM", customer_payment_token: data.c.id, pm: data.pm, })
         }).catch(err => { console.log(err) })
     };
-  }
-
-
+  };
 
   return (
     <>

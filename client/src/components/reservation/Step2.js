@@ -209,9 +209,10 @@ class Step2 extends React.Component {
         </>
     );
 
-    isNrOfPeopleValid = () => {
+    isNrOfPeopleValid = (roomLetter) => {
         let validNrOfPeople = true;
-        this.props.bookedRooms.map ( room => validNrOfPeople = !(parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F"));
+        this.props.bookedRooms.map ( room => validNrOfPeople = !(parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && roomLetter !== "F"));
+        debugger
         this.setState({ validNrOfPeople });
         return validNrOfPeople;
     };
@@ -230,7 +231,7 @@ class Step2 extends React.Component {
     handleShow = (roomLetter, priceType) => {
         let roomNumber = this.props.bookedRooms.filter( room => room.active )[0].roomNumber;
         this.userHasChosenNrOfPeople(roomNumber);
-        this.isNrOfPeopleValid();
+        this.isNrOfPeopleValid(roomLetter);
         this.setState({ tempRoomLetter: roomLetter, tempPriceType: priceType });
         if (parseInt(roomNumber, 10) >= this.props.bookedRooms.length)
             this.setState({ modalShow: true });
