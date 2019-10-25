@@ -209,7 +209,7 @@ const HotelStatistics = () => (
                 </ColumnTeam>
                 <ColumnTeam>
                     <span class="dot"></span>
-                    <div className="names">ADAM von Kramer</div>
+                    <div className="names">ADAM VON KRAEMER</div>
                     <div className="position">FRONTEND NINJA</div>
                     <div className="text">
                             Mea omnium explicari te, eu sit vidit
