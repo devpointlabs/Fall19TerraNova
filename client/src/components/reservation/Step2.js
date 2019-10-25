@@ -211,14 +211,14 @@ class Step2 extends React.Component {
 
     isNrOfPeopleValid = () => {
         let validNrOfPeople = true;
-        this.props.nrRoomsArray.map ( room => validNrOfPeople = !(parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F"));
+        this.props.bookedRooms.map ( room => validNrOfPeople = !(parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F"));
         this.setState({ validNrOfPeople });
         return validNrOfPeople;
     };
 
     isNrOfPeopleValidExludingUnfinished = () => {
         let validNrOfPeople = true;
-        this.props.nrRoomsArray.map ( room => validNrOfPeople = !(parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F" && room.roomLetter !== null));
+        this.props.bookedRooms.map ( room => validNrOfPeople = !(parseInt(room.people[0], 10)+parseInt(room.people[1], 10) > this.state.occupancyAB && room.roomLetter !== "F" && room.roomLetter !== null));
         this.setState({ validNrOfPeople });
         return validNrOfPeople;
     }; 
@@ -228,11 +228,11 @@ class Step2 extends React.Component {
     handleClose = () => this.setState({ modalShow: false, modalShowStart: false, modalShowEnd: false, modalShowNoEndDate: false });
 
     handleShow = (roomLetter, priceType) => {
-        let roomNumber = this.props.nrRoomsArray.filter( room => room.active )[0].roomNumber;
+        let roomNumber = this.props.bookedRooms.filter( room => room.active )[0].roomNumber;
         this.userHasChosenNrOfPeople(roomNumber);
         this.isNrOfPeopleValid();
         this.setState({ tempRoomLetter: roomLetter, tempPriceType: priceType });
-        if (parseInt(roomNumber, 10) >= this.props.nrRoomsArray.length)
+        if (parseInt(roomNumber, 10) >= this.props.bookedRooms.length)
             this.setState({ modalShow: true });
         else
             this.props.addRoom(roomLetter, priceType);
@@ -247,7 +247,7 @@ class Step2 extends React.Component {
     };
 
     userHasChosenNrOfPeople = (roomNumber) => {
-        let room = this.props.nrRoomsArray[parseInt(roomNumber, 10)-1];
+        let room = this.props.bookedRooms[parseInt(roomNumber, 10)-1];
         let userHasChosenNrOfPeople = this.state.userHasChosenNrOfPeople;
         if (room.people[0] === "0" && room.people[1] === "0")
             userHasChosenNrOfPeople[parseInt(roomNumber, 10)-1] = false;
@@ -362,7 +362,7 @@ class Step2 extends React.Component {
                         <div className="reservation-left-box-select-rooms">
                             <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>SELECT ROOMS</p>
                             <div className="reservation-hr-container"><div className="reservation-line" /></div>
-                            { this.props.nrRoomsArray.map( room => (
+                            { this.props.bookedRooms.map( room => (
                                 <div className="reservation-room-container-nopadding" key={parseInt(room.roomNumber, 10)}>
                                     { room.active ?
                                         <div className="reservation-booking-room-active">
@@ -424,11 +424,11 @@ class Step2 extends React.Component {
                                                     { this.props.renderRoomName(room.roomLetter) }
                                                 </span>
                                                 <span style={{fontWeight: "bold", fontSize: "13px", color: "#8E7037"}}>
-                                                    ${ this.props.nrRoomsArray[parseInt(room.roomNumber, 10)-1].roomPrice }
+                                                    ${ this.props.bookedRooms[parseInt(room.roomNumber, 10)-1].roomPrice }
                                                 </span>
                                             </row>
                                             <row style={{fontSize: "x-small"}}>
-                                                { this.props.nrRoomsArray[parseInt(room.roomNumber, 10)-1].roomPriceType }
+                                                { this.props.bookedRooms[parseInt(room.roomNumber, 10)-1].roomPriceType }
                                             </row>
                                             <row style={{marginTop: "12px", color: "#8E7037", fontSize: "12px"}}>
                                                 <u style={{cursor: "pointer"}} onClick={() => this.changeRoom(room.roomNumber)}>Change room</u>
@@ -452,7 +452,7 @@ class Step2 extends React.Component {
                                 </div>
                             )) 
                             }
-                            { this.props.nrRoomsArray.length > 1 &&
+                            { this.props.bookedRooms.length > 1 &&
                                 <>
                                 <div className="reservation-booking-room-total-price">
                                     <span style={{fontWeight: "bold", fontSize: "15px", marginBottom: "5px"}}>TOTAL</span>

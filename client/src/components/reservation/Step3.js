@@ -14,7 +14,7 @@ class Step3 extends React.Component {
         endDateString: "",
         nrNights: "",
         totalPrice: 0,
-        nrRoomsArray: [],
+        bookedRooms: [],
         totalNrRooms: 0,
         totalNrAdults: 0,
         totalNrChildren: 0,
@@ -48,15 +48,15 @@ class Step3 extends React.Component {
         this.setState({
             startDateString: this.props.startDateString,
             endDateString: this.props.endDateString,
-            nrRoomsArray: this.props.nrRoomsArray,
+            bookedRooms: this.props.bookedRooms,
             nrNights: this.props.nrNights,
             totalPrice: this.props.totalPrice
         });
-        this.setTotalNrRooms(this.props.nrRoomsArray);
-        let totalNrAdults = this.setTotalNrAdults(this.props.nrRoomsArray);
-        let totalNrChildren = this.setTotalNrChildren(this.props.nrRoomsArray);
+        this.setTotalNrRooms(this.props.bookedRooms);
+        let totalNrAdults = this.setTotalNrAdults(this.props.bookedRooms);
+        let totalNrChildren = this.setTotalNrChildren(this.props.bookedRooms);
         this.setState({ totalNrGuests: (totalNrAdults + totalNrChildren) });
-        let taxes = this.calculateTaxes(this.props.nrRoomsArray);
+        let taxes = this.calculateTaxes(this.props.bookedRooms);
         this.calculateGrandTotal(taxes, this.props.totalPrice);
         this.setState({ _isMounted: true });
     };
@@ -66,9 +66,9 @@ class Step3 extends React.Component {
         this.setState({ [name]: value, });
     };
 
-    setTotalNrRooms = (nrRoomsArray) => {
+    setTotalNrRooms = (bookedRooms) => {
         var totalNrRooms = 0;
-        nrRoomsArray.map(room => {
+        bookedRooms.map(room => {
             if (room.roomLetter)
                 totalNrRooms += 1;
             return totalNrRooms;
@@ -77,27 +77,27 @@ class Step3 extends React.Component {
         this.props.setNrRooms(totalNrRooms.toString());
     };
 
-    setTotalNrAdults = (nrRoomsArray) => {
+    setTotalNrAdults = (bookedRooms) => {
         let totalNrAdults = 0;
-        nrRoomsArray.map( room => (
+        bookedRooms.map( room => (
             totalNrAdults += parseInt(room.people[0], 10)
         ));
         this.setState({ totalNrAdults });
         return totalNrAdults;
     };
 
-    setTotalNrChildren = (nrRoomsArray) => {
+    setTotalNrChildren = (bookedRooms) => {
         let totalNrChildren = 0;
-        nrRoomsArray.map( room => (
+        bookedRooms.map( room => (
             totalNrChildren += parseInt(room.people[1], 10)
         ));
         this.setState({ totalNrChildren });
         return totalNrChildren;
     };
 
-    calculateTaxes = (nrRoomsArray) => {
+    calculateTaxes = (bookedRooms) => {
         let taxes = this.state.taxes;
-        nrRoomsArray.map(room => taxes.push(room.roomPrice * 0.075));
+        bookedRooms.map(room => taxes.push(room.roomPrice * 0.075));
         this.setState({ taxes });
         return taxes;
     };
@@ -172,7 +172,7 @@ class Step3 extends React.Component {
                         <div className="reservation-left-box-lower">
                             <p align="center" style={{marginTop: "20px", fontWeight: "bold", fontSize: "15px"}}>ROOMS</p>
                             <div className="reservation-hr-container"><div className="reservation-line" /></div>
-                            { this.state.nrRoomsArray.map( (room, index) => (
+                            { this.state.bookedRooms.map( (room, index) => (
                                 room.roomLetter != null &&
                                 <>
                                     <div className="reservation-room-information-container" key={index+1}>
@@ -206,7 +206,7 @@ class Step3 extends React.Component {
                                             </span>
                                         </div>
                                     </div>
-                                    { index !== this.props.nrRoomsArray.length-1 &&
+                                    { index !== this.props.bookedRooms.length-1 &&
                                         <div className="reservation-hr-container"><div className="reservation-line" /></div>
                                     }
                                 </>
@@ -460,7 +460,7 @@ class Step3 extends React.Component {
                                         <Elements>
                                             <CheckoutForm
                                                 {...this.state}
-                                                bookedRooms = {this.props.nrRoomsArray}
+                                                bookedRooms = {this.props.bookedRooms}
                                                 start_date = {localStorage.getItem('startDateParse')}
                                                 end_date = {localStorage.getItem('endDateParse')}
                                                 guests = {this.state.totalNrGuests}

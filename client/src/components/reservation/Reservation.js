@@ -24,7 +24,7 @@ class Reservation extends React.Component {
         chooseEndDate: false,
         nrNights: "1",
         nrRooms: "",
-        nrRoomsArray: [{
+        bookedRooms: [{
             roomNumber: "1",
             roomLetter: null,
             cabinId: null,
@@ -40,7 +40,7 @@ class Reservation extends React.Component {
         vip1: null,
         vip2: null,
         anyAvailableCabins: true,
-        bookedRooms: [],
+        bookedRoomObjects: [],
         prices: [
             {room: "A", regular: 0, nonrefundable: 0, extended: 0, company: 0},
             {room: "B", regular: 0, nonrefundable: 0, extended: 0, company: 0},
@@ -57,7 +57,6 @@ class Reservation extends React.Component {
         this.loadData();
     };
 
-
     loadData = () => {
         if (localStorage.startDateString) {
             // load state from local storage
@@ -72,7 +71,7 @@ class Reservation extends React.Component {
             });
             this.setDateDisplays();
             if (localStorage.totalPrice) this.setState({ totalPrice: parseFloat(localStorage.getItem('totalPrice'))});
-            var nrRoomsArray = [];
+            var bookedRooms = [];
             var nextRoom = localStorage.getItem(`room1_roomNumber`) ? true : false;
             var room = 1;
             var tempRoom = {};
@@ -90,8 +89,8 @@ class Reservation extends React.Component {
                 tempPeople[1] = localStorage.getItem(`room${room}_nrChildren`);
                 tempRoom.people = tempPeople;
                 tempRoom.active = false;
-                nrRoomsArray.push(tempRoom);
-                this.setState({ nrRoomsArray });
+                bookedRooms.push(tempRoom);
+                this.setState({ bookedRooms });
                 room += 1;
                 if (!localStorage.getItem(`room${room}_roomNumber`)) nextRoom = false;
             };
@@ -102,10 +101,10 @@ class Reservation extends React.Component {
             tempRoom.roomPriceType = null;
             tempRoom.people = ["0", "0"];
             tempRoom.active = true;
-            nrRoomsArray.push(tempRoom);
+            bookedRooms.push(tempRoom);
             if (localStorage.step && localStorage.step === "2") {
                 this.setState({ step: parseInt(localStorage.getItem('step'))});
-                this.checkAvailability(localStorage.getItem('startDateDB'), localStorage.getItem('endDateDB'), false, nrRoomsArray);
+                this.checkAvailability(localStorage.getItem('startDateDB'), localStorage.getItem('endDateDB'), false, bookedRooms);
             } else if (localStorage.step && localStorage.step === "4") {
                 this.setState({ grandTotal: localStorage.getItem('grandTotal'), step: 4, _isMounted: true });
             }
@@ -179,7 +178,7 @@ class Reservation extends React.Component {
         });
     };
 
-    checkAvailability = (startDate, endDate, override, nrRoomsArray) => {
+    checkAvailability = (startDate, endDate, override, bookedRooms) => {
         let startDateDB = "";
         let endDateDB = "";
         if (override && override === "override") {
@@ -210,17 +209,17 @@ class Reservation extends React.Component {
                 if (this.state.nrNights > 7)
                     prices = this.setExtendedRoomPrices(prices, res.data.aRooms, res.data.bRooms, res.data.familyCabins, res.data.vip1, res.data.vip2);
                 this.setState({ prices });
-                if (nrRoomsArray) {
+                if (bookedRooms) {
                     // user refreshes page => have to automatically add rooms again
-                    var bookedRooms = this.state.bookedRooms;
+                    var bookedRoomObjects = this.state.bookedRoomObjects;
                     var aRooms = res.data.aRooms;
                     var bRooms = res.data.bRooms;
                     var familyCabins = res.data.familyCabins;
                     var vip1 = res.data.vip1;
                     var vip2 = res.data.vip2;
                     var room = null;
-                    for (var i = 0; i < nrRoomsArray.length; i++) {
-                        switch(nrRoomsArray[i].roomLetter) {
+                    for (var i = 0; i < bookedRooms.length; i++) {
+                        switch(bookedRooms[i].roomLetter) {
                             case "A":
                                 room = res.data.aRooms[0];
                                 familyCabins = familyCabins.filter( familyCabin => 
@@ -252,9 +251,9 @@ class Reservation extends React.Component {
                                     familyCabin.cabin_number !== room.cabin_number );
                                 break;
                         };
-                        bookedRooms.push(room);
+                        bookedRoomObjects.push(room);
                     };
-                    this.setState({ bookedRooms, aRooms, bRooms, familyCabins, vip1, vip2 });
+                    this.setState({ bookedRoomObjects, aRooms, bRooms, familyCabins, vip1, vip2 });
                 };
             })
             .catch(err => {
@@ -285,15 +284,15 @@ class Reservation extends React.Component {
     };
 
     setNrAdults = (room, nrAdults) => {
-        let nrRoomsArray = this.state.nrRoomsArray;
-        nrRoomsArray[parseInt(room, 10)-1].people[0] = nrAdults;
-        this.setState({ nrRoomsArray });
+        let bookedRooms = this.state.bookedRooms;
+        bookedRooms[parseInt(room, 10)-1].people[0] = nrAdults;
+        this.setState({ bookedRooms });
     };
 
     setNrChildren = (room, nrChildren) => {
-        let nrRoomsArray = this.state.nrRoomsArray;
-        nrRoomsArray[parseInt(room, 10)-1].people[1] = nrChildren;
-        this.setState({ nrRoomsArray });
+        let bookedRooms = this.state.bookedRooms;
+        bookedRooms[parseInt(room, 10)-1].people[1] = nrChildren;
+        this.setState({ bookedRooms });
     };
 
     anyAvailableCabins = () => {
@@ -308,12 +307,12 @@ class Reservation extends React.Component {
     };
     
     addRoom = (roomLetter, priceType) => {
-        let bookedRooms = this.state.bookedRooms;
+        let bookedRoomObjects = this.state.bookedRoomObjects;
         let room = null;
         let aRooms = this.state.aRooms;
         let bRooms = this.state.bRooms;
         let familyCabins = this.state.familyCabins;
-        let nrRoomsArray = this.state.nrRoomsArray;
+        let bookedRooms = this.state.bookedRooms;
         let roomPrice = null;
         let index = null;
         let cabinId = null;
@@ -360,38 +359,38 @@ class Reservation extends React.Component {
             roomPrice = this.state.prices[index].nonrefundable;
         else if (priceType === "EXTENDED STAY")
             roomPrice = this.state.prices[index].extended;
-        let activeRoom = nrRoomsArray.filter( room => room.active )[0];
-        if (parseInt(activeRoom.roomNumber, 10) === nrRoomsArray.length && !nrRoomsArray[nrRoomsArray.length-1].roomLetter) {
+        let activeRoom = bookedRooms.filter( room => room.active )[0];
+        if (parseInt(activeRoom.roomNumber, 10) === bookedRooms.length && !bookedRooms[bookedRooms.length-1].roomLetter) {
             // adding new room
-            bookedRooms.push(room);
-            nrRoomsArray[nrRoomsArray.length-1].active = false;
-            nrRoomsArray[nrRoomsArray.length-1].roomLetter = roomLetter;
-            nrRoomsArray[nrRoomsArray.length-1].cabinId = cabinId;
-            nrRoomsArray[nrRoomsArray.length-1].cabinNumber = room.cabin_number;
-            nrRoomsArray[nrRoomsArray.length-1].roomPrice = roomPrice;
-            nrRoomsArray[nrRoomsArray.length-1].roomPriceType = priceType;
-            nrRoomsArray.push( {roomNumber: (nrRoomsArray.length+1).toString(), roomLetter: null, cabinId: null, cabinNumber: null, roomPrice: null, roomPriceType: null, people: ["0", "0"], active: true} );
+            bookedRoomObjects.push(room);
+            bookedRooms[bookedRooms.length-1].active = false;
+            bookedRooms[bookedRooms.length-1].roomLetter = roomLetter;
+            bookedRooms[bookedRooms.length-1].cabinId = cabinId;
+            bookedRooms[bookedRooms.length-1].cabinNumber = room.cabin_number;
+            bookedRooms[bookedRooms.length-1].roomPrice = roomPrice;
+            bookedRooms[bookedRooms.length-1].roomPriceType = priceType;
+            bookedRooms.push( {roomNumber: (bookedRooms.length+1).toString(), roomLetter: null, cabinId: null, cabinNumber: null, roomPrice: null, roomPriceType: null, people: ["0", "0"], active: true} );
         } else {
             // changing a room
-            bookedRooms = bookedRooms.map( (bookedRoom, index) => {
+            bookedRoomObjects = bookedRoomObjects.map( (bookedRoom, index) => {
                 if (parseInt(activeRoom.roomNumber, 10)-1 === index)
                     return room;
                 else
                     return bookedRoom;
             });
-            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].active = false;
-            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomLetter = roomLetter;
-            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].cabinId = cabinId;
-            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].cabinNumber = room.cabin_number;
-            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomPrice = roomPrice;
-            nrRoomsArray[parseInt(activeRoom.roomNumber, 10)-1].roomPriceType = priceType;
+            bookedRooms[parseInt(activeRoom.roomNumber, 10)-1].active = false;
+            bookedRooms[parseInt(activeRoom.roomNumber, 10)-1].roomLetter = roomLetter;
+            bookedRooms[parseInt(activeRoom.roomNumber, 10)-1].cabinId = cabinId;
+            bookedRooms[parseInt(activeRoom.roomNumber, 10)-1].cabinNumber = room.cabin_number;
+            bookedRooms[parseInt(activeRoom.roomNumber, 10)-1].roomPrice = roomPrice;
+            bookedRooms[parseInt(activeRoom.roomNumber, 10)-1].roomPriceType = priceType;
         };
-        this.setState({ aRooms, bRooms, familyCabins, nrRoomsArray, bookedRooms });
-        let totalPrice = this.calculateTotalPrice(nrRoomsArray);
-        this.addToLocalStorage(nrRoomsArray, totalPrice);
+        this.setState({ aRooms, bRooms, familyCabins, bookedRooms, bookedRoomObjects });
+        let totalPrice = this.calculateTotalPrice(bookedRooms);
+        this.addToLocalStorage(bookedRooms, totalPrice);
     };
 
-    addToLocalStorage = (nrRoomsArray, totalPrice) => {
+    addToLocalStorage = (bookedRooms, totalPrice) => {
         localStorage.setItem('startDateString', this.state.startDateString);
         localStorage.setItem('endDateString', this.state.endDateString);
         localStorage.setItem('startDateDB', this.state.startDateDB);
@@ -400,16 +399,16 @@ class Reservation extends React.Component {
         localStorage.setItem('endDateParse', this.state.endDate.format("YYYY-MM-DD"));
         localStorage.setItem('nrNights', this.state.nrNights);
         localStorage.setItem('totalPrice', totalPrice);
-        nrRoomsArray.map( (room, index) => {
+        bookedRooms.map( (room, index) => {
             if (room.roomLetter) {
-                localStorage.setItem(`room${index+1}_roomNumber`, nrRoomsArray[index].roomNumber);
-                localStorage.setItem(`room${index+1}_roomLetter`, nrRoomsArray[index].roomLetter);
-                localStorage.setItem(`room${index+1}_cabinId`, nrRoomsArray[index].cabinId);
-                localStorage.setItem(`room${index+1}_cabinNumber`, nrRoomsArray[index].cabinNumber);
-                localStorage.setItem(`room${index+1}_roomPrice`, nrRoomsArray[index].roomPrice);
-                localStorage.setItem(`room${index+1}_roomPriceType`, nrRoomsArray[index].roomPriceType);
-                localStorage.setItem(`room${index+1}_nrAdults`, nrRoomsArray[index].people[0]);
-                localStorage.setItem(`room${index+1}_nrChildren`, nrRoomsArray[index].people[1]);
+                localStorage.setItem(`room${index+1}_roomNumber`, bookedRooms[index].roomNumber);
+                localStorage.setItem(`room${index+1}_roomLetter`, bookedRooms[index].roomLetter);
+                localStorage.setItem(`room${index+1}_cabinId`, bookedRooms[index].cabinId);
+                localStorage.setItem(`room${index+1}_cabinNumber`, bookedRooms[index].cabinNumber);
+                localStorage.setItem(`room${index+1}_roomPrice`, bookedRooms[index].roomPrice);
+                localStorage.setItem(`room${index+1}_roomPriceType`, bookedRooms[index].roomPriceType);
+                localStorage.setItem(`room${index+1}_nrAdults`, bookedRooms[index].people[0]);
+                localStorage.setItem(`room${index+1}_nrChildren`, bookedRooms[index].people[1]);
             };
             return room;
         });
@@ -427,29 +426,29 @@ class Reservation extends React.Component {
     };
 
     changeRoom = (roomNumber) => {
-        let nrRoomsArray = this.state.nrRoomsArray;
-        nrRoomsArray.map( room => {
+        let bookedRooms = this.state.bookedRooms;
+        bookedRooms.map( room => {
             if (room.roomNumber === roomNumber)
                 room.active = true;
             else
                 room.active = false;
             return room;
         });
-        this.setState({ nrRoomsArray });
+        this.setState({ bookedRooms });
     };
 
     deleteRoom = (room) => {
-        let nrRoomsArray = this.state.nrRoomsArray;
         let bookedRooms = this.state.bookedRooms;
+        let bookedRoomObjects = this.state.bookedRoomObjects;
         let roomIndex = parseInt(room.roomNumber, 10)-1;
-        nrRoomsArray.splice(roomIndex, 1);
         bookedRooms.splice(roomIndex, 1);
-        nrRoomsArray = nrRoomsArray.map( (room, index) => {
+        bookedRoomObjects.splice(roomIndex, 1);
+        bookedRooms = bookedRooms.map( (room, index) => {
             if (index >= roomIndex)
                 room.roomNumber = (parseInt(room.roomNumber)-1).toString();
             return room;
         });
-        let index = this.state.nrRoomsArray.length;
+        let index = this.state.bookedRooms.length;
         if (localStorage.getItem(`room${index}_roomLetter`)) {
             localStorage.removeItem(`room${index}_roomNumber`);
             localStorage.removeItem(`room${index}_roomLetter`);
@@ -470,26 +469,26 @@ class Reservation extends React.Component {
             localStorage.removeItem(`room${index-1}_nrAdults`);
             localStorage.removeItem(`room${index-1}_nrChildren`);
         }
-        nrRoomsArray.map( (room, index) => {
+        bookedRooms.map( (room, index) => {
             if (room.roomLetter) {
-                localStorage.setItem(`room${index+1}_roomNumber`, nrRoomsArray[index].roomNumber);
-                localStorage.setItem(`room${index+1}_roomLetter`, nrRoomsArray[index].roomLetter);
-                localStorage.setItem(`room${index+1}_cabinId`, nrRoomsArray[index].cabinId);
-                localStorage.setItem(`room${index+1}_cabinNumber`, nrRoomsArray[index].cabinNumber);
-                localStorage.setItem(`room${index+1}_roomPrice`, nrRoomsArray[index].roomPrice);
-                localStorage.setItem(`room${index+1}_roomPriceType`, nrRoomsArray[index].roomPriceType);
-                localStorage.setItem(`room${index+1}_nrAdults`, nrRoomsArray[index].people[0]);
-                localStorage.setItem(`room${index+1}_nrChildren`, nrRoomsArray[index].people[1]);
+                localStorage.setItem(`room${index+1}_roomNumber`, bookedRooms[index].roomNumber);
+                localStorage.setItem(`room${index+1}_roomLetter`, bookedRooms[index].roomLetter);
+                localStorage.setItem(`room${index+1}_cabinId`, bookedRooms[index].cabinId);
+                localStorage.setItem(`room${index+1}_cabinNumber`, bookedRooms[index].cabinNumber);
+                localStorage.setItem(`room${index+1}_roomPrice`, bookedRooms[index].roomPrice);
+                localStorage.setItem(`room${index+1}_roomPriceType`, bookedRooms[index].roomPriceType);
+                localStorage.setItem(`room${index+1}_nrAdults`, bookedRooms[index].people[0]);
+                localStorage.setItem(`room${index+1}_nrChildren`, bookedRooms[index].people[1]);
             };
             return room;
         });
-        this.setState({ nrRoomsArray, bookedRooms });
-        this.calculateTotalPrice(nrRoomsArray);
+        this.setState({ bookedRooms, bookedRoomObjects });
+        this.calculateTotalPrice(bookedRooms);
     };
 
-    calculateTotalPrice = (nrRoomsArray) => {
+    calculateTotalPrice = (bookedRooms) => {
         let totalPrice = 0;
-        nrRoomsArray.forEach( room => (
+        bookedRooms.forEach( room => (
             totalPrice = totalPrice + room.roomPrice));
         totalPrice = Math.round(totalPrice * 100) / 100;
         this.setState({ totalPrice });
@@ -634,8 +633,8 @@ class Reservation extends React.Component {
             if (!localStorage.getItem(`room${room}_roomNumber`)) nextRoom = false;
         };
         this.setState({
-            nrRoomsArray: [{roomNumber: "1", roomLetter: null, roomPrice: null, roomPriceType: null, people: ["0", "0"], active: true}],
-            bookedRooms: [],
+            bookedRooms: [{roomNumber: "1", roomLetter: null, roomPrice: null, roomPriceType: null, people: ["0", "0"], active: true}],
+            bookedRoomObjects: [],
             step: 1,
             _isMounted: false
         });
@@ -659,8 +658,8 @@ class Reservation extends React.Component {
             if (!localStorage.getItem(`room${room}_roomNumber`)) nextRoom = false;
         };
         this.setState({
-            nrRoomsArray: [{roomNumber: "1", roomLetter: null, roomPrice: null, roomPriceType: null, people: ["0", "0"], active: true}],
-            bookedRooms: [],
+            bookedRooms: [{roomNumber: "1", roomLetter: null, roomPrice: null, roomPriceType: null, people: ["0", "0"], active: true}],
+            bookedRoomObjects: [],
             step: 2,
             _isMounted: false
         });
@@ -773,7 +772,7 @@ class Reservation extends React.Component {
                                         setNrChildren={this.setNrChildren}
                                         nrNights={this.state.nrNights}
                                         nrRooms={this.state.nrRooms}
-                                        nrRoomsArray={this.state.nrRoomsArray}
+                                        bookedRooms={this.state.bookedRooms}
                                         onDayClick={this.onDayClick}
                                         onDayClickStart={this.onDayClickStart}
                                         onDayClickEnd={this.onDayClickEnd}
@@ -804,7 +803,7 @@ class Reservation extends React.Component {
                                 setNrChildren={this.setNrChildren}
                                 nrNights={this.state.nrNights}
                                 nrRooms={this.state.nrRooms}
-                                nrRoomsArray={this.state.nrRoomsArray}
+                                bookedRooms={this.state.bookedRooms}
                                 onDayClickStart={this.onDayClickStart}
                                 onDayClickEnd={this.onDayClickEnd}
                                 aRooms={this.state.aRooms}
@@ -816,7 +815,7 @@ class Reservation extends React.Component {
                                 addRoom={this.addRoom}
                                 changeRoom={this.changeRoom}
                                 goToBilling={this.goToBilling}
-                                bookedRooms={this.state.bookedRooms}
+                                bookedRoomObjects={this.state.bookedRoomObjects}
                                 prices={this.state.prices}
                                 calculateTotalPrice={this.calculateTotalPrice}
                                 totalPrice={this.state.totalPrice}
@@ -829,7 +828,7 @@ class Reservation extends React.Component {
                         }
                         { this.state.step === 3 && 
                             <Step3
-                                nrRoomsArray={this.state.nrRoomsArray}
+                                bookedRooms={this.state.bookedRooms}
                                 startDate={this.state.startDate}
                                 startDateString={this.state.startDateString}
                                 endDate={this.state.endDate}
@@ -840,7 +839,7 @@ class Reservation extends React.Component {
                                 totalNrChildren={this.state.totalNrChildren}
                                 renderRoomName={this.renderRoomName}
                                 renderTotalRoomPrice={this.renderTotalRoomPrice}
-                                bookedRooms={this.state.bookedRooms}
+                                bookedRoomObjects={this.state.bookedRoomObjects}
                                 setGrandTotal={this.setGrandTotal}
                                 setStep={this.setStep}
                                 goBackToStep1={this.goBackToStep1}

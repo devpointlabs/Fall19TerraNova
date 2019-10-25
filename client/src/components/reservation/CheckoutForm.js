@@ -68,7 +68,7 @@ const CheckoutForm = (props) => {
     } else if (setupIntent.status === "succeeded") {
       await axios.post(`/api/createres?body=${result.paymentMethod.id}`)
         .then(({ data }) => {
-          let books = props.nrRoomsArray.filter(i => i.cabinId)
+          let books = props.bookedRooms.filter(i => i.cabinId)
           const { start_date, end_date, guests, orderNotes, } = props //  email, createAccount, password, firstName, lastName, address1, city, state, zip, country, history
           const { roomPrice, cabinId, roomLetter } = books[0];
           foo({ user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id: cabinId, expected_arrival: "2:00PM", customer_payment_token: data.c.id, pm: data.pm, })
