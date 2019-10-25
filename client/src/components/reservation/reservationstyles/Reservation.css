@@ -483,3 +483,14 @@ row {
     display: flex;
     justify-content: space-between;
 }
+
+@media screen and (max-width: 2561px) and (min-width: 1680px) { 
+.reservation-right-box {
+    width: 50%;
+}
+
+.reservation-header {
+    font-size: 60px;
+}
+
+}

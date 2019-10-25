@@ -194,3 +194,10 @@
   /*.applyBtn:hover {
     background-color: rgb(223, 193, 141) !important;
   }*/
+
+  @media screen and (max-width: 2561px) and (min-width: 1680px) { 
+  .opensleft.daterangepicker.ltr.show-calendar{
+    margin-left: 6.75em;
+  }
+  
+  }
