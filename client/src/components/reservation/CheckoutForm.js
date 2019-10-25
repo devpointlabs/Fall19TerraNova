@@ -70,7 +70,8 @@ const CheckoutForm = (props) => {
           foo({ user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id: cabinId, expected_arrival: "2:00PM", customer_payment_token: data.c.id, pm: data.pm, })
         }).catch(err => { console.log(err) })
     };
-  };
+
+  }
 
   return (
     <>
