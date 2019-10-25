@@ -52,7 +52,7 @@
     background: white;
     color: #8E7037;
     height: 100%;
-    width: 33%;
+    width: 18%;
     margin-right: 3em;
     padding: 1.5em 3em 1.5em 3em;
     letter-spacing: 0.1em;
@@ -97,7 +97,7 @@
     color: white;
     font-size: 1em;
     height: 100%;
-    width: 15%;
+    width: 08%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -196,4 +196,16 @@
         font-weight: bolder;
         cursor: pointer;
     }
+}
+
+/* web 2560 by 870 */
+@media screen and (max-width: 2560px) and (min-width: 1680px) { 
+
+
+.bottomoverlay { 
+    width: 100%;
+    text-align: center;
+    text-shadow: 4px 4px #373737;
+
+}
 }

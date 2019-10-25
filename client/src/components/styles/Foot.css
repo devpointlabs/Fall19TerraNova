@@ -1132,3 +1132,134 @@
    
   }
 }
+
+@media screen and (max-width: 2561px) and (min-width: 1680px) { 
+  .foot-icon {
+    width: 13%;
+    margin-top: 02%;
+    margin-left: 10%;
+  }
+
+  .emailbar {
+    width: 28em;
+    margin-left: 24em;
+    margin-top: -7em;
+    margin-bottom: -8em;
+    font-family: 'Catamaran', sans-serif;
+
+  }
+
+  .submitbutton {
+    margin-left: 26em;
+    margin-top: -4.15em;
+  }
+
+  .payment-icon {
+    width: 80%;
+    margin-top: -14%;
+    margin-left: 10%;
+  }
+
+  .mail-icon {
+    width: 04.5%;
+    margin-top: 01%;
+    margin-bottom: .8%;
+    margin-left: 08%;
+  }
+
+
+  .footer-wrapper {
+    background-color: rgb(36, 36, 36);
+  }
+
+
+  .email-container {
+    background-color: rgb(46, 46, 46);
+    width: 100%;
+    padding-bottom: 6%;
+    padding-top: -.5%;
+  }
+
+  .link-container {
+    background-color: rgba(35, 35, 35, 1);
+    width: 100%;
+    height: 50em;
+  
+  }
+
+  .icon-container {
+    margin-left: 65%;
+    margin-top: 8.25%;
+    padding-bottom: 01%;
+    width: 28%;
+  }
+
+  .copyright {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    width: 30%;
+    margin-top: 3em;
+  }
+  .cpy-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 14%;
+    padding-top: 3%;
+    width: 35%;
+    font-family: 'Catamaran', sans-serif;
+    font-size: 2em;
+  }
+
+  .dps-container {
+    display: flex;
+    justify-content: center;
+    margin-left: -5.5%;
+    width: 40%;
+    font-family: 'Catamaran', sans-serif;
+    font-size: 2em;
+    margin-top: .9em;
+  }
+
+  .left-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40%;
+    margin-top: -22%;
+    font-size: 2em;
+    font-family: 'Catamaran', sans-serif;
+  }
+
+  .center-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 60%;
+    margin-top: -15%;
+    font-size: 2em;
+    font-family: 'Catamaran', sans-serif;
+  }
+
+  .right-links {
+    display: flex;
+    flex-direction: column;
+    margin-left: 80%;
+    margin-top: -11.5%;
+    font-size: 2em;
+    font-family: 'Catamaran', sans-serif;
+  }
+  
+  .link {
+    color: #ACACAC;
+  }
+
+  .link:hover {
+    color: #484848
+  }
+
+  .line {
+    background-color: #464646;
+    width: 80%;
+   
+  }
+
+}

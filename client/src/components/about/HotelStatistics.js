@@ -1,8 +1,10 @@
 import React from 'react'
 import './aboutstyles/HotelStatistics.css';
 import styled from 'styled-components';
+import Shannon from '../../images/aboutus/shancircle.png'
 import Adam from "../../images/aboutus/adam.png";
 import Noah from "../../images/aboutus/noah.png";
+
 
 const StatContainer = styled.div`
     display: flex;
@@ -199,7 +201,8 @@ const HotelStatistics = () => (
                         </div>
                 </ColumnTeam>
                 <ColumnTeam>
-                    <span className="dot"></span>
+
+                    <img src={Shannon} className="dot"></img>
                     <div className="names">SHANNON JONES</div>
                     <div className="position">STYLING SORCERESS</div>
                     <div className="text">

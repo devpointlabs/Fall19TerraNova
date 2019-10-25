@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 const News = () => (
 <>
-  <Header> News </Header>
+  <Header className="newsheader"> News </Header>
     <hr className="news-line-img"  />
   
   <div className="newscontainer">

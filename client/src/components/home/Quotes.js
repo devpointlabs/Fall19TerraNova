@@ -19,9 +19,9 @@ const Quotes = () => {
               <span className="fa fa-star checked"></span>
             </RatingContainer>
             <Carousel.Caption>
-              <Quote> "This is the best place to stay in Yellowstone, we'll definitely be back again!" </Quote>
-              <Author> JACK JOHNSON </Author>
-              <Location> From Sacramento, California </Location>
+              <Quote className="quotetext"> "This is the best place to stay in Yellowstone, we'll definitely be back again!" </Quote>
+              <Author className="quoteauthor"> JACK JOHNSON </Author>
+              <Location className="quotelocation"> From Sacramento, California </Location>
             </Carousel.Caption>
           </SlideContainer>
           </Carousel.Item>
@@ -36,9 +36,9 @@ const Quotes = () => {
               <span className="fa fa-star checked"></span>
             </RatingContainer>
             <Carousel.Caption>
-              <Quote> "Best trip ever, the golf course is amazing... but nothing beats their iced tea and lemonade!" </Quote>
-              <Author> ARNOLD PALMER </Author>
-              <Location> From Louisville, Kentucky </Location>
+              <Quote className="quotetext"> "Best trip ever, the golf course is amazing... but nothing beats their iced tea and lemonade!" </Quote>
+              <Author className="quoteauthor"> ARNOLD PALMER </Author>
+              <Location className="quotelocation"> From Louisville, Kentucky </Location>
             </Carousel.Caption>
           </SlideContainer>
         </Carousel.Item>

@@ -23,3 +23,8 @@
   
 }
 
+/* web 2560 by 870 */
+@media screen and (max-width: 1950px) and (min-width: 1701px) { 
+  
+}
+
