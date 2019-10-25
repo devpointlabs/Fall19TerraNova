@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Shannon from '../../images/aboutus/shancircle.png'
 import Adam from "../../images/aboutus/adam.png";
 import Noah from "../../images/aboutus/noah.png";
+import Mikelle from '../../images/aboutus/mikellecircle.png'
 
 
 const StatContainer = styled.div`
@@ -115,7 +116,7 @@ const ColumnContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     height: 100%;
     width: 100%;
     -webkit-user-select: none;
@@ -186,21 +187,15 @@ const HotelStatistics = () => (
                     <div className="names">NOAH ANDERSON</div>
                     <div className="position">BACKEND WIZARD</div>
                     <div className="text">
-                            Mea omnium explicari te, eu sit vidit
-                            haram fabellas, his no legere
-                            feugaitper in laudem on malorum 
-                            epicuri, natum evertitur nu per.
+                    That guys who didn’t write his bio until the day before production and then just writes about his situation. Yup, this guy over here.
                     </div>
                 </ColumnTeam>
                 <ColumnTeam>
-                    <span className="dot"></span>
+                    <img src={Mikelle} className="dot"></img>
                     <div className="names">MIKELLE BROWN</div>
                     <div className="position">DESIGN GURU</div>
                     <div className="text">
-                            Mea omnium explicari te, eu sit vidit
-                            haram fabellas, his no legere
-                            feugaitper in laudem on malorum 
-                            epicuri, natum evertitur nu per.
+                    Personable Trader Joe's Crew Member and life long creative.  Continually expanding my skillset to build elegant UI.
                         </div>
                 </ColumnTeam>
                 <ColumnTeam>
@@ -209,7 +204,7 @@ const HotelStatistics = () => (
                     <div className="names">SHANNON JONES</div>
                     <div className="position">STYLING SORCERESS</div>
                     <div className="text">
-                        Curious and creative guy with a master degree in physics and meteorology, who after an exchange semester in New Zealand realized that a career within IT is the way to go.
+                        A nautical nomad whose worked on the ocean for the past five years. This yoga instructor is doing a 180 to create a life on land. 
                     </div>
                 </ColumnTeam>
                 <ColumnTeam>
