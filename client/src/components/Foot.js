@@ -1,5 +1,5 @@
 import React, {useState, useContext, } from 'react';
-import icon from '../images/foot/icon.png'
+import icon from '../images/cabinlogowhite.png'
 import mail from '../images/foot/mail.png'
 import send from '../images/foot/sendarrow.png'
 import paymenticons from '../images/foot/paymenticons.png'
