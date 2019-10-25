@@ -19,21 +19,8 @@ class GalleryView extends React.Component {
     }
 
     componentDidMount() {
-        // var all = [];
-        // for (var i=0; i<this.state.hotel.length; i++) {
-        //     all.push(this.state.hotel[i])
-        // }
-        // for (var i=0; i<this.state.room.length; i++) {
-        //     all.push(this.state.room[i])
-        // }
-        // for (var i=0; i<this.state.bathroom.length; i++) {
-        //     all.push(this.state.bathroom[i])
-        // }
-        // for (var i=0; i<this.state.dining.length; i++) {
-        //     all.push(this.state.dining[i])
-        // }
-        // this.setState({ _isMounted: true, all, active: all })
         this.setState({ _isMounted: true, active: this.state.all });
+        window.scrollTo(0, 0);
     }
 
     changeTab = (tab) => {

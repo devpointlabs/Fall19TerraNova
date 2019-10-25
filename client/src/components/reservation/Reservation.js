@@ -125,6 +125,7 @@ class Reservation extends React.Component {
                 _isMounted: true
             });
         };
+        window.scrollTo(0, 0);
     };
 
     onDayClick = (date) => {
