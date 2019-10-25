@@ -251,4 +251,41 @@ div.text {
     .roomdetails-header {
         font-size: 60px;
     }
+
+    .roomdetails-left-lower-container-image {
+      width: 13%;
+      margin-top: 1em;
+      height: 100%;
+      border: 2px solid #232323;
+  }
+  
+  .roomdetails-left-lower-container-image-active {
+      width: 13%;
+      margin-top: 1em;
+      height: 100%;
+      border: 2px solid white;
+  }
+
+  .roomdetails-upper-container {
+    display: flex;
+    width: 100%;
+    background-color: #232323;
+    margin-bottom: 1.5%;
+}
+
+.roomdetails-upper-container-image {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    background: white;
+}
+
+.roomdetails-left-lower-container {
+  display: flex;
+  flex-direction: row;
+  height: 8em;
+  justify-content: space-between;
+  background-color: #232323;
+}
+
 }

@@ -60,9 +60,15 @@ a:active {
     .galleryhead {
         font-size: 60px;
     }
-/* 
-    .gallery-tab {
-        font-size: 45px;
-    } */
+
+    .gallery-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      height: 40em;
+  }
+
+
 
 }
+

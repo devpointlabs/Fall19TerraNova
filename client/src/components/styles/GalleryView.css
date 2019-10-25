@@ -39,20 +39,20 @@
 
 .content-container-large {
     display: flex;
-    flex-direction: column !important;
+    flex-direction: column;
     padding-left: 0%;
     padding-right: 0%;
     width: 25%;
-    height: 1400px !important; 
+    height: 1400px; 
 }
 .content-container-small {
     display: flex;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
+    flex-direction: row;
+    flex-wrap: wrap;
     padding-left: 3%;
     padding-right: 3%;
     width: 100%;
-    height: 400px !important; 
+    height: 400px; 
     margin-bottom: 3%;
 }
 
@@ -210,4 +210,15 @@
     .big-content-container {
         height: 255em;
     }
+
+    .content-container-small {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding-left: 3%;
+      padding-right: 3%;
+      width: 100%;
+      height: 700px; 
+      margin-bottom: 3%;
+  }
 }

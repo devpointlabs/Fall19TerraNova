@@ -372,7 +372,7 @@ class RoomDetails extends React.Component {
                                 <img alt="Terra Nova" 
                                     src={require(`../images/cabins/${this.state.currentRoom}_${this.state.currentImage}.jpg`)} 
                                     width="100%" 
-                                    height="580px"
+                                    height="100%"
                                 />
                                 <div className="roomdetails-left-arrow">
                                     <Icon name="arrow alternate circle left outline" size="big" onClick={this.moveLeft} />
@@ -388,7 +388,7 @@ class RoomDetails extends React.Component {
                                             <img alt="Terra Nova" 
                                                 src={require(`../images/cabins/${this.state.currentRoom}_${index+1}.jpg`)}
                                                 width="100%"
-                                                height="72px"
+                                                height="100%"
                                                 onClick={() => this.changeCurrentImage(image)}
                                             />
                                         </div>
@@ -397,7 +397,7 @@ class RoomDetails extends React.Component {
                                             <img alt="Terra Nova" 
                                                 src={require(`../images/cabins/${this.state.currentRoom}_${index+1}.jpg`)}
                                                 width="100%"
-                                                height="72px"
+                                                height="100%"
                                                 onClick={() => this.changeCurrentImage(image)}
                                             />
                                         </div>

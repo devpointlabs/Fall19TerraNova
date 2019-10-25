@@ -1214,11 +1214,11 @@
   .dps-container {
     display: flex;
     justify-content: center;
-    margin-left: -5.5%;
+    margin-left: -3.2%;
     width: 40%;
     font-family: 'Catamaran', sans-serif;
     font-size: 2em;
-    margin-top: .9em;
+    margin-top: .74em;
   }
 
   .left-links {
