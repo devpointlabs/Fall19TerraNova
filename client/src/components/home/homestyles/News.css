@@ -114,6 +114,12 @@
   margin-left: -22em;
   color: #8E7037;
   font-size: 1em;
+  font-family: 'Catamaran', sans-serif;
+
+}
+
+.newsthreelink:hover {
+  color: #7c612e;
 }
 
 /* web 1280 by 800 */
@@ -346,4 +352,62 @@
     color: #8E7037;
     font-size: 1em;
   }
+}
+
+@media screen and (max-width: 2561px) and (min-width: 1680px) { 
+
+  .newsheader {
+    font-size: 60px;
+  }
+
+  .news-line-img {
+    width: 14em;
+    height: .1em;
+  }
+
+  .newsthree {
+    margin-left: 125em;
+    margin-top: -32em;
+  }
+
+  .newstwo {
+    margin-left: 70em;
+    margin-top: -31.5em;
+  }
+
+  .newsone {
+    margin-left: 20em;
+  }
+
+  .day {
+    font-size: 1.75em;
+  }
+  .month {
+    font-size: 2.25em;
+  }
+
+  .year {
+    font-size: 2.25em;
+  }
+
+  .newsdescription {
+    font-size: 3.25em;
+  }
+
+  .newsthreedescription {
+    font-size: 3.25em;
+  }
+
+  .newslink {
+    font-size: 2.25em;
+    margin-left: -16em;
+    margin-top: 10em;
+  }
+
+  .newsthreelink {
+    font-size: 2.25em;
+    margin-top: 10em;
+    margin-left: -18em;
+  }
+
 }
