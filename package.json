@@ -1,0 +1,40 @@
+{
+  "name": "Fall19TerraNova",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {
+    "js-tokens": "^4.0.0",
+    "lodash.throttle": "^4.1.1",
+    "loose-envify": "^1.4.0",
+    "lodash.debounce": "^4.0.8",
+    "object-assign": "^4.1.1",
+    "react-is": "^16.10.2",
+    "react-swipeable": "^5.4.0",
+    "react-image-gallery": "^0.9.1",
+    "prop-types": "^15.7.2",
+    "resize-observer-polyfill": "^1.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "cd client && npm install --only=dev && npm install && npm run build && cd ..",
+    "deploy": "cp -a client/build/. public/",
+    "heroku-postbuild": "npm run build && npm run deploy && echo 'Client Built'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devpointlabs/Fall19TerraNova.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devpointlabs/Fall19TerraNova/issues"
+  },
+  "homepage": "https://github.com/devpointlabs/Fall19TerraNova#readme"
+}
