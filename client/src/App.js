@@ -55,7 +55,7 @@ const App = () => {
             <Route exact path="/gallery" component={GalleryView} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/findmybooking" component={FindBooking} />
-            <ProtectedRoute exact path="/mytrips" component={MyTrips} />
+            <ProtectedRoute exact path="/mytrips" component={UnderConstruction} />
             <Route exact path="/underconstruction" component={UnderConstruction} />
             <Route component={NoMatch} />
           </Switch>
