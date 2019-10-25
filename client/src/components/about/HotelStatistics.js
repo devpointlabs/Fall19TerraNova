@@ -129,7 +129,10 @@ const Column = styled.div`
     border-right: 1px solid white;
 `
 const ColumnTeam = styled.div`
+    position: relative;
     margin-top: 5%;
+    width: 25%;
+    padding: 2%;
     display: flex;
     flex-direction: column;
     justify-content: center; 
@@ -203,22 +206,16 @@ const HotelStatistics = () => (
                     <div className="names">SHANNON JONES</div>
                     <div className="position">STYLING SORCERESS</div>
                     <div className="text">
-                            Mea omnium explicari te, eu sit vidit
-                            haram fabellas, his no legere
-                            feugaitper in laudem on malorum 
-                            epicuri, natum evertitur nu per.
-                        </div>
+                        Curious and creative guy with a master degree in physics and meteorology, who after an exchange semester in New Zealand realized that a career within IT is the way to go.
+                    </div>
                 </ColumnTeam>
                 <ColumnTeam>
                     <img src={Adam} className="dot" />
                     <div className="names">ADAM VON KRAEMER</div>
                     <div className="position">FRONTEND NINJA</div>
                     <div className="text">
-                            Mea omnium explicari te, eu sit vidit
-                            haram fabellas, his no legere
-                            feugaitper in laudem on malorum 
-                            epicuri, natum evertitur nu per.
-                        </div>
+                        Curious and creative guy with a master degree in physics and meteorology, who after an exchange semester in New Zealand realized that a career within IT and programming is the way to go.
+                    </div>
                 </ColumnTeam>      
             </ColumnContainer>
         </TeamContainer>

@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
+import axios from "axios";
 import { Form, Modal } from "react-bootstrap";
 import { Icon, Dropdown } from "semantic-ui-react";
 import "./styles/RoomDetails.css";
@@ -33,10 +34,31 @@ class RoomDetails extends React.Component {
         roomReferences: ["A", "B", "F", "V1", "V2"],
         roomImages: ["1", "2", "3", "4", "5", "6", "7"],
         currentRoom: "",
-        currentImage: "1"
+        currentImage: "1",
+        aRoomPrice: "",
+        bRoomPrice: "",
+        familyCabinPrice: "",
+        vip1Price: "",
+        vip2Price: ""
     };
 
     componentDidMount() {
+        axios.get("api/single_cabin_availability", {params: {dates: ["2019-10-04", "2019-10-05"], id: 1}})
+            .then(res => {
+                debugger
+                this.setState({
+                    aRoomPrice: Math.round(res.data.aRooms[0].cabinPricing.price_hash.Nonrefundable * 100) / 100,
+                    bRoomPrice: Math.round(res.data.bRooms[0].cabinPricing.price_hash.Nonrefundable * 100) / 100,
+                    familyCabinPrice: Math.round((res.data.familyCabins[0].cabinPricing.price_hash.ahash.Nonrefundable +
+                        res.data.familyCabins[0].cabinPricing.price_hash.bhash.Nonrefundable) * 100) / 100,
+                    vip1Price: Math.round(res.data.vip1.cabinPricing.price_hash.Nonrefundable * 100) / 100,
+                    vip2Price: Math.round(res.data.vip2.cabinPricing.price_hash.Nonrefundable * 100) / 100
+                });
+            })
+            .catch(error => {
+                debugger
+                console.log(error)
+            });
         let startDate = dayjs();
         let endDate = dayjs(startDate.add('1', 'day'));
         this.setState({ 
@@ -99,7 +121,10 @@ class RoomDetails extends React.Component {
 
     changeCurrentImage = (image) => this.setState({ currentImage: image });
 
-    changeCurrentRoom = (roomLetter) => this.setState({ currentRoom: roomLetter })
+    changeCurrentRoom = (roomLetter) => {
+        window.scrollTo(0, 0);
+        this.setState({ currentRoom: roomLetter });
+    };
 
     moveLeft = () => {
         let currentImage = this.state.currentImage;
@@ -187,6 +212,23 @@ class RoomDetails extends React.Component {
             }
         </>
     );
+
+    renderRoomPrice = (roomLetter) => {
+        switch(roomLetter) {
+            case "A":
+                return this.state.aRoomPrice;
+            case "B":
+                return this.state.bRoomPrice;
+            case "F":
+                return this.state.familyCabinPrice;
+            case "V1":
+                return this.state.vip1Price;
+            case "V2":
+                return this.state.vip2Price;
+            default:
+                return "";
+        };
+    };
 
     renderSmallRoom = (roomLetter) => (
         <>
@@ -348,7 +390,7 @@ class RoomDetails extends React.Component {
                             <img alt="Terra Nova" src={RoomImage} width="16%" />
                             <span style={{marginTop: "12px", marginBottom: "6px", fontSize: "13px"}}>{ this.renderRoomName(this.state.currentRoom) }</span>
                             <span>
-                                <span style={{fontSize: "32px", marginRight: "6px"}}>$25</span>
+                                <span style={{fontSize: "32px", marginRight: "6px"}}>{ this.renderRoomPrice(this.state.currentRoom) }</span>
                                 <span style={{paddingTop: "12px"}}>/night</span>
                             </span> 
                             <div className="roomdetails-hr-container"><div className="roomdetails-line" /></div>

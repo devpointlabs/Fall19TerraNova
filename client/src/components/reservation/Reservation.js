@@ -59,7 +59,6 @@ class Reservation extends React.Component {
 
 
     loadData = () => {
-
         if (localStorage.startDateString) {
             // load state from local storage
             this.setState({
@@ -201,7 +200,7 @@ class Reservation extends React.Component {
                     bRooms: res.data.bRooms,
                     familyCabins: res.data.familyCabins,
                     vip1: res.data.vip1,
-                    vip2: res.data.vip2, 
+                    vip2: res.data.vip2,
                     step: 2
                 });
                 this.anyAvailableCabins();
