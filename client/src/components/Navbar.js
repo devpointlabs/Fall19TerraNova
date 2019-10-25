@@ -5,7 +5,7 @@ import { Navbar as NavbarBS, Nav, NavDropdown, Modal } from 'react-bootstrap';
 import { NavLink, withRouter } from 'react-router-dom';
 import styled from "styled-components";
 import "./styles/Navbar.css";
-import logo from "../images/logo.png";
+import logo from "../images/cabinlogowhite.png";
 import { Icon } from "semantic-ui-react";
 import axios from 'axios';
 
