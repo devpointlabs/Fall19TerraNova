@@ -117,3 +117,61 @@
 }
 
 
+@media screen and (max-width: 2561px) and (min-width: 1680px) { 
+  .headtext {
+    font-size: 60px;
+    padding-top: 60px;
+
+  }
+
+  .contacttext {
+    width: 34em;
+    margin-top: 2em;
+  }
+
+  .texttop {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: -11.5em;
+    margin-left: -5em;
+    font-size: 2.75em;
+    font-family: 'Catamaran', sans-serif;
+  }
+
+  
+  .contactbody {
+    margin-top: 16em;
+  }
+
+  .textbody {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 30em;
+    margin-top: -11em;
+    margin-left: -8em;
+    font-size: 1.8em;
+    font-family: 'Catamaran', sans-serif;
+  }
+
+  .contactdetails {
+    font-size: 1.5em;
+    margin-top: -3em;
+    margin-left: -9.5em;
+  }
+
+  .topline {
+    width: 50em;
+  }
+  
+  .contactform {
+    margin-left: 15em;
+    margin-right: -15em;
+
+  }
+
+
+
+}
+

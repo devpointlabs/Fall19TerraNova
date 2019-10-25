@@ -311,7 +311,7 @@ const ContentTop = styled.h1`
     position: relative;
     padding-top: 8px;
     color: white;
-    font-size: 85px;
+    font-size: 100px;
     font-family: 'Playfair Display', serif;
     text-shadow: none;
 `;
@@ -320,7 +320,7 @@ const ContentBottom = styled.h3`
     position: relative;
     letter-spacing: 8px;
     color: white;
-    font-size: 25px;
+    font-size: 34px;
     font-family: 'Playfair Display', serif;
     text-shadow: none;
 `;

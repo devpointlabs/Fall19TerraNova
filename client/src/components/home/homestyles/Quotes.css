@@ -17,3 +17,18 @@
 .checked {
   color: orange;
 }
+
+@media screen and (max-width: 2561px) and (min-width: 1680px) { 
+  .quotetext {
+    font-size: 40px;
+  }
+  
+  .quoteauthor {
+    font-size: 30px;
+  }
+
+  .quotelocation {
+    font-size: 25px;
+  }
+
+}

@@ -90,3 +90,23 @@
   }
 
 }
+
+@media screen and (max-width: 2561px) and (min-width: 1680px) { 
+  .aboutheadcontainer {
+    padding-bottom: 2.2%;
+  }
+  
+  .header {
+    font-size: 60px;
+    padding-top: 2.5%;
+  }
+
+  .aboutheader {
+    font-size: 50px;
+  }
+
+  .abouttext {
+    font-size: 35px;
+  }
+
+}
