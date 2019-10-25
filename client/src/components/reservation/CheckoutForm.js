@@ -4,7 +4,9 @@ import { CardElement, injectStripe } from 'react-stripe-elements';
 import { Form, Col, Row } from "react-bootstrap";
 import styled from "styled-components";
 import RenderStates from "./RenderStates";
-import {AuthContext} from '../../providers/AuthProvider'
+import { AuthContext } from '../../providers/AuthProvider'
+import { Dimmer, Loader } from "semantic-ui-react";
+
 
 const CheckoutForm = (props) => {
   const [client_secret, setClient_secret] = useState("");
@@ -16,7 +18,9 @@ const CheckoutForm = (props) => {
   const [state, setState] = useState(props.state);
   const [zip, setZip] = useState(props.zip);
   const [cabin_types, setCabin_types] = useState([]);
-  const [bookings, setbookings] = useState([])
+  const [bookings, setbookings] = useState([]);
+
+  const [loading, setloading] = useState(false);
 
   const context = useContext(AuthContext)
 
@@ -31,22 +35,26 @@ const CheckoutForm = (props) => {
       .catch(err => { console.log(err) })
   }, []);
 
+  const foo = async (obj) => {
+    await axios.post('/api/bookings', obj).then(res => { props.goToConfirmation(res.data) }).catch(err => { console.log(err) })
+  }
+
   const fooUser = async () => {
     const { email, password, firstName, lastName, address1, city, state, zip, country, createAccount } = props
     let usersid
-    if (context.user.id) {
-      usersid = context.user.id
+    if (context.user) {
+      if (context.user.id) {
+        usersid = context.user.id
+      }
     }
     if (createAccount && props.password === props.passwordConfirmation) {
       await axios.post("/api/auth", { email, password, passwordConfirmation: password, first_name: firstName, last_name: lastName, address: address1, city, state, zip, country }).then(res => { usersid = res.data.data.id }).catch(res => { console.log(res) })
     }
-    await submit(usersid)
-    props.goToConfirmation() //bookings
+    submit(usersid)
+
   }
 
   const submit = async (user_id) => {
-
-
     if (props.password !== props.passwordConfirmation) {
       props.setPasswordsMatch(false);
     }
@@ -59,143 +67,114 @@ const CheckoutForm = (props) => {
     } else if (setupIntent.status === "succeeded") {
       await axios.post(`/api/createres?body=${result.paymentMethod.id}`)
         .then(({ data }) => {
-
-          let tbooks = []
           let books = props.nrRoomsArray.filter(i => i.cabinId)
           const { start_date, end_date, guests, orderNotes, } = props //  email, createAccount, password, firstName, lastName, address1, city, state, zip, country, history
-
-          if (cabin_types.includes("F") || (cabin_types.length > 1)) {
-            for (let i = 0; i < books.length; i++) {
-              const { roomPrice, cabinId, roomLetter } = books[i];
-              if (i === 0) {
-                if (roomLetter === "F") {
-                  const ids = cabinId.split(',')
-                  for (let i = 0; i < ids.length; i++) {
-                    const cabin_id = ids[i];
-                    if (i === 0) {
-                      axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id, expected_arrival: "2:00PM", customer_payment_token: data.c.id, pm: data.pm, }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
-                    } else {
-                      axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id, expected_arrival: "2:00PM" }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
-                    }
-                  }
-                } else {
-                  axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id: cabinId, expected_arrival: "2:00PM", customer_payment_token: data.c.id, pm: data.pm, }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
-                }
-              } else if (roomLetter === "F") {
-                const ids = cabinId.split(',')
-                for (let i = 0; i < ids.length; i++) {
-                  const cabin_id = ids[i];
-                  axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id, expected_arrival: "2:00PM",customer_payment_token: data.c.id }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
-                }
-              } else {
-                axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id: cabinId, expected_arrival: "2:00PM",customer_payment_token: data.c.id }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
-              }
-            }
-          } else {
-            const { roomPrice, cabinId, roomLetter } = books[0];
-            axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id: cabinId, expected_arrival: "2:00PM", customer_payment_token: data.c.id, pm: data.pm, }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
-          }
-          setbookings(tbooks)
-
-
+          const { roomPrice, cabinId, roomLetter } = books[0];
+          foo({ user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id: cabinId, expected_arrival: "2:00PM", customer_payment_token: data.c.id, pm: data.pm, })
         }).catch(err => { console.log(err) })
     };
-
   }
 
 
 
   return (
-    <div className="checkout">
-      <CustomRow>
-        <Col>
-          <Form.Label required style={{ fontSize: "smaller" }}>FIRST NAME ON CREDIT CARD <span style={{ color: "red" }}>*</span></Form.Label>
-          <Form.Control
-            name="firstName"
-            value={firstName}
-            placeholder="First name"
-            required
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </Col>
-        <Col>
-          <Form.Label required style={{ fontSize: "smaller" }}>LAST NAME ON CREDIT CARD <span style={{ color: "red" }}>*</span></Form.Label>
-          <Form.Control
-            name="lastName"
-            value={lastName}
-            placeholder="Last name"
-            required
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </Col>
-      </CustomRow>
-      <CustomRow>
-        <Col>
-          <Form.Label required style={{ fontSize: "smaller" }}>BILLING ADDRESS <span style={{ color: "red" }}>*</span></Form.Label>
-          <Form.Control
-            name="address1"
-            value={address1}
-            placeholder="Street address"
-            required
-            onChange={(e) => setAddress1(e.target.value)}
-          />
-        </Col>
-      </CustomRow>
-      <CustomRow>
-        <Col>
-          <Form.Control
-            name="address2"
-            value={address2}
-            placeholder="Apartment, suite, unit, etc. (optional)"
-            onChange={(e) => setAddress2(e.target.value)}
-          />
-        </Col>
-      </CustomRow>
-      <CustomRow>
-        <Col>
-          <Form.Label required style={{ fontSize: "smaller" }}>TOWN / CITY <span style={{ color: "red" }}>*</span></Form.Label>
-          <Form.Control
-            name="city"
-            value={city}
-            placeholder="Town / City"
-            required
-            onChange={(e) => setCity(e.target.value)}
-          />
-        </Col>
-        {props.country === "United States of America" &&
+    <>
+      <div className="checkout">
+        <CustomRow>
           <Col>
-            <Form.Label required style={{ fontSize: "smaller" }}>STATE <span style={{ color: "red" }}>*</span></Form.Label>
+            <Form.Label required style={{ fontSize: "smaller" }}>FIRST NAME ON CREDIT CARD <span style={{ color: "red" }}>*</span></Form.Label>
             <Form.Control
-              name="state"
-              value={state}
-              as="select"
-              placeholder="State"
+              name="firstName"
+              value={firstName}
+              placeholder="First name"
               required
-              onChange={(e) => setState(e.target.value)}
-            >
-              <RenderStates />
-            </Form.Control>
+              onChange={(e) => setFirstName(e.target.value)}
+            />
           </Col>
-        }
-        <Col>
-          <Form.Label required style={{ fontSize: "smaller" }}>ZIP CODE <span style={{ color: "red" }}>*</span></Form.Label>
-          <Form.Control
-            name="zip"
-            value={zip}
-            placeholder="Zip code"
-            required
-            onChange={(e) => setZip(e.target.value)}
+          <Col>
+            <Form.Label required style={{ fontSize: "smaller" }}>LAST NAME ON CREDIT CARD <span style={{ color: "red" }}>*</span></Form.Label>
+            <Form.Control
+              name="lastName"
+              value={lastName}
+              placeholder="Last name"
+              required
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </Col>
+        </CustomRow>
+        <CustomRow>
+          <Col>
+            <Form.Label required style={{ fontSize: "smaller" }}>BILLING ADDRESS <span style={{ color: "red" }}>*</span></Form.Label>
+            <Form.Control
+              name="address1"
+              value={address1}
+              placeholder="Street address"
+              required
+              onChange={(e) => setAddress1(e.target.value)}
+            />
+          </Col>
+        </CustomRow>
+        <CustomRow>
+          <Col>
+            <Form.Control
+              name="address2"
+              value={address2}
+              placeholder="Apartment, suite, unit, etc. (optional)"
+              onChange={(e) => setAddress2(e.target.value)}
+            />
+          </Col>
+        </CustomRow>
+        <CustomRow>
+          <Col>
+            <Form.Label required style={{ fontSize: "smaller" }}>TOWN / CITY <span style={{ color: "red" }}>*</span></Form.Label>
+            <Form.Control
+              name="city"
+              value={city}
+              placeholder="Town / City"
+              required
+              onChange={(e) => setCity(e.target.value)}
+            />
+          </Col>
+          {props.country === "United States of America" &&
+            <Col>
+              <Form.Label required style={{ fontSize: "smaller" }}>STATE <span style={{ color: "red" }}>*</span></Form.Label>
+              <Form.Control
+                name="state"
+                value={state}
+                as="select"
+                placeholder="State"
+                required
+                onChange={(e) => setState(e.target.value)}
+              >
+                <RenderStates />
+              </Form.Control>
+            </Col>
+          }
+          <Col>
+            <Form.Label required style={{ fontSize: "smaller" }}>ZIP CODE <span style={{ color: "red" }}>*</span></Form.Label>
+            <Form.Control
+              name="zip"
+              value={zip}
+              placeholder="Zip code"
+              required
+              onChange={(e) => setZip(e.target.value)}
+            />
+          </Col>
+        </CustomRow>
+        <div style={{ border: "1px solid #ced4da", borderRadius: "4px", padding: "7px 5px 7px 5px" }}>
+          <CardElement
+            {...createOptions()}
           />
-        </Col>
-      </CustomRow>
-      <div style={{ border: "1px solid #ced4da", borderRadius: "4px", padding: "7px 5px 7px 5px" }}>
-        <CardElement
-          {...createOptions()}
-        />
+        </div>
+        <span className="reservation-custom-button-placeorder" onClick={() => {setloading(true); fooUser()}}>PLACE ORDER</span>
+        <br />
       </div>
-      <span className="reservation-custom-button-placeorder" onClick={fooUser}>PLACE ORDER</span>
-      <br />
-    </div>
+      { loading &&
+        <Dimmer active>
+          <Loader>Confirming booking...</Loader>
+        </Dimmer>
+      }
+    </>
   );
 };
 
@@ -223,3 +202,34 @@ const createOptions = () => {
 };
 
 export default injectStripe(CheckoutForm);
+
+
+// if (cabin_types.includes("F") || (cabin_types.length > 1)) {
+//   for (let i = 0; i < books.length; i++) {
+//     const { roomPrice, cabinId, roomLetter } = books[i];
+//     if (i === 0) {
+//       if (roomLetter === "F") {
+//         const ids = cabinId.split(',')
+//         for (let i = 0; i < ids.length; i++) {
+//           const cabin_id = ids[i];
+//           if (i === 0) {
+//             axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id, expected_arrival: "2:00PM", customer_payment_token: data.c.id, pm: data.pm, }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
+//           } else {
+//             axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id, expected_arrival: "2:00PM" }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
+//           }
+//         }
+//       } else {
+//         axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id: cabinId, expected_arrival: "2:00PM", customer_payment_token: data.c.id, pm: data.pm, }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
+//       }
+//     } else if (roomLetter === "F") {
+//       const ids = cabinId.split(',')
+//       for (let i = 0; i < ids.length; i++) {
+//         const cabin_id = ids[i];
+//         axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id, expected_arrival: "2:00PM", customer_payment_token: data.c.id }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
+//       }
+//     } else {
+//       axios.post('/api/bookings', { user_id, cabin_type: roomLetter, price: roomPrice, start_date, end_date, guests, special_needs: orderNotes, cabin_id: cabinId, expected_arrival: "2:00PM", customer_payment_token: data.c.id }).then(res => { tbooks.push(res.data) }).catch(err => { console.log(err) })
+//     }
+//   }
+// } else {
+// }

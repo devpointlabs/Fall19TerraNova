@@ -177,7 +177,7 @@ const HotelStatistics = () => (
                 <ColumnTeam>
                     <span class="dot"></span>
                     <div className="names">NOAH ANDERSON</div>
-                    <div className="position">BACKEND WIZZARD</div>
+                    <div className="position">BACKEND WIZARD</div>
                     <div className="text">
                             Mea omnium explicari te, eu sit vidit
                             haram fabellas, his no legere

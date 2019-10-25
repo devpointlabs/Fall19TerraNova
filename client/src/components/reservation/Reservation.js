@@ -49,7 +49,8 @@ class Reservation extends React.Component {
             {room: "V2", regular: 0, nonrefundable: 0, extended: 0, company: 0}
         ],
         totalPrice: 0,
-        grandTotal: 0
+        grandTotal: 0,
+        bookingNumber: []
     };
 
     componentDidMount() {
@@ -666,12 +667,17 @@ class Reservation extends React.Component {
         this.loadData();
     };
 
-    goToConfirmation = () => {
+    goToConfirmation = (b) => {
         localStorage.setItem('step', 4);
-        this.setState({ step: 4, _isMounted: false });
+        localStorage.setItem("bookingNumber", b);
+        this.setState({ bookingNumber: b, step: 4, _isMounted: false });
+        window.location.reload();
     };
 
-    setNrRooms = (nrRooms) => this.setState({ nrRooms });
+    setNrRooms = (nrRooms) => {
+      localStorage.setItem('nrRooms', nrRooms);
+      this.setState({ nrRooms });
+    };
 
     setDateDisplays = () => {
         let startDate = dayjs(localStorage.getItem('startDateParse'));
@@ -857,6 +863,7 @@ class Reservation extends React.Component {
                         nrNights={this.state.nrNights}
                         nrRooms={this.state.nrRooms}
                         grandTotal={this.state.grandTotal}
+                        bookingNumber={this.state.bookingNumber}
                         cleanLocalStorage={this.cleanLocalStorage}
                     />
                 </>
