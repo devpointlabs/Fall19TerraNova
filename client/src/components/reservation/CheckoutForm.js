@@ -43,10 +43,10 @@ const CheckoutForm = (props) => {
     const { email, password, firstName, lastName, address1, city, state, zip, country, createAccount } = props
     let usersid
     if (context.user) {
-      if (context.user.id) {
-        usersid = context.user.id
+        if (context.user.id) {
+          usersid = context.user.id
+        }
       }
-    }
     if (createAccount && props.password === props.passwordConfirmation) {
       await axios.post("/api/auth", { email, password, passwordConfirmation: password, first_name: firstName, last_name: lastName, address: address1, city, state, zip, country }).then(res => { usersid = res.data.data.id }).catch(res => { console.log(res) })
     }
