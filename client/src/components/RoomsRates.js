@@ -96,7 +96,6 @@ const RoomsRates = () => {
                     src={VIP1}
                     alt="viproom1"
                     width="100%"
-                    height="376px"
                 />
                 <p className="roomrates-description">A deluxe room for deluxe people.</p>
                 <div className="roomsrates-list-container">
@@ -127,7 +126,6 @@ const RoomsRates = () => {
                     src={VIP2}
                     alt="viproom2"
                     width="100%"
-                    height="376px"
                 />
                 <p className="roomrates-description">A deluxe room for deluxe people.</p>
                 <div className="roomsrates-list-container">

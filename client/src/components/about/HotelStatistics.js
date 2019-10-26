@@ -195,7 +195,7 @@ const HotelStatistics = () => (
                     <div className="names">MIKELLE BROWN</div>
                     <div className="position">DESIGN GURU</div>
                     <div className="text">
-                    Personable Trader Joe's Crew Member and life long creative.  Continually expanding my skillset to build elegant UI.
+                    Personable Trader Joe's Crew Member and life long creator.  Continually expanding my skillset to build elegant UI.
                         </div>
                 </ColumnTeam>
                 <ColumnTeam>
@@ -204,7 +204,7 @@ const HotelStatistics = () => (
                     <div className="names">SHANNON JONES</div>
                     <div className="position">STYLING SORCERESS</div>
                     <div className="text">
-                        A nautical nomad whose worked on the ocean for the past five years. This yoga instructor is doing a 180 to create a life on land. 
+                        A nautical nomad who's worked on the ocean for the past five years. This yoga instructor is doing a 180 to create a life on land. 
                     </div>
                 </ColumnTeam>
                 <ColumnTeam>
