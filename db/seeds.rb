@@ -1,5 +1,5 @@
-User.create(email: "test@test.com", password: "password", password_confirmation: "password", first_name: "John", last_name: "Doe", address: "123 Fake Street", city: "SLC", state: "UT", zip: 88888, country: "USA", cellphone: "8015551234", birthday: "1990-01-01", anniversary: "2010-02-02", admin: true)
-User.create(email: "test2@test.com", password: "password", password_confirmation: "password", first_name: "Jane", last_name: "Doe", address: "123 Fake Street", city: "SLC", state: "UT", zip: 88888, country: "USA", cellphone: "8015551234", birthday: "1990-01-01", anniversary: "2010-02-02", admin: false)
+# User.create(email: "test@test.com", password: "password", password_confirmation: "password", first_name: "John", last_name: "Doe", address: "123 Fake Street", city: "SLC", state: "UT", zip: 88888, country: "USA", cellphone: "8015551234", birthday: "1990-01-01", anniversary: "2010-02-02", admin: true)
+# User.create(email: "test2@test.com", password: "password", password_confirmation: "password", first_name: "Jane", last_name: "Doe", address: "123 Fake Street", city: "SLC", state: "UT", zip: 88888, country: "USA", cellphone: "8015551234", birthday: "1990-01-01", anniversary: "2010-02-02", admin: false)
 User.count == 2 ? (puts "John and Jane Doe Created") :  (puts "CREATING 2 USERS ERRROR")
 a = [1,2,3,5,6,7,8,9,10,11,12,13,15,16,17,18,19,20,21,22,23,25,26,27,28,29,30,31,32,33,35,36,37,38,39,50,51,52,53,55,56,57,58,59,60,61,62,63,65,66,67,68,69,70,71,72,73,75]
 b = 0
