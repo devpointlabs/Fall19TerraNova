@@ -7,19 +7,6 @@
     "lib": "lib",
     "test": "test"
   },
-  "dependencies": {
-    "object-assign": "^4.1.1",
-    "lodash.debounce": "^4.0.8",
-    "lodash.throttle": "^4.1.1",
-    "js-tokens": "^4.0.0",
-    "react-is": "^16.11.0",
-    "prop-types": "^15.7.2",
-    "loose-envify": "^1.4.0",
-    "react-image-gallery": "^0.9.1",
-    "react-swipeable": "^5.4.0",
-    "resize-observer-polyfill": "^1.5.1"
-  },
-  "devDependencies": {},
   "scripts": {
     "build": "cd client && npm install --only=dev && npm install && npm run build && cd ..",
     "deploy": "cp -a client/build/. public/",
@@ -28,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/devpointlabs/Fall19TerraNova.git"
+    "url": "git+https://github.com/Noahbanderson/TerraNovaProduction.git"
   },
   "keywords": [],
   "author": "",
